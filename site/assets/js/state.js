@@ -1,7 +1,7 @@
 // site/assets/js/state.js — pure, runs in Node (tests) and the browser (pages).
 export const TODAY = '2026-08-18';
 export const STORE_KEY = 'readyiq2:v1';
-export const FIXTURE_VERSION = 3; // bump when fixture shape changes — stale localStorage resets itself
+export const FIXTURE_VERSION = 4; // bump when fixture shape changes — stale localStorage resets itself
 export const PATHWAYS = ['ready_now', 'near_ready', 'build', 'thin', 'dispute', 'dti'];
 export const PATHWAY_LABELS = { ready_now: 'Ready Now', near_ready: 'Near Ready', build: 'Build Mode', thin: 'Thin Credit', dispute: 'Dispute Mode', dti: 'Debt Mode' };
 export const PATHWAY_BLURBS = {
@@ -19,7 +19,7 @@ const M = (label, date, state) => ({ label, date, state });
 const FIXTURES = {
   lender: {
     id: 'harbor', name: 'Harbor Home Loans', site: 'harborhomeloans.com', nmls: '1809922',
-    brand: { primary: '#0F766E', soft: '#E6F4F1', ink: '#0B3F3A' },
+    brand: { primary: '#FF6A2B', secondary: '#FF9A5C', soft: '#FFEFE6', ink: '#B4400E' },
     floors: { fha: 620, conventional: 640, dpa: 660 }, floorDefault: 640,
     programs: [{ id: 'fha', name: 'FHA', floor: 620 }, { id: 'conventional', name: 'Conventional', floor: 640 }, { id: 'dpa', name: 'Harbor Down-Payment Assist', floor: 660 }],
   },
@@ -144,7 +144,7 @@ const FIXTURES = {
     connectors: [{ id: 'zapier', name: 'Zapier', status: 'connected' }, { id: 'shape', name: 'Shape', status: 'available' }, { id: 'te', name: 'Total Expert', status: 'available' }, { id: 'encompass', name: 'Encompass', status: 'available' }],
   },
   session: { role: 'consumer', consumerId: 'maria', loId: 'sarah', partnerId: null, attribution: null },
-  v: 3,
+  v: 4,
 };
 
 const clone = (v) => (typeof structuredClone === 'function' ? structuredClone(v) : JSON.parse(JSON.stringify(v)));

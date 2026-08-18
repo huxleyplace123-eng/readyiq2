@@ -36,9 +36,18 @@ export const pct = (x) => (x == null ? '—' : Math.round(x * 100) + '%');
 export function applyBrand(lender) {
   const root = document.documentElement;
   root.dataset.brand = lender.id;
-  root.style.setProperty('--brand', lender.brand.primary);
-  root.style.setProperty('--brand-soft', lender.brand.soft);
-  root.style.setProperty('--brand-ink', lender.brand.ink);
+  const b = lender.brand, b2 = b.secondary || b.primary;
+  const hex = (h) => { const n = parseInt(h.slice(1), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; };
+  const [r, g, bl] = hex(b.primary);
+  root.style.setProperty('--brand', b.primary);
+  root.style.setProperty('--brand-2', b2);
+  root.style.setProperty('--brand-soft', b.soft);
+  root.style.setProperty('--brand-ink', b.ink);
+  root.style.setProperty('--brand-glow', `rgba(${r}, ${g}, ${bl}, .34)`);
+  root.style.setProperty('--brand-grad', `linear-gradient(135deg, ${b.primary} 0%, ${b2} 100%)`);
+  root.style.setProperty('--text-grad', `linear-gradient(90deg, ${b.primary} 0%, ${b2} 100%)`);
+  root.style.setProperty('--accent', b.primary); root.style.setProperty('--accent-2', b2); root.style.setProperty('--accent-ink', '#FFFFFF');
+  root.style.setProperty('--accent-grad', `linear-gradient(135deg, ${b.primary} 0%, ${b2} 100%)`);
   qsa('[data-lender-name]').forEach((n) => (n.textContent = lender.name));
   qsa('[data-lender-mark]').forEach((n) => (n.textContent = initials(lender.name).slice(0, 1)));
 }
