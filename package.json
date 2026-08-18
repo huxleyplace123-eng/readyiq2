@@ -4,6 +4,10 @@
   "type": "module",
   "scripts": {
     "test": "node --test",
-    "serve": "node serve.mjs"
+    "serve": "node serve.mjs",
+    "qr": "node scripts/gen-qr.mjs"
+  },
+  "devDependencies": {
+    "qrcode": "^1.5.4"
   }
 }

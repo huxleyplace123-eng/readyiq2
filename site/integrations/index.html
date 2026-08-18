@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" data-brand="readyiq">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Integrations — ReadyIQ</title>
+<link rel="stylesheet" href="../assets/fonts/geist.css">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<style>
+  html, body { background: var(--deep); }
+  .mk-nav { position: sticky; top: 0; z-index: 30; background: rgba(7,20,24,.85); backdrop-filter: blur(14px); color: #fff; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .mk-nav-inner { height: 64px; display: flex; align-items: center; gap: 16px; }
+  .rmark { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -.02em; font-size: 18px; color: inherit; text-decoration: none !important; }
+  .rmark i { width: 30px; height: 30px; border-radius: 9px; background: var(--lime); color: var(--lime-ink); display: grid; place-items: center; font-style: normal; font-weight: 800; }
+  .rmark span span { color: var(--lime); }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: var(--sp-12) var(--sp-4) var(--sp-16); display: grid; gap: var(--sp-10); color: #fff; }
+  .head { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: var(--sp-8); align-items: end; }
+  .status-card-api { display: grid; gap: 8px; }
+  .arch { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .conns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .conn { display: grid; gap: 8px; }
+  .conn .row-between .pm { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; font-weight: 800; background: rgba(255,255,255,.1); }
+  .conn .st { font-size: var(--fs-12); font-weight: 640; letter-spacing: .04em; text-transform: uppercase; color: rgba(255,255,255,.55); }
+  .conn .st.on { color: var(--lime); }
+  .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+  pre.code { margin: 0; padding: 16px; border-radius: var(--r-2); background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.1); color: #E6F0EA; font: 12.5px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; overflow: auto; }
+  pre.code .k { color: var(--lime); }
+  .events { display: grid; }
+  .events > div { display: grid; grid-template-columns: 70px 1.1fr 1.7fr 1fr auto; gap: 12px; padding: 10px 14px; font-size: var(--fs-13); border-top: 1px solid rgba(255,255,255,.08); align-items: center; }
+  .events > div:first-child { border-top: 0; color: rgba(255,255,255,.55); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+  .events code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; color: var(--lime); }
+  .lvl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  @media (max-width: 900px) { .head, .two { grid-template-columns: 1fr; } .arch, .conns, .lvl { grid-template-columns: 1fr 1fr; } .events > div { grid-template-columns: 1fr 1fr; } .events > div span:nth-child(1), .events > div span:nth-child(4) { display: none; } }
+  @media (max-width: 600px) { .arch, .conns, .lvl { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body class="dark">
+<nav class="mk-nav"><div class="container mk-nav-inner"><a class="rmark" href="../index.html"><i>R</i><span>Ready<span>IQ</span></span></a><span class="small" style="color:rgba(255,255,255,.6)">integrations</span><a class="btn btn-accent btn-sm" href="../lo/start/" style="margin-left:auto">Get your link →</a></div></nav>
+<main class="wrap">
+  <div class="head">
+    <div class="stack-3"><p class="kicker accent">ReadyIQ for platforms</p><h1 class="display">One readiness network. <em>Every mortgage system.</em></h1><p class="lead">ReadyIQ lives on its own, appears on the lender’s website, and speaks inside the CRM. One API, one small status object, adapters per platform. Consumer data stays with IDIQ; platforms receive statuses, dates, and permitted summaries.</p></div>
+    <div class="card card-glass card-pad status-card-api"><span class="kicker accent">The status object · v1</span><pre class="code" id="status-json"></pre><span class="small muted">Small, stable, versioned. Every connector and every lender automation builds on it.</span></div>
+  </div>
+
+  <section class="stack-4"><p class="kicker accent">Architecture</p>
+    <div class="arch">
+      <div class="card card-glass card-pad"><span class="eyebrow" style="color:rgba(255,255,255,.6)">01</span><h3 class="h3">Mortgage entry point</h3><p class="muted">Website · CRM · POS · LO link · agent link</p></div>
+      <div class="card card-lime card-pad"><span class="eyebrow" style="color:rgba(30,58,10,.7)">02</span><h3 class="h3">ReadyIQ orchestration</h3><p style="color:rgba(30,58,10,.85)">Identity · consent ledger · pathways · Guardian · attribution</p></div>
+      <div class="card card-glass card-pad"><span class="eyebrow" style="color:rgba(255,255,255,.6)">03</span><h3 class="h3">IDIQ engines</h3><p class="muted">MyScoreIQ (score, monitoring, protection) · CreditBuilderIQ (review, disputes, rent & utility)</p></div>
+      <div class="card card-glass card-pad"><span class="eyebrow" style="color:rgba(255,255,255,.6)">04</span><h3 class="h3">Return to lender</h3><p class="muted">Milestones · review request · handoff · Guardian during the file</p></div>
+    </div>
+  </section>
+
+  <section class="stack-4"><div class="row-between wrap"><p class="kicker accent">Connections</p><span class="small muted">Sample organization · Harbor Home Loans</span></div><div class="conns" id="conns"></div></section>
+
+  <section class="two">
+    <div class="card card-glass card-pad stack-3"><span class="kicker accent">API actions</span><pre class="code"><span class="k">POST</span> /v1/consumers            createConsumer
+<span class="k">POST</span> /v1/consumers/:id/assign assignLoanOfficer
+<span class="k">POST</span> /v1/invitations          sendInvitation
+<span class="k">POST</span> /v1/checks               startReadinessCheck
+<span class="k">POST</span> /v1/consumers/:id/build  enrollInBuild
+<span class="k">POST</span> /v1/consumers/:id/protect activateProtectMode
+<span class="k">POST</span> /v1/reviews              requestLenderReview
+<span class="k">GET</span>  /v1/consumers/:id/status the status object</pre></div>
+    <div class="card card-glass card-pad stack-3"><span class="kicker accent">Webhook events</span><pre class="code">consumer.invited
+consumer.consent_completed
+readiness.check_completed        → pathway
+consumer.enrolled
+progress.milestone_reached
+readiness.trigger                → floor met, file clean
+consumer.inactive
+review.requested                 → the packet
+protect_mode.activated
+handoff.applied · handoff.funded · handoff.lost</pre></div>
+  </section>
+
+  <section class="stack-4"><p class="kicker accent">Three levels of integration</p>
+    <div class="lvl">
+      <div class="card card-glass card-pad stack-2"><span class="eyebrow" style="color:var(--lime)">1 · Basic</span><h3 class="h3">Link + webhooks</h3><p class="muted">ReadyIQ link inside the CRM, LO and lead passed in the URL, statuses back through Zapier or webhooks into custom fields. Days, not months.</p></div>
+      <div class="card card-glass card-pad stack-2"><span class="eyebrow" style="color:var(--lime)">2 · Native</span><h3 class="h3">Inside the workflow</h3><p class="muted">SSO, a ReadyIQ card in the borrower record, automated invitations, real-time milestones, tasks and alerts, branch and LO reporting.</p></div>
+      <div class="card card-glass card-pad stack-2"><span class="eyebrow" style="color:var(--lime)">3 · Certified</span><h3 class="h3">Marketplace partner</h3><p class="muted">Listed in the platform directory, standard install, joint enterprise customers, approved security and support model.</p></div>
+    </div>
+  </section>
+
+  <section class="card card-glass" style="overflow:hidden"><div class="events" id="events"></div></section>
+  <p class="small muted">Sample events. Consumer report and dispute content never leave IDIQ; platforms receive statuses, dates, alerts, and consumer-authorized summaries.</p>
+</main>
+<script type="module">
+  import { fixtures, statusCard } from '../assets/js/state.js';
+  import { el, mount, qs } from '../assets/js/ui.js';
+  import { initDemo } from '../assets/js/demo.js';
+  const state = fixtures();
+  qs('#status-json').textContent = JSON.stringify(statusCard(state, 'priya'), null, 2);
+  const CONNS = [['TE', 'Total Expert', 'CRM · customer engagement', 'Contacts, Journeys, tasks, milestone events', 'connected'], ['Z', 'Zapier', 'Universal connector', 'Statuses into any CRM, sheet, or inbox — day one', 'connected'], ['S', 'Shape', 'Mortgage CRM', 'Lead stages, attribution, automated follow-up', 'available'], ['B', 'Blend', 'Digital lending · POS', 'Application handoff and return-to-lender flow', 'available'], ['E', 'Encompass', 'LOS · system of record', 'Loan milestones and Guardian activation', 'available'], ['LH', 'LenderHomePage', 'Websites · Loanzify', 'Embedded front door and LO assignment', 'available'], ['SF', 'Salesforce', 'Enterprise CRM', 'Custom objects, workflows, analytics', 'available'], ['I', 'Insellerate', 'Mortgage CRM', 'Lead stages, campaigns, notifications', 'available'], ['F', 'Floify', 'POS', 'Readiness before the 1003', 'available']];
+  mount('#conns', CONNS.map(([m, n, k, d, s]) => el('div', { class: 'card card-glass card-pad conn' }, el('div', { class: 'row-between' }, el('span', { class: 'pm' }, m), el('span', { class: 'st' + (s === 'connected' ? ' on' : '') }, s === 'connected' ? '● connected' : 'available')), el('h3', { class: 'h3' }, n), el('span', { class: 'small muted' }, k), el('p', { class: 'small' }, d), el('span', { class: 'small', style: { color: 'rgba(255,255,255,.55)' } }, 'REST · webhooks · SSO'))));
+  const EVENTS = [['10:42:18', 'ReadyIQ', 'review.requested', 'Total Expert', 'Delivered'], ['10:38:05', 'CreditBuilderIQ', 'progress.milestone_reached', 'Shape', 'Delivered'], ['10:21:44', 'Blend', 'consumer.application_started', 'ReadyIQ', 'Received'], ['09:55:12', 'Encompass', 'loan.file_active → protect_mode.activated', 'ReadyIQ', 'Received'], ['09:31:07', 'MyScoreIQ', 'readiness.trigger', 'Zapier → HubSpot', 'Delivered'], ['09:02:40', 'ReadyIQ', 'consumer.enrolled', 'Total Expert', 'Delivered']];
+  mount('#events', el('div', {}, el('span', {}, 'Time'), el('span', {}, 'Source'), el('span', {}, 'Event'), el('span', {}, 'Destination'), el('span', {}, 'Status')), EVENTS.map((e) => el('div', {}, el('span', { class: 'tabular' }, e[0]), el('span', {}, e[1]), el('code', {}, e[2]), el('span', {}, e[3]), el('span', { style: { color: 'var(--lime)' } }, `✓ ${e[4]}`))));
+  initDemo();
+</script>
+</body>
+</html>

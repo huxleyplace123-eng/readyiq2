@@ -309,3 +309,4 @@ select.input { appearance: none; background-image: linear-gradient(45deg, transp
 .dark a.btn-accent, .dark .btn-accent { color: var(--lime-ink); }
 .dark a.btn-primary, .dark .btn-primary { color: #fff; }
 .dark a.btn-secondary { color: var(--brand-ink); }
+.swatch { display: block; }

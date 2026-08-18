@@ -1,7 +1,7 @@
 // site/assets/js/state.js — pure, runs in Node (tests) and the browser (pages).
 export const TODAY = '2026-08-18';
 export const STORE_KEY = 'readyiq2:v1';
-export const FIXTURE_VERSION = 2; // bump when fixture shape changes — stale localStorage resets itself
+export const FIXTURE_VERSION = 3; // bump when fixture shape changes — stale localStorage resets itself
 export const PATHWAYS = ['ready_now', 'near_ready', 'build', 'thin', 'dispute', 'dti'];
 export const PATHWAY_LABELS = { ready_now: 'Ready Now', near_ready: 'Near Ready', build: 'Build Mode', thin: 'Thin Credit', dispute: 'Dispute Mode', dti: 'Debt Mode' };
 export const PATHWAY_BLURBS = {
@@ -126,8 +126,25 @@ const FIXTURES = {
       nextAction: { title: 'Bring the secured card under 30%', detail: 'Your Chapter 7 waiting period runs until March 12, 2027 for FHA. Every month until then is building time — utilization first, then rent history.', lever: 'utilization', engine: 'CreditBuilderIQ', href: '#plan' },
       alerts: [], loanFile: null },
   ],
+  invites: [
+    { id: 'i1', first: 'Luis', last: 'Herrera', email: 'luis.h@example.com', mobile: '(510) 555-0171', loId: 'sarah', branch: 'Oakland', source: 'Website', channel: 'Email + text', invitedAt: '2026-08-16', status: 'invited' },
+    { id: 'i2', first: 'Kim', last: 'Nakamura', email: 'kim.n@example.com', mobile: '(415) 555-0128', loId: 'sarah', branch: 'Oakland', source: 'Agent · Dana Kim', channel: 'Text', invitedAt: '2026-08-17', status: 'consented' },
+  ],
+  org: {
+    branches: ['Oakland', 'Walnut Creek'],
+    invitesThisMonth: 14, enrolledThisMonth: 9, reviewsThisMonth: 2,
+    products: [
+      { id: 'check', name: 'Readiness check', desc: 'Soft pull, FICO® Score, pathway', engine: 'MyScoreIQ', mode: 'lender', on: true },
+      { id: 'dispute', name: 'Dispute Hub', desc: 'Guided letters, tracking', engine: 'CreditBuilderIQ', mode: 'lender', on: true },
+      { id: 'rent', name: 'Rent & utility reporting', desc: '24-month history to 3 bureaus', engine: 'CreditBuilderIQ', mode: 'consumer', on: true },
+      { id: 'plan', name: 'Personalized plan', desc: 'Underwriting order, the clock, DTI', engine: 'CreditBuilderIQ', mode: 'lender', on: true },
+      { id: 'monitor', name: 'Score center & monitoring', desc: 'Daily alerts, why it moved', engine: 'MyScoreIQ', mode: 'lender', on: true },
+      { id: 'protect', name: 'Protected homebuying', desc: 'Identity protection, restoration', engine: 'MyScoreIQ', mode: 'consumer', on: false },
+    ],
+    connectors: [{ id: 'zapier', name: 'Zapier', status: 'connected' }, { id: 'shape', name: 'Shape', status: 'available' }, { id: 'te', name: 'Total Expert', status: 'available' }, { id: 'encompass', name: 'Encompass', status: 'available' }],
+  },
   session: { role: 'consumer', consumerId: 'maria', loId: 'sarah', partnerId: null, attribution: null },
-  v: 2,
+  v: 3,
 };
 
 const clone = (v) => (typeof structuredClone === 'function' ? structuredClone(v) : JSON.parse(JSON.stringify(v)));
@@ -255,3 +272,10 @@ export function packet(state, id) {
   };
 }
 export function addDays(iso, n) { const d = new Date(iso + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); }
+
+export const findLOByNmls = (state, nmls) => state.los.find((l) => l.nmls === String(nmls).trim()) || null;
+export function addInvite(state, { first, last, email, mobile, loId, branch, source, channel, message }) {
+  const inv = { id: 'i' + (state.invites.length + 1) + Date.now().toString(36), first, last, email, mobile, loId, branch, source, channel, message, invitedAt: TODAY, status: 'invited' };
+  state.invites.unshift(inv); state.org.invitesThisMonth += 1; return inv;
+}
+export const consumersForLO = (state, loId) => state.consumers.filter((c) => c.loId === loId && c.id !== 'you' || (c.id === 'you' && c.loId === loId));
