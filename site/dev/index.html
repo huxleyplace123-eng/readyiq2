@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" data-brand="harbor">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ReadyIQ 2 — components gallery</title>
+<link rel="stylesheet" href="../assets/fonts/geist.css">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<style>
+  .gallery { display: grid; gap: var(--sp-8); padding: var(--sp-8) 0 var(--sp-20); }
+  .swatches { display: flex; gap: 8px; flex-wrap: wrap; }
+  .swatch { width: 56px; height: 40px; border-radius: 10px; border: 1px solid var(--line-2); }
+</style>
+</head>
+<body>
+<header class="topbar"><div class="container topbar-inner"><span class="brand-mark" data-lender-mark>H</span><span class="brand-name" data-lender-name>Harbor Home Loans</span><span class="powered">Powered by <b>ReadyIQ</b> · IDIQ</span></div></header>
+<main class="container gallery">
+  <div class="row-between wrap">
+    <div><p class="eyebrow">Dev</p><h1 class="h2">Components gallery</h1></div>
+    <button class="btn btn-outline" id="brand-toggle">Toggle brand: harbor</button>
+  </div>
+
+  <section class="stack-3"><p class="eyebrow">Type</p>
+    <h1 class="h1">Check your homebuyer credit readiness.</h1>
+    <h2 class="h2">Your path is ready.</h2>
+    <h3 class="h3">In the order underwriting cares</h3>
+    <p class="lead">3 minutes. No application. See where you stand and get a plan that moves you toward a mortgage.</p>
+    <p class="reg-b">You can apply for a mortgage at any time — this is not required.</p>
+  </section>
+
+  <section class="stack-3"><p class="eyebrow">Buttons</p>
+    <div class="row wrap"><a class="btn btn-primary btn-lg" href="#">Check my readiness <span class="arrow">→</span></a><button class="btn btn-secondary btn-lg">See a sample path</button><button class="btn btn-primary">Continue</button><button class="btn btn-outline">Outline</button><button class="btn btn-ghost">Ghost</button><button class="btn btn-primary btn-sm">Send</button><button class="btn btn-primary" disabled>Disabled</button></div>
+  </section>
+
+  <section class="stack-3" style="max-width:520px"><p class="eyebrow">Forms</p>
+    <div class="grid-2"><label class="field"><span class="label">First name</span><input class="input" placeholder="Maria"></label><label class="field"><span class="label">Last name</span><input class="input" placeholder="Delgado"></label></div>
+    <label class="field"><span class="label">Mobile</span><input class="input" placeholder="(510) 555-0119"><span class="help">We text your one-time code here.</span></label>
+    <label class="consent"><input type="checkbox" checked><div><b>Let ReadyIQ pull my credit for my own review.</b><span>MyScoreIQ and CreditBuilderIQ obtain my reports and FICO® Score for me. This is a soft check — it does not affect my score.</span></div></label>
+    <div class="otp"><input maxlength="1" value="4"><input maxlength="1" value="8"><input maxlength="1" value="1"><input maxlength="1"><input maxlength="1"><input maxlength="1"></div>
+    <label class="radio"><input type="radio" name="k" checked> Cedar Street</label>
+    <div class="row"><span class="switch" role="switch" aria-checked="true"></span><span>Share my status with Sarah</span></div>
+  </section>
+
+  <section class="stack-3"><p class="eyebrow">Chips, badges, pills, engine tags</p>
+    <div class="row wrap"><span class="chip"><span class="dot"></span>Your loan officer: Sarah Miller</span><span class="chip chip-round">Round 2 of ~5</span><span class="chip chip-outline">Gas</span></div>
+    <div class="row wrap"><span class="badge badge-ready_now">Ready Now</span><span class="badge badge-near_ready">Near Ready</span><span class="badge badge-build">Build Mode</span><span class="badge badge-thin">Thin Credit</span><span class="badge badge-dispute">Dispute Mode</span><span class="badge badge-dti">Debt Mode</span></div>
+    <div class="row wrap"><span class="pill pill-draft">draft</span><span class="pill pill-sent">sent</span><span class="pill pill-responded">responded</span><span class="pill pill-resolved">resolved</span><span class="engine-tag">Powered by MyScoreIQ</span><span class="engine-tag">Powered by CreditBuilderIQ</span></div>
+  </section>
+
+  <section class="stack-3"><p class="eyebrow">Banner</p>
+    <div class="banner banner-guardian"><span class="icon">🛡</span><div><b>Your loan file is active — Guardian is on.</b><div class="muted small">Dispute suggestions are paused. Ask Marcus before you open, close, or pay off anything.</div></div><a href="#">Open</a></div>
+  </section>
+
+  <section class="grid-2"><div class="card card-pad number">
+    <p class="eyebrow">Number</p>
+    <div class="number-top"><span class="number-value" id="num">588</span><span class="number-delta up">↑ 14 since Jul 14</span></div>
+    <p class="number-caption">FICO® Score — not the mortgage-industry version lenders pull. A guide, not a preapproval.</p>
+    <div class="number-meta"><span>Updated Aug 14, 2026</span><span class="engine-tag">Powered by MyScoreIQ</span></div>
+    <div class="number-bureaus"><span>Experian <b>628</b></span><span>TransUnion <b>625</b></span><span>Equifax <b>619</b></span></div>
+  </div>
+  <div class="card card-pad next-action stack-2"><p class="eyebrow">Next action</p><h3 class="h3">Pay Capital One below 30% before the 22nd</h3><p class="muted">Your statement closes on the 22nd. Paying $95 more moves the whole card under 30% — the fastest lever you have this round.</p><div class="row-between"><span class="engine-tag">Powered by CreditBuilderIQ</span><a class="btn btn-secondary btn-sm" href="#">Open →</a></div></div></section>
+
+  <section class="grid-2"><div class="card card-pad"><p class="eyebrow">Clock</p>
+    <div class="clock mt-4"><div class="clock-ring"><svg viewBox="0 0 104 104"><circle class="track" cx="52" cy="52" r="46"/><circle class="fill" id="ring" cx="52" cy="52" r="46"/></svg><div class="days"><b>206</b><span>days</span></div></div>
+    <div class="stack-1"><span class="clock-date">FHA · Mar 12, 2027</span><span class="muted">Conventional · Mar 12, 2029</span><span class="small muted">Earliest eligibility, subject to lender review.</span></div></div></div>
+  <div class="card status-card"><div><div class="name">Aisha Bell <span class="badge badge-build" style="margin-left:6px">Build Mode</span></div><div class="meta">Round 1 of ~6 · next: Utilization under 30% · FHA date Mar 12, 2027</div></div><div class="spark" id="path-spark"></div></div></section>
+
+  <section class="card card-pad stack-3"><p class="eyebrow">Path — hero</p><div id="path-hero"></div></section>
+  <section class="card card-pad stack-3"><p class="eyebrow">Path — timeline</p><div id="path-timeline"></div></section>
+
+  <section class="stack-3"><p class="eyebrow">Helpers</p><div class="row wrap"><button class="btn btn-outline" id="b-sheet">Open sheet</button><button class="btn btn-outline" id="b-toast">Toast</button><button class="btn btn-outline" id="b-count">Count 588→625</button></div></section>
+
+  <section class="stack-3"><p class="eyebrow">Palette</p><div class="swatches"><i class="swatch" style="background:var(--brand)"></i><i class="swatch" style="background:var(--brand-soft)"></i><i class="swatch" style="background:var(--brand-ink)"></i><i class="swatch" style="background:var(--navy)"></i><i class="swatch" style="background:var(--orange)"></i><i class="swatch" style="background:var(--offwhite)"></i><i class="swatch" style="background:var(--canvas)"></i></div></section>
+</main>
+<script type="module">
+  import { renderPath } from '../assets/js/path.js';
+  import { sheet, toast, countUp } from '../assets/js/ui.js';
+  const maria = [{label:'Enrolled',state:'done'},{label:'Round 1 complete',state:'done'},{label:'Utilization under 50%',state:'done'},{label:'Round 2',state:'current'},{label:'Utilization under 30%',state:'upcoming'},{label:'12 clean months',state:'upcoming'},{label:'Request review',state:'upcoming'}];
+  renderPath('#path-hero', { variant: 'hero', nodes: [{label:'You',state:'done'},{label:'Verify',state:'current'},{label:'Your loan officer',state:'upcoming'}] });
+  renderPath('#path-timeline', { nodes: maria });
+  renderPath('#path-spark', { variant: 'sparkline', nodes: maria });
+  const ring = document.getElementById('ring'); const C = 2 * Math.PI * 46; ring.style.strokeDasharray = C; ring.style.strokeDashoffset = C; requestAnimationFrame(() => requestAnimationFrame(() => { ring.style.strokeDashoffset = C * (1 - 0.72); }));
+  document.getElementById('brand-toggle').onclick = (e) => { const r = document.documentElement; r.dataset.brand = r.dataset.brand === 'harbor' ? 'idiq' : 'harbor'; e.target.textContent = 'Toggle brand: ' + r.dataset.brand; };
+  document.getElementById('b-sheet').onclick = () => sheet({ title: 'A sample path', body: '<p class="muted">Sheets slide up on mobile and center on desktop.</p>', actions: [{ label: 'Close', kind: 'primary' }] });
+  document.getElementById('b-toast').onclick = () => toast('Sarah has been notified');
+  document.getElementById('b-count').onclick = () => countUp(document.getElementById('num'), 588, 625);
+</script>
+</body>
+</html>

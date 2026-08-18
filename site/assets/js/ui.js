@@ -1,0 +1,106 @@
+// site/assets/js/ui.js — shared DOM helpers for the ReadyIQ 2 prototype.
+import { resetState, saveState, fixtures } from './state.js';
+
+export const qs = (sel, root = document) => root.querySelector(sel);
+export const qsa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+/** el('div', {class:'card', onclick: fn, dataset:{id:1}}, child, ...) */
+export function el(tag, attrs = {}, ...children) {
+  const node = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v == null || v === false) continue;
+    if (k === 'class') node.className = v;
+    else if (k === 'html') node.innerHTML = v;
+    else if (k === 'dataset') Object.assign(node.dataset, v);
+    else if (k === 'style' && typeof v === 'object') Object.assign(node.style, v);
+    else if (k.startsWith('on') && typeof v === 'function') node.addEventListener(k.slice(2).toLowerCase(), v);
+    else node.setAttribute(k, v === true ? '' : v);
+  }
+  append(node, children);
+  return node;
+}
+function append(node, children) {
+  for (const c of children.flat(Infinity)) {
+    if (c == null || c === false) continue;
+    node.append(c instanceof Node ? c : document.createTextNode(String(c)));
+  }
+}
+export function mount(target, ...children) { const t = typeof target === 'string' ? qs(target) : target; t.innerHTML = ''; append(t, children); return t; }
+
+export const initials = (name = '') => name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join('');
+export const fmtMoney = (n) => (n == null ? '—' : '$' + Math.round(n).toLocaleString('en-US'));
+export const pct = (x) => (x == null ? '—' : Math.round(x * 100) + '%');
+
+/** Wear the lender's brand: data-brand + CSS vars + name/mark slots. */
+export function applyBrand(lender) {
+  const root = document.documentElement;
+  root.dataset.brand = lender.id;
+  root.style.setProperty('--brand', lender.brand.primary);
+  root.style.setProperty('--brand-soft', lender.brand.soft);
+  root.style.setProperty('--brand-ink', lender.brand.ink);
+  qsa('[data-lender-name]').forEach((n) => (n.textContent = lender.name));
+  qsa('[data-lender-mark]').forEach((n) => (n.textContent = initials(lender.name).slice(0, 1)));
+}
+
+/** Count a number up with ease-out; respects reduced motion. */
+export function countUp(node, from, to, ms = 900) {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || ms === 0 || from === to) { node.textContent = String(to); return; }
+  const t0 = performance.now();
+  const step = (t) => {
+    const p = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - p, 3);
+    node.textContent = String(Math.round(from + (to - from) * e));
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+/** Bottom sheet on mobile, centered modal on desktop. Returns {close}. */
+export function sheet({ title, body, actions = [], onClose } = {}) {
+  const backdrop = el('div', { class: 'sheet-backdrop', role: 'dialog', 'aria-modal': 'true', 'aria-label': title || 'Dialog' });
+  const panel = el('div', { class: 'sheet stack-4' }, el('div', { class: 'sheet-handle' }));
+  if (title) panel.append(el('h2', { class: 'h3' }, title));
+  if (body) panel.append(typeof body === 'string' ? el('div', { html: body }) : body);
+  const close = () => { backdrop.remove(); document.removeEventListener('keydown', onKey); onClose?.(); };
+  const onKey = (e) => { if (e.key === 'Escape') close(); };
+  if (actions.length) {
+    panel.append(el('div', { class: 'sheet-actions' }, actions.map((a) => el('button', {
+      class: `btn ${a.kind === 'primary' ? 'btn-primary' : a.kind === 'ghost' ? 'btn-ghost' : 'btn-secondary'}`,
+      onclick: () => { const r = a.onClick?.(); if (a.close !== false && r !== false) close(); },
+    }, a.label))));
+  }
+  backdrop.append(panel);
+  backdrop.addEventListener('click', (e) => { if (e.target === backdrop) close(); });
+  document.addEventListener('keydown', onKey);
+  document.body.append(backdrop);
+  return { close, panel };
+}
+
+let toastTimer;
+export function toast(msg, ms = 2400) {
+  qsa('.toast').forEach((t) => t.remove());
+  const t = el('div', { class: 'toast', role: 'status' }, msg);
+  document.body.append(t);
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.remove(), ms);
+  return t;
+}
+
+export const engineTag = (name) => el('span', { class: 'engine-tag' }, `Powered by ${name}`);
+export const regB = () => el('p', { class: 'reg-b' }, 'You can apply for a mortgage at any time — this is not required.');
+
+/** ?reset=1 restores fixtures; ?dev=1 shows a switcher. Call once per page. */
+export function initDev(state, { onChange } = {}) {
+  const q = new URLSearchParams(location.search);
+  if (q.get('reset') === '1') { resetState(); q.delete('reset'); location.replace(location.pathname + (q.toString() ? '?' + q : '') + location.hash); return; }
+  if (q.get('dev') !== '1') return;
+  const ids = fixtures().consumers.map((c) => c.id).concat(state.consumers.some((c) => c.id === 'you') ? ['you'] : []);
+  const select = el('select', { onchange: (e) => { state.session.consumerId = e.target.value; state.session.role = 'consumer'; saveState(state); onChange ? onChange() : location.reload(); } },
+    ids.map((id) => el('option', { value: id, selected: state.session.consumerId === id }, id)));
+  const panel = el('div', { class: 'dev-panel' },
+    el('div', {}, el('b', {}, 'dev'), ' · consumer ', select),
+    el('div', { class: 'row', style: { gap: '10px' } },
+      el('a', { href: '../portal/?dev=1' }, 'portal'), el('a', { href: '../check/?dev=1' }, 'check'), el('a', { href: '../enroll/?dev=1' }, 'enroll'),
+      el('a', { href: '#', onclick: (e) => { e.preventDefault(); resetState(); location.reload(); } }, 'reset')));
+  document.body.append(panel);
+}

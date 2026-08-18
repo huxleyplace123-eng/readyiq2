@@ -1,0 +1,56 @@
+/* ReadyIQ 2 — design tokens. Light only. Two brand layers:
+   default = ReadyIQ / IDIQ chrome; [data-brand="harbor"] = the sample lender. */
+:root {
+  /* IDIQ palette */
+  --navy: #12384F; --orange: #F27124; --offwhite: #F1F4F6; --grey: #9BA6AD;
+
+  /* brand (overridden per lender) */
+  --brand: var(--navy);
+  --brand-soft: #E4ECF1;
+  --brand-ink: #0B2333;
+  --brand-glow: rgba(18, 56, 79, .18);
+  --accent: var(--orange);
+
+  /* ink & surfaces */
+  --ink: #0F1B26; --ink-2: #3B4A57; --ink-3: #6B7A87; --ink-4: #9AA6B1;
+  --line: rgba(15, 27, 38, .10); --line-2: rgba(15, 27, 38, .06);
+  --canvas: #F6F8F9; --surface: #FFFFFF; --surface-2: #FBFCFC;
+
+  /* semantic */
+  --success: #1B7F4C; --success-soft: #E6F4EC;
+  --warn: #B7791F; --warn-soft: #FBF3E4;
+  --danger: #B42318; --danger-soft: #FBEAE8;
+  --info: #1D4ED8; --info-soft: #E8EEFC;
+
+  /* type */
+  --font: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, sans-serif;
+  --fs-12: 12px; --fs-13: 13px; --fs-15: 15px; --fs-17: 17px; --fs-20: 20px;
+  --fs-24: 24px; --fs-32: 32px; --fs-44: 44px; --fs-64: 64px;
+
+  /* space, radius, shadow */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 20px; --sp-6: 24px;
+  --sp-8: 32px; --sp-10: 40px; --sp-12: 48px; --sp-16: 64px; --sp-20: 80px;
+  --r-1: 10px; --r-2: 14px; --r-3: 20px; --r-4: 28px; --r-pill: 999px;
+  --sh-1: 0 1px 2px rgba(15, 27, 38, .05), 0 1px 1px rgba(15, 27, 38, .03);
+  --sh-2: 0 6px 24px -8px rgba(15, 27, 38, .16);
+  --sh-3: 0 24px 60px -24px rgba(15, 27, 38, .28);
+
+  /* motion */
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --dur-1: 160ms; --dur-2: 260ms; --dur-3: 700ms; --dur-4: 1100ms;
+
+  /* layout */
+  --container: 1120px; --portal: 720px; --rail: 232px;
+}
+
+[data-brand="harbor"] {
+  --brand: #0F766E;
+  --brand-soft: #E6F4F1;
+  --brand-ink: #0B3F3A;
+  --brand-glow: rgba(15, 118, 110, .22);
+  --accent: #0F766E;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-1: 0ms; --dur-2: 0ms; --dur-3: 0ms; --dur-4: 0ms; }
+}
