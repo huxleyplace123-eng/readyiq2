@@ -142,3 +142,113 @@ export function resetState() { const s = fixtures(); saveState(s); return s; }
 export const getConsumer = (s, id) => s.consumers.find((c) => c.id === id) || null;
 export const getLO = (s, id) => s.los.find((l) => l.id === id) || null;
 export const getLender = (s) => s.lender;
+
+// ---------- rules ----------
+export function monthsSince(iso, today = TODAY) {
+  const a = new Date(iso + 'T00:00:00Z'), b = new Date(today + 'T00:00:00Z');
+  return (b.getUTCFullYear() - a.getUTCFullYear()) * 12 + (b.getUTCMonth() - a.getUTCMonth());
+}
+export function assignPathway(c, lender) {
+  const floor = lender.floorDefault;
+  const cr = c.credit, score = c.score?.value ?? null;
+  const openDisputes = (c.disputes || []).some((d) => d.status !== 'resolved');
+  if (openDisputes) return 'dispute';
+  if (score == null || cr.tradelines < 3) return 'thin';
+  const r = dti(cr.monthlyDebts, c.income);
+  if (r != null && r > 0.45) return 'dti';
+  const recentDerog = cr.latesLast24mo > 0 || (c.publicRecords || []).some((p) => monthsSince(p.date) <= 24);
+  if (recentDerog || cr.utilization > 0.5) return 'build';
+  if (score < floor - 30) return 'build';
+  if (score < floor || cr.utilization > 0.3) return 'near_ready';
+  return 'ready_now';
+}
+export function addYears(iso, n) { const [y, m, d] = iso.split('-').map(Number); return `${String(y + n).padStart(4, '0')}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`; }
+export function addMonths(iso, n) { const [y, m, d] = iso.split('-').map(Number); const t = (y * 12 + (m - 1)) + n; return `${String(Math.floor(t / 12)).padStart(4, '0')}-${String((t % 12) + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`; }
+export function daysBetween(a, b) { return Math.round((Date.parse(b + 'T00:00:00Z') - Date.parse(a + 'T00:00:00Z')) / 86400000); }
+const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const MON_LONG = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+export function fmtDate(iso, { long = false } = {}) {
+  if (!iso) return '';
+  const [y, m, d] = iso.split('-').map(Number);
+  return `${(long ? MON_LONG : MON)[m - 1]} ${d}, ${y}`;
+}
+const WAITING = {
+  chapter7: { label: 'Chapter 7 bankruptcy', fha: 2, conventional: 4 },
+  foreclosure: { label: 'Foreclosure', fha: 3, conventional: 7 },
+  short_sale: { label: 'Short sale / deed-in-lieu', fha: 3, conventional: 4 },
+};
+export function eligibilityDates(publicRecords = []) {
+  return publicRecords.filter((p) => WAITING[p.type]).map((p) => ({
+    type: p.type, label: WAITING[p.type].label, event: p.date,
+    fha: addYears(p.date, WAITING[p.type].fha), conventional: addYears(p.date, WAITING[p.type].conventional),
+  }));
+}
+export function dti(monthlyDebts = [], income) {
+  if (!income) return null;
+  const debt = monthlyDebts.reduce((a, d) => a + (d.payment || 0), 0);
+  return Math.round((debt / income) * 100) / 100;
+}
+export function readinessTrigger(c, lender) {
+  const score = c.score?.value; if (score == null) return false;
+  const openDisputes = (c.disputes || []).some((d) => d.status !== 'resolved');
+  return score >= lender.floorDefault && !openDisputes && !c.credit.derogLast12mo && c.credit.utilization <= 0.3;
+}
+
+// ---------- links / query ----------
+export function resolveLink(state, code) { const l = state.links?.[code]; return l ? { code, ...l } : null; }
+export function parseQuery(search = '') {
+  const q = new URLSearchParams(search.startsWith('?') ? search.slice(1) : search);
+  return { c: q.get('c'), reset: q.get('reset') === '1', dev: q.get('dev') === '1', as: q.get('as') };
+}
+
+// ---------- transitions ----------
+export function enrollConsumer(state, { first, last, email, mobile }, attribution) {
+  const tpl = clone(state.consumers.find((c) => c.id === 'maria'));
+  const loId = attribution?.lo || state.los[0].id;
+  const you = {
+    ...tpl, id: 'you', first, last, email, mobile, loId,
+    attribution: attribution || { lender: state.lender.id, lo: loId, source: 'direct', partner: null, campaign: null },
+    status: 'active', round: 1, guardian: false, reviewRequestedAt: null, enrolledAt: TODAY,
+    milestones: [M('Enrolled', TODAY, 'done'), M('Round 1', null, 'current'), M('Utilization under 30%', null, 'upcoming'), M('12 clean months', null, 'upcoming'), M('Request review', null, 'upcoming')],
+  };
+  you.pathway = assignPathway(you, state.lender);
+  state.consumers = state.consumers.filter((c) => c.id !== 'you').concat(you);
+  state.session.consumerId = 'you'; state.session.role = 'consumer';
+  return you;
+}
+export function requestReview(state, id, { income } = {}) {
+  const c = getConsumer(state, id); if (!c) return null;
+  if (income) c.income = income;
+  c.status = 'review_requested'; c.reviewRequestedAt = TODAY;
+  c.milestones.forEach((m) => { if (m.state === 'current') { m.state = 'done'; m.date = m.date || TODAY; } });
+  const i = c.milestones.findIndex((m) => m.state === 'upcoming');
+  c.milestones.splice(i < 0 ? c.milestones.length : i, 0, M('Review requested', TODAY, 'current'));
+  const lo = getLO(state, c.loId);
+  c.nextAction = { title: `${lo ? lo.first : 'Your loan officer'} has your packet`, detail: 'Your loan officer has been notified and will reach out to schedule. Keep balances where they are until you talk.', lever: 'review', engine: 'MyScoreIQ', href: '#review' };
+  return c;
+}
+export function setGuardian(state, id, on) { const c = getConsumer(state, id); if (c) c.guardian = !!on; return c; }
+export function statusCard(state, id) {
+  const c = getConsumer(state, id); if (!c) return null;
+  const elig = eligibilityDates(c.publicRecords)[0] || null;
+  const upcoming = c.milestones.find((m) => m.state === 'upcoming');
+  const lastDone = [...c.milestones].reverse().find((m) => m.state === 'done');
+  return {
+    version: 1, name: `${c.first} ${c.last}`, pathway: c.pathway, status: c.status, round: c.round, roundsEstimated: c.roundsEstimated,
+    lastActivity: c.score?.updated || lastDone?.date || c.enrolledAt, nextMilestone: upcoming ? upcoming.label : null, reviewRequestedAt: c.reviewRequestedAt,
+    eligibilityDate: elig ? elig.fha : null, guardian: !!c.guardian, attribution: c.attribution,
+  };
+}
+export function packet(state, id) {
+  const c = getConsumer(state, id); if (!c) return null;
+  const score = c.score?.value;
+  return {
+    pathway: c.pathway,
+    floorsMet: state.lender.programs.filter((p) => score != null && score >= p.floor).map((p) => p.name),
+    dtiEstimate: dti(c.credit.monthlyDebts, c.income),
+    rentMonths: c.rentReporting.linked ? c.rentReporting.monthsAvailable : 0,
+    disputesOpen: c.disputes.filter((d) => d.status !== 'resolved').length,
+    disputesResolved: c.disputes.filter((d) => d.status === 'resolved').length,
+    income: c.income,
+  };
+}
