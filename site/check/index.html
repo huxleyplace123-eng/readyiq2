@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en" data-brand="harbor">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Check your homebuyer credit readiness — Harbor Home Loans</title>
+<meta name="description" content="3 minutes, no application. See where you stand and get a plan that moves you toward a mortgage.">
+<meta property="og:title" content="Check your homebuyer credit readiness — 3 minutes, no application">
+<meta property="og:description" content="See where you stand without applying. Powered by ReadyIQ.">
+<link rel="stylesheet" href="../assets/fonts/geist.css">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<style>
+  .hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: var(--sp-12); align-items: center; padding: var(--sp-16) 0 var(--sp-12); }
+  .hero-copy { display: grid; gap: var(--sp-5); max-width: 560px; }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .hero-note { display: flex; gap: 18px; flex-wrap: wrap; font-size: var(--fs-13); color: var(--ink-3); }
+  .hero-note span::before { content: "✓"; color: var(--success); font-weight: 700; margin-right: 6px; }
+  /* the phone: a live preview of the portal home */
+  .phone-wrap { position: relative; display: grid; place-items: center; }
+  .phone-wrap::before { content: ""; position: absolute; inset: 10% 6%; border-radius: 40%; background: radial-gradient(closest-side, var(--brand-soft), transparent 70%); filter: blur(28px); z-index: 0; opacity: .9; }
+  .phone { position: relative; z-index: 1; width: 320px; border-radius: 40px; background: #fff; border: 1px solid var(--line); box-shadow: var(--sh-3), 0 0 0 8px #0F1B26, 0 0 0 9px rgba(15,27,38,.15); padding: 18px 16px 22px; display: grid; gap: 12px; }
+  .phone-top { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-3); }
+  .phone-top .brand-mark { width: 22px; height: 22px; font-size: 11px; border-radius: 7px; }
+  .phone .number-value { font-size: 52px; }
+  .phone .card { border-radius: 16px; box-shadow: none; }
+  .phone .card-pad { padding: 14px; }
+  .phone .h3 { font-size: 15px; }
+  .phone .muted { font-size: 12px; }
+  .phone .path .path-label { font-size: 9px; }
+  .float { animation: float 6s ease-in-out infinite; }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .how { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); }
+  .how .card { display: grid; gap: 10px; }
+  .how .card .row { justify-content: space-between; }
+  .strip { display: grid; grid-template-columns: 1fr auto; gap: var(--sp-6); align-items: center; }
+  .footer { padding: var(--sp-8) 0 var(--sp-12); font-size: var(--fs-13); color: var(--ink-3); border-top: 1px solid var(--line-2); margin-top: var(--sp-12); display: grid; gap: 8px; }
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; gap: var(--sp-8); padding: var(--sp-8) 0 var(--sp-6); }
+    .phone-wrap { order: -1; }
+    .phone { width: 280px; }
+    .how { grid-template-columns: 1fr; }
+    .strip { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { .float { animation: none; } }
+</style>
+</head>
+<body>
+<header class="topbar"><div class="container topbar-inner">
+  <span class="brand-mark" data-lender-mark>H</span><span class="brand-name" data-lender-name>Harbor Home Loans</span>
+  <span class="powered">Powered by <b>ReadyIQ</b> · IDIQ</span>
+</div></header>
+
+<main class="container">
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="chip" id="lo-chip"><span class="dot"></span><span id="lo-chip-text">Your loan officer: Sarah Miller · NMLS 1234567</span></div>
+      <h1 class="h1">Check your homebuyer credit readiness.</h1>
+      <p class="lead">3 minutes. No application. See where you stand and get a plan that moves you toward a mortgage — with <span data-lo-first>Sarah</span> on your side the whole way.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" id="cta" href="../enroll/">Check my readiness <span class="arrow">→</span></a>
+        <button class="btn btn-secondary btn-lg" id="sample" type="button">See a sample path</button>
+      </div>
+      <div class="hero-note"><span>Soft check — no effect on your score</span><span>Your report stays private</span><span>Free from <span data-lender-name>Harbor Home Loans</span></span></div>
+      <p class="reg-b">You can apply for a mortgage at any time — this is not required.</p>
+    </div>
+    <div class="phone-wrap"><div class="phone float" aria-hidden="true">
+      <div class="phone-top"><span class="brand-mark">H</span><b style="color:var(--ink)">Harbor Home Loans</b><span style="margin-left:auto">Round 2 of ~5</span></div>
+      <div class="card card-pad number">
+        <div class="number-top"><span class="number-value" id="phone-num">611</span><span class="number-delta up">↑ 14</span></div>
+        <p class="number-caption" style="font-size:11px">FICO® Score — not the mortgage-industry version lenders pull. A guide, not a preapproval.</p>
+      </div>
+      <div class="card card-pad"><p class="eyebrow" style="font-size:10px">Your path</p><div id="phone-path"></div></div>
+      <div class="card card-pad next-action" style="display:grid;gap:4px"><p class="eyebrow" style="font-size:10px">Next action</p><h3 class="h3">Pay Capital One below 30% before the 22nd</h3><p class="muted">The fastest lever you have this round.</p></div>
+      <div class="btn btn-primary btn-block" style="height:40px;font-size:13px">Request review</div>
+    </div></div>
+  </section>
+
+  <section class="section-tight">
+    <div class="how" id="how">
+      <div class="card card-pad card-hover"><div class="row"><span class="step-num">01</span><span class="engine-tag">Powered by MyScoreIQ</span></div><h3 class="h3">Check</h3><p class="muted">A soft pull of your credit and FICO® Score, labeled honestly, and a clear read on where you stand against <span data-lender-name>Harbor Home Loans</span>' programs.</p></div>
+      <div class="card card-pad card-hover"><div class="row"><span class="step-num">02</span><span class="engine-tag">Powered by CreditBuilderIQ</span></div><h3 class="h3">Plan</h3><p class="muted">One next action at a time, in the order underwriting cares. Fix inaccuracies, add rent history, bring balances down — round by round.</p></div>
+      <div class="card card-pad card-hover"><div class="row"><span class="step-num">03</span><span class="chip" style="height:24px;font-size:12px"><span class="dot"></span><span data-lo-first>Sarah</span></span></div><h3 class="h3">Review</h3><p class="muted">When you're ready, you request a review. <span data-lo-first>Sarah</span> gets your packet, pulls the real mortgage report, and takes it from there.</p></div>
+    </div>
+  </section>
+
+  <section class="card card-pad strip" style="margin-top:var(--sp-8)">
+    <div class="stack-2"><p class="eyebrow">What you'll see</p><h2 class="h2">The number, honestly labeled. One next action. A path with dates on it.</h2><p class="muted">And your loan officer is told the day you're ready — not before, and never your report.</p></div>
+    <div style="min-width:min(100%,420px)" id="path-preview"></div>
+  </section>
+
+  <footer class="footer">
+    <div><b data-lender-name>Harbor Home Loans</b> · NMLS #1809922 · Equal Housing Lender · <span class="muted">Powered by ReadyIQ · IDIQ (MyScoreIQ + CreditBuilderIQ)</span></div>
+    <div>ReadyIQ shows a FICO® Score — not the mortgage-industry version lenders pull. It is a guide, not a preapproval, and it never promises deletions, points, approvals, or timelines. Your loan officer sees your status, never your credit report, unless you request a review.</div>
+  </footer>
+</main>
+<script type="module" src="../assets/js/page-check.js"></script>
+</body>
+</html>
