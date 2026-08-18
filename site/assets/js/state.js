@@ -1,6 +1,7 @@
 // site/assets/js/state.js — pure, runs in Node (tests) and the browser (pages).
 export const TODAY = '2026-08-18';
 export const STORE_KEY = 'readyiq2:v1';
+export const FIXTURE_VERSION = 2; // bump when fixture shape changes — stale localStorage resets itself
 export const PATHWAYS = ['ready_now', 'near_ready', 'build', 'thin', 'dispute', 'dti'];
 export const PATHWAY_LABELS = { ready_now: 'Ready Now', near_ready: 'Near Ready', build: 'Build Mode', thin: 'Thin Credit', dispute: 'Dispute Mode', dti: 'Debt Mode' };
 export const PATHWAY_BLURBS = {
@@ -37,7 +38,7 @@ const FIXTURES = {
     { id: 'maria', first: 'Maria', last: 'Delgado', email: 'maria.d@example.com', mobile: '(510) 555-0119', loId: 'sarah',
       attribution: { lender: 'harbor', lo: 'sarah', source: 'lo', partner: null, campaign: null },
       status: 'active', pathway: 'build', round: 2, roundsEstimated: 5, guardian: false, reviewRequestedAt: null, enrolledAt: '2026-06-20',
-      score: { value: 625, prev: 611, updated: '2026-08-14', bureaus: { experian: 628, transunion: 625, equifax: 619 } },
+      history: [["2026-05-20",596],["2026-06-20",604],["2026-07-14",611],["2026-08-14",625]], timeline: "3-6", score: { value: 625, prev: 611, updated: '2026-08-14', bureaus: { experian: 628, transunion: 625, equifax: 619 } },
       credit: { utilization: 0.41, prevUtilization: 0.68, tradelines: 6, latesLast24mo: 2, lastLateMonthsAgo: 14, derogLast12mo: false, inquiriesLast6mo: 1,
         monthlyDebts: [{ name: 'Capital One', payment: 45 }, { name: 'Honda Financial', payment: 389 }, { name: 'Discover', payment: 60 }], collections: [] },
       publicRecords: [], disputes: [],
@@ -49,7 +50,7 @@ const FIXTURES = {
     { id: 'jordan', first: 'Jordan', last: 'Lee', email: 'jordan.lee@example.com', mobile: '(628) 555-0133', loId: 'sarah',
       attribution: { lender: 'harbor', lo: 'sarah', source: 'agent', partner: 'dana', campaign: null },
       status: 'active', pathway: 'thin', round: 1, roundsEstimated: 4, guardian: false, reviewRequestedAt: null, enrolledAt: '2026-08-05',
-      score: { value: null, prev: null, updated: '2026-08-05', bureaus: { experian: null, transunion: null, equifax: null } },
+      history: [], timeline: "exploring", score: { value: null, prev: null, updated: '2026-08-05', bureaus: { experian: null, transunion: null, equifax: null } },
       credit: { utilization: 0.12, prevUtilization: 0.12, tradelines: 2, latesLast24mo: 0, lastLateMonthsAgo: null, derogLast12mo: false, inquiriesLast6mo: 0,
         monthlyDebts: [{ name: 'Chime Credit Builder', payment: 0 }, { name: 'Verizon', payment: 85 }], collections: [] },
       publicRecords: [], disputes: [],
@@ -61,7 +62,7 @@ const FIXTURES = {
     { id: 'denise', first: 'Denise', last: 'Alvarez', email: 'denise.a@example.com', mobile: '(925) 555-0161', loId: 'marcus',
       attribution: { lender: 'harbor', lo: 'marcus', source: 'lo', partner: null, campaign: null },
       status: 'active', pathway: 'near_ready', round: 3, roundsEstimated: 3, guardian: false, reviewRequestedAt: null, enrolledAt: '2026-05-28',
-      score: { value: 634, prev: 621, updated: '2026-08-12', bureaus: { experian: 634, transunion: 638, equifax: 629 } },
+      history: [["2026-05-28",598],["2026-06-28",609],["2026-07-28",621],["2026-08-12",634]], timeline: "3-6", score: { value: 634, prev: 621, updated: '2026-08-12', bureaus: { experian: 634, transunion: 638, equifax: 629 } },
       credit: { utilization: 0.34, prevUtilization: 0.52, tradelines: 8, latesLast24mo: 0, lastLateMonthsAgo: 31, derogLast12mo: false, inquiriesLast6mo: 0,
         monthlyDebts: [{ name: 'Discover', payment: 110 }, { name: 'Toyota Financial', payment: 412 }, { name: 'Navient', payment: 180 }], collections: [] },
       publicRecords: [], disputes: [],
@@ -73,14 +74,14 @@ const FIXTURES = {
     { id: 'sam', first: 'Sam', last: 'Okafor', email: 'sam.okafor@example.com', mobile: '(510) 555-0184', loId: 'sarah',
       attribution: { lender: 'harbor', lo: 'sarah', source: 'campaign', partner: null, campaign: 'spring-reactivation' },
       status: 'active', pathway: 'dispute', round: 1, roundsEstimated: 4, guardian: false, reviewRequestedAt: null, enrolledAt: '2026-08-01',
-      score: { value: 648, prev: 648, updated: '2026-08-01', bureaus: { experian: 651, transunion: 648, equifax: 644 } },
+      history: [["2026-08-01",648]], timeline: "3-6", score: { value: 648, prev: 648, updated: '2026-08-01', bureaus: { experian: 651, transunion: 648, equifax: 644 } },
       credit: { utilization: 0.22, prevUtilization: 0.22, tradelines: 7, latesLast24mo: 0, lastLateMonthsAgo: null, derogLast12mo: false, inquiriesLast6mo: 1,
         monthlyDebts: [{ name: 'Navient (reported)', payment: 412 }, { name: 'Chase Sapphire', payment: 95 }, { name: 'Ally Auto', payment: 366 }],
         collections: [{ name: 'Midland Credit Mgmt (Comenity)', amount: 612, paid: false }] },
       publicRecords: [],
       disputes: [
-        { id: 'd1', item: 'Navient shows $412/mo payment — loan is in in-school deferment, actual payment $0', category: 'payment_amount', status: 'sent', sentAt: '2026-08-06', dtiImpact: 412 },
-        { id: 'd2', item: 'Midland collection duplicates the original Comenity account balance', category: 'duplicate', status: 'draft', sentAt: null, dtiImpact: null },
+        { id: 'd1', item: 'Navient shows $412/mo payment — loan is in in-school deferment, actual payment $0', category: 'payment_amount', status: 'sent', sentAt: '2026-08-06', responseDue: '2026-09-08', bureaus: ['Experian','TransUnion','Equifax'], reason: 'The reported monthly payment is incorrect', dtiImpact: 412 },
+        { id: 'd2', item: 'Midland collection duplicates the original Comenity account balance', category: 'duplicate', status: 'draft', sentAt: null, responseDue: null, bureaus: ['Experian','TransUnion'], reason: null, dtiImpact: null },
       ],
       rentReporting: { linked: false, monthsAvailable: 24, backfilled: false }, income: 7100,
       deltas: [],
@@ -90,7 +91,7 @@ const FIXTURES = {
     { id: 'priya', first: 'Priya', last: 'Nair', email: 'priya.nair@example.com', mobile: '(650) 555-0107', loId: 'sarah',
       attribution: { lender: 'harbor', lo: 'sarah', source: 'lo', partner: null, campaign: null },
       status: 'review_requested', pathway: 'ready_now', round: 2, roundsEstimated: 2, guardian: false, reviewRequestedAt: '2026-08-17', enrolledAt: '2026-06-02',
-      score: { value: 702, prev: 688, updated: '2026-08-10', bureaus: { experian: 706, transunion: 702, equifax: 699 } },
+      history: [["2026-06-02",664],["2026-07-02",681],["2026-07-30",688],["2026-08-10",702]], timeline: "now", score: { value: 702, prev: 688, updated: '2026-08-10', bureaus: { experian: 706, transunion: 702, equifax: 699 } },
       credit: { utilization: 0.18, prevUtilization: 0.29, tradelines: 9, latesLast24mo: 0, lastLateMonthsAgo: null, derogLast12mo: false, inquiriesLast6mo: 0,
         monthlyDebts: [{ name: 'Amex', payment: 120 }, { name: 'SoFi student loan', payment: 240 }], collections: [] },
       publicRecords: [], disputes: [],
@@ -102,7 +103,7 @@ const FIXTURES = {
     { id: 'tom', first: 'Tom', last: 'Reyes', email: 'tom.reyes@example.com', mobile: '(408) 555-0122', loId: 'marcus',
       attribution: { lender: 'harbor', lo: 'marcus', source: 'lo', partner: null, campaign: null },
       status: 'applied', pathway: 'ready_now', round: 3, roundsEstimated: 3, guardian: true, reviewRequestedAt: '2026-07-20', enrolledAt: '2026-04-15',
-      score: { value: 671, prev: 674, updated: '2026-08-16', bureaus: { experian: 671, transunion: 675, equifax: 668 } },
+      history: [["2026-04-15",652],["2026-05-15",661],["2026-06-15",668],["2026-07-20",674],["2026-08-16",671]], timeline: "3-6", score: { value: 671, prev: 674, updated: '2026-08-16', bureaus: { experian: 671, transunion: 675, equifax: 668 } },
       credit: { utilization: 0.24, prevUtilization: 0.21, tradelines: 10, latesLast24mo: 0, lastLateMonthsAgo: null, derogLast12mo: false, inquiriesLast6mo: 1,
         monthlyDebts: [{ name: 'Chase Freedom', payment: 80 }, { name: 'Wells Fargo Auto', payment: 455 }], collections: [] },
       publicRecords: [], disputes: [],
@@ -115,7 +116,7 @@ const FIXTURES = {
     { id: 'aisha', first: 'Aisha', last: 'Bell', email: 'aisha.bell@example.com', mobile: '(916) 555-0148', loId: 'sarah',
       attribution: { lender: 'harbor', lo: 'sarah', source: 'lo', partner: null, campaign: null },
       status: 'active', pathway: 'build', round: 1, roundsEstimated: 6, guardian: false, reviewRequestedAt: null, enrolledAt: '2026-08-10',
-      score: { value: 588, prev: 588, updated: '2026-08-10', bureaus: { experian: 590, transunion: 588, equifax: 583 } },
+      history: [["2026-08-10",588]], timeline: "3-6", score: { value: 588, prev: 588, updated: '2026-08-10', bureaus: { experian: 590, transunion: 588, equifax: 583 } },
       credit: { utilization: 0.55, prevUtilization: 0.55, tradelines: 4, latesLast24mo: 0, lastLateMonthsAgo: 19, derogLast12mo: false, inquiriesLast6mo: 0,
         monthlyDebts: [{ name: 'Capital One Secured', payment: 25 }, { name: 'Self Credit Builder', payment: 48 }], collections: [] },
       publicRecords: [{ type: 'chapter7', date: '2025-03-12' }], disputes: [],
@@ -126,6 +127,7 @@ const FIXTURES = {
       alerts: [], loanFile: null },
   ],
   session: { role: 'consumer', consumerId: 'maria', loId: 'sarah', partnerId: null, attribution: null },
+  v: 2,
 };
 
 const clone = (v) => (typeof structuredClone === 'function' ? structuredClone(v) : JSON.parse(JSON.stringify(v)));
@@ -134,7 +136,7 @@ export function fixtures() { return clone(FIXTURES); }
 const storage = () => (typeof localStorage !== 'undefined' ? localStorage : null);
 export function loadState() {
   const ls = storage();
-  if (ls) { try { const raw = ls.getItem(STORE_KEY); if (raw) return JSON.parse(raw); } catch { /* fall through */ } }
+  if (ls) { try { const raw = ls.getItem(STORE_KEY); if (raw) { const st = JSON.parse(raw); if (st.v === FIXTURE_VERSION) return st; } } catch { /* fall through */ } }
   return fixtures();
 }
 export function saveState(state) { const ls = storage(); if (ls) ls.setItem(STORE_KEY, JSON.stringify(state)); return state; }
@@ -202,11 +204,11 @@ export function parseQuery(search = '') {
 }
 
 // ---------- transitions ----------
-export function enrollConsumer(state, { first, last, email, mobile }, attribution) {
+export function enrollConsumer(state, { first, last, email, mobile, timeline = '3-6' }, attribution) {
   const tpl = clone(state.consumers.find((c) => c.id === 'maria'));
   const loId = attribution?.lo || state.los[0].id;
   const you = {
-    ...tpl, id: 'you', first, last, email, mobile, loId,
+    ...tpl, id: 'you', first, last, email, mobile, loId, timeline,
     attribution: attribution || { lender: state.lender.id, lo: loId, source: 'direct', partner: null, campaign: null },
     status: 'active', round: 1, guardian: false, reviewRequestedAt: null, enrolledAt: TODAY,
     milestones: [M('Enrolled', TODAY, 'done'), M('Round 1', null, 'current'), M('Utilization under 30%', null, 'upcoming'), M('12 clean months', null, 'upcoming'), M('Request review', null, 'upcoming')],
@@ -252,3 +254,4 @@ export function packet(state, id) {
     income: c.income,
   };
 }
+export function addDays(iso, n) { const d = new Date(iso + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); }

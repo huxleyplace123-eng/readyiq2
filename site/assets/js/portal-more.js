@@ -72,7 +72,7 @@ export function renderGuardian(ctx) {
 }
 
 // ---------- Ask ReadyIQ ----------
-export function renderAsk(ctx) {
+export function renderAsk(ctx, { compact = false, draft: draftIn = null } = {}) {
   const c = ctx.c, lo = ctx.lo, p = packet(ctx.state, c.id);
   const chat = el('div', { class: 'chat' });
   const bot = (text, pre) => chat.append(el('div', { class: 'msg msg-bot' }, text, pre ? el('pre', {}, pre) : null, pre ? el('div', { class: 'row', style: { marginTop: '8px' } }, el('button', { class: 'btn btn-secondary btn-sm', onclick: () => { navigator.clipboard?.writeText(pre); toast('Copied'); } }, 'Copy')) : null));
@@ -103,12 +103,12 @@ export function renderAsk(ctx) {
   const input = el('input', { name: 'q', placeholder: 'Ask about your number, your plan, or what’s next…', 'aria-label': 'Ask ReadyIQ' });
   const form = el('form', { class: 'card ask-bar', onsubmit: (e) => { e.preventDefault(); const q = input.value.trim(); if (!q) return; user(q); input.value = ''; setTimeout(() => answer(q), 350); } }, input, el('button', { class: 'btn btn-primary btn-sm', type: 'submit' }, 'Ask'));
   bot(`Hi ${c.first}. I explain and organize — I never promise deletions, points, or approvals. What would you like to know?`);
-  const draft = ctx.state.session.askDraft; if (draft) { ctx.state.session.askDraft = null; ctx.save(); user(draft); setTimeout(() => answer(draft), 400); }
+  const draft = draftIn || ctx.state.session.askDraft; if (draft) { ctx.state.session.askDraft = null; ctx.save(); user(draft); setTimeout(() => answer(draft), 400); }
   return el('div', { class: 'stack-4' },
-    head('Ask ReadyIQ', 'Plain answers about your own path.', null, 'CreditBuilderIQ'),
+    compact ? el('div', { class: 'row-between' }, el('p', { class: 'muted small' }, 'Plain answers about your own path.'), engineTag('CreditBuilderIQ')) : head('Ask ReadyIQ', 'Plain answers about your own path.', null, 'CreditBuilderIQ'),
     el('div', { class: 'row wrap' }, ['Why did my score move?', 'What should I do next?', 'Can I apply?', 'Draft a letter of explanation'].map((s) => el('button', { class: 'chip', type: 'button', onclick: () => { user(s); setTimeout(() => answer(s), 300); } }, s))),
     chat, form,
-    el('p', { class: 'small muted' }, 'ReadyIQ explains and organizes. It never promises deletions, points, or approvals.'), regB());
+    el('p', { class: 'small muted' }, 'ReadyIQ explains and organizes. It never promises deletions, points, or approvals.'), compact ? null : regB());
 }
 
 // ---------- Protected homebuying ----------

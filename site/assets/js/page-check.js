@@ -1,6 +1,7 @@
-// site/assets/js/page-check.js — the lender-branded front door.
+// site/assets/js/page-check.js — the lender-branded front door: two doors on one page
+// (public "check my readiness" and a personal invitation when a link resolves to an LO or agent).
 import { loadState, saveState, resolveLink, parseQuery, getLO, getLender } from './state.js';
-import { applyBrand, qs, qsa, sheet, el, initDev, countUp } from './ui.js';
+import { applyBrand, qs, qsa, sheet, el, initDev, ringGauge, countUp } from './ui.js';
 import { renderPath } from './path.js';
 
 const state = loadState();
@@ -12,19 +13,31 @@ if (q.c) {
 const lender = getLender(state);
 applyBrand(lender);
 
-const loId = state.session.attribution?.lo || 'sarah';
-const lo = getLO(state, loId) || state.los[0];
-qs('#lo-chip-text').textContent = `Your loan officer: ${lo.first} ${lo.last} · NMLS ${lo.nmls}`;
+const attr = state.session.attribution;
+const lo = getLO(state, attr?.lo || 'sarah') || state.los[0];
+const partner = attr?.partner ? state.partners.find((p) => p.id === attr.partner) : null;
 qsa('[data-lo-first]').forEach((n) => (n.textContent = lo.first));
-if (state.session.attribution?.partner) {
-  const p = state.partners.find((x) => x.id === state.session.attribution.partner);
-  if (p) qs('#lo-chip-text').textContent += ` · via ${p.first} ${p.last}, ${p.company}`;
+
+// the door: public chip vs personal invitation
+const door = qs('#door');
+if (attr && (attr.source === 'lo' || attr.source === 'agent' || attr.source === 'campaign')) {
+  door.append(el('div', { class: 'invite card-enter' },
+    el('span', { class: 'avatar avatar-lg' }, lo.first[0] + lo.last[0]),
+    el('div', {}, el('small', {}, partner ? `Personal invitation · via ${partner.first} ${partner.last}, ${partner.company}` : attr.source === 'campaign' ? 'A personal invitation from your lender' : 'Personal invitation'),
+      el('b', {}, `${lo.first} ${lo.last} · ${lender.name}`), el('div', { class: 'small muted' }, `NMLS ${lo.nmls} · Licensed in ${lo.states.join(', ')}`))));
+  qs('#headline').replaceChildren(`${lo.first} invited you to check your `, el('em', {}, 'credit readiness.'));
+  qs('#sub').textContent = `See where your credit stands, get a plan that moves you toward a mortgage, and stay connected to ${lo.first} — without applying for anything today.`;
+  qs('#cta').firstChild.textContent = 'Accept invitation & check my readiness ';
+} else {
+  door.append(el('div', { class: 'chip' }, el('span', { class: 'dot' }), `Your loan officer: ${lo.first} ${lo.last} · NMLS ${lo.nmls}`));
 }
 
+// the platform window
 const MARIA = state.consumers.find((c) => c.id === 'maria').milestones;
+qs('#mini-ring').append(ringGauge({ value: 611, label: 'FICO® Score', size: 104, stroke: 8 }));
+setTimeout(() => countUp(qs('#mini-ring b'), 611, 625, 1200), 700);
+renderPath('#platform-path', { nodes: MARIA.slice(0, 5) });
 renderPath('#path-preview', { nodes: MARIA });
-renderPath('#phone-path', { nodes: MARIA.slice(0, 5) });
-setTimeout(() => countUp(qs('#phone-num'), 611, 625, 1200), 600);
 
 // "See a sample path" — a 20-second scripted tour of the journey
 const STEPS = [
@@ -38,13 +51,13 @@ qs('#sample').addEventListener('click', () => {
   let i = 0, timer;
   const pathEl = el('div');
   const cap = el('p', { class: 'lead', style: { minHeight: '3.2em' } });
-  const dots = el('div', { class: 'row', style: { gap: '6px' } }, STEPS.map((_, k) => el('i', { class: 'progress', style: { width: '36px', display: 'block' } }, el('i', { style: { width: '0%' } }))));
+  const dots = el('div', { class: 'row', style: { gap: '6px' } }, STEPS.map(() => el('i', { class: 'progress', style: { width: '36px', display: 'block' } }, el('i', { style: { width: '0%' } }))));
   const draw = () => {
     renderPath(pathEl, { nodes: STEPS.map((s, k) => ({ label: s.label, state: k < i ? 'done' : k === i ? 'current' : 'upcoming' })) });
     cap.textContent = STEPS[i].cap;
-    qsa('.progress > i', dots).forEach((b, k) => (b.style.width = k < i ? '100%' : k === i ? '100%' : '0%'));
+    qsa('.progress > i', dots).forEach((b, k) => (b.style.width = k <= i ? '100%' : '0%'));
   };
-  const s = sheet({
+  sheet({
     title: 'A sample path',
     body: el('div', { class: 'stack-4' }, pathEl, cap, dots, el('p', { class: 'reg-b' }, 'Sample data. Your path is built from your own report — and you can apply for a mortgage at any time.')),
     actions: [{ label: 'Check my readiness', kind: 'primary', onClick: () => { location.href = '../enroll/'; return false; } }, { label: 'Close', kind: 'ghost' }],

@@ -1,5 +1,5 @@
 // site/assets/js/portal-tools.js — Plan (+Clock, +DTI), Disputes, Build history, Why it moved.
-import { eligibilityDates, dti, fmtDate, daysBetween, addMonths, TODAY, PATHWAY_LABELS } from './state.js';
+import { eligibilityDates, dti, fmtDate, daysBetween, addMonths, addDays, TODAY, PATHWAY_LABELS } from './state.js';
 import { el, engineTag, regB, toast, pct, fmtMoney } from './ui.js';
 
 const head = (eyebrow, title, sub, engine) => el('div', { class: 'view-head' },
@@ -98,40 +98,7 @@ function dtiCard(ctx) {
     engineTag('CreditBuilderIQ'));
 }
 
-// ---------- Disputes ----------
-const CATS = {
-  payment_amount: { label: 'Wrong payment amount', why: (d) => `Inflates your DTI by ${fmtMoney(d.dtiImpact)}/mo` },
-  duplicate: { label: 'Duplicate account', why: () => 'Counts one debt twice' },
-  late: { label: 'Late payment you didn’t make', why: () => 'Inside the 24 months underwriting weighs most' },
-  collection: { label: 'Collection that isn’t accurate', why: () => 'Derogatory — may block a program' },
-  date: { label: 'Wrong date', why: () => 'Extends how long a derogatory stays' },
-  not_mine: { label: 'Not my account', why: () => 'Possible fraud or mixed file' },
-};
-const ORDER = Object.keys(CATS);
-export function renderDisputes(ctx) {
-  const c = ctx.c, lo = ctx.lo;
-  const list = [...c.disputes].sort((a, b) => ORDER.indexOf(a.category) - ORDER.indexOf(b.category));
-  const advance = (d) => {
-    const next = { draft: 'sent', sent: 'responded', responded: 'resolved' }[d.status];
-    if (!next) return;
-    d.status = next; if (next === 'sent') d.sentAt = TODAY;
-    if (next === 'resolved' && d.category === 'payment_amount' && d.dtiImpact) { const t = c.credit.monthlyDebts.find((x) => x.name.startsWith('Navient')); if (t) t.payment = 0; }
-    if (c.disputes.every((x) => x.status === 'resolved')) { const m = c.milestones.find((x) => x.label === 'Disputes resolved'); if (m) { m.state = 'done'; m.date = TODAY; } }
-    ctx.save(); toast(next === 'sent' ? 'Dispute sent — 30-day clock started' : next === 'responded' ? 'Response logged' : 'Resolved'); ctx.rerender();
-  };
-  const row = (d) => el('div', { class: 'dispute' },
-    el('div', { class: 'row-between wrap' }, el('span', { class: 'chip chip-outline' }, CATS[d.category].label), el('span', { class: `pill pill-${d.status}` }, d.status)),
-    el('p', {}, d.item),
-    el('div', { class: 'row-between wrap' }, el('span', { class: 'small muted' }, CATS[d.category].why(d), d.sentAt ? ` · sent ${fmtDate(d.sentAt)}` : ''),
-      c.guardian || d.status === 'resolved' ? null : el('button', { class: 'btn btn-secondary btn-sm', onclick: () => advance(d) }, { draft: 'Send', sent: 'Mark responded', responded: 'Mark resolved' }[d.status])));
-  return el('div', { class: 'stack-4' },
-    head('Disputes', 'Fix what’s wrong before you apply.', 'Priority goes to inaccuracies that block a mortgage — wrong payment amounts, duplicates, recent lates, collections, dates, accounts that aren’t yours.', 'CreditBuilderIQ'),
-    c.guardian ? el('div', { class: 'banner banner-warn', style: { gridTemplateColumns: '1fr' } }, el('span', {}, `Disputes are paused while your loan file is active. Ask ${lo.first} before sending anything.`)) : null,
-    list.length ? el('div', { class: 'card card-pad list-rows' }, list.map(row))
-      : el('div', { class: 'card card-pad stack-2' }, el('h2', { class: 'h3' }, 'Nothing flagged.'), el('p', { class: 'muted' }, 'We check every refresh — once a month — for negative items and mismatches across bureaus. If something looks wrong, it shows up here with a letter ready to go.')),
-    el('div', { class: 'card card-soft card-pad stack-1' }, el('b', {}, 'We sequence disputes to finish before your review.'), el('p', { class: 'small', style: { color: 'var(--brand-ink)' } }, `Lenders don’t like open disputes on a file. Every letter here runs on the same 30-day clock so they close together — and we never suggest a dispute during an active loan.`)),
-    regB());
-}
+// ---------- Disputes (see renderDisputes below, appended) ----------
 
 // ---------- Build history ----------
 export function renderBuild(ctx) {
@@ -160,7 +127,15 @@ export function renderBuild(ctx) {
     c.utilities.length ? el('p', { class: 'small muted' }, `${c.utilities.length} reporting${c.utilities.length >= 2 ? ' — with rent, that’s a nontraditional credit file lenders can use.' : '.'}`) : null);
   return el('div', { class: 'stack-4' },
     head('Build history', 'Turn bills you already pay into history.', 'On-time payments only — misses are never reported.'),
-    rent, utilities, regB());
+    rent, utilities,
+    el('div', { class: 'stack-2' },
+      el('div', { class: 'row-between' }, el('p', { class: 'eyebrow' }, 'Build safely, with mortgage timing in mind'), engineTag('CreditBuilderIQ')),
+      el('div', { class: 'grid-3' },
+        [['▣', 'Secured card guidance', 'How a small secured card adds a clean revolving line — and why the limit and statement date matter more than the spend.', 'tone-purple'],
+         ['$', 'Credit-builder loan guidance', 'What a builder loan does for payment history, what it costs, and when it is not worth it before a mortgage.', 'tone-gold'],
+         ['🛡', `Ask ${ctx.lo.first} before you open or close`, 'New accounts and closed accounts both move the number. In the months before you apply, ask first — Guardian will remind you.', 'tone-mint']]
+        .map(([i, t, b, tone]) => el('div', { class: 'card card-pad stack-2 card-hover' }, el('span', { class: `step-num ${tone}` }, i), el('b', {}, t), el('p', { class: 'small muted' }, b))))),
+    regB());
 }
 
 // ---------- Why it moved ----------

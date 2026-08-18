@@ -1,5 +1,6 @@
 // site/assets/js/ui.js — shared DOM helpers for the ReadyIQ 2 prototype.
 import { resetState, saveState, fixtures } from './state.js';
+import { initDemo } from './demo.js';
 
 export const qs = (sel, root = document) => root.querySelector(sel);
 export const qsa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -91,18 +92,21 @@ export function toast(msg, ms = 2400) {
 export const engineTag = (name) => el('span', { class: 'engine-tag' }, `Powered by ${name}`);
 export const regB = () => el('p', { class: 'reg-b' }, 'You can apply for a mortgage at any time — this is not required.');
 
-/** ?reset=1 restores fixtures; ?dev=1 shows a switcher. Call once per page. */
-export function initDev(state, { onChange } = {}) {
-  const q = new URLSearchParams(location.search);
-  if (q.get('reset') === '1') { resetState(); q.delete('reset'); location.replace(location.pathname + (q.toString() ? '?' + q : '') + location.hash); return; }
-  if (q.get('dev') !== '1') return;
-  const ids = fixtures().consumers.map((c) => c.id).concat(state.consumers.some((c) => c.id === 'you') ? ['you'] : []);
-  const select = el('select', { onchange: (e) => { state.session.consumerId = e.target.value; state.session.role = 'consumer'; saveState(state); onChange ? onChange() : location.reload(); } },
-    ids.map((id) => el('option', { value: id, selected: state.session.consumerId === id }, id)));
-  const panel = el('div', { class: 'dev-panel' },
-    el('div', {}, el('b', {}, 'dev'), ' · consumer ', select),
-    el('div', { class: 'row', style: { gap: '10px' } },
-      el('a', { href: '../portal/?dev=1' }, 'portal'), el('a', { href: '../check/?dev=1' }, 'check'), el('a', { href: '../enroll/?dev=1' }, 'enroll'),
-      el('a', { href: '#', onclick: (e) => { e.preventDefault(); resetState(); location.reload(); } }, 'reset')));
-  document.body.append(panel);
+/** Demo chrome on every page (?demo=0 hides; ?reset=1 restores fixtures). Name kept for callers. */
+export function initDev(state, { onChange } = {}) { initDemo({ onConsumerChange: onChange }); }
+
+/** Ring gauge for the Number — value on a 300–850 scale. */
+export function ringGauge({ value, min = 300, max = 850, label = 'FICO®', size = 148, stroke = 10 }) {
+  const r = (size - stroke) / 2, C = 2 * Math.PI * r;
+  const frac = value == null ? 0 : Math.max(0, Math.min(1, (value - min) / (max - min)));
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('viewBox', `0 0 ${size} ${size}`); svg.setAttribute('width', size); svg.setAttribute('height', size);
+  const mk = (cls) => { const c = document.createElementNS(NS, 'circle'); c.setAttribute('class', cls); c.setAttribute('cx', size / 2); c.setAttribute('cy', size / 2); c.setAttribute('r', r); return c; };
+  const track = mk('track'), fill = mk('fill');
+  fill.style.strokeDasharray = String(C); fill.style.strokeDashoffset = String(C);
+  svg.append(track, fill);
+  const wrap = el('div', { class: 'ring', style: { width: size + 'px', height: size + 'px' } }, svg,
+    el('div', { class: 'ring-inner' }, el('div', {}, el('b', {}, value == null ? '—' : String(value)), el('span', { style: { display: 'block' } }, label))));
+  setTimeout(() => { fill.style.strokeDashoffset = String(C * (1 - frac)); }, 60);
+  return wrap;
 }

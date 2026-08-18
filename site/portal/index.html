@@ -27,15 +27,18 @@
   .util-chips .chip { cursor: pointer; }
   .util-chips .chip.on { background: var(--brand-soft); color: var(--brand-ink); }
   .home-hero { display: grid; gap: var(--sp-4); }
+  .lo-connect .avatar-lg { background: var(--brand); color: #fff; }
   .home-cta { display: grid; gap: 8px; }
   @media (min-width: 900px) { .home-two { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--sp-4); align-items: stretch; } .home-two > .card { margin: 0; } .home-cta-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); align-items: start; } }
+  @media (max-width: 768px) { #avatar-wrap { margin-left: auto !important; } }
+  .view-head .h2 { font-size: var(--fs-32); }
 </style>
 </head>
 <body class="has-bottomnav">
 <header class="topbar"><div class="container topbar-inner">
   <span class="brand-mark" data-lender-mark>H</span><span class="brand-name" data-lender-name>Harbor Home Loans</span>
   <span class="powered">Powered by <b>ReadyIQ</b> · IDIQ</span>
-  <a class="avatar" id="avatar" href="#settings" aria-label="Settings">MD</a>
+  <span id="avatar-wrap" style="position:relative;margin-left:12px"><button class="avatar" id="avatar" aria-label="Account menu" aria-haspopup="true">MD</button></span>
 </div></header>
 <div class="container portal-grid">
   <nav class="rail" id="rail" aria-label="Sections"></nav>
