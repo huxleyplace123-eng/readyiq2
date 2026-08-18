@@ -11,7 +11,7 @@ Kept outside the `dchub` repo on purpose (same reason as ReadyIQ 1).
 
 ```
 node serve.mjs        # http://localhost:4620
-npm test              # node --test over site/assets/js/state.js
+npm test              # node --test (test/*.test.mjs)
 ```
 
 Registered in `dchub/.claude/launch.json` as `readyiq2` for the preview tooling.

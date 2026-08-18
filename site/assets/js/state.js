@@ -1,0 +1,144 @@
+// site/assets/js/state.js — pure, runs in Node (tests) and the browser (pages).
+export const TODAY = '2026-08-18';
+export const STORE_KEY = 'readyiq2:v1';
+export const PATHWAYS = ['ready_now', 'near_ready', 'build', 'thin', 'dispute', 'dti'];
+export const PATHWAY_LABELS = { ready_now: 'Ready Now', near_ready: 'Near Ready', build: 'Build Mode', thin: 'Thin Credit', dispute: 'Dispute Mode', dti: 'Debt Mode' };
+export const PATHWAY_BLURBS = {
+  ready_now: 'No obvious credit barrier — Sarah can review you now.',
+  near_ready: 'A small balance move away from your lender’s floor.',
+  build: 'Utilization first, then history — round by round.',
+  thin: 'Not enough history yet. We build the file, starting with rent.',
+  dispute: 'Something on the report looks wrong. Fix it before you apply.',
+  dti: 'Debt load is the obstacle — a plan for the payments, not the score.',
+};
+export const STATUS_LABELS = { invited: 'Invited', consented: 'Consented', checked: 'Checked', active: 'Active', review_requested: 'Review requested', handed_off: 'With your lender', applied: 'Application in progress', funded: 'Funded', lost: 'Closed' };
+
+const M = (label, date, state) => ({ label, date, state });
+
+const FIXTURES = {
+  lender: {
+    id: 'harbor', name: 'Harbor Home Loans', site: 'harborhomeloans.com', nmls: '1809922',
+    brand: { primary: '#0F766E', soft: '#E6F4F1', ink: '#0B3F3A' },
+    floors: { fha: 620, conventional: 640, dpa: 660 }, floorDefault: 640,
+    programs: [{ id: 'fha', name: 'FHA', floor: 620 }, { id: 'conventional', name: 'Conventional', floor: 640 }, { id: 'dpa', name: 'Harbor Down-Payment Assist', floor: 660 }],
+  },
+  los: [
+    { id: 'sarah', first: 'Sarah', last: 'Miller', nmls: '1234567', states: ['CA', 'AZ', 'NV'], email: 'sarah@harborhomeloans.com', mobile: '(415) 555-0142', code: 'harbor-smiller' },
+    { id: 'marcus', first: 'Marcus', last: 'Webb', nmls: '2345678', states: ['CA', 'OR'], email: 'marcus@harborhomeloans.com', mobile: '(415) 555-0177', code: 'harbor-mwebb' },
+  ],
+  partners: [{ id: 'dana', first: 'Dana', last: 'Kim', kind: 'agent', company: 'Bayline Realty', loId: 'sarah', code: 'harbor-dkim' }],
+  links: {
+    'harbor-smiller': { lender: 'harbor', lo: 'sarah', source: 'lo', partner: null, campaign: null },
+    'harbor-mwebb': { lender: 'harbor', lo: 'marcus', source: 'lo', partner: null, campaign: null },
+    'harbor-dkim': { lender: 'harbor', lo: 'sarah', source: 'agent', partner: 'dana', campaign: null },
+    'harbor-spring': { lender: 'harbor', lo: 'sarah', source: 'campaign', partner: null, campaign: 'spring-reactivation' },
+  },
+  consumers: [
+    { id: 'maria', first: 'Maria', last: 'Delgado', email: 'maria.d@example.com', mobile: '(510) 555-0119', loId: 'sarah',
+      attribution: { lender: 'harbor', lo: 'sarah', source: 'lo', partner: null, campaign: null },
+      status: 'active', pathway: 'build', round: 2, roundsEstimated: 5, guardian: false, reviewRequestedAt: null, enrolledAt: '2026-06-20',
+      score: { value: 625, prev: 611, updated: '2026-08-14', bureaus: { experian: 628, transunion: 625, equifax: 619 } },
+      credit: { utilization: 0.41, prevUtilization: 0.68, tradelines: 6, latesLast24mo: 2, lastLateMonthsAgo: 14, derogLast12mo: false, inquiriesLast6mo: 1,
+        monthlyDebts: [{ name: 'Capital One', payment: 45 }, { name: 'Honda Financial', payment: 389 }, { name: 'Discover', payment: 60 }], collections: [] },
+      publicRecords: [], disputes: [],
+      rentReporting: { linked: false, monthsAvailable: 24, backfilled: false }, income: null,
+      deltas: [{ points: 14, cause: 'Utilization down — Capital One paid to $210' }, { points: 6, cause: 'Lates aging — now 14 months old' }, { points: -6, cause: 'New inquiry — Honda Financial' }],
+      milestones: [M('Enrolled', '2026-06-20', 'done'), M('Round 1 complete', '2026-07-20', 'done'), M('Utilization under 50%', '2026-08-02', 'done'), M('Round 2', null, 'current'), M('Utilization under 30%', null, 'upcoming'), M('12 clean months', '2026-10-15', 'upcoming'), M('Request review', null, 'upcoming')],
+      nextAction: { title: 'Pay Capital One below 30% before the 22nd', detail: 'Your statement closes on the 22nd. Paying $95 more moves the whole card under 30% — the fastest lever you have this round.', lever: 'utilization', engine: 'CreditBuilderIQ', href: '#plan' },
+      alerts: [], loanFile: null },
+    { id: 'jordan', first: 'Jordan', last: 'Lee', email: 'jordan.lee@example.com', mobile: '(628) 555-0133', loId: 'sarah',
+      attribution: { lender: 'harbor', lo: 'sarah', source: 'agent', partner: 'dana', campaign: null },
+      status: 'active', pathway: 'thin', round: 1, roundsEstimated: 4, guardian: false, reviewRequestedAt: null, enrolledAt: '2026-08-05',
+      score: { value: null, prev: null, updated: '2026-08-05', bureaus: { experian: null, transunion: null, equifax: null } },
+      credit: { utilization: 0.12, prevUtilization: 0.12, tradelines: 2, latesLast24mo: 0, lastLateMonthsAgo: null, derogLast12mo: false, inquiriesLast6mo: 0,
+        monthlyDebts: [{ name: 'Chime Credit Builder', payment: 0 }, { name: 'Verizon', payment: 85 }], collections: [] },
+      publicRecords: [], disputes: [],
+      rentReporting: { linked: true, monthsAvailable: 19, backfilled: false }, income: 5200,
+      deltas: [],
+      milestones: [M('Enrolled', '2026-08-05', 'done'), M('Bank linked', '2026-08-06', 'done'), M('Report 19 months of rent', null, 'current'), M('Add utilities', null, 'upcoming'), M('First score', null, 'upcoming'), M('Request review', null, 'upcoming')],
+      nextAction: { title: 'Report your 19 months of rent', detail: 'We found 19 on-time rent payments in your linked bank account. Reporting them adds history to all three bureaus and builds the 12-month rent record lenders can use.', lever: 'thin-file', engine: 'CreditBuilderIQ', href: '#build' },
+      alerts: [], loanFile: null },
+    { id: 'denise', first: 'Denise', last: 'Alvarez', email: 'denise.a@example.com', mobile: '(925) 555-0161', loId: 'marcus',
+      attribution: { lender: 'harbor', lo: 'marcus', source: 'lo', partner: null, campaign: null },
+      status: 'active', pathway: 'near_ready', round: 3, roundsEstimated: 3, guardian: false, reviewRequestedAt: null, enrolledAt: '2026-05-28',
+      score: { value: 634, prev: 621, updated: '2026-08-12', bureaus: { experian: 634, transunion: 638, equifax: 629 } },
+      credit: { utilization: 0.34, prevUtilization: 0.52, tradelines: 8, latesLast24mo: 0, lastLateMonthsAgo: 31, derogLast12mo: false, inquiriesLast6mo: 0,
+        monthlyDebts: [{ name: 'Discover', payment: 110 }, { name: 'Toyota Financial', payment: 412 }, { name: 'Navient', payment: 180 }], collections: [] },
+      publicRecords: [], disputes: [],
+      rentReporting: { linked: true, monthsAvailable: 24, backfilled: true }, income: 6900,
+      deltas: [{ points: 13, cause: 'Utilization down — Discover paid from 52% to 34%' }],
+      milestones: [M('Enrolled', '2026-05-28', 'done'), M('Round 1 complete', '2026-06-28', 'done'), M('Round 2 complete', '2026-07-28', 'done'), M('Round 3', null, 'current'), M('Cross 640', null, 'upcoming'), M('Request review', null, 'upcoming')],
+      nextAction: { title: 'Take Discover from 34% to under 30%', detail: 'You are 6 points from Harbor’s conventional floor. About $190 before the 22nd statement date is the shortest path.', lever: 'utilization', engine: 'CreditBuilderIQ', href: '#plan' },
+      alerts: [], loanFile: null },
+    { id: 'sam', first: 'Sam', last: 'Okafor', email: 'sam.okafor@example.com', mobile: '(510) 555-0184', loId: 'sarah',
+      attribution: { lender: 'harbor', lo: 'sarah', source: 'campaign', partner: null, campaign: 'spring-reactivation' },
+      status: 'active', pathway: 'dispute', round: 1, roundsEstimated: 4, guardian: false, reviewRequestedAt: null, enrolledAt: '2026-08-01',
+      score: { value: 648, prev: 648, updated: '2026-08-01', bureaus: { experian: 651, transunion: 648, equifax: 644 } },
+      credit: { utilization: 0.22, prevUtilization: 0.22, tradelines: 7, latesLast24mo: 0, lastLateMonthsAgo: null, derogLast12mo: false, inquiriesLast6mo: 1,
+        monthlyDebts: [{ name: 'Navient (reported)', payment: 412 }, { name: 'Chase Sapphire', payment: 95 }, { name: 'Ally Auto', payment: 366 }],
+        collections: [{ name: 'Midland Credit Mgmt (Comenity)', amount: 612, paid: false }] },
+      publicRecords: [],
+      disputes: [
+        { id: 'd1', item: 'Navient shows $412/mo payment — loan is in in-school deferment, actual payment $0', category: 'payment_amount', status: 'sent', sentAt: '2026-08-06', dtiImpact: 412 },
+        { id: 'd2', item: 'Midland collection duplicates the original Comenity account balance', category: 'duplicate', status: 'draft', sentAt: null, dtiImpact: null },
+      ],
+      rentReporting: { linked: false, monthsAvailable: 24, backfilled: false }, income: 7100,
+      deltas: [],
+      milestones: [M('Enrolled', '2026-08-01', 'done'), M('Disputes sent', '2026-08-06', 'current'), M('Bureau responses', null, 'upcoming'), M('Disputes resolved', null, 'upcoming'), M('Request review', null, 'upcoming')],
+      nextAction: { title: 'Send the duplicate-collection dispute', detail: 'The Midland collection repeats a balance already on your Comenity account. Sending it now keeps both disputes on the same 30-day clock so they finish before your review.', lever: 'derogatories', engine: 'CreditBuilderIQ', href: '#disputes' },
+      alerts: [], loanFile: null },
+    { id: 'priya', first: 'Priya', last: 'Nair', email: 'priya.nair@example.com', mobile: '(650) 555-0107', loId: 'sarah',
+      attribution: { lender: 'harbor', lo: 'sarah', source: 'lo', partner: null, campaign: null },
+      status: 'review_requested', pathway: 'ready_now', round: 2, roundsEstimated: 2, guardian: false, reviewRequestedAt: '2026-08-17', enrolledAt: '2026-06-02',
+      score: { value: 702, prev: 688, updated: '2026-08-10', bureaus: { experian: 706, transunion: 702, equifax: 699 } },
+      credit: { utilization: 0.18, prevUtilization: 0.29, tradelines: 9, latesLast24mo: 0, lastLateMonthsAgo: null, derogLast12mo: false, inquiriesLast6mo: 0,
+        monthlyDebts: [{ name: 'Amex', payment: 120 }, { name: 'SoFi student loan', payment: 240 }], collections: [] },
+      publicRecords: [], disputes: [],
+      rentReporting: { linked: true, monthsAvailable: 24, backfilled: true }, income: 8400,
+      deltas: [{ points: 14, cause: 'Utilization down — Amex paid from 29% to 18%' }],
+      milestones: [M('Enrolled', '2026-06-02', 'done'), M('Round 1 complete', '2026-07-02', 'done'), M('Crossed 640', '2026-07-30', 'done'), M('Review requested', '2026-08-17', 'current'), M('Lender review', null, 'upcoming')],
+      nextAction: { title: 'Sarah has your packet', detail: 'You requested a review on Aug 17. Sarah Miller has been notified and will reach out to schedule. Keep balances where they are until you talk.', lever: 'review', engine: 'MyScoreIQ', href: '#review' },
+      alerts: [], loanFile: null },
+    { id: 'tom', first: 'Tom', last: 'Reyes', email: 'tom.reyes@example.com', mobile: '(408) 555-0122', loId: 'marcus',
+      attribution: { lender: 'harbor', lo: 'marcus', source: 'lo', partner: null, campaign: null },
+      status: 'applied', pathway: 'ready_now', round: 3, roundsEstimated: 3, guardian: true, reviewRequestedAt: '2026-07-20', enrolledAt: '2026-04-15',
+      score: { value: 671, prev: 674, updated: '2026-08-16', bureaus: { experian: 671, transunion: 675, equifax: 668 } },
+      credit: { utilization: 0.24, prevUtilization: 0.21, tradelines: 10, latesLast24mo: 0, lastLateMonthsAgo: null, derogLast12mo: false, inquiriesLast6mo: 1,
+        monthlyDebts: [{ name: 'Chase Freedom', payment: 80 }, { name: 'Wells Fargo Auto', payment: 455 }], collections: [] },
+      publicRecords: [], disputes: [],
+      rentReporting: { linked: false, monthsAvailable: 24, backfilled: false }, income: 9100,
+      deltas: [{ points: -3, cause: 'New hard inquiry — CarMax Auto Finance' }],
+      milestones: [M('Enrolled', '2026-04-15', 'done'), M('Review requested', '2026-07-20', 'done'), M('Application started', '2026-07-28', 'done'), M('Guardian on', '2026-07-28', 'current'), M('Closing', '2026-09-24', 'upcoming')],
+      nextAction: { title: 'Ask Marcus before you act on the CarMax inquiry', detail: 'A new hard inquiry appeared yesterday. If you are shopping for a car, tell Marcus first — a new loan before closing can change your approval.', lever: 'guardian', engine: 'MyScoreIQ', href: '#guardian' },
+      alerts: [{ type: 'inquiry', text: 'New hard inquiry — CarMax Auto Finance', date: '2026-08-17' }, { type: 'balance', text: 'Chase Freedom balance up $640', date: '2026-08-12' }],
+      loanFile: { active: true, closingDate: '2026-09-24' } },
+    { id: 'aisha', first: 'Aisha', last: 'Bell', email: 'aisha.bell@example.com', mobile: '(916) 555-0148', loId: 'sarah',
+      attribution: { lender: 'harbor', lo: 'sarah', source: 'lo', partner: null, campaign: null },
+      status: 'active', pathway: 'build', round: 1, roundsEstimated: 6, guardian: false, reviewRequestedAt: null, enrolledAt: '2026-08-10',
+      score: { value: 588, prev: 588, updated: '2026-08-10', bureaus: { experian: 590, transunion: 588, equifax: 583 } },
+      credit: { utilization: 0.55, prevUtilization: 0.55, tradelines: 4, latesLast24mo: 0, lastLateMonthsAgo: 19, derogLast12mo: false, inquiriesLast6mo: 0,
+        monthlyDebts: [{ name: 'Capital One Secured', payment: 25 }, { name: 'Self Credit Builder', payment: 48 }], collections: [] },
+      publicRecords: [{ type: 'chapter7', date: '2025-03-12' }], disputes: [],
+      rentReporting: { linked: false, monthsAvailable: 24, backfilled: false }, income: 4800,
+      deltas: [],
+      milestones: [M('Enrolled', '2026-08-10', 'done'), M('Round 1', null, 'current'), M('Utilization under 30%', null, 'upcoming'), M('Rent history reported', null, 'upcoming'), M('FHA eligibility date', '2027-03-12', 'upcoming'), M('Request review', null, 'upcoming')],
+      nextAction: { title: 'Bring the secured card under 30%', detail: 'Your Chapter 7 waiting period runs until March 12, 2027 for FHA. Every month until then is building time — utilization first, then rent history.', lever: 'utilization', engine: 'CreditBuilderIQ', href: '#plan' },
+      alerts: [], loanFile: null },
+  ],
+  session: { role: 'consumer', consumerId: 'maria', loId: 'sarah', partnerId: null, attribution: null },
+};
+
+const clone = (v) => (typeof structuredClone === 'function' ? structuredClone(v) : JSON.parse(JSON.stringify(v)));
+export function fixtures() { return clone(FIXTURES); }
+
+const storage = () => (typeof localStorage !== 'undefined' ? localStorage : null);
+export function loadState() {
+  const ls = storage();
+  if (ls) { try { const raw = ls.getItem(STORE_KEY); if (raw) return JSON.parse(raw); } catch { /* fall through */ } }
+  return fixtures();
+}
+export function saveState(state) { const ls = storage(); if (ls) ls.setItem(STORE_KEY, JSON.stringify(state)); return state; }
+export function resetState() { const s = fixtures(); saveState(s); return s; }
+export const getConsumer = (s, id) => s.consumers.find((c) => c.id === id) || null;
+export const getLO = (s, id) => s.los.find((l) => l.id === id) || null;
+export const getLender = (s) => s.lender;
