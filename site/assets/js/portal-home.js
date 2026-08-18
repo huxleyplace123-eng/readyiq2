@@ -2,6 +2,7 @@
 import { PATHWAY_LABELS, PATHWAY_BLURBS, fmtDate } from './state.js';
 import { el, engineTag, regB, countUp, ringGauge } from './ui.js';
 import { renderPath } from './path.js';
+import { icon } from './icons.js';
 
 const HOUR = new Date().getHours();
 const greeting = HOUR < 12 ? 'Good morning' : HOUR < 17 ? 'Good afternoon' : 'Good evening';
@@ -34,9 +35,9 @@ export function renderHome(ctx) {
   const openDisputes = c.disputes.filter((d) => d.status !== 'resolved').length;
   const done = c.milestones.filter((m) => m.state === 'done').length;
   const nextMs = c.milestones.find((m) => m.state === 'upcoming');
-  const tool = (href, ico, tone, title, status) => el('a', { href, class: 'tool' }, el('span', { class: `ico ${tone}` }, ico), el('b', {}, title), el('small', {}, status));
+  const tool = (href, ico, tone, title, status) => el('a', { href, class: 'tool' }, el('span', { class: `ico ${tone}` }, icon(ico, 18)), el('b', {}, title), el('small', {}, status));
   return el('div', { class: 'home-hero' },
-    c.guardian ? el('div', { class: 'banner banner-guardian' }, el('span', { class: 'icon' }, '🛡'),
+    c.guardian ? el('div', { class: 'banner banner-guardian' }, el('span', { class: 'icon' }, icon('shield', 18)),
       el('div', {}, el('b', {}, 'Your loan file is active — Guardian is on.'), el('div', { class: 'muted small' }, `Dispute suggestions are paused. Ask ${lo.first} before you open, close, or pay off anything.`)),
       el('a', { href: '#guardian' }, 'Open →')) : null,
     // hero panel: greeting + the number
@@ -58,7 +59,7 @@ export function renderHome(ctx) {
       path),
     // one next action — the one dark card on the page
     el('section', { class: 'card card-lg card-pad next-action-dark card-enter' },
-      el('div', { class: 'row-between wrap' }, el('span', { class: 'chip chip-accent' }, '✦ Next action'), engineTag(c.nextAction.engine)),
+      el('div', { class: 'row-between wrap' }, el('span', { class: 'chip chip-accent' }, icon('sparkle', 14), 'Next action'), engineTag(c.nextAction.engine)),
       el('h2', { class: 'h2' }, c.nextAction.title),
       el('p', { class: 'lead' }, c.nextAction.detail),
       el('div', { class: 'row wrap' }, el('a', { class: 'btn btn-accent', href: c.nextAction.href }, 'Open ', el('span', { class: 'arrow' }, '→')), el('button', { class: 'btn btn-ghost', onclick: () => ctx.openAsk?.('Why is this my next action?') }, 'Why this?'))),
@@ -66,10 +67,10 @@ export function renderHome(ctx) {
     el('section', { class: 'stack-2' },
       el('div', { class: 'row-between' }, el('p', { class: 'kicker accent' }, 'Your toolkit'), el('span', { class: 'small muted' }, 'MyScoreIQ + CreditBuilderIQ')),
       el('div', { class: 'toolkit' },
-        tool('#plan', '✓', 'tone-purple', 'Plan', `Round ${c.round} · ${PATHWAY_LABELS[c.pathway]}`),
-        tool('#disputes', '◇', 'tone-coral', 'Disputes', c.guardian ? 'Paused — file active' : openDisputes ? `${openDisputes} open` : 'Nothing flagged'),
-        tool('#build', '⌂', 'tone-mint', 'Build history', c.rentReporting.backfilled ? `${c.rentReporting.monthsAvailable} months reporting` : c.rentReporting.linked ? `${c.rentReporting.monthsAvailable} months found` : 'Link your bank'),
-        tool('#progress', '↗', 'tone-gold', 'Progress', c.score.value == null ? 'No score yet' : `${c.score.value} · ${c.deltas.length ? (c.score.value - c.score.prev >= 0 ? '+' : '') + (c.score.value - c.score.prev) : 'steady'}`))),
+        tool('#plan', 'list-check', 'tone-purple', 'Plan', `Round ${c.round} · ${PATHWAY_LABELS[c.pathway]}`),
+        tool('#disputes', 'shield-check', 'tone-coral', 'Disputes', c.guardian ? 'Paused — file active' : openDisputes ? `${openDisputes} open` : 'Nothing flagged'),
+        tool('#build', 'house', 'tone-mint', 'Build history', c.rentReporting.backfilled ? `${c.rentReporting.monthsAvailable} months reporting` : c.rentReporting.linked ? `${c.rentReporting.monthsAvailable} months found` : 'Link your bank'),
+        tool('#progress', 'trend', 'tone-gold', 'Progress', c.score.value == null ? 'No score yet' : `${c.score.value} · ${c.deltas.length ? (c.score.value - c.score.prev >= 0 ? '+' : '') + (c.score.value - c.score.prev) : 'steady'}`))),
     // LO card
     el('section', { class: 'card card-lg card-pad lo-connect' },
       el('div', { class: 'lo-card' }, el('span', { class: 'avatar avatar-lg' }, lo.first[0] + lo.last[0]),

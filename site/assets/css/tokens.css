@@ -1,46 +1,50 @@
-/* ReadyIQ 2 — design tokens v2. Light only. Two brand layers on one system:
-   default          = ReadyIQ layer (marketing, LO/org, integrations, demo chrome)
-   [data-brand=harbor] = the sample lender; consumer pages wear the lender's brand. */
+/* ReadyIQ 2 — design tokens v3 ("new gen"): near-white canvas, vivid brand, gradient accents, soft depth.
+   Two layers on one system: default = ReadyIQ layer; [data-brand=harbor] = the sample lender (consumer pages). */
 :root {
-  /* palette */
-  --paper: #F2F6F2; --paper-2: #F8FAF8; --white: #FFFFFF;
-  --ink: #102226; --ink-2: #33474C; --ink-3: #71817C; --ink-4: #9AA5A2;
-  --navy: #0D2024; --deep: #071418; --slate: #173136;
-  --lime: #C8F36D; --lime-2: #B9EF66; --lime-ink: #1E3A0A;
-  --mint: #DFF4E8; --teal: #55AA90; --teal-ink: #1F6B54;
-  --purple: #8C80E9; --purple-soft: #ECE9FC;
-  --coral: #F08470; --coral-soft: #FDEAE5;
-  --gold: #EDBD61; --gold-soft: #FBF1DA;
-  --blue: #4C8DF6; --blue-soft: #E7EFFE;
-  --line: #DCE5E0; --line-2: #E8EEEA;
-  /* IDIQ tokens (powered-by chrome only) */
+  /* neutrals — cool, not green */
+  --canvas: #F6F7FB; --surface: #FFFFFF; --surface-2: #FAFBFD;
+  --ink: #0B1220; --ink-2: #334155; --ink-3: #64748B; --ink-4: #94A3B8;
+  --line: rgba(15, 23, 42, .10); --line-2: rgba(15, 23, 42, .06);
+  --paper: var(--canvas); --paper-2: var(--surface-2); --white: #FFFFFF;
+
+  /* ReadyIQ brand */
+  --navy: #0B1220; --deep: #070B14; --slate: #111A2E;
+  --lime: #C8F36D; --lime-2: #E4FF9C; --lime-ink: #1E3A0A;
+  --mint: #DDF7EF; --teal: #14B8A6; --teal-ink: #0F766E;
+  --purple: #7C6CF6; --purple-soft: #EEEBFF;
+  --coral: #F97066; --coral-soft: #FEECEA;
+  --gold: #F5B84B; --gold-soft: #FEF3DC;
+  --blue: #3B82F6; --blue-soft: #E8F0FE;
   --idiq-navy: #12384F; --idiq-orange: #F27124;
 
   /* brand (overridden per lender) */
-  --brand: var(--navy); --brand-soft: var(--mint); --brand-ink: var(--deep);
-  --brand-glow: rgba(13, 32, 36, .18); --accent: var(--lime); --accent-ink: var(--lime-ink);
+  --brand: #0F172A; --brand-2: #334155;
+  --brand-soft: #EEF2FF; --brand-ink: #0B1220;
+  --brand-glow: rgba(15, 23, 42, .22);
+  --brand-grad: linear-gradient(135deg, #0F172A 0%, #334155 100%);
+  --accent: var(--lime); --accent-2: var(--lime-2); --accent-ink: var(--lime-ink);
+  --accent-grad: linear-gradient(135deg, var(--lime) 0%, var(--lime-2) 100%);
+  --text-grad: linear-gradient(90deg, #C8F36D 0%, #7DE2C8 100%);
 
-  /* surfaces */
-  --canvas: var(--paper); --surface: var(--white); --surface-2: var(--paper-2);
-  --success: #1F6B54; --success-soft: var(--mint);
-  --warn: #9A6B12; --warn-soft: var(--gold-soft);
-  --danger: #B3412D; --danger-soft: var(--coral-soft);
-  --info: #2C5EC4; --info-soft: var(--blue-soft);
+  /* semantic */
+  --success: #0F766E; --success-soft: #DDF7EF;
+  --warn: #B45309; --warn-soft: #FEF3DC;
+  --danger: #B42318; --danger-soft: #FEECEA;
+  --info: #1D4ED8; --info-soft: #E8F0FE;
 
   /* type */
   --font: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, sans-serif;
-  --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, "Times New Roman", serif;
   --fs-12: 12px; --fs-13: 13px; --fs-15: 15px; --fs-17: 17px; --fs-20: 20px;
   --fs-24: 24px; --fs-32: 32px; --fs-44: 44px; --fs-56: 56px; --fs-64: 64px;
 
   /* space, radius, shadow */
   --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 20px; --sp-6: 24px;
   --sp-8: 32px; --sp-10: 40px; --sp-12: 48px; --sp-16: 64px; --sp-20: 80px; --sp-24: 96px;
-  --r-1: 12px; --r-2: 16px; --r-3: 24px; --r-4: 28px; --r-pill: 999px;
-  --sh-1: 0 1px 2px rgba(13, 37, 40, .05), 0 1px 1px rgba(13, 37, 40, .03);
-  --sh-2: 0 10px 30px rgba(13, 37, 40, .07);
-  --sh-3: 0 24px 70px rgba(13, 37, 40, .12);
-  --sh-4: 0 40px 100px -20px rgba(13, 37, 40, .28);
+  --r-1: 14px; --r-2: 18px; --r-3: 24px; --r-4: 32px; --r-pill: 999px;
+  --sh-1: 0 1px 2px rgba(15, 23, 42, .04), 0 1px 1px rgba(15, 23, 42, .02);
+  --sh-2: 0 12px 32px -12px rgba(15, 23, 42, .12);
+  --sh-3: 0 24px 64px -20px rgba(15, 23, 42, .18);
+  --sh-4: 0 40px 100px -24px rgba(15, 23, 42, .28);
 
   /* motion */
   --ease: cubic-bezier(.2, .7, .2, 1);
@@ -50,15 +54,22 @@
   --container: 1180px; --portal: 920px; --rail: 224px;
 }
 
+/* the sample lender — vivid teal with a mint gradient partner */
 [data-brand="harbor"] {
-  --brand: #0F766E;
-  --brand-soft: #E1F2EE;
-  --brand-ink: #0B3F3A;
-  --brand-glow: rgba(15, 118, 110, .22);
-  --accent: #0F766E; --accent-ink: #FFFFFF;
+  --brand: #0EA394; --brand-2: #3FD0B4;
+  --brand-soft: #E3F8F3; --brand-ink: #085F56;
+  --brand-glow: rgba(14, 163, 148, .28);
+  --brand-grad: linear-gradient(135deg, #0EA394 0%, #3FD0B4 100%);
+  --accent: #0EA394; --accent-2: #3FD0B4; --accent-ink: #FFFFFF;
+  --accent-grad: linear-gradient(135deg, #0EA394 0%, #3FD0B4 100%);
+  --text-grad: linear-gradient(90deg, #0EA394 0%, #3FD0B4 100%);
 }
-[data-brand="readyiq"] { /* explicit ReadyIQ layer (same as default) */
-  --brand: var(--navy); --brand-soft: var(--mint); --brand-ink: var(--deep); --accent: var(--lime); --accent-ink: var(--lime-ink);
+[data-brand="readyiq"] {
+  --brand: #0F172A; --brand-2: #334155; --brand-soft: #EEF2FF; --brand-ink: #0B1220;
+  --brand-glow: rgba(15, 23, 42, .22); --brand-grad: linear-gradient(135deg, #0F172A 0%, #334155 100%);
+  --accent: var(--lime); --accent-2: var(--lime-2); --accent-ink: var(--lime-ink);
+  --accent-grad: linear-gradient(135deg, var(--lime) 0%, var(--lime-2) 100%);
+  --text-grad: linear-gradient(90deg, #C8F36D 0%, #7DE2C8 100%);
 }
 
 @media (prefers-reduced-motion: reduce) {

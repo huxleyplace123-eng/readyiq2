@@ -103,8 +103,15 @@ export function ringGauge({ value, min = 300, max = 850, label = 'FICO®', size 
   const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('viewBox', `0 0 ${size} ${size}`); svg.setAttribute('width', size); svg.setAttribute('height', size);
   const mk = (cls) => { const c = document.createElementNS(NS, 'circle'); c.setAttribute('class', cls); c.setAttribute('cx', size / 2); c.setAttribute('cy', size / 2); c.setAttribute('r', r); return c; };
   const track = mk('track'), fill = mk('fill');
+  const gid = 'rg' + Math.random().toString(36).slice(2, 8);
+  const defs = document.createElementNS(NS, 'defs'); const grad = document.createElementNS(NS, 'linearGradient');
+  grad.setAttribute('id', gid); grad.setAttribute('x1', '0'); grad.setAttribute('y1', '0'); grad.setAttribute('x2', '1'); grad.setAttribute('y2', '1');
+  const s1 = document.createElementNS(NS, 'stop'); s1.setAttribute('offset', '0%'); s1.setAttribute('stop-color', 'var(--brand)');
+  const s2 = document.createElementNS(NS, 'stop'); s2.setAttribute('offset', '100%'); s2.setAttribute('stop-color', 'var(--brand-2)');
+  grad.append(s1, s2); defs.append(grad);
+  fill.style.stroke = 'url(#' + gid + ')';
   fill.style.strokeDasharray = String(C); fill.style.strokeDashoffset = String(C);
-  svg.append(track, fill);
+  svg.append(defs, track, fill);
   const wrap = el('div', { class: 'ring', style: { width: size + 'px', height: size + 'px' } }, svg,
     el('div', { class: 'ring-inner' }, el('div', {}, el('b', {}, value == null ? '—' : String(value)), el('span', { style: { display: 'block' } }, label))));
   setTimeout(() => { fill.style.strokeDashoffset = String(C * (1 - frac)); }, 60);

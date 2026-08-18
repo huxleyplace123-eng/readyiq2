@@ -6,6 +6,7 @@ import { renderPlan, renderBuild } from './portal-tools.js';
 import { renderDisputes } from './portal-disputes.js';
 import { renderProgress } from './portal-progress.js';
 import { renderReview, renderGuardian, renderAsk, renderProtect, renderSettings } from './portal-more.js';
+import { icon as ic } from './icons.js';
 
 const state = loadState();
 { const as = parseQuery(location.search).as; if (as && getConsumer(state, as)) { state.session.consumerId = as; state.session.role = 'consumer'; saveState(state); } }
@@ -70,7 +71,7 @@ function toggleMenu() {
     el('div', { class: 'divider', style: { margin: '6px 0' } }),
     el('div', { class: 'menu-head' }, 'Your loan officer'),
     el('a', { href: `tel:${lo.mobile.replace(/\D/g, '')}` }, `📞 ${lo.first} ${lo.last}`),
-    el('a', { href: '../check/', onclick: closeMenu }, '⌂ Lender front door'));
+    el('a', { href: '../check/', onclick: closeMenu }, ic('house', 16), 'Lender front door'));
   qs('#avatar-wrap').append(menuEl);
   setTimeout(() => document.addEventListener('click', (e) => { if (menuEl && !qs('#avatar-wrap').contains(e.target)) closeMenu(); }, { once: true }), 0);
 }
@@ -101,7 +102,7 @@ function render() {
   window.scrollTo({ top: 0 });
 }
 qs('#avatar').addEventListener('click', (e) => { e.preventDefault(); toggleMenu(); });
-document.body.append(el('button', { class: 'fab', onclick: () => openAsk() }, el('i', {}, '✦'), 'Ask ReadyIQ'));
+document.body.append(el('button', { class: 'fab', onclick: () => openAsk() }, el('i', {}, ic('sparkle', 14)), 'Ask ReadyIQ'));
 addEventListener('hashchange', render);
 render();
 initDev(state, { onChange: render });
