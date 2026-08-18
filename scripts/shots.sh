@@ -1,23 +1,37 @@
 #!/usr/bin/env bash
-# scripts/shots.sh — desktop screenshots of every surface via local Chrome (headless). Usage: bash scripts/shots.sh [outdir] [width] [height]
-OUT="${1:-shots}"; W="${2:-1440}"; H="${3:-1000}"; BASE="${BASE:-http://localhost:4620}"
-CHROME="/c/Program Files/Google/Chrome/Application/chrome.exe"
-mkdir -p "$OUT"; ABS="$(cd "$OUT" && pwd -W)"
-shot() { "$CHROME" --headless=new --disable-gpu --hide-scrollbars --force-prefers-reduced-motion --window-size="$W,$H" --virtual-time-budget=3500 --screenshot="$ABS/$1.png" "$BASE$2" >/dev/null 2>&1; echo "$1"; }
-shot website            "/index.html?demo=0"
-shot check-public       "/check/?demo=0"
-shot check-invitation   "/check/?c=harbor-smiller&demo=0"
-shot enroll             "/enroll/?demo=0"
-shot portal-home        "/portal/?as=maria&demo=0#home"
-shot portal-plan-clock  "/portal/?as=aisha&demo=0#plan"
-shot portal-disputes    "/portal/?as=sam&demo=0#disputes"
-shot portal-build       "/portal/?as=jordan&demo=0#build"
-shot portal-progress    "/portal/?as=priya&demo=0#progress"
-shot portal-guardian    "/portal/?as=tom&demo=0#guardian"
-shot portal-review      "/portal/?as=priya&demo=0#review"
-shot lo-start           "/lo/start/?demo=0"
-shot lo-link            "/lo/?demo=0#link"
-shot lo-feed            "/lo/?demo=0#feed"
-shot lo-org             "/lo/?demo=0#org"
-shot partner            "/p/?c=harbor-dkim&demo=0"
-shot integrations       "/integrations/?demo=0"
+# scripts/shots.sh — screenshot every surface of the v11-look build with local headless Chrome.
+# Usage: node serve.mjs &  then  bash scripts/shots.sh [outdir]   (default docs/shots)
+set -euo pipefail
+OUT="${1:-docs/shots}"; mkdir -p "$OUT"; OUT="$(cd "$OUT" && { pwd -W 2>/dev/null || pwd; })"   # Chrome wants a Windows path on Windows
+CHROME="${CHROME:-/c/Program Files/Google/Chrome/Application/chrome.exe}"
+BASE="${BASE:-http://localhost:4620}"
+shot() { # name url [width height]
+  local w="${3:-1440}" h="${4:-1000}"
+  "$CHROME" --headless=new --disable-gpu --hide-scrollbars --window-size="${w},${h}" --virtual-time-budget=4000 \
+    --screenshot="$OUT/$1.png" "$BASE/$2" >/dev/null 2>&1 && echo "  $1"
+}
+echo "→ $OUT"
+shot 01-website            "?mode=marketing"                       1440 3600
+shot 02-lo-start           "?mode=lender&lpage=start"
+shot 03-lo-link            "?mode=lender&lpage=link"
+shot 04-lo-feed            "?mode=lender&lpage=borrowers"
+shot 05-lo-partners        "?mode=lender&lpage=partners"
+shot 06-lo-overview        "?mode=lender&lpage=overview"
+shot 07-lo-journeys        "?mode=lender&lpage=campaigns"
+shot 08-lo-organization    "?mode=lender&lpage=organization"
+shot 09-door-invite        "?mode=consumer"
+shot 10-door-lo-link       "?c=summit-jlee"
+shot 11-door-partner       "?c=summit-dkim"
+shot 12-door-public        "?mode=consumer&c=public"
+shot 13-consumer-consent   "?mode=consumer&cpage=consent"
+shot 14-consumer-result    "?mode=consumer&cpage=result"          1440 1600
+shot 15-consumer-plan      "?mode=consumer&cpage=plan"            1440 1400
+shot 16-consumer-disputes  "?mode=consumer&cpage=disputes"        1440 1400
+shot 17-consumer-reporting "?mode=consumer&cpage=reporting"       1440 1400
+shot 18-consumer-progress  "?mode=consumer&cpage=progress"        1440 1400
+shot 19-consumer-guardian  "?mode=consumer&cpage=guardian"
+shot 20-integrations       "?mode=integrations"                   1440 2200
+shot m1-website-mobile     "?mode=marketing"                       390 1600
+shot m2-result-mobile      "?mode=consumer&cpage=result"          390 1600
+shot m3-lo-link-mobile     "?mode=lender&lpage=link"              390 1400
+echo "done"

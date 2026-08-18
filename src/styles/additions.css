@@ -20,3 +20,16 @@ a.primary-dark,a.primary-lime,a.outline-button{text-decoration:none;display:inli
 .consent-check strong{display:inline}
 .result-summary .detail-stats p span{color:rgba(255,255,255,.62)}.result-summary .detail-stats p strong{color:#fff}
 .target-card .full-field{font-size:12px;color:var(--muted);display:grid;gap:4px}.target-card .full-field input{height:38px;border:1px solid var(--line);border-radius:10px;padding:0 10px;font:inherit;font-size:14px;color:var(--ink)}
+/* integrations hub — status object / events / api */
+.status-object-section{max-width:1300px;margin:42px auto 0}
+.so-tabs{display:flex;gap:6px}.so-tabs button{border:1px solid #365055;background:#162c31;color:#bad0ca;border-radius:9px;padding:9px 11px;font-size:7px;font-weight:700;cursor:pointer}.so-tabs button.active{background:var(--lime);border-color:var(--lime);color:#15302a}
+.so-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:10px;margin-top:16px}
+.so-code{background:#102429;border:1px solid #294246;border-radius:16px;padding:19px;min-height:220px;overflow:auto}
+.so-code pre{margin:0;font:7px/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#b9d0c9;white-space:pre-wrap}
+.so-list>div{display:grid;grid-template-columns:200px 1fr;gap:12px;padding:9px 0;border-top:1px solid #233b3f;font-size:7px;color:#91a49f;align-items:baseline}.so-list>div:first-child{border-top:0;padding-top:0}.so-list code{font-size:7px;color:#c8f36d;white-space:nowrap}
+.so-levels{background:#13272c;border:1px solid #294246;border-radius:16px;padding:19px;display:flex;flex-direction:column;gap:9px}
+.so-levels>div{border:1px solid #2b4146;border-radius:11px;padding:11px 12px;display:flex;flex-direction:column;gap:4px}.so-levels>div.current{border-color:var(--lime);background:#16302f}.so-levels strong{font-size:8px;color:#fff}.so-levels small{font-size:6.5px;line-height:1.55;color:#91a7a1}.so-levels p{margin:4px 0 0;font-size:6.5px;line-height:1.6;color:#8fa6a0}
+@media(max-width:1100px){.so-grid{grid-template-columns:1fr}.so-list>div{grid-template-columns:1fr}}
+/* mobile: six-item bottom nav (Guardian added), Ask FAB above it, ring caption stays inside the ring */
+@media(max-width:760px){.consumer-sidebar nav{grid-template-columns:repeat(6,1fr)}.ask-fab{bottom:74px;right:12px;height:42px;padding:0 14px 0 10px;font-size:13px}.ask-panel{bottom:124px}}
+.score-orbit small{max-width:84px;line-height:1.3}

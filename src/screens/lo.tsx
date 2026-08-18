@@ -86,3 +86,52 @@ export function StatusFeedPage({ openInvite, onSelect }: { openInvite: () => voi
     <div className="sharing-card" style={{ marginTop: 16 }}><span>⌁</span><div><strong>Consumers control what you see.</strong><p>A review request shares a status packet — pathway, floors met, DTI estimate, rent months, disputes closed — with consent for the hard pull when you talk.</p></div></div>
   </div>;
 }
+
+/* ---------- link resolver: one link per human, attribution baked in ---------- */
+export type Door = { kind: "invite" | "lo" | "partner" | "public"; code: string; navPill: string; navCta: string; initials: string; fromLabel: string; from: string; sub: string; eyebrow: string; lede: string; cta: string; trust: string; ticketKicker: string; greeting: string; loInitials: string; lo: string; loMeta: string; footer: string };
+const LO_JORDAN = { initials: "JL", name: "Jordan Lee", meta: "NMLS #1849201 · Scottsdale North" };
+const HUMANS: Record<string, { kind: "lo" | "partner"; initials: string; name: string; company: string; meta: string; lo: typeof LO_JORDAN }> = {
+  "summit-jlee": { kind: "lo", initials: "JL", name: "Jordan Lee", company: "Summit Home Loans", meta: "NMLS #1849201", lo: LO_JORDAN },
+  "summit-amorgan": { kind: "lo", initials: "AM", name: "Alex Morgan", company: "Summit Home Loans", meta: "NMLS #2033117", lo: { initials: "AM", name: "Alex Morgan", meta: "NMLS #2033117 · Phoenix Central" } },
+  "summit-dkim": { kind: "partner", initials: "DK", name: "Dana Kim", company: "Desert Realty", meta: "Real-estate partner", lo: LO_JORDAN },
+};
+export function resolveLink(code: string): Door {
+  const base = { loInitials: LO_JORDAN.initials, lo: LO_JORDAN.name, loMeta: LO_JORDAN.meta };
+  if (code === "invite") return { ...base, kind: "invite", code, navPill: "Secure invitation", navCta: "Accept invitation", initials: "JL", fromLabel: "PERSONAL INVITATION FROM", from: "Jordan Lee · Summit Home Loans", sub: "Sent to maya.collins@example.com", eyebrow: "Your Summit readiness invitation", lede: "Jordan invited you to ReadyIQ so you can understand where your consumer credit stands, get a personalized plan and stay connected to Summit—without applying for a mortgage today.", cta: "Accept invitation & check readiness", trust: "Jordan stays connected", ticketKicker: "YOUR READYIQ INVITATION", greeting: "Hi Maya, let’s build your next step together.", footer: "Sent by your mortgage company." };
+  const h = HUMANS[code];
+  if (h && h.kind === "lo") return { ...base, kind: "lo", code, loInitials: h.lo.initials, lo: h.lo.name, loMeta: h.lo.meta, navPill: `${h.name.split(" ")[0]}’s link`, navCta: "Start my check", initials: h.initials, fromLabel: "YOUR LOAN OFFICER", from: `${h.name} · ${h.company}`, sub: `${h.meta} · you stay attributed to ${h.name.split(" ")[0]}`, eyebrow: "A readiness check, not an application", lede: `${h.name.split(" ")[0]} shared this link so you can see where your consumer credit stands and get a plan built for you. No mortgage application today — you can apply at any time; this is not required.`, cta: "Check my readiness", trust: `${h.name.split(" ")[0]} stays connected`, ticketKicker: "YOUR READINESS CHECK", greeting: "Hi there — let’s build your next step together.", footer: "Shared by your loan officer." };
+  if (h && h.kind === "partner") return { ...base, kind: "partner", code, navPill: `Referred by ${h.name.split(" ")[0]}`, navCta: "Start my check", initials: h.initials, fromLabel: "REFERRED BY", from: `${h.name} · ${h.company}`, sub: `Your loan officer will be ${h.lo.name}, Summit Home Loans`, eyebrow: "A readiness check, not an application", lede: `${h.name.split(" ")[0]} works with Summit Home Loans. This link gets you a private readiness check and a plan — ${h.name.split(" ")[0]} only ever sees that you’re working, never your credit.`, cta: "Check my readiness", trust: `${h.name.split(" ")[0]} sees status only`, ticketKicker: "YOUR READINESS CHECK", greeting: "Hi there — let’s build your next step together.", footer: "Referred by your real-estate partner." };
+  return { ...base, kind: "public", code: "public", navPill: "Free readiness check", navCta: "Start my check", initials: "S", fromLabel: "SUMMIT HOME LOANS", from: "Mortgage readiness, powered by ReadyIQ", sub: "You’ll be matched with a Summit loan officer", eyebrow: "A readiness check, not an application", lede: "See where your consumer credit stands and get a plan built for you — check, build, dispute — long before you apply. You can apply for a mortgage at any time; this is not required.", cta: "Check my readiness", trust: "A Summit loan officer stays connected", ticketKicker: "YOUR READINESS CHECK", greeting: "Hi there — let’s build your next step together.", footer: "Offered by your mortgage company." };
+}
+
+/* ---------- partners: agents get a link too; they see coarse status only ---------- */
+const PARTNERS = [
+  { code: "summit-dkim", initials: "DK", name: "Dana Kim", company: "Desert Realty", kind: "Real-estate agent", lo: "Jordan Lee", link: "ready.summithomeloans.com/dkim", sent: 11, working: 6, review: 1, tone: "purple" },
+  { code: "summit-amorgan", initials: "AM", name: "Alex Morgan", company: "Summit Home Loans", kind: "Loan officer · Phoenix Central", lo: "Alex Morgan", link: "ready.summithomeloans.com/amorgan", sent: 23, working: 12, review: 3, tone: "mint" },
+];
+export function PartnersPage({ previewDoor }: { previewDoor: (code: string) => void }) {
+  const [sel, setSel] = useState(0); const [copied, setCopied] = useState(false); const p = PARTNERS[sel];
+  return <div className="lender-page">
+    <div className="lender-page-title"><div><span className="section-kicker">PARTNERS · ONE LINK PER HUMAN</span><h1>Agents send people too.</h1><p>Every partner gets their own link and QR. Consumers they send stay attributed to them and to you. Partners see coarse status — working, review requested — never a score or a report.</p></div><button className="primary-lime dark-text" onClick={() => alert("Add-partner would open here: name, company, kind, assigned loan officer → link + QR in seconds.")}>＋ Add partner</button></div>
+    <div className="overview-grid">
+      <section className="pipeline-card">
+        <div className="card-title-row"><div><span className="section-kicker">YOUR PARTNERS</span><h3>{PARTNERS.length} links</h3></div></div>
+        <div className="attention-list">{PARTNERS.map((x, i) => <button key={x.code} className={i === sel ? "active" : ""} onClick={() => setSel(i)}><span className={`person-avatar ${x.tone}`}>{x.initials}</span><div><strong>{x.name}</strong><small>{x.kind} · {x.company}</small></div><span className="attention-tag neutral">{x.working} working →</span></button>)}</div>
+        <div className="conversion-note"><span>≠</span><p><strong>What a partner sees</strong><small>Sent · working · review requested. Never the score, never the report, never the plan.</small></p></div>
+      </section>
+      <section className="attention-card">
+        <div className="card-title-row"><div><span className="section-kicker">{p.name.toUpperCase()} · {p.kind.toUpperCase()}</span><h3>{p.link}</h3></div></div>
+        <div style={{ display: "grid", gridTemplateColumns: "148px 1fr", gap: 16, alignItems: "center" }}>
+          <img src={`qr/${p.code}.svg`} alt={`QR code for ${p.link}`} width={148} height={148} style={{ borderRadius: 14, border: "1px solid var(--line)", background: "#fff", padding: 6 }} />
+          <div className="kpi-grid" style={{ gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
+            <article><div><span>Sent</span></div><strong>{p.sent}</strong></article>
+            <article><div><span>Working</span></div><strong>{p.working}</strong></article>
+            <article className="dark-kpi"><div><span>Review</span></div><strong>{p.review}</strong></article>
+          </div>
+        </div>
+        <div className="invite-link-row" style={{ marginTop: 12 }}><span>PARTNER LINK</span><div><code>https://{p.link}</code><button onClick={() => copy(`https://${p.link}`, setCopied)}>{copied ? "✓ Copied" : "Copy"}</button></div><p>Consumers land on Summit’s front door with “Referred by {p.name}” and are routed to {p.lo}.</p></div>
+        <div className="detail-actions" style={{ justifyContent: "flex-start", flexWrap: "wrap", gap: 10, marginTop: 12 }}><button className="outline-button" onClick={() => previewDoor(p.code)}>Preview {p.name.split(" ")[0]}’s front door →</button><a className="outline-button" href={`sms:?&body=${encodeURIComponent(`Hi ${p.name.split(" ")[0]} — here’s your ReadyIQ link to share with clients: https://${p.link}`)}`}>💬 Text the link to {p.name.split(" ")[0]}</a></div>
+      </section>
+    </div>
+  </div>;
+}

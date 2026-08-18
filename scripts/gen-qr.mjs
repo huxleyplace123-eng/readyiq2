@@ -1,7 +1,7 @@
 // scripts/gen-qr.mjs — dev-time: pre-generate scannable QR SVGs for every link code in the fixtures.
 import { mkdirSync, writeFileSync } from 'node:fs';
 import QRCode from 'qrcode';
-import { fixtures } from '../site/assets/js/state.js';
+import { fixtures } from '../src/state.js';
 const BASE = process.env.READYIQ_BASE || 'https://ready.harborhomeloans.com/r/?c=';
 mkdirSync('site/assets/qr', { recursive: true });
 for (const code of Object.keys(fixtures().links)) {

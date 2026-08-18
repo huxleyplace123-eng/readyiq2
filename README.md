@@ -9,60 +9,56 @@ Kept outside the `dchub` repo on purpose (same reason as ReadyIQ 1).
 
 ## Run
 
-\
-> build
-> node build.mjs
+```
+npm run build         # esbuild → site/ (static: index.html, app.js, app.css, brands/, qr/, img/)
+node serve.mjs        # http://localhost:4620
+npm test              # node --test over src/state.js
+npm run qr            # regenerate QR SVGs into site/qr/
+```
 
+Deep links (the demo toolbar sets the same params):
 
-> test
-> node --test
+```
+?mode=marketing
+?mode=consumer&cpage=welcome|consent|checking|result|plan|disputes|guardian|…
+?mode=lender&lpage=start|link|borrowers|overview|campaigns|organization|integrations
+?mode=integrations
+```
 
-✔ fixtures: seven consumers, one per pathway story, all well-formed (2.9673ms)
-✔ store: fixtures() returns fresh copies; loadState falls back to fixtures without localStorage (1.3286ms)
-✔ assignPathway agrees with every fixture and applies rules in the documented order (0.4963ms)
-✔ eligibilityDates: Chapter 7 → FHA +2y, conventional +4y (0.2808ms)
-✔ dti and readinessTrigger (1.2874ms)
-✔ links and query (1.6776ms)
-✔ enrollConsumer, requestReview, setGuardian, statusCard, packet (0.7827ms)
-ℹ tests 7
-ℹ suites 0
-ℹ pass 7
-ℹ fail 0
-ℹ cancelled 0
-ℹ skipped 0
-ℹ todo 0
-ℹ duration_ms 128.4387
-
-> qr
-> node scripts/gen-qr.mjs
-Registered in  as  for the preview tooling.
+Registered in `dchub/.claude/launch.json` as `readyiq2` for the preview tooling.
 
 ## Layout
 
-\
+```
+src/v11-page.tsx          the v11 look — marketing site, org portal, consumer portal, integration hub (React; one file, being split)
+src/screens/lo.tsx        loan officer: 60-second sign-up · Your link (link · QR · text · invite) · read-only status feed
+src/screens/consumer.tsx  three consents · honest 3-bureau strip · DTI + clock · mortgage-why · why-it-moved · Guardian · review packet · Ask ReadyIQ
+src/state.js              fixtures + rules (tests in test/)
+src/styles/               v11.css (the system) · additions.css · inter.css (Inter embedded, OFL)
+build.mjs · serve.mjs · scripts/gen-qr.mjs · scripts/shots.sh
+site/                     build output — a plain static site, publish anywhere
+site-legacy/              the earlier static prototype (kept for reference)
+docs/                     specs, plans, shots
+```
+
 ## Design constraints
 
-- **The v11 look is the system**: near-black green , paper , lime , mint/purple/coral/gold tags; heavy Inter headlines with one italic serif phrase per section; dark frames around light content; alternating bands; white portal sidebars with a dark loan-officer card. Inter is embedded (latin, OFL).
-- Honesty rules: MyScoreIQ FICO® labeled “not the mortgage-industry version lenders pull”, three bureaus, no readiness percentage (plan progress instead), no promised deletions/points/approvals/timelines, Reg B line on consumer screens, engine tags (MyScoreIQ / CreditBuilderIQ) — no third-party reporting brand.
+- **The v11 look is the system**: near-black green `#0d2024`, paper `#f2f6f2`, lime `#c8f36d`, mint / purple / coral / gold tags; heavy Inter headlines with one italic serif phrase per section; dark frames around light content; alternating bands; white portal sidebars with a dark loan-officer card.
+- Honesty rules: MyScoreIQ FICO® labeled "not the mortgage-industry version lenders pull", three bureaus, no readiness percentage (plan progress instead), no promised deletions / points / approvals / timelines, Reg B line on consumer screens, engine tags (MyScoreIQ / CreditBuilderIQ) — no third-party reporting brand.
 - The loan officer sees status, never the report.
 
-## What's built (v2 — merged)
+## What's built
 
-| Route | What it is |
+| Surface | What it is |
 |---|---|
-| `index.html` | ReadyIQ website — dark hero with a live platform window, the loop, product-suite tabs, modules, org section, consumer section, integrations teaser |
-| `check/` | Lender-branded front door — public door, or a **personal invitation** when `?c=` resolves (`?c=harbor-smiller`, `?c=harbor-dkim`) |
-| `enroll/` | Three screens (you + timeline · identity + one-time code · your loan officer) → "Your path is ready" |
-| `portal/` | Five tabs: Home (ring gauge · path · one next action · toolkit · LO card) · Plan (levers, the Clock, DTI) · Disputes (four-step hub) · Build · Progress (chart, milestones, why it moved). Ask floats; Guardian is a banner; Review / Protect / Settings under the avatar |
-| `lo/start/` · `lo/` | Loan officer: 60-second sign-up (NMLS autofill, brand pull) → link · QR · text · invite modal · read-only status feed · organization settings. Not a CRM |
-| `r/?c=` · `p/?c=` | Link resolver (attribution) · partner (agent) page with coarse statuses only |
-| `integrations/` | Status object, architecture, connections, API actions, webhook events, three integration levels |
-| `dev/` | Components gallery |
+| Website (`?mode=marketing`) | v11 hero with a live platform window, the loop, product suite, org section, consumer section, integrations teaser; "Get your link in 60 seconds" opens the LO sign-up |
+| Consumer (`?mode=consumer`) | Personal invitation → three consents (own use · status-not-report to the LO · texts) → checking → overview (3-bureau strip, plan progress, one next action) → plan (DTI, the Clock) → disputes with mortgage-why → why-it-moved → Guardian → review packet with hard-pull consent → Ask ReadyIQ |
+| Loan officer (`?mode=lender`) | 60-second sign-up (email + NMLS → found you → your link) · Your link (copy · QR · text this to a client · invite · preview) · read-only status feed · overview · journeys · organization · integrations |
+| Integrations (`?mode=integrations`) | Status object, connections, API actions, webhook events, integration levels |
 
-A "ReadyIQ demo ▾" pill on every page switches surfaces and fixture consumers.
-Logic lives in `site/assets/js/state.js` and is covered by `npm test`; a
+Logic lives in `src/state.js` and is covered by `npm test`; a
 `FIXTURE_VERSION` constant resets stale `localStorage` when fixtures change shape.
 
 ## Photo credit
 
-Hero portrait: Pexels photo 864994 by Andrea Piacquadio (Pexels license — free to use). `site/assets/img/hero-person.jpg`.
+Hero portrait (legacy site): Pexels photo 864994 by Andrea Piacquadio (Pexels license — free to use). `site/img/hero-person.jpg`.
