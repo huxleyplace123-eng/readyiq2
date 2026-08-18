@@ -37,9 +37,9 @@ a.primary-dark,a.primary-lime,a.outline-button{text-decoration:none;display:inli
 .lender-sidebar-logo span,.integration-side .lender-sidebar-logo span{font-size:8.5px;white-space:nowrap;letter-spacing:.08em}
 
 /* ---------- shared header system: lender pages match the consumer + website ---------- */
-.lender-page-title h1{font-size:clamp(30px,2.6vw,40px);letter-spacing:-.045em;font-weight:650;line-height:1.02;margin:8px 0 10px}
+.lender-page-title h1{font-size:clamp(26px,2.3vw,34px);letter-spacing:-.04em;font-weight:650;line-height:1.05;margin:6px 0 8px}
 .lender-page-title h1 em{font-family:Georgia,serif;font-style:italic;font-weight:400;color:#4c8d79}
-.lender-page-title p{font-size:15px;line-height:1.55;max-width:680px}
+.lender-page-title p{font-size:14px;line-height:1.55;max-width:660px}
 .lender-page-title{align-items:flex-end}
 /* leftover tiny real-UI text after the rescale */
 .company-switch .mini-summit span{font-size:12.5px}.company-switch .mini-summit small{font-size:10.5px}
@@ -65,7 +65,7 @@ a.primary-dark,a.primary-lime,a.outline-button{text-decoration:none;display:inli
 @media(max-width:1180px){.lx-places{grid-template-columns:1fr}}
 @media(max-width:760px){.lx-body{grid-template-columns:1fr;justify-items:center}.lx-body>div:last-child{width:100%}}
 .cx-hero .cx-window p.lx-note{font-size:11.5px;color:#5f716b;line-height:1.5;margin:10px 0 0;max-width:none}
-.form-panel h2{letter-spacing:-.04em;font-weight:650}.form-panel h2 em{font-family:Georgia,serif;font-style:italic;font-weight:400;color:#4c8d79}
+.form-panel h2{letter-spacing:-.04em;font-weight:650;font-size:26px}.form-panel h2 em{font-family:Georgia,serif;font-style:italic;font-weight:400;color:#4c8d79}
 
 /* ---------- LO overview hero: needs-attention window + week card ---------- */
 .lx-attn{display:flex;flex-direction:column;gap:6px;padding:14px 14px 10px}
@@ -87,7 +87,7 @@ a.primary-dark,a.primary-lime,a.outline-button{text-decoration:none;display:inli
 .door-page{background:#f3f6f3}
 .door-flow{padding:74px 7% 110px;background:linear-gradient(180deg,#fff 0,#f3f6f3 140px);border-top:1px solid #e6ece8}
 .door-head{max-width:1180px;margin:0 auto 34px}
-.door-head h2{font-size:clamp(34px,3.4vw,50px);letter-spacing:-.05em;font-weight:650;line-height:1;margin:12px 0 12px}
+.door-head h2{font-size:clamp(30px,3vw,42px);letter-spacing:-.045em;font-weight:650;line-height:1.02;margin:10px 0 10px}
 .door-head h2 em,.door-card h2 em{font-family:Georgia,serif;font-style:italic;font-weight:400;color:#4c8d79}
 .door-head p{font-size:16px;color:#5f716b;max-width:660px;margin:0;line-height:1.6}
 .door-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:280px minmax(0,1fr);gap:40px;align-items:start}
@@ -103,10 +103,13 @@ a.primary-dark,a.primary-lime,a.outline-button{text-decoration:none;display:inli
 .door-rail-note{margin:14px 14px 0;font-size:12px;color:#5f716b;line-height:1.5}
 .door-cards{display:flex;flex-direction:column;gap:18px}
 .door-card{background:#fff;border:1px solid #e1e8e3;border-radius:22px;padding:34px 36px 32px;box-shadow:0 12px 34px rgba(16,34,38,.05);transition:opacity .3s}
-.door-card h2{font-size:28px;letter-spacing:-.04em;font-weight:650;margin:8px 0}
-.door-card>p{font-size:14.5px;color:#5f716b;margin:0 0 22px}
+.door-card h2{font-size:24px;letter-spacing:-.035em;font-weight:650;margin:6px 0}
+.door-card>p{font-size:14px;color:#5f716b;margin:0 0 20px}
 .door-card .step-tag{font-size:10.5px;letter-spacing:.16em;font-weight:900;color:#4c806e}
 .door-card.locked{opacity:.55}
 .door-lock-note{display:block;margin-top:10px;font-size:12px;color:#7c8986;text-align:center}
 @media(max-width:900px){.door-flow{padding:48px 16px 90px}.door-grid{grid-template-columns:1fr;gap:18px}.door-rail{position:static;flex-direction:row;overflow:auto;gap:8px}.door-rail>div{min-width:190px}.door-rail-note{display:none}.door-card{padding:24px 18px}.door-head h2{font-size:32px}}
 .door-page .lender-site{min-height:0}
+/* demo toolbar on laptop widths: never wrap the mode buttons */
+.mode-switch button{white-space:nowrap}
+@media(max-width:1300px){.demo-title>span:last-child,.demo-title .demo-divider{display:none}.mode-switch button{padding:8px 10px;font-size:12px}.reset-button,.guide-btn{white-space:nowrap}}

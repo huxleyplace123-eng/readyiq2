@@ -16,7 +16,7 @@
 .pp-status{font-size:10.5px;letter-spacing:.14em;font-weight:900;color:#c8f36d;background:rgba(200,243,109,.12);border:1px solid rgba(200,243,109,.32);border-radius:99px;padding:7px 11px}
 .pp-name{margin:26px 0 20px;position:relative}
 .pp-name small{display:block;font-size:10.5px;letter-spacing:.18em;font-weight:900;color:#8fa6a0}
-.pp-name strong{display:block;font-size:34px;letter-spacing:-.045em;line-height:1.05;margin-top:6px}
+.pp-name strong{display:block;font-size:30px;letter-spacing:-.045em;line-height:1.05;margin-top:6px}
 .pp-name span{display:block;font-size:12px;color:#8fa6a0;margin-top:6px}
 .pp-rows{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:relative}
 .pp-rows>div{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px 12px}
@@ -102,7 +102,7 @@
 
 /* lost-lead revival */
 .llr{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;background:#fff;border:1px solid #dfe6e2;border-radius:22px;padding:26px 28px;margin-bottom:22px;box-shadow:0 12px 34px rgba(16,34,38,.05)}
-.llr h3{font-size:26px;letter-spacing:-.035em;margin:6px 0 8px;line-height:1.05}
+.llr h3{font-size:22px;letter-spacing:-.035em;margin:6px 0 8px;line-height:1.05}
 .llr h3 em{font-family:Georgia,serif;font-style:italic;font-weight:400;color:#4c8d79}
 .llr-copy>p{font-size:14px;line-height:1.6;color:#5f716b;margin:0 0 16px}
 .llr-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
@@ -135,7 +135,7 @@
 .guide{width:min(560px,100%);height:100%;overflow:auto;background:linear-gradient(180deg,#0d2024,#0f2529);color:#fff;padding:28px 30px 34px;box-shadow:-30px 0 80px rgba(0,0,0,.4);animation:guide-in .28s ease}
 @keyframes guide-in{from{transform:translateX(30px);opacity:0}to{transform:none;opacity:1}}
 .guide-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
-.guide-head h2{font-size:34px;letter-spacing:-.045em;line-height:1;margin:8px 0 10px}
+.guide-head h2{font-size:30px;letter-spacing:-.045em;line-height:1;margin:8px 0 10px}
 .guide-head h2 em{font-family:Georgia,serif;font-style:italic;font-weight:400;color:#c8f36d}
 .guide-head p{margin:0;font-size:13.5px;line-height:1.6;color:#aabbb7}
 .guide .modal-close{position:static;background:rgba(255,255,255,.08);color:#fff;border:0;width:34px;height:34px;border-radius:50%;font-size:18px;cursor:pointer;flex:none}
