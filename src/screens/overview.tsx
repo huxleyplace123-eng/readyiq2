@@ -29,24 +29,30 @@ export function Overview({ setPage, openReview }: { setPage: (p: Page) => void; 
       </div>
     </section>
 
-    <section className="cx-path">
+    <section className="cx-steps-wrap">
       <div className="section-title"><div><span className="section-kicker">YOUR NEXT BEST MOVES</span><h3>Three actions. <em>One clear path.</em></h3></div><button className="link-button" onClick={() => setPage("plan")}>View complete plan →</button></div>
-      <div className="cx-path-grid">
-        <PathCard n="01" tone="paper" icon="≡" kick="HIGH IMPACT" title="Lower utilization" body="Bring two card balances below the recommended thresholds — the fastest lever in your file." foot="Current 64% → target 29%" note="Summit Visa · Desert Rewards" click={() => setPage("plan")} />
-        <PathCard n="02" tone="mint" icon="◇" kick="DISPUTE · MORTGAGE PRIORITY" title="Review 2 flagged items" body="Verify the details, choose a reason and build the letter. Nothing is sent without you." foot="2 flagged · 1 draft" note="CreditBuilderIQ" click={() => setPage("disputes")} />
-        <PathCard n="03" tone="lime" icon="+" kick="BUILD" title="Add positive history" body="CreditBuilderIQ found eligible rent and recurring payments — up to 24 months of history." foot="24 / 24 on-time rent months" note="Rent · electric · mobile" click={() => setPage("reporting")} />
-        <PathCard n="04" tone="dark" icon="↗" kick="LENDER REVIEW" title="Return to Jordan" body="When program floors are met and DTI is in range, ReadyIQ asks you — never Jordan — whether to share a status packet." foot="Unlocks at ~640 · you decide" note="Status only, never the report" click={openReview} />
+      <div className="cx-steps">
+        <div className="cx-rail"><i style={{ width: "0%" }} /></div>
+        <Step n="01" state="now" title="Lower utilization" detail="Summit Visa 64% → under 30%" link="Do it →" click={() => setPage("plan")} />
+        <Step n="02" state="next" title="Review 2 flagged items" detail="Midland · Comenity · 1 draft ready" link="Open Dispute Hub →" click={() => setPage("disputes")} />
+        <Step n="03" state="then" title="Add rent history" detail="24 on-time months found" link="Verify rent →" click={() => setPage("reporting")} />
+        <Step n="04" state="review" title="Return to Jordan" detail="Unlocks at ~640 · you decide" link="How it works →" click={openReview} />
       </div>
     </section>
 
     <section className="cx-tools">
-      <div className="section-title"><div><span className="section-kicker">YOUR READYIQ TOOLKIT</span><h3>Everything you can do <em>from here.</em></h3></div><span className="toolkit-powered">MyScoreIQ + CreditBuilderIQ</span></div>
-      <div className="cx-tools-grid">
-        <Tool icon="◇" tag="CREDITBUILDERIQ" title="Dispute Hub" status="2 flagged · 1 draft" body="Review, build letters, track bureau responses." click={() => setPage("disputes")} featured />
-        <Tool icon="B" tag="CREDITBUILDERIQ" title="Build & report" status="3 eligible matches" body="Rent, utilities and non-traditional history to all three bureaus." click={() => setPage("reporting")} />
-        <Tool icon="✓" tag="READYIQ" title="My gameplan" status="2 of 7 complete" body="Priority actions, DTI estimate and the eligibility clock." click={() => setPage("plan")} />
-        <Tool icon="↗" tag="MYSCOREIQ" title="Score center" status="+28 since May" body="Three bureaus, why it moved, milestones." click={() => setPage("progress")} />
-        <Tool icon="⛨" tag="READYIQ" title="Guardian" status="Ready when your loan is" body="Ask-before-you-act protection during the loan." click={() => setPage("guardian")} />
+      <div className="section-title"><div><span className="section-kicker">YOUR TOOLKIT</span><h3>Everything you can do <em>from here.</em></h3></div><span className="toolkit-powered">MyScoreIQ + CreditBuilderIQ</span></div>
+      <div className="cx-bento">
+        <button className="feat" onClick={() => setPage("disputes")}>
+          <div className="feat-top"><i>◇</i><span className="feat-count"><strong>2</strong><small>flagged</small></span></div>
+          <strong className="feat-title">Dispute Hub</strong>
+          <ul><li><span>Midland Credit Management</span><em>needs review</em></li><li><span>Comenity / Store Card</span><em>letter drafted</em></li></ul>
+          <b>Open →</b>
+        </button>
+        <Tile icon="B" title="Build & report" metric="3 eligible matches" click={() => setPage("reporting")} />
+        <Tile icon="✓" title="My gameplan" metric="2 of 7 complete" click={() => setPage("plan")} />
+        <Tile icon="↗" title="Score center" metric="+28 since May" click={() => setPage("progress")} />
+        <Tile icon="⛨" title="Protect Mode" metric="On when your loan starts" click={() => setPage("guardian")} />
       </div>
     </section>
 
@@ -57,10 +63,11 @@ export function Overview({ setPage, openReview }: { setPage: (p: Page) => void; 
   </div>;
 }
 
-function PathCard({ n, tone, icon, kick, title, body, foot, note, click }: { n: string; tone: string; icon: string; kick: string; title: string; body: string; foot: string; note: string; click: () => void }) {
-  return <article className={tone} onClick={click}><span className="num">{n}</span><span className="ico">{icon}</span><span className="kick">{kick}</span><h4>{title}</h4><p>{body}</p><div className="foot"><div><b>{foot}</b><small>{note}</small></div><span className="go">→</span></div></article>;
+function Step({ n, state, title, detail, link, click }: { n: string; state: string; title: string; detail: string; link: string; click: () => void }) {
+  const label = state === "now" ? "NOW" : state === "next" ? "NEXT" : state === "then" ? "THEN" : "LENDER REVIEW";
+  return <div className={`cx-step ${state}`} onClick={click}><span className="node" /><small>{n} · {label}</small><strong>{title}</strong><p>{detail}</p><b>{link}</b></div>;
 }
 
-function Tool({ icon, tag, title, status, body, click, featured }: { icon: ReactNode; tag: string; title: string; status: string; body: string; click: () => void; featured?: boolean }) {
-  return <button className={featured ? "featured" : ""} onClick={click}><i>{icon}</i><span className="tag">{tag}</span><strong>{title}</strong><small>{status}</small><p>{body}</p><b>Open →</b></button>;
+function Tile({ icon, title, metric, click }: { icon: ReactNode; title: string; metric: string; click: () => void }) {
+  return <button onClick={click}><i>{icon}</i><span><strong>{title}</strong><small>{metric}</small></span><b>→</b></button>;
 }

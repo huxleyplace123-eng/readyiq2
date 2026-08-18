@@ -127,7 +127,7 @@ function ConsumerTopbar({ setPage }: { setPage: (p: ConsumerPage) => void }) {
 }
 
 function ConsumerSidebar({ page, setPage }: { page: ConsumerPage; setPage: (p: ConsumerPage) => void }) {
-  const items: [ConsumerPage, string, string][] = [["result", "◈", "Overview"], ["plan", "✓", "My gameplan"], ["disputes", "◇", "Dispute Hub"], ["reporting", "+", "Build & report"], ["progress", "↗", "Score center"], ["guardian", "⛨", "Guardian"]];
+  const items: [ConsumerPage, string, string][] = [["result", "◈", "Overview"], ["plan", "✓", "My gameplan"], ["disputes", "◇", "Dispute Hub"], ["reporting", "+", "Build & report"], ["progress", "↗", "Score center"], ["guardian", "⛨", "Protect"]];
   return <aside className="consumer-sidebar"><div className="consumer-name"><span>MC</span><div><strong>Maya Collins</strong><small>Build mode · Active</small></div></div><nav>{items.map(([id, icon, label]) => <button key={id} className={page === id ? "active" : ""} onClick={() => setPage(id)}><i>{icon}</i>{label}{id === "disputes" && <b>2</b>}</button>)}</nav><div className="loan-officer-card"><span className="lo-avatar">JL</span><div><small>Your loan officer</small><strong>Jordan Lee</strong><button onClick={() => alert("Message drafted to Jordan Lee.")}>Send a message →</button></div></div><div className="sidebar-note">Consumer credit tools—not a mortgage approval or lending decision.</div></aside>;
 }
 
