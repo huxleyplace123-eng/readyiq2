@@ -38,3 +38,15 @@ test/         node:test
 - Base font size 15px (owner's display is 1.25 DPR).
 - Relative URLs only — must work locally and under a Pages sub-path.
 - Prototype "today" is 2026-08-18. `?reset=1` restores fixtures, `?dev=1` shows the switcher.
+
+## What's built (Stage 1 — consumer experience)
+
+| Route | What it is |
+|---|---|
+| `check/` | Lender-branded front door: live phone preview, "See a sample path" tour, LO chip from attribution (`?c=harbor-dkim`) |
+| `enroll/` | Three screens (you → verify → your loan officer) and the "Your path is ready" reveal |
+| `portal/` | Home (number · path · one next action · request review · ask), `#plan` (levers, the Clock, DTI), `#disputes`, `#build`, `#number`, `#review`, `#guardian`, `#ask`, `#protect`, `#settings` |
+| `dev/` | Components gallery |
+
+Fixtures: seven consumers, one per story — switch with `?dev=1`, reset with `?reset=1`.
+Logic is in `site/assets/js/state.js` and covered by `npm test`.
