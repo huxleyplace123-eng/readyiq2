@@ -33,7 +33,7 @@
   --info: #1D4ED8; --info-soft: #E8F0FE;
 
   /* type */
-  --font: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, sans-serif;
+  --font: "Manrope", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, sans-serif;
   --fs-12: 12px; --fs-13: 13px; --fs-15: 15px; --fs-17: 17px; --fs-20: 20px;
   --fs-24: 24px; --fs-32: 32px; --fs-44: 44px; --fs-56: 56px; --fs-64: 64px;
 

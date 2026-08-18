@@ -1,7 +1,7 @@
 /* ReadyIQ 2 — components v2 */
 
 /* ---------- buttons ---------- */
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 46px; padding: 0 20px; border-radius: var(--r-pill); border: 1px solid transparent; font-weight: 600; font-size: var(--fs-15); line-height: 1; white-space: nowrap; text-decoration: none !important; user-select: none; transition: transform var(--dur-1) var(--ease), box-shadow var(--dur-1) var(--ease), background var(--dur-1) var(--ease), filter var(--dur-1) var(--ease), border-color var(--dur-1); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 46px; padding: 0 20px; border-radius: var(--r-pill); border: 1px solid transparent; font-weight: 700; font-size: var(--fs-15); line-height: 1; white-space: nowrap; text-decoration: none !important; user-select: none; transition: transform var(--dur-1) var(--ease), box-shadow var(--dur-1) var(--ease), background var(--dur-1) var(--ease), filter var(--dur-1) var(--ease), border-color var(--dur-1); }
 .btn:active { transform: translateY(1px); }
 .btn-primary { background: var(--brand-grad); color: #fff; box-shadow: 0 1px 0 rgba(255,255,255,.18) inset, 0 12px 28px -12px var(--brand-glow); }
 .btn-primary:hover { filter: brightness(1.07); box-shadow: 0 14px 30px -12px var(--brand-glow); }
@@ -124,7 +124,7 @@ select.input { appearance: none; background-image: linear-gradient(45deg, transp
 /* ---------- the Number + ring gauge ---------- */
 .number { display: grid; gap: 6px; }
 .number-top { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
-.number-value { font-size: var(--fs-64); line-height: .95; font-weight: 660; letter-spacing: -.04em; font-variant-numeric: tabular-nums; color: var(--ink); }
+.number-value { font-size: var(--fs-64); line-height: .95; font-weight: 800; letter-spacing: -.04em; font-variant-numeric: tabular-nums; color: var(--ink); }
 .number-value.none { font-size: var(--fs-32); letter-spacing: -.02em; color: var(--ink-2); }
 .number-delta { display: inline-flex; align-items: center; gap: 4px; font-size: var(--fs-13); font-weight: 640; padding: 5px 10px; border-radius: var(--r-pill); }
 .number-delta.up { color: var(--teal-ink); background: var(--mint); }
@@ -140,7 +140,7 @@ select.input { appearance: none; background-image: linear-gradient(45deg, transp
 .ring circle.fill { fill: none; stroke: url(#ringGrad); stroke-width: 10; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset var(--dur-4) var(--ease); filter: drop-shadow(0 6px 14px var(--brand-glow)); }
 .ring circle.track { stroke: var(--brand-soft); }
 .ring .ring-inner { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
-.ring .ring-inner b { font-size: 40px; line-height: 1; letter-spacing: -.045em; font-weight: 600; font-variant-numeric: tabular-nums; }
+.ring .ring-inner b { font-size: 40px; line-height: 1; letter-spacing: -.045em; font-weight: 800; font-variant-numeric: tabular-nums; }
 .ring .ring-inner span { font-size: 12px; color: var(--ink-3); letter-spacing: 0; text-transform: none; font-weight: 500; margin-top: 4px; }
 .number-with-ring { display: grid; grid-template-columns: auto 1fr; gap: var(--sp-6); align-items: center; }
 @media (max-width: 480px) { .number-with-ring { grid-template-columns: 1fr; } .ring { margin: 0 auto; } }
@@ -193,7 +193,7 @@ select.input { appearance: none; background-image: linear-gradient(45deg, transp
 .topbar { position: sticky; top: 0; z-index: 20; background: rgba(255, 255, 255, .8); backdrop-filter: saturate(180%) blur(14px); -webkit-backdrop-filter: saturate(180%) blur(14px); border-bottom: 1px solid var(--line-2); }
 .topbar-inner { height: 64px; display: flex; align-items: center; gap: 12px; }
 .brand-mark { width: 34px; height: 34px; border-radius: 11px; background: var(--brand-grad); color: #fff; box-shadow: 0 6px 16px -8px var(--brand-glow); display: grid; place-items: center; font-weight: 700; font-size: 14px; letter-spacing: -.02em; flex: none; }
-.brand-name { font-weight: 640; letter-spacing: -.01em; }
+.brand-name { font-weight: 800; letter-spacing: -.02em; }
 .powered { font-size: var(--fs-12); color: var(--ink-3); margin-left: auto; white-space: nowrap; }
 .powered b { color: var(--ink-2); font-weight: 620; }
 .avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--brand-soft); color: var(--brand-ink); font-weight: 600; display: grid; place-items: center; font-weight: 640; font-size: 13px; flex: none; text-decoration: none !important; border: 0; }

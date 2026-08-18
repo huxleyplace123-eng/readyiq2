@@ -36,11 +36,8 @@ test/         node:test
 
 ## Design constraints
 
-- Light only. Two brand layers on one system: the **ReadyIQ layer** (website, LO/org,
-  integrations, demo chrome) is paper `#F2F6F2` + navy `#0D2024` + lime `#C8F36D`
-  with serif-italic emphasis in display headlines; the **consumer portal wears the
-  lender's brand** (`data-brand="harbor"` in the demo) with ReadyIQ recessive.
-- Geist variable font embedded as a data URI (`site/assets/fonts/geist.css`).
+- Light only. Warm white canvas, charcoal ink, **terra-orange** brand with gradient (IDIQ’s orange family), bright green only as the positive accent, rose for disputes; dark sections are charcoal with an orange glow. Emphasis in headlines is gradient text. The **consumer portal wears the lender’s brand** (`applyBrand(lender)` sets the full brand token set from the lender fixture — the demo lender is orange too).
+- **Manrope** (variable, latin, SIL OFL) is the primary face, embedded as a data URI (`site/assets/fonts/manrope.css`); Geist stays embedded as the fallback.
 - Base font size 15px (owner's display is 1.25 DPR).
 - Relative URLs only — must work locally and under a Pages sub-path.
 - Prototype "today" is 2026-08-18. `?reset=1` restores fixtures; `?demo=0` hides the switcher.
