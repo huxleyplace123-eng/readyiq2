@@ -45,14 +45,16 @@ export function applyBrand(lender) {
 /** Count a number up with ease-out; respects reduced motion. */
 export function countUp(node, from, to, ms = 900) {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce || ms === 0 || from === to) { node.textContent = String(to); return; }
+  if (reduce || ms === 0 || from === to || document.visibilityState === 'hidden') { node.textContent = String(to); return; }
   const t0 = performance.now();
+  let done = false;
   const step = (t) => {
     const p = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - p, 3);
     node.textContent = String(Math.round(from + (to - from) * e));
-    if (p < 1) requestAnimationFrame(step);
+    if (p < 1) requestAnimationFrame(step); else done = true;
   };
   requestAnimationFrame(step);
+  setTimeout(() => { if (!done) node.textContent = String(to); }, ms + 120); // rAF can stall in background tabs
 }
 
 /** Bottom sheet on mobile, centered modal on desktop. Returns {close}. */
