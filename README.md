@@ -9,41 +9,42 @@ Kept outside the `dchub` repo on purpose (same reason as ReadyIQ 1).
 
 ## Run
 
-```
-node serve.mjs        # http://localhost:4620
-npm test              # node --test (test/*.test.mjs)
-npm run qr            # regenerate site/assets/qr/*.svg (dev-time, uses qrcode)
-```
+\
+> build
+> node build.mjs
 
-Registered in `dchub/.claude/launch.json` as `readyiq2` for the preview tooling.
+
+> test
+> node --test
+
+✔ fixtures: seven consumers, one per pathway story, all well-formed (2.9673ms)
+✔ store: fixtures() returns fresh copies; loadState falls back to fixtures without localStorage (1.3286ms)
+✔ assignPathway agrees with every fixture and applies rules in the documented order (0.4963ms)
+✔ eligibilityDates: Chapter 7 → FHA +2y, conventional +4y (0.2808ms)
+✔ dti and readinessTrigger (1.2874ms)
+✔ links and query (1.6776ms)
+✔ enrollConsumer, requestReview, setGuardian, statusCard, packet (0.7827ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 128.4387
+
+> qr
+> node scripts/gen-qr.mjs
+Registered in  as  for the preview tooling.
 
 ## Layout
 
-```
-docs/specs/   product definition + prototype design (+ amendments)
-docs/plans/   staged implementation plans (stage 1, merge v2)
-scripts/      gen-qr.mjs
-site/         the static site (Pages root later)
-  index.html                    ReadyIQ website
-  check/  enroll/  portal/      consumer experience (lender-branded)
-  lo/  lo/start/                loan officer surface (thin — not a CRM)
-  r/  p/                        link resolver, partner page
-  integrations/                 the platform page
-  dev/                          components gallery (dev aid)
-  assets/css  assets/js  assets/fonts  assets/qr
-test/         node:test
-```
-
+\
 ## Design constraints
 
-- Light only. Warm white canvas, charcoal ink, **terra-orange** brand with gradient (IDIQ’s orange family), bright green only as the positive accent, rose for disputes; dark sections are charcoal with an orange glow. Emphasis in headlines is gradient text. The **consumer portal wears the lender’s brand** (`applyBrand(lender)` sets the full brand token set from the lender fixture — the demo lender is orange too).
-- **Manrope** (variable, latin, SIL OFL) is the primary face, embedded as a data URI (`site/assets/fonts/manrope.css`); Geist stays embedded as the fallback.
-- Base font size 15px (owner's display is 1.25 DPR).
-- Relative URLs only — must work locally and under a Pages sub-path.
-- Prototype "today" is 2026-08-18. `?reset=1` restores fixtures; `?demo=0` hides the switcher.
-- Honesty rules: one headline number (MyScoreIQ FICO®, labeled "not the mortgage-industry
-  version"), no promised deletions/points/approvals/timelines, no readiness percentage,
-  Reg B line on every consumer screen, every tool surface names its engine.
+- **The v11 look is the system**: near-black green , paper , lime , mint/purple/coral/gold tags; heavy Inter headlines with one italic serif phrase per section; dark frames around light content; alternating bands; white portal sidebars with a dark loan-officer card. Inter is embedded (latin, OFL).
+- Honesty rules: MyScoreIQ FICO® labeled “not the mortgage-industry version lenders pull”, three bureaus, no readiness percentage (plan progress instead), no promised deletions/points/approvals/timelines, Reg B line on consumer screens, engine tags (MyScoreIQ / CreditBuilderIQ) — no third-party reporting brand.
+- The loan officer sees status, never the report.
 
 ## What's built (v2 — merged)
 
