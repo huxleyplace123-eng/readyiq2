@@ -189,7 +189,7 @@ select.input { appearance: none; background-image: linear-gradient(45deg, transp
 .rail a:hover { background: var(--surface); }
 .rail a.active { background: var(--brand-soft); color: var(--brand-ink); }
 .rail .rail-group { margin-top: 12px; padding: 0 12px; }
-.portal-grid { display: grid; grid-template-columns: var(--rail) minmax(0, 1fr); gap: var(--sp-8); align-items: start; padding-top: var(--sp-6); }
+.portal-grid { display: grid; grid-template-columns: var(--rail) minmax(0, 1fr); gap: var(--sp-10); align-items: start; padding-top: var(--sp-6); max-width: 1080px; }
 @media (max-width: 768px) {
   .bottomnav { display: grid; }
   body.has-bottomnav { padding-bottom: 84px; }

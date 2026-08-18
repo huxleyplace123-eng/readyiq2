@@ -237,3 +237,17 @@ pricing, dark theme, native apps.
 - Sample lender brand is teal so white-labeling is visibly not IDIQ orange.
 - QR codes are pre-generated SVGs (real, scannable) — no runtime QR library.
 - Consumer scores shown are MyScoreIQ FICO; CBIQ VantageScore never headlines.
+
+
+## 13. Amendments — 2026-08-18 (merge v2)
+
+After reviewing a second mockup (Next/React, single file) the owner chose to keep this
+static codebase and merge: a stronger visual system (ReadyIQ layer = paper canvas, deep
+navy, lime accent, pathway tones; consumer portal = lender-branded light), a
+five-tab consumer nav (Home · Plan · Disputes · Build · Progress; Ask floats; Guardian is
+a banner; Review/Protect/Settings under the avatar), a four-step Dispute Hub, a
+Progress page (absorbs Why-it-moved), a personal-invitation state on the front door,
+the marketing site, thin LO/org screens (invite modal, link/QR, read-only feed, org
+settings — still not a CRM), an integrations page, and a demo switcher. No readiness
+percentage anywhere. No third-party reporting brand — CreditBuilderIQ (Resident-Link
+underneath) is the engine. Details: docs/plans/2026-08-18-readyiq2-merge-v2.md.

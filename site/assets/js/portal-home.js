@@ -37,19 +37,22 @@ export function renderHome(ctx) {
       el('p', { class: 'eyebrow' }, `${greeting}, ${c.first}`),
       el('div', { class: 'greet' }, el('h1', { class: 'h2' }, 'Your path'), el('span', { class: `badge badge-${c.pathway}` }, PATHWAY_LABELS[c.pathway]), el('span', { class: 'chip chip-round' }, `Round ${c.round} of ~${c.roundsEstimated}`)),
       el('p', { class: 'muted' }, PATHWAY_BLURBS[c.pathway])),
-    numberBlock(c),
-    el('div', { class: 'card card-pad stack-2' }, el('div', { class: 'row-between' }, el('p', { class: 'eyebrow' }, 'Your path'), el('span', { class: 'small muted' }, `${c.milestones.filter((m) => m.state === 'done').length} of ${c.milestones.length} milestones`)), path),
+    el('div', { class: 'home-two' },
+      numberBlock(c),
+      el('div', { class: 'card card-pad stack-2', style: { display: 'grid', alignContent: 'space-between' } }, el('div', { class: 'row-between' }, el('p', { class: 'eyebrow' }, 'Your path'), el('span', { class: 'small muted' }, `${c.milestones.filter((m) => m.state === 'done').length} of ${c.milestones.length} milestones`)), path,
+        el('p', { class: 'small muted' }, c.milestones.find((m) => m.state === 'upcoming') ? `Next milestone: ${c.milestones.find((m) => m.state === 'upcoming').label}` : 'Every milestone reached.'))),
     el('div', { class: 'card card-pad next-action card-enter stack-2' },
       el('p', { class: 'eyebrow' }, 'Next action'),
       el('h2', { class: 'h3' }, c.nextAction.title),
       el('p', { class: 'muted' }, c.nextAction.detail),
       el('div', { class: 'row-between wrap' }, engineTag(c.nextAction.engine), el('a', { class: 'btn btn-secondary btn-sm', href: c.nextAction.href }, 'Open ', el('span', { class: 'arrow' }, '→')))),
-    el('div', { class: 'home-cta' },
-      inFile ? el('a', { class: 'btn btn-outline btn-lg btn-block', href: '#guardian' }, `Application in progress with ${lo.first} · Guardian on`)
-        : requested ? el('a', { class: 'btn btn-secondary btn-lg btn-block', href: '#review' }, `Review requested ${fmtDate(c.reviewRequestedAt)} · ${lo.first} has your packet`)
-        : el('a', { class: 'btn btn-primary btn-lg btn-block', href: '#review' }, 'Request review ', el('span', { class: 'arrow' }, '→')),
-      regB()),
-    el('form', { class: 'card ask-bar', onsubmit: (e) => { e.preventDefault(); const q = e.target.q.value.trim(); ctx.state.session.askDraft = q; ctx.save(); ctx.go('#ask'); } },
-      el('input', { name: 'q', placeholder: `Ask ReadyIQ — “why did my score move?”`, 'aria-label': 'Ask ReadyIQ' }),
-      el('button', { class: 'btn btn-primary btn-sm', type: 'submit' }, 'Ask')));
+    el('div', { class: 'home-cta-row' },
+      el('div', { class: 'home-cta' },
+        inFile ? el('a', { class: 'btn btn-outline btn-lg btn-block', href: '#guardian' }, `Application in progress with ${lo.first} · Guardian on`)
+          : requested ? el('a', { class: 'btn btn-secondary btn-lg btn-block', href: '#review' }, `Review requested ${fmtDate(c.reviewRequestedAt)} · ${lo.first} has your packet`)
+          : el('a', { class: 'btn btn-primary btn-lg btn-block', href: '#review' }, 'Request review ', el('span', { class: 'arrow' }, '→')),
+        regB()),
+      el('form', { class: 'card ask-bar', style: { alignSelf: 'start' }, onsubmit: (e) => { e.preventDefault(); const q = e.target.q.value.trim(); ctx.state.session.askDraft = q; ctx.save(); ctx.go('#ask'); } },
+        el('input', { name: 'q', placeholder: `Ask ReadyIQ — “why did my score move?”`, 'aria-label': 'Ask ReadyIQ' }),
+        el('button', { class: 'btn btn-primary btn-sm', type: 'submit' }, 'Ask'))));
 }

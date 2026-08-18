@@ -7,7 +7,7 @@ export function renderPath(target, { nodes, variant = 'timeline', animate = true
   if (typeof target === 'string') target = document.querySelector(target);
   if (!target || !nodes?.length) return null;
   const n = nodes.length;
-  const H = height || (variant === 'hero' ? 92 : variant === 'sparkline' ? 26 : 88);
+  const H = height || (variant === 'hero' ? 92 : variant === 'sparkline' ? 26 : 100);
   const W = variant === 'sparkline' ? 120 : 640;
   const padX = variant === 'sparkline' ? 6 : variant === 'hero' ? 60 : 36;
   const r = variant === 'sparkline' ? 3 : variant === 'hero' ? 10 : 7;
@@ -38,7 +38,9 @@ export function renderPath(target, { nodes, variant = 'timeline', animate = true
       svg.appendChild(svgEl('path', { class: 'check', d: `M${xs[i] - s},${ys[i]} l${s * 0.7},${s * 0.7} l${s * 1.2},${-s * 1.3}` }));
     }
     if (variant !== 'sparkline') {
-      const t = svgEl('text', { class: `path-label ${m.state}`, x: xs[i], y: variant === 'hero' ? ys[i] - 24 : ys[i] + 28 });
+      // timeline labels alternate between two rows so neighbours never collide
+      const stagger = variant === 'timeline' && n > 4 && i % 2 ? 15 : 0;
+      const t = svgEl('text', { class: `path-label ${m.state}`, x: xs[i], y: variant === 'hero' ? ys[i] - 24 : ys[i] + 26 + stagger });
       t.textContent = m.label;
       svg.appendChild(t);
     }

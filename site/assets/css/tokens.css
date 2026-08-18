@@ -40,7 +40,7 @@
   --dur-1: 160ms; --dur-2: 260ms; --dur-3: 700ms; --dur-4: 1100ms;
 
   /* layout */
-  --container: 1120px; --portal: 720px; --rail: 232px;
+  --container: 1120px; --portal: 800px; --rail: 232px;
 }
 
 [data-brand="harbor"] {
