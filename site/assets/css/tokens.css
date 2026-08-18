@@ -47,7 +47,7 @@
   --dur-1: 160ms; --dur-2: 260ms; --dur-3: 700ms; --dur-4: 1100ms;
 
   /* layout */
-  --container: 1180px; --portal: 860px; --rail: 224px;
+  --container: 1180px; --portal: 920px; --rail: 224px;
 }
 
 [data-brand="harbor"] {

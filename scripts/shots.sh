@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# scripts/shots.sh — desktop screenshots of every surface via local Chrome (headless). Usage: bash scripts/shots.sh [outdir] [width] [height]
+OUT="${1:-shots}"; W="${2:-1440}"; H="${3:-1000}"; BASE="${BASE:-http://localhost:4620}"
+CHROME="/c/Program Files/Google/Chrome/Application/chrome.exe"
+mkdir -p "$OUT"; ABS="$(cd "$OUT" && pwd -W)"
+shot() { "$CHROME" --headless=new --disable-gpu --hide-scrollbars --force-prefers-reduced-motion --window-size="$W,$H" --virtual-time-budget=3500 --screenshot="$ABS/$1.png" "$BASE$2" >/dev/null 2>&1; echo "$1"; }
+shot website            "/index.html?demo=0"
+shot check-public       "/check/?demo=0"
+shot check-invitation   "/check/?c=harbor-smiller&demo=0"
+shot enroll             "/enroll/?demo=0"
+shot portal-home        "/portal/?as=maria&demo=0#home"
+shot portal-plan-clock  "/portal/?as=aisha&demo=0#plan"
+shot portal-disputes    "/portal/?as=sam&demo=0#disputes"
+shot portal-build       "/portal/?as=jordan&demo=0#build"
+shot portal-progress    "/portal/?as=priya&demo=0#progress"
+shot portal-guardian    "/portal/?as=tom&demo=0#guardian"
+shot portal-review      "/portal/?as=priya&demo=0#review"
+shot lo-start           "/lo/start/?demo=0"
+shot lo-link            "/lo/?demo=0#link"
+shot lo-feed            "/lo/?demo=0#feed"
+shot lo-org             "/lo/?demo=0#org"
+shot partner            "/p/?c=harbor-dkim&demo=0"
+shot integrations       "/integrations/?demo=0"

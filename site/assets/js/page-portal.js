@@ -1,5 +1,5 @@
 // site/assets/js/page-portal.js — portal shell v2: five tabs, avatar menu, floating Ask, router.
-import { loadState, saveState, getConsumer, getLO, getLender } from './state.js';
+import { loadState, saveState, getConsumer, getLO, getLender, parseQuery } from './state.js';
 import { applyBrand, el, mount, qs, qsa, initials, initDev, sheet } from './ui.js';
 import { renderHome } from './portal-home.js';
 import { renderPlan, renderBuild } from './portal-tools.js';
@@ -8,6 +8,7 @@ import { renderProgress } from './portal-progress.js';
 import { renderReview, renderGuardian, renderAsk, renderProtect, renderSettings } from './portal-more.js';
 
 const state = loadState();
+{ const as = parseQuery(location.search).as; if (as && getConsumer(state, as)) { state.session.consumerId = as; state.session.role = 'consumer'; saveState(state); } }
 const lender = getLender(state);
 applyBrand(lender);
 
