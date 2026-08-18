@@ -5,9 +5,16 @@
   "scripts": {
     "test": "node --test",
     "serve": "node serve.mjs",
-    "qr": "node scripts/gen-qr.mjs"
+    "qr": "node scripts/gen-qr.mjs",
+    "build": "node build.mjs",
+    "watch": "node build.mjs --watch"
   },
   "devDependencies": {
-    "qrcode": "^1.5.4"
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "esbuild": "^0.24.2",
+    "qrcode": "^1.5.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   }
 }

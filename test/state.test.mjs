@@ -1,7 +1,7 @@
 // test/state.test.mjs
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import * as S from '../site/assets/js/state.js';
+import * as S from '../src/state.js';
 
 test('fixtures: seven consumers, one per pathway story, all well-formed', () => {
   const f = S.fixtures();
