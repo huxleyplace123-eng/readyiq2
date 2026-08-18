@@ -61,3 +61,7 @@ test/         node:test
 A "ReadyIQ demo ▾" pill on every page switches surfaces and fixture consumers.
 Logic lives in `site/assets/js/state.js` and is covered by `npm test`; a
 `FIXTURE_VERSION` constant resets stale `localStorage` when fixtures change shape.
+
+## Photo credit
+
+Hero portrait: Pexels photo 864994 by Andrea Piacquadio (Pexels license — free to use). `site/assets/img/hero-person.jpg`.
