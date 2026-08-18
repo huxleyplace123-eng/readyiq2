@@ -163,8 +163,8 @@ dev menu (`?dev=1`) so one browser can demo the whole loop.
   - ReadyIQ layer (marketing site, "powered by", LO admin chrome) uses **IDIQ**
     tokens: navy `#12384F`, orange `#F27124`, off-white `#F1F4F6`, grey `#9BA6AD`.
   - Semantic: success `#1B7F4C`, warn `#B7791F`, danger `#B42318`, info `#1D4ED8`.
-- **Type:** Manrope (400/500/600/700/800) embedded as a data-URI `@font-face`
-  copied from v1 (`assets/fonts/manrope.css`); system-ui fallback. Base 15px
+- **Type:** Geist variable (300–700) embedded as a data-URI `@font-face`
+  copied from v1 (`assets/fonts/geist.css`); system-ui fallback. Base 15px
   (owner's display is 1.25 DPR — author sizes accordingly). Scale: 12 / 13 / 15
   / 17 / 20 / 24 / 32 / 44 / 64.
 - **Space:** 4-pt grid; radii 10 / 14 / 20; shadows soft and rare; borders
@@ -198,7 +198,7 @@ readyiq2/
     assets/css/tokens.css  base.css  components.css  brand-harbor.css  brand-idiq.css
     assets/js/state.js (store + fixtures + state machine + attribution + clock/DTI math)
              path.js (Path component)  ui.js (shared widgets)  page-*.js
-    assets/fonts/manrope.css · assets/qr/*.svg · assets/img/*
+    assets/fonts/geist.css · assets/qr/*.svg · assets/img/*
 ```
 
 - Pure logic (state machine transitions, pathway rules, attribution parsing,
@@ -233,7 +233,7 @@ pricing, dark theme, native apps.
 
 - Multi-page static over single-file or React (iteration speed, real URLs,
   publishable, no build).
-- Manrope stays (continuity with v1; already embedded).
+- Geist (v1 already embeds it as a 39 KB variable woff2; more "next-gen" than Manrope).
 - Sample lender brand is teal so white-labeling is visibly not IDIQ orange.
 - QR codes are pre-generated SVGs (real, scannable) — no runtime QR library.
 - Consumer scores shown are MyScoreIQ FICO; CBIQ VantageScore never headlines.
