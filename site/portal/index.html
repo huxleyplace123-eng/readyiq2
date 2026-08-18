@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" data-brand="harbor">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Your path — Harbor Home Loans</title>
+<link rel="stylesheet" href="../assets/fonts/geist.css">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<style>
+  .view { display: grid; gap: var(--sp-4); padding-bottom: var(--sp-16); animation: settle var(--dur-2) var(--ease) both; }
+  .view-head { display: grid; gap: 4px; padding: var(--sp-2) 0 var(--sp-2); }
+  .greet { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .lever-card { display: grid; gap: 8px; }
+  .lever-card .row-between { align-items: flex-start; }
+  .action-row { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; }
+  .dispute { display: grid; gap: 8px; padding: 14px 0; }
+  .dispute:first-child { padding-top: 0; }
+  .alert-row { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 10px 0; }
+  .icon-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--warn); }
+  .checklist { display: grid; gap: 8px; }
+  .checklist label { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; }
+  .checklist input { width: 20px; height: 20px; accent-color: var(--brand); margin-top: 1px; }
+  .util { display: grid; gap: 8px; }
+  .util-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .util-chips .chip { cursor: pointer; }
+  .util-chips .chip.on { background: var(--brand-soft); color: var(--brand-ink); }
+  .home-hero { display: grid; gap: var(--sp-4); }
+  .home-cta { display: grid; gap: 8px; }
+  @media (min-width: 769px) { .home-two { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); } }
+</style>
+</head>
+<body class="has-bottomnav">
+<header class="topbar"><div class="container topbar-inner">
+  <span class="brand-mark" data-lender-mark>H</span><span class="brand-name" data-lender-name>Harbor Home Loans</span>
+  <span class="powered">Powered by <b>ReadyIQ</b> · IDIQ</span>
+  <a class="avatar" id="avatar" href="#settings" aria-label="Settings">MD</a>
+</div></header>
+<div class="container portal-grid">
+  <nav class="rail" id="rail" aria-label="Sections"></nav>
+  <main class="portal-wrap" style="padding:0" id="view"></main>
+</div>
+<nav class="bottomnav" id="bottomnav" aria-label="Sections"></nav>
+<script type="module" src="../assets/js/page-portal.js"></script>
+</body>
+</html>
