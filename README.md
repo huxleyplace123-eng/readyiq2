@@ -32,9 +32,10 @@ Registered in `dchub/.claude/launch.json` as `readyiq2` for the preview tooling.
 ```
 src/v11-page.tsx          the v11 look — marketing site, org portal, consumer portal, integration hub (React; one file, being split)
 src/screens/lo.tsx        loan officer: 60-second sign-up · Your link (link · QR · text · invite) · read-only status feed
+src/screens/overview.tsx  consumer Overview: dark hero + score window, path stepper, toolkit bento
 src/screens/consumer.tsx  three consents · honest 3-bureau strip · DTI + clock · mortgage-why · why-it-moved · Guardian · review packet · Ask ReadyIQ
 src/state.js              fixtures + rules (tests in test/)
-src/styles/               v11.css (the system) · additions.css · inter.css (Inter embedded, OFL)
+src/styles/               v11.css (the system, type rescaled by scripts/rescale-type.py) · consumer-v2.css (consumer portal, marketing-grade) · additions.css · inter.css (Inter embedded, OFL)
 build.mjs · serve.mjs · scripts/gen-qr.mjs · scripts/shots.sh
 site/                     build output — a plain static site, publish anywhere
 site-legacy/              the earlier static prototype (kept for reference)

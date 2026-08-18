@@ -11,34 +11,45 @@ function copy(text: string, done: (v: boolean) => void) { try { navigator.clipbo
 /* ---------- Your link ---------- */
 export function YourLinkPage({ openInvite, openFeed, previewConsumer }: { openInvite: () => void; openFeed: () => void; previewConsumer: () => void }) {
   const [copied, setCopied] = useState(false);
-  return <div className="lender-page">
-    <div className="lender-page-title"><div><span className="section-kicker">YOUR LINK · NMLS {LO.nmls}</span><h1>Text it, print it, send it.</h1><p>Everyone who uses it stays attributed to you — branch, source and all. You see status, never their report.</p></div><button className="primary-lime dark-text" onClick={openInvite}>＋ Invite consumer</button></div>
-    <section className="kpi-grid">
+  return <div className="lender-page lx-page">
+    <section className="cx-hero lx-hero">
+      <div className="cx-hero-copy">
+        <span className="cx-pill"><i />YOUR LINK · NMLS {LO.nmls}</span>
+        <h1>Text it, print it, <em>send it.</em></h1>
+        <p>One link per human. Everyone who uses it stays attributed to you — branch, source and all. You see status, never their report.</p>
+        <div className="cx-actions"><a className="lime" href={`sms:?&body=${encodeURIComponent(SMS)}`}>💬 Text this to a client <span>→</span></a><button className="ghost" onClick={openInvite}>✉ Send an invitation</button></div>
+        <div className="cx-trust"><span>✓ Attribution baked in</span><span>✓ Status only, never the report</span><span>✓ Not a CRM — it feeds yours</span></div>
+      </div>
+      <div className="cx-window">
+        <div className="cx-chrome"><span><i />ready.summithomeloans.com/{LO.code.split("-")[1]}</span><span>Live</span></div>
+        <div className="cx-window-body lx-body">
+          <img src={`qr/${LO.code}.svg`} alt={`QR code for ${LINK}`} width={148} height={148} className="lx-qr" />
+          <div>
+            <div className="invite-link-row lx-link"><span>YOUR LINK</span><div><code>https://{LINK}</code><button onClick={() => copy(`https://${LINK}`, setCopied)}>{copied ? "✓ Copied" : "Copy"}</button></div></div>
+            <div className="lx-share"><a href={`sms:?&body=${encodeURIComponent(SMS)}`}>💬 Text</a><a href={`mailto:?subject=${encodeURIComponent("Your readiness check from " + LO.first)}&body=${encodeURIComponent(SMS)}`}>✉ Email</a><button onClick={() => window.print()}>⎙ Print QR</button></div>
+            <p className="lx-note">One tap on their phone. Attributed to you, branch and source included.</p>
+          </div>
+        </div>
+        <div className="cx-window-foot"><span>Every scan and tap lands on your branded front door.</span><button className="cx-inline" onClick={previewConsumer}>Preview my front door →</button></div>
+        <div className="cx-float br lime"><i>◈</i><div><small>THIS MONTH</small><strong>14 invited · 9 enrolled</strong></div></div>
+      </div>
+    </section>
+    <section className="kpi-grid lx-kpis">
       <article><div><span>Invited this month</span><i className="kpi-icon mint">✉</i></div><strong>14</strong><p>by text and email</p></article>
       <article><div><span>Enrolled</span><i className="kpi-icon lime">✓</i></div><strong>9</strong><p>completed a check</p></article>
       <article><div><span>Working</span><i className="kpi-icon purple">↗</i></div><strong>7</strong><p>active in the last 30 days</p></article>
-      <article className="dark-kpi"><div><span>Review requested</span><i className="kpi-icon dark">◈</i></div><strong>2</strong><p>waiting on you</p></article>
+      <article className="dark-kpi" onClick={openFeed} style={{ cursor: "pointer" }}><div><span>Review requested</span><i className="kpi-icon dark">◈</i></div><strong>2</strong><p>waiting on you → open the feed</p></article>
     </section>
-    <div className="overview-grid">
+    <div className="overview-grid lx-grid">
       <section className="pipeline-card">
-        <div className="card-title-row"><div><span className="section-kicker">YOUR PERSONAL LINK</span><h3>One link per human. Attribution baked in.</h3></div></div>
-        <div className="invite-link-row"><span>YOUR LINK</span><div><code>https://{LINK}</code><button onClick={() => copy(`https://${LINK}`, setCopied)}>{copied ? "✓ Copied" : "Copy link"}</button></div><p>Dynamic links preserve loan officer, branch, campaign and lead-source attribution.</p></div>
-        <div className="detail-actions" style={{ justifyContent: "flex-start", flexWrap: "wrap", gap: 10 }}>
-          <a className="primary-dark" href={`sms:?&body=${encodeURIComponent(SMS)}`}>💬 Text this to a client</a>
-          <button className="outline-button" onClick={openInvite}>✉ Send an invitation</button>
-          <button className="outline-button" onClick={previewConsumer}>Preview my front door →</button>
-        </div>
-        <div className="conversion-note"><span>💬</span><p><strong>What the text looks like</strong><small>{SMS}</small></p></div>
+        <div className="card-title-row"><div><span className="section-kicker">WHERE IT LIVES</span><h3>Put the link everywhere you already are.</h3></div></div>
+        <div className="lx-places">{[["✉", "Email signature", "One line under your name — every reply carries it."], ["⌂", "Open-house flyer", "Print the QR. Every scan is attributed to you."], ["◎", "Your website", "A button on your bio page. No install."], ["⇄", "Your CRM", "Zapier / connector drops the link into your sequences."]].map(([i, t, d]) => <div key={t}><i>{i}</i><div><strong>{t}</strong><small>{d}</small></div></div>)}</div>
       </section>
       <section className="attention-card">
-        <div className="card-title-row"><div><span className="section-kicker">YOUR QR CODE</span><h3>Scannable, print-ready</h3></div></div>
-        <div style={{ display: "grid", placeItems: "center", gap: 10, padding: "8px 0 4px" }}>
-          <img src={`qr/${LO.code}.svg`} alt={`QR code for ${LINK}`} width={196} height={196} style={{ borderRadius: 14, border: "1px solid var(--line)", background: "#fff", padding: 8 }} />
-          <strong>{LINK}</strong>
-          <small style={{ color: "var(--muted)", textAlign: "center" }}>Put it on a card, an open-house flyer, a slide. Every scan lands on your branded front door.</small>
-        </div>
-        <div className="journey-health"><div><span>Not a CRM, on purpose</span><strong>status only</strong></div><div><i style={{ width: "100%" }} /></div><small>Notes, tasks and pipeline stay in the CRM you already run — ReadyIQ sends status through Zapier or a connector.</small></div>
-        <button className="outline-button" style={{ marginTop: 12 }} onClick={openFeed}>Open the status feed →</button>
+        <div className="card-title-row"><div><span className="section-kicker">HOW IT WORKS</span><h3>Not a CRM, on purpose.</h3></div></div>
+        <div className="journey-health"><div><span>What you see</span><strong>status only</strong></div><div><i style={{ width: "100%" }} /></div><small>Pathway · round · next milestone · review requests. Never the score, never the report.</small></div>
+        <div className="journey-health" style={{ marginTop: 14 }}><div><span>Where notes and tasks live</span><strong>your CRM</strong></div><div><i style={{ width: "100%", background: "#dfe6e2" }} /></div><small>ReadyIQ sends status through Zapier or a connector — Total Expert, Shape, Salesforce.</small></div>
+        <button className="outline-button" style={{ marginTop: 16 }} onClick={openFeed}>Open the status feed →</button>
       </section>
     </div>
   </div>;
@@ -51,14 +62,14 @@ export function LoStartPage({ done }: { done: () => void }) {
   const ok = email.includes("@") && nmls.trim().length >= 5;
   return <div className="consent-page"><div className="consent-shell">
     <div className="step-row">{[1, 2, 3].map((n) => <div key={n} className={step >= n ? "active" : ""}><span>{step > n ? "✓" : n}</span><small>{n === 1 ? "Email + NMLS" : n === 2 ? "We fill the rest" : "Your link"}</small></div>)}</div>
-    {step === 1 && <div className="form-panel"><span className="section-kicker">60 SECONDS TO A LINK</span><h2>Get your ReadyIQ link.</h2><p>Two fields. We fill in the rest from your NMLS ID and pull your company’s brand from its website.</p>
+    {step === 1 && <div className="form-panel"><span className="section-kicker">60 SECONDS TO A LINK</span><h2>Get your ReadyIQ <em>link.</em></h2><p>Two fields. We fill in the rest from your NMLS ID and pull your company’s brand from its website.</p>
       <div className="form-grid"><label>Work email<input value={email} placeholder="jordan@summithomeloans.com" onChange={(e) => setEmail(e.target.value)} /></label><label>NMLS ID<input value={nmls} placeholder="1849201" onChange={(e) => setNmls(e.target.value)} /></label></div>
       <button className="link-button" onClick={() => { setEmail("jordan@summithomeloans.com"); setNmls("1849201"); }}>Demo: fill for me →</button>
       <button disabled={!ok} className="primary-dark wide" onClick={() => setStep(2)}>Continue <span>→</span></button></div>}
     {step === 2 && <div className="form-panel permission-panel"><span className="section-kicker">FOUND YOU</span><h2>Hi {LO.first}. We matched your NMLS ID.</h2><p>Confirm and we’ll pull your brand.</p>
       <div className="permission-list"><div><i>✓</i><p><strong>{LO.first} {LO.last} · NMLS {LO.nmls}</strong><span>{LO.company} · {LO.branch} · licensed in {LO.states.join(", ")}</span></p></div><div><i>⌁</i><p><strong>Brand pulled from summithomeloans.com</strong><span>Logo, colors and support contact — consumers see your company, not ours.</span></p></div><div><i>≠</i><p><strong>Status, never reports</strong><span>You’ll see pathway, round, milestones and review requests. Never the credit report.</span></p></div></div>
       <button className="primary-dark wide" onClick={() => setStep(3)}>That’s me — make my link <span>→</span></button></div>}
-    {step === 3 && <div className="form-panel identity-panel"><span className="section-kicker">DONE IN {Math.max(secs, 1)} SECONDS</span><h2>Your link is ready.</h2><p>One link per human. Every consumer who uses it stays attributed to you.</p>
+    {step === 3 && <div className="form-panel identity-panel"><span className="section-kicker">DONE IN {Math.max(secs, 1)} SECONDS</span><h2>Your link is <em>ready.</em></h2><p>One link per human. Every consumer who uses it stays attributed to you.</p>
       <div className="invite-link-row" style={{ marginTop: 6 }}><span>YOUR LINK</span><div><code>https://{LINK}</code><button onClick={done}>Open</button></div><p>Next: text it to a client, print the QR, or send an invitation.</p></div>
       <button className="primary-lime wide dark-text" onClick={done}>Open your link page <span>→</span></button></div>}
   </div></div>;
@@ -79,7 +90,7 @@ export function StatusFeedPage({ openInvite, onSelect }: { openInvite: () => voi
   const pinned = rows.filter((r) => r.review), rest = rows.filter((r) => !r.review);
   const Row = ({ r }: { r: typeof FEED[number] }) => <tr onClick={onSelect}><td><span className={`person-avatar ${r.tone}`}>{r.initials}</span><div><strong>{r.name}</strong><small>Assigned to Jordan Lee · {r.status}</small></div></td><td><span className={`status-cell ${r.tone}`}>● {r.pathway}</span></td><td><strong>{r.round}</strong><small>round</small></td><td>{r.next}</td><td>{r.last}</td><td><button onClick={(e) => { e.stopPropagation(); alert(`Calling ${r.name.split(" ")[0]}…`); }}>Call</button></td></tr>;
   return <div className="lender-page">
-    <div className="lender-page-title"><div><span className="section-kicker">STATUS FEED · READ-ONLY</span><h1>Where your people are.</h1><p>Pathway, round, milestones, review requests. Never the report. Notes and tasks belong in your CRM.</p></div><button className="primary-lime dark-text" onClick={openInvite}>＋ Invite consumer</button></div>
+    <div className="lender-page-title"><div><span className="section-kicker">STATUS FEED · READ-ONLY</span><h1>Where your people <em>are.</em></h1><p>Pathway, round, milestones, review requests. Never the report. Notes and tasks belong in your CRM.</p></div><button className="primary-lime dark-text" onClick={openInvite}>＋ Invite consumer</button></div>
     <div className="filter-bar"><div className="filter-tabs">{filters.map((x) => <button key={x} className={filter === x ? "active" : ""} onClick={() => setFilter(x)}>{x}{x === "All" && <b>{FEED.length}</b>}</button>)}</div><span className="info-badge">{pinned.length} review requested</span></div>
     {pinned.length > 0 && <section className="borrower-table-card pipeline-table"><div className="card-title-row"><div><span className="section-kicker">REVIEW REQUESTED</span><h3>Waiting on you</h3></div></div><div className="table-wrap"><table className="borrower-table"><thead><tr><th>Consumer</th><th>Pathway</th><th>Round</th><th>Next milestone</th><th>Last activity</th><th /></tr></thead><tbody>{pinned.map((r) => <Row key={r.name} r={r} />)}</tbody></table></div></section>}
     <section className="borrower-table-card pipeline-table"><div className="card-title-row"><div><span className="section-kicker">WORKING</span><h3>{rest.length} consumers</h3></div></div><div className="table-wrap"><table className="borrower-table"><thead><tr><th>Consumer</th><th>Pathway</th><th>Round</th><th>Next milestone</th><th>Last activity</th><th /></tr></thead><tbody>{rest.map((r) => <Row key={r.name} r={r} />)}</tbody></table></div></section>
@@ -112,7 +123,7 @@ const PARTNERS = [
 export function PartnersPage({ previewDoor }: { previewDoor: (code: string) => void }) {
   const [sel, setSel] = useState(0); const [copied, setCopied] = useState(false); const p = PARTNERS[sel];
   return <div className="lender-page">
-    <div className="lender-page-title"><div><span className="section-kicker">PARTNERS · ONE LINK PER HUMAN</span><h1>Agents send people too.</h1><p>Every partner gets their own link and QR. Consumers they send stay attributed to them and to you. Partners see coarse status — working, review requested — never a score or a report.</p></div><button className="primary-lime dark-text" onClick={() => alert("Add-partner would open here: name, company, kind, assigned loan officer → link + QR in seconds.")}>＋ Add partner</button></div>
+    <div className="lender-page-title"><div><span className="section-kicker">PARTNERS · ONE LINK PER HUMAN</span><h1>Agents send people <em>too.</em></h1><p>Every partner gets their own link and QR. Consumers they send stay attributed to them and to you. Partners see coarse status — working, review requested — never a score or a report.</p></div><button className="primary-lime dark-text" onClick={() => alert("Add-partner would open here: name, company, kind, assigned loan officer → link + QR in seconds.")}>＋ Add partner</button></div>
     <div className="overview-grid">
       <section className="pipeline-card">
         <div className="card-title-row"><div><span className="section-kicker">YOUR PARTNERS</span><h3>{PARTNERS.length} links</h3></div></div>
