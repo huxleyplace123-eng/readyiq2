@@ -19,7 +19,7 @@ const M = (label, date, state) => ({ label, date, state });
 const FIXTURES = {
   lender: {
     id: 'harbor', name: 'Harbor Home Loans', site: 'harborhomeloans.com', nmls: '1809922',
-    brand: { primary: '#FF6A2B', secondary: '#FF9A5C', soft: '#FFEFE6', ink: '#B4400E' },
+    brand: { primary: '#FF7A1A', secondary: '#FFA640', soft: '#FFEFDF', ink: '#B34700' },
     floors: { fha: 620, conventional: 640, dpa: 660 }, floorDefault: 640,
     programs: [{ id: 'fha', name: 'FHA', floor: 620 }, { id: 'conventional', name: 'Conventional', floor: 640 }, { id: 'dpa', name: 'Harbor Down-Payment Assist', floor: 660 }],
   },

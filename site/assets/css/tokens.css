@@ -8,8 +8,8 @@
   --paper: var(--canvas); --paper-2: var(--surface-2); --white: #FFFFFF;
 
   /* ReadyIQ brand */
-  --navy: #17141A; --deep: #0F0D12; --slate: #23202A;
-  --lime: #FF7A2E; --lime-2: #FFB067; --lime-ink: #2B1206;
+  --navy: #0A0A0C; --deep: #050506; --slate: #17171B;
+  --lime: #FF7A00; --lime-2: #FFB13D; --lime-ink: #2B1206;
   --mint: #E6F8EC; --teal: #22C55E; --teal-ink: #15803D;
   --purple: #7C6CF6; --purple-soft: #EFEBFF;
   --coral: #F43F5E; --coral-soft: #FFE7EB;
@@ -18,13 +18,13 @@
   --idiq-navy: #12384F; --idiq-orange: #F27124;
 
   /* brand (overridden per lender) */
-  --brand: #F2521C; --brand-2: #FF8A3D;
-  --brand-soft: #FFEDE3; --brand-ink: #9A2F08;
-  --brand-glow: rgba(242, 82, 28, .32);
-  --brand-grad: linear-gradient(135deg, #F2521C 0%, #FF8A3D 100%);
+  --brand: #FF6A00; --brand-2: #FF9A2E;
+  --brand-soft: #FFEEDD; --brand-ink: #B34700;
+  --brand-glow: rgba(255, 106, 0, .34);
+  --brand-grad: linear-gradient(135deg, #FF6A00 0%, #FF9A2E 100%);
   --accent: var(--lime); --accent-2: var(--lime-2); --accent-ink: var(--lime-ink);
   --accent-grad: linear-gradient(135deg, var(--lime) 0%, var(--lime-2) 100%);
-  --text-grad: linear-gradient(90deg, #FF7A2E 0%, #FFB067 100%);
+  --text-grad: linear-gradient(90deg, #FF7A00 0%, #FFB13D 100%);
 
   /* semantic */
   --success: #15803D; --success-soft: #E6F8EC;
@@ -56,20 +56,20 @@
 
 /* the sample lender — vivid teal with a mint gradient partner */
 [data-brand="harbor"] {
-  --brand: #FF6A2B; --brand-2: #FF9A5C;
-  --brand-soft: #FFEFE6; --brand-ink: #B4400E;
-  --brand-glow: rgba(255, 106, 43, .34);
-  --brand-grad: linear-gradient(135deg, #FF6A2B 0%, #FF9A5C 100%);
-  --accent: #FF6A2B; --accent-2: #FF9A5C; --accent-ink: #FFFFFF;
-  --accent-grad: linear-gradient(135deg, #FF6A2B 0%, #FF9A5C 100%);
-  --text-grad: linear-gradient(90deg, #FF5A1F 0%, #FFA05C 100%);
+  --brand: #FF7A1A; --brand-2: #FFA640;
+  --brand-soft: #FFEFDF; --brand-ink: #B34700;
+  --brand-glow: rgba(255, 122, 26, .36);
+  --brand-grad: linear-gradient(135deg, #FF7A1A 0%, #FFA640 100%);
+  --accent: #FF7A1A; --accent-2: #FFA640; --accent-ink: #FFFFFF;
+  --accent-grad: linear-gradient(135deg, #FF7A1A 0%, #FFA640 100%);
+  --text-grad: linear-gradient(90deg, #FF6A00 0%, #FFAE45 100%);
 }
 [data-brand="readyiq"] {
-  --brand: #F2521C; --brand-2: #FF8A3D; --brand-soft: #FFEDE3; --brand-ink: #9A2F08;
-  --brand-glow: rgba(242, 82, 28, .32); --brand-grad: linear-gradient(135deg, #F2521C 0%, #FF8A3D 100%);
+  --brand: #FF6A00; --brand-2: #FF9A2E; --brand-soft: #FFEEDD; --brand-ink: #B34700;
+  --brand-glow: rgba(255, 106, 0, .34); --brand-grad: linear-gradient(135deg, #FF6A00 0%, #FF9A2E 100%);
   --accent: var(--lime); --accent-2: var(--lime-2); --accent-ink: var(--lime-ink);
   --accent-grad: linear-gradient(135deg, var(--lime) 0%, var(--lime-2) 100%);
-  --text-grad: linear-gradient(90deg, #FF7A2E 0%, #FFB067 100%);
+  --text-grad: linear-gradient(90deg, #FF7A00 0%, #FFB13D 100%);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="assets/css/components.css">
 <style>
   /* ---- marketing chrome ---- */
-  .mk-nav { position: sticky; top: 0; z-index: 30; background: rgba(13, 32, 36, .78); backdrop-filter: saturate(160%) blur(14px); border-bottom: 1px solid rgba(255,255,255,.08); color: #fff; }
+  .mk-nav { position: sticky; top: 0; z-index: 30; background: rgba(10, 10, 12, .8); backdrop-filter: saturate(160%) blur(14px); border-bottom: 1px solid rgba(255,255,255,.08); color: #fff; }
   .mk-nav-inner { height: 68px; display: flex; align-items: center; gap: 22px; }
   .mk-links { display: flex; gap: 22px; margin-left: 12px; }
   .mk-links a { color: rgba(255,255,255,.78); font-weight: 560; font-size: var(--fs-15); }
@@ -21,10 +21,16 @@
   .rmark { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -.02em; font-size: 18px; color: inherit; text-decoration: none !important; }
   .rmark i { width: 32px; height: 32px; border-radius: 10px; background: var(--lime); color: var(--lime-ink); display: grid; place-items: center; font-style: normal; font-weight: 800; }
   .rmark span span { color: var(--lime); }
-  .hero { position: relative; overflow: hidden; padding: var(--sp-20) 0 0; }
-  .hero .orb-lime { width: 620px; height: 620px; right: -160px; top: -200px; opacity: .22; }
-  .hero .orb-purple { width: 480px; height: 480px; left: -200px; bottom: -120px; opacity: .22; }
-  .hero-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-16); align-items: center; padding-bottom: var(--sp-16); }
+  .hero { position: relative; overflow: hidden; padding: var(--sp-16) 0 0; }
+  .hero-person { position: relative; height: 560px; }
+  .hp-circle { position: absolute; right: 24px; bottom: 40px; width: 460px; height: 460px; border-radius: 50%; background: var(--brand-grad); box-shadow: 0 40px 120px -30px var(--brand-glow); }
+  .hp-ring { position: absolute; right: -8px; bottom: 8px; width: 524px; height: 524px; border-radius: 50%; border: 1px solid rgba(255,255,255,.12); }
+  .hp-img { position: absolute; right: 74px; bottom: 90px; width: 360px; height: 360px; border-radius: 50%; object-fit: cover; object-position: center top; box-shadow: 0 30px 80px -20px rgba(0,0,0,.7), 0 0 0 8px rgba(255,255,255,.08); }
+  .hp-a { left: 12px; top: 92px; } .hp-b { right: -6px; top: 34px; animation-delay: 1.2s; } .hp-c { left: 40px; bottom: 34px; animation-delay: 2.1s; }
+  .showcase { position: relative; overflow: hidden; padding: var(--sp-20) 0 var(--sp-16); border-top: 1px solid rgba(255,255,255,.06); }
+  .showcase-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: var(--sp-16); align-items: center; }
+  .showcase-copy .h1 { color: #fff; }
+  .hero-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: var(--sp-12); align-items: center; padding-bottom: var(--sp-8); }
   .hero-copy { display: grid; gap: var(--sp-6); max-width: 620px; }
   .hero-copy .display { color: #fff; font-size: 66px; }
   .hero-copy .display em { background: var(--text-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -92,6 +98,12 @@
   @media (max-width: 960px) {
     .mk-links { display: none; }
     .hero { padding: var(--sp-12) 0 0; }
+    .hero-person { height: 420px; }
+    .hp-circle { width: 340px; height: 340px; right: 50%; transform: translateX(50%); bottom: 30px; }
+    .hp-ring { display: none; }
+    .hp-img { width: 270px; height: 270px; right: 50%; transform: translateX(50%); bottom: 66px; }
+    .hp-a, .hp-b, .hp-c { display: none; }
+    .showcase-grid { grid-template-columns: 1fr; gap: var(--sp-8); }
     .hero-copy .display { font-size: var(--fs-44); }
     .stage .platform { transform: none; }
     .phone-mini { display: none; }
@@ -113,7 +125,6 @@
 </div></nav>
 
 <header class="hero dark">
-  <i class="orb orb-lime"></i><i class="orb orb-purple"></i>
   <div class="container hero-grid">
     <div class="hero-copy">
       <div class="hero-pill"><i></i>Built for mortgage companies · Not a CRM</div>
@@ -125,11 +136,25 @@
       </div>
       <div class="hero-powered"><span class="muted">Powered by</span><span class="pb">MyScoreIQ</span><span class="pb">CreditBuilderIQ</span></div>
     </div>
-    <div class="stage">
+    <div class="hero-person" aria-hidden="true">
+      <i class="hp-ring"></i>
+      <i class="hp-circle"></i>
+      <img class="hp-img" src="assets/img/hero-person.png" alt="">
+      <div class="float-label hp-a"><i class="tone-mint"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l6-6 4 4 6-7M14 8h6v6"/></svg></i><div><small>Since last check</small><b>↑ 14 · FICO® Score</b></div></div>
+      <div class="float-label hp-b"><i class="tone-coral"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6l8-3zM9 12l2 2 4-4"/></svg></i><div><small>Dispute Hub</small><b>Custom letter ready</b></div></div>
+      <div class="float-label hp-c"><i class="tone-purple"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></i><div><small>Readiness trigger</small><b>Sarah told the day it's ready</b></div></div>
+    </div>
+  </div>
+  <div class="container hero-trust"><span>Works with the mortgage stack you already have</span><div class="logos" id="logos"></div></div>
+</header>
+
+<section class="showcase dark"><div class="container showcase-grid">
+  <div class="stack-4 showcase-copy"><p class="kicker accent">The product</p><h2 class="h1">One journey. <em>Your brand.</em> Their loan officer, the whole way.</h2><p class="lead">The consumer sees a lender-branded portal: an honest number, one next action, disputes and rent history, a path with dates on it. The loan officer sees status — never the report — and is told the day they're ready.</p><div class="row wrap"><a class="btn btn-accent" href="portal/">Open the portal <span class="arrow">→</span></a><a class="btn btn-outline" href="check/?c=harbor-smiller">Open the invitation</a></div></div>
+  <div class="stage">
       <div class="platform" aria-hidden="true">
-        <div class="platform-bar"><span class="brand-mark" style="background:#FF6A2B">H</span><b style="color:var(--ink)">Harbor Home Loans</b><span class="platform-live">Live journey</span></div>
+        <div class="platform-bar"><span class="brand-mark" style="background:#FF7A1A">H</span><b style="color:var(--ink)">Harbor Home Loans</b><span class="platform-live">Live journey</span></div>
         <div class="platform-body">
-          <div class="platform-context"><span class="avatar" style="background:#FFEFE6;color:#B4400E">MD</span><div><small>Your path</small><b>Maria Delgado</b><div class="small muted">Invited by Sarah Miller · NMLS 1234567</div></div><span class="badge badge-build">Build Mode</span></div>
+          <div class="platform-context"><span class="avatar" style="background:#FFEFDF;color:#B34700">MD</span><div><small>Your path</small><b>Maria Delgado</b><div class="small muted">Invited by Sarah Miller · NMLS 1234567</div></div><span class="badge badge-build">Build Mode</span></div>
           <div class="card card-pad" style="padding:14px;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center"><div id="hero-ring"></div><div class="stack-1"><span class="number-delta up">↑ 14 since last check</span><p class="number-caption" style="font-size:12px">FICO® Score — not the mortgage-industry version lenders pull. A guide, not a preapproval.</p><span class="engine-tag">Powered by MyScoreIQ</span></div></div>
           <div class="grid-2" style="gap:10px">
             <div class="card card-pad" style="padding:12px 14px;display:grid;gap:4px"><span class="eyebrow" style="font-size:12px">Dispute Hub</span><b>Duplicate collection</b><span class="small muted">Custom letter ready · Experian + TransUnion</span><span class="pill pill-draft" style="justify-self:start">draft</span></div>
@@ -137,10 +162,10 @@
           </div>
           <div class="card card-pad" style="padding:12px 14px"><span class="eyebrow" style="font-size:12px">Your path</span><div id="hero-path"></div></div>
         </div>
-        <div class="platform-return"><span class="avatar" style="background:#FF6A2B;color:#fff">SM</span><div><small>Original LO protected</small><b>Milestones route back to Sarah Miller</b></div><span class="chip"><span class="dot"></span>ReadyIQ → Total Expert</span></div>
+        <div class="platform-return"><span class="avatar" style="background:#FF7A1A;color:#fff">SM</span><div><small>Original LO protected</small><b>Milestones route back to Sarah Miller</b></div><span class="chip"><span class="dot"></span>ReadyIQ → Total Expert</span></div>
       </div>
       <div class="phone-mini" aria-hidden="true">
-        <div class="row" style="gap:8px"><span class="brand-mark" style="width:22px;height:22px;font-size:11px;background:#FF6A2B">H</span><b class="small">Harbor Home Loans</b></div>
+        <div class="row" style="gap:8px"><span class="brand-mark" style="width:22px;height:22px;font-size:11px;background:#FF7A1A">H</span><b class="small">Harbor Home Loans</b></div>
         <span class="chip chip-round" style="justify-self:start;height:26px;font-size:12px">Personal invitation · Sarah</span>
         <b style="font-size:15px;line-height:1.25">Sarah invited you to check your credit readiness.</b>
         <span class="small muted">3 minutes · no application · soft pull</span>
@@ -150,8 +175,7 @@
       <div class="float-label float-b"><i class="tone-mint"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4z M10 20v-6h4v6"/></svg></i><div><small>Readiness trigger</small><b>Sarah told the day it's ready</b></div></div>
     </div>
   </div>
-  <div class="container hero-trust"><span>Works with the mortgage stack you already have</span><div class="logos" id="logos"></div></div>
-</header>
+</div></section>
 
 
 
@@ -197,12 +221,12 @@
   <div class="stack-4"><p class="kicker accent">The consumer experience</p><h2 class="h1">Your invitation. Your brand. <em>Their private path forward.</em></h2><p class="lead">Consumers arrive through your website or a personal link, complete their own permissioned check in three screens, and use a lender-branded portal to dispute, build, and track — until they ask their loan officer for a review.</p>
     <div class="row wrap"><a class="btn btn-primary" href="check/?c=harbor-smiller">Open a personal invitation <span class="arrow">→</span></a><a class="btn btn-outline" href="portal/">Open the portal</a></div></div>
   <div class="phone" aria-hidden="true">
-    <div class="row-between"><span class="row" style="gap:8px"><span class="brand-mark" style="width:22px;height:22px;font-size:11px;background:#FF6A2B">H</span><b class="small">Harbor Home Loans</b></span><span class="small muted">Powered by ReadyIQ</span></div>
+    <div class="row-between"><span class="row" style="gap:8px"><span class="brand-mark" style="width:22px;height:22px;font-size:11px;background:#FF7A1A">H</span><b class="small">Harbor Home Loans</b></span><span class="small muted">Powered by ReadyIQ</span></div>
     <span class="chip chip-round" style="justify-self:start">Personal invitation · Sarah Miller</span>
     <h3 class="h3">Sarah invited you to check your credit readiness.</h3>
     <p class="small muted">See where your credit stands, get a plan, and stay connected to Sarah — without applying for anything today.</p>
     <div class="card card-pad" style="padding:12px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center"><div id="phone-ring"></div><div><span class="eyebrow" style="font-size:10px">Readiness snapshot</span><div class="small muted">FICO® Score · a guide, not a preapproval</div></div></div>
-    <a class="btn btn-primary btn-block" style="background:#FF6A2B" href="check/?c=harbor-smiller">Accept invitation →</a>
+    <a class="btn btn-primary btn-block" style="background:#FF7A1A" href="check/?c=harbor-smiller">Accept invitation →</a>
     <p class="reg-b" style="font-size:11px">You can apply for a mortgage at any time — this is not required.</p>
   </div>
 </div></section>
