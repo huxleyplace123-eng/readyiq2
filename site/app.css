@@ -325,6 +325,28 @@ a.primary-dark,a.primary-lime,a.outline-button{text-decoration:none;display:inli
 .mode-switch button{white-space:nowrap}
 @media(max-width:1300px){.demo-title>span:last-child,.demo-title .demo-divider{display:none}.mode-switch button{padding:8px 10px;font-size:12px}.reset-button,.guide-btn{white-space:nowrap}}
 
+/* ---------- website nav: one calm line, never wraps ---------- */
+.b2b-nav{gap:24px}
+.b2b-nav .brand-mark{flex:none}
+.b2b-links{gap:26px;flex:1;justify-content:center;min-width:0}
+.b2b-links a,.b2b-links button{font-size:13px;font-weight:650;white-space:nowrap;letter-spacing:-.005em;color:#4b5c57;padding:0}
+.b2b-links a:hover,.b2b-links button:hover{color:#102226}
+.b2b-nav-actions{flex:none;gap:6px}
+.b2b-login{font-size:13px;font-weight:700;white-space:nowrap;padding:10px 12px}
+.b2b-demo{white-space:nowrap;padding:12px 16px;font-size:13px}
+@media(max-width:1300px){.b2b-links{gap:18px}.b2b-links a,.b2b-links button{font-size:12.5px}}
+@media(max-width:1060px) and (min-width:761px){.b2b-links{display:none;position:absolute;left:5%;right:5%;top:76px;background:#fff;border:1px solid #dde5e0;border-radius:14px;padding:12px;box-shadow:var(--soft);flex-direction:column;align-items:stretch;gap:0;z-index:20}.b2b-links.open{display:flex}.b2b-links a,.b2b-links button{padding:12px 14px;text-align:left;font-size:14px}.b2b-menu{display:block}}
+
+/* ---------- "the lost-lead problem": tighter, balanced, stats as a 3-up strip ---------- */
+.b2b-problem{padding:84px max(7%,calc((100vw - 1350px)/2));grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:8%;align-items:center}
+.b2b-problem h2{max-width:640px}
+.problem-copy>p{font-size:15px;line-height:1.7;color:#5f716b;max-width:520px;margin:0}
+.problem-copy>div{display:grid;grid-template-columns:.8fr .9fr 1.3fr;grid-template-rows:auto auto;grid-auto-flow:column;column-gap:18px;row-gap:6px;margin-top:26px;border-top:1px solid #d8e1dc;padding-top:22px;align-items:start}
+.problem-copy strong{font-size:30px;letter-spacing:-.04em;line-height:1;color:#102226}
+.problem-copy span{font-size:11px;letter-spacing:.08em;color:#7d8d88;line-height:1.35;text-transform:uppercase}
+@media(max-width:1100px){.b2b-problem{grid-template-columns:1fr;gap:26px;padding:64px 6%}.b2b-problem h2{max-width:none;font-size:clamp(32px,4.2vw,44px)}.problem-copy>p{max-width:none}}
+@media(max-width:560px){.problem-copy>div{grid-template-columns:1fr 1fr}.problem-copy strong{font-size:26px}}
+
 /* consumer-v2.css — the consumer portal lifted to the marketing site's level: same tokens, same devices
    (dark gradient + grid + auras, white platform window with glass floats, the dark path frame, big Inter + Georgia italics). */
 
