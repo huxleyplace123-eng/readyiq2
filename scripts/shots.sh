@@ -31,6 +31,11 @@ shot 17-consumer-reporting "?mode=consumer&cpage=reporting"       1440 1400
 shot 18-consumer-progress  "?mode=consumer&cpage=progress"        1440 1400
 shot 19-consumer-guardian  "?mode=consumer&cpage=guardian"
 shot 20-integrations       "?mode=integrations"                   1440 2200
+shot 21-passport           "?mode=consumer&cpage=passport"        1440 1250
+shot 22-passport-public    "?passport=RIQ-7F2A-MC"                1440 1100
+shot 23-guide              "?guide=1"                             1440 1000
+shot 24-lo-journeys-revival "?mode=lender&lpage=campaigns"        1440 1100
+shot 25-door-building-es   "?c=summit-palms&lang=es"              1440 1000
 shot m1-website-mobile     "?mode=marketing"                       390 1600
 shot m2-result-mobile      "?mode=consumer&cpage=result"          390 1600
 shot m3-lo-link-mobile     "?mode=lender&lpage=link"              390 1400

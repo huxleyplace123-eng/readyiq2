@@ -23,6 +23,9 @@ Deep links (the demo toolbar sets the same params):
 ?mode=consumer&cpage=welcome|consent|checking|result|plan|disputes|guardian|…
 ?mode=lender&lpage=start|link|borrowers|overview|campaigns|organization|integrations
 ?mode=integrations
+?guide=1                 the Guide (eight leader moves, each deep-linked)
+?passport=RIQ-7F2A-MC    a shared Readiness Passport (public view)
+?c=summit-palms&lang=es  the property-manager front door, in Spanish
 ```
 
 Registered in `dchub/.claude/launch.json` as `readyiq2` for the preview tooling.
@@ -34,6 +37,8 @@ src/v11-page.tsx          the v11 look — marketing site, org portal, consumer 
 src/screens/lo.tsx        loan officer: 60-second sign-up · Your link (link · QR · text · invite) · read-only status feed
 src/screens/overview.tsx  consumer Overview: dark hero + score window, path stepper, toolkit bento
 src/screens/door.tsx      front door + enrollment as one scrolling page (three cards, sticky rail)
+src/screens/leader.tsx    the leader moves: Readiness Passport (+ public view, verified-ready badge), soft tri-merge, underwriter notes, DPA match, lost-lead revival, the Guide
+src/screens/lang.tsx      Spanish as a first-class language (context + EN/ES toggle)
 src/screens/consumer.tsx  three consents · honest 3-bureau strip · DTI + clock · mortgage-why · why-it-moved · Guardian · review packet · Ask ReadyIQ
 src/state.js              fixtures + rules (tests in test/)
 src/styles/               v11.css (the system, type rescaled by scripts/rescale-type.py) · consumer-v2.css (consumer portal, marketing-grade) · additions.css · inter.css (Inter embedded, OFL)

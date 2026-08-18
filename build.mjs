@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 const watch = process.argv.includes('--watch');
 mkdirSync('site', { recursive: true });
 
-const css = ['src/styles/inter.css', 'src/styles/v11.css', 'src/styles/additions.css', 'src/styles/consumer-v2.css'].map((f) => { try { return readFileSync(f, 'utf8'); } catch { return ''; } }).join('\n');
+const css = ['src/styles/inter.css', 'src/styles/v11.css', 'src/styles/additions.css', 'src/styles/consumer-v2.css', 'src/styles/leader.css'].map((f) => { try { return readFileSync(f, 'utf8'); } catch { return ''; } }).join('\n');
 writeFileSync('site/app.css', css);
 writeFileSync('site/index.html', `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">

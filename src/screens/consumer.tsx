@@ -1,3 +1,5 @@
+import { TriMerge } from "./leader";
+import { useLang } from "./lang";
 // src/screens/consumer.tsx — ReadyIQ 2 consumer features in the v11 look: three consents, honest number strip,
 // DTI + eligibility clock, mortgage-priority dispute notes, Guardian, review packet, Ask ReadyIQ.
 import { useState } from "react";
@@ -6,13 +8,13 @@ export const REGB = "You can apply for a mortgage at any time — this is not re
 
 /* three plain-English consents (credit for my own use · status-not-report to my LO · texts) */
 export function ConsentBlock({ onChange }: { onChange: (ok: boolean) => void }) {
-  const [c, setC] = useState({ credit: false, status: false, text: false });
+  const [c, setC] = useState({ credit: false, status: false, text: false }); const { es } = useLang();
   const set = (k: keyof typeof c) => (e: React.ChangeEvent<HTMLInputElement>) => { const n = { ...c, [k]: e.target.checked }; setC(n); onChange(n.credit && n.status && n.text); };
   return <div className="permission-list" style={{ marginTop: 6 }}>
-    <label className="consent-check"><input type="checkbox" checked={c.credit} onChange={set("credit")} /><span><strong>Let ReadyIQ pull my credit for my own review.</strong> MyScoreIQ and CreditBuilderIQ obtain my reports and FICO® Score for me. This is a soft check — it does not affect my score.</span></label>
-    <label className="consent-check"><input type="checkbox" checked={c.status} onChange={set("status")} /><span><strong>Share my status — never my report — with my loan officer.</strong> Jordan sees where I am on the path (like “Round 2, utilization goal met”). Jordan never sees my credit report or score details unless I request a review.</span></label>
-    <label className="consent-check"><input type="checkbox" checked={c.text} onChange={set("text")} /><span><strong>Text me.</strong> ReadyIQ and Jordan may text me about my path. Message rates may apply; reply STOP any time.</span></label>
-    <small style={{ color: "var(--muted)" }}>{REGB}</small>
+    <label className="consent-check"><input type="checkbox" checked={c.credit} onChange={set("credit")} /><span>{es ? <><strong>Permito que ReadyIQ consulte mi crédito para mi propia revisión.</strong> MyScoreIQ y CreditBuilderIQ obtienen mis reportes y mi FICO® Score para mí. Es una consulta suave — no afecta mi puntaje.</> : <><strong>Let ReadyIQ pull my credit for my own review.</strong> MyScoreIQ and CreditBuilderIQ obtain my reports and FICO® Score for me. This is a soft check — it does not affect my score.</>}</span></label>
+    <label className="consent-check"><input type="checkbox" checked={c.status} onChange={set("status")} /><span>{es ? <><strong>Compartir mi estatus — nunca mi reporte — con mi oficial de préstamos.</strong> Jordan ve dónde voy en el camino (como “Ronda 2, meta de utilización cumplida”). Jordan nunca ve mi reporte ni mi puntaje a menos que yo pida una revisión.</> : <><strong>Share my status — never my report — with my loan officer.</strong> Jordan sees where I am on the path (like “Round 2, utilization goal met”). Jordan never sees my credit report or score details unless I request a review.</>}</span></label>
+    <label className="consent-check"><input type="checkbox" checked={c.text} onChange={set("text")} /><span>{es ? <><strong>Envíenme mensajes de texto.</strong> ReadyIQ y Jordan pueden escribirme sobre mi camino. Pueden aplicar tarifas; responde STOP para cancelar.</> : <><strong>Text me.</strong> ReadyIQ and Jordan may text me about my path. Message rates may apply; reply STOP any time.</>}</span></label>
+    <small style={{ color: "var(--muted)" }}>{es ? "Puedes solicitar una hipoteca cuando quieras — esto no es obligatorio." : REGB}</small>
   </div>;
 }
 
@@ -79,12 +81,17 @@ export function ReviewPacket({ close }: { close: () => void }) {
   const [sent, setSent] = useState(false); const [consent, setConsent] = useState(false);
   return <div className="modal-backdrop"><div className="review-modal"><button className="modal-close" onClick={close}>×</button>{!sent ? <><span className="review-modal-icon">↗</span><span className="section-kicker">REQUEST REVIEW</span><h2>Ready for Jordan to take a real look?</h2><p>Jordan gets a consumer-authorized packet — your status, never your report — and pulls the real mortgage credit report when you talk.</p>
     <div className="review-summary"><div><span>Pathway</span><strong>Build Mode · Round 2 of ~5</strong></div><div><span>Summit floors met</span><strong>FHA</strong></div><div><span>DTI estimate</span><strong>11%</strong></div><div><span>Rent history</span><strong>24 months</strong></div><div><span>Disputes</span><strong>1 sent · 0 open drafts</strong></div><div><span>Loan officer</span><strong>Jordan Lee</strong></div></div>
-    <label className="consent-check" style={{ marginTop: 10 }}><input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} /><span><strong>Jordan may pull my mortgage credit report when we talk.</strong> That’s a hard inquiry, done by Summit Home Loans with my permission — it’s how the real qualification starts. Nothing is pulled until we speak.</span></label>
+    <TriMerge /><label className="consent-check" style={{ marginTop: 10 }}><input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} /><span><strong>Jordan may pull my mortgage credit report when we talk.</strong> That’s a hard inquiry, done by Summit Home Loans with my permission — it’s how the real qualification starts. Nothing is pulled until we speak.</span></label>
     <button disabled={!consent} className="primary-lime wide dark-text" onClick={() => setSent(true)}>Send to Jordan →</button><small style={{ color: "var(--muted)" }}>{REGB}</small></> : <div className="modal-success"><span>✓</span><h2>Jordan has your packet.</h2><p>Jordan received a ReadyIQ alert and will reach out to schedule. Keep balances where they are until you talk.</p><button className="primary-dark" onClick={close}>Back to my path</button></div>}</div></div>;
 }
 
 /* Ask ReadyIQ — floating, scripted, guardrailed */
 const ANSWERS: [RegExp, string][] = [
+  [/collection|midland|pay.*off/i, "Guideline, not a promise: FHA excludes medical collections and lets non-medical collections under $2,000 in aggregate ride; above that, a payment plan or 5% of the balance counts in your DTI. Conventional lets automated underwriting decide. That’s why Midland is sequenced first — and why paying it may not raise the FICO® you see here."],
+  [/dti|debt.to.income|income/i, "Your DTI estimate is 11% on $6,500 gross income and $724 of monthly debt on the report. Most FHA files close under 43–50%, conventional under ~45%, plus the new housing payment — Jordan computes the real number from the tri-merge and verified income. Right now you have room."],
+  [/gift|parents|down ?payment|assistance|dpa/i, "Gifts from family are allowed on FHA and conventional with a gift letter and a paper trail. Separately, you may qualify for 3 Arizona assistance programs (Home Plus, Home in Five Advantage, Pima Tucson HBS) — matched via Down Payment Resource, confirmed by Jordan. It’s a match, not an award."],
+  [/passport|share|realtor|agent/i, "Your Readiness Passport is a status you own: pathway, floors met, DTI in range, rent months, disputes — never your score or report. Share it with a realtor or a second lender from the Passport page; Jordan stays your loan officer of record on every copy, and you can revoke any time."],
+  [/tri.?merge|mortgage score|real score|lenders use/i, "MyScoreIQ shows FICO® 8. Lenders pull FICO® 2/4/5 on a tri-merge. When you request a review, you can let Summit’s vendor run a soft tri-merge first — real mortgage-model numbers, no hard inquiry — and Jordan sees only ‘floors met’ unless you share more."],
   [/why|moved|drop|change/i, "Your FICO® moved up 14 since your last check. Every point has a cause: +14 utilization down (Summit Visa paid to $870), +6 lates aging (now 14 months old), −6 new inquiry (Honda Financial). The full list is under Score center."],
   [/next|should|do now|first/i, "One thing: pay Summit Visa below 30% before the 22nd. Your statement closes on the 22nd — paying $95 more moves the whole card under 30%. It’s the fastest lever you have this round."],
   [/apply|ready|qualify|approve/i, "You can apply for a mortgage at any time — this isn’t required. Right now you’re in Build Mode; your FICO® meets Summit’s directional floor for FHA. What that means for a specific program is Jordan’s call — I don’t predict approvals."],
