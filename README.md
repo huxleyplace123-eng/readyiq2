@@ -33,6 +33,7 @@ Registered in `dchub/.claude/launch.json` as `readyiq2` for the preview tooling.
 src/v11-page.tsx          the v11 look — marketing site, org portal, consumer portal, integration hub (React; one file, being split)
 src/screens/lo.tsx        loan officer: 60-second sign-up · Your link (link · QR · text · invite) · read-only status feed
 src/screens/overview.tsx  consumer Overview: dark hero + score window, path stepper, toolkit bento
+src/screens/door.tsx      front door + enrollment as one scrolling page (three cards, sticky rail)
 src/screens/consumer.tsx  three consents · honest 3-bureau strip · DTI + clock · mortgage-why · why-it-moved · Guardian · review packet · Ask ReadyIQ
 src/state.js              fixtures + rules (tests in test/)
 src/styles/               v11.css (the system, type rescaled by scripts/rescale-type.py) · consumer-v2.css (consumer portal, marketing-grade) · additions.css · inter.css (Inter embedded, OFL)
@@ -53,7 +54,7 @@ docs/                     specs, plans, shots
 | Surface | What it is |
 |---|---|
 | Website (`?mode=marketing`) | v11 hero with a live platform window, the loop, product suite, org section, consumer section, integrations teaser; "Get your link in 60 seconds" opens the LO sign-up |
-| Consumer (`?mode=consumer`) | Personal invitation → three consents (own use · status-not-report to the LO · texts) → checking → overview (3-bureau strip, plan progress, one next action) → plan (DTI, the Clock) → disputes with mortgage-why → why-it-moved → Guardian → review packet with hard-pull consent → Ask ReadyIQ |
+| Consumer (`?mode=consumer`) | Front door + enrollment on one scrolling page (invitation hero → About you · Permission (three consents: own use · status-not-report · texts) · Secure check) → overview (3-bureau strip, plan progress, one next action) → plan (DTI, the Clock) → disputes with mortgage-why → why-it-moved → Guardian → review packet with hard-pull consent → Ask ReadyIQ |
 | Loan officer (`?mode=lender`) | 60-second sign-up (email + NMLS → found you → your link) · Your link (copy · QR · text this to a client · invite · preview) · read-only status feed · overview · journeys · organization · integrations |
 | Integrations (`?mode=integrations`) | Status object, connections, API actions, webhook events, integration levels |
 
