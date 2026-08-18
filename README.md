@@ -39,14 +39,24 @@ test/         node:test
 - Relative URLs only — must work locally and under a Pages sub-path.
 - Prototype "today" is 2026-08-18. `?reset=1` restores fixtures, `?dev=1` shows the switcher.
 
-## What's built (Stage 1 — consumer experience)
+## What's built (v2 — merged)
 
 | Route | What it is |
 |---|---|
-| `check/` | Lender-branded front door: live phone preview, "See a sample path" tour, LO chip from attribution (`?c=harbor-dkim`) |
-| `enroll/` | Three screens (you → verify → your loan officer) and the "Your path is ready" reveal |
-| `portal/` | Home (number · path · one next action · request review · ask), `#plan` (levers, the Clock, DTI), `#disputes`, `#build`, `#number`, `#review`, `#guardian`, `#ask`, `#protect`, `#settings` |
-| `dev/` | Components gallery |
+|  | ReadyIQ website — dark hero with a live platform window, the loop, product-suite tabs, modules, org section, consumer section, integrations teaser |
+|  | Lender-branded front door — public door, or a **personal invitation** when  resolves (, ) |
+|  | Three screens (you + timeline · identity + one-time code · your loan officer) → “Your path is ready” |
+|  | Five tabs: Home (ring gauge · path · one next action · toolkit · LO card) · Plan (levers, the Clock, DTI) · Disputes (four-step hub) · Build · Progress (chart, milestones, why it moved). Ask floats; Guardian is a banner; Review / Protect / Settings under the avatar |
+|  ·  | Loan officer: 60-second sign-up (NMLS autofill, brand pull) → link · QR · text · invite modal · read-only status feed · organization settings. Not a CRM |
+|  ·  | Link resolver (attribution) · partner (agent) page with coarse statuses only |
+|  | Status object, architecture, connections, API actions, webhook events, three integration levels |
+|  | Components gallery |
 
-Fixtures: seven consumers, one per story — switch with `?dev=1`, reset with `?reset=1`.
-Logic is in `site/assets/js/state.js` and covered by `npm test`.
+A “ReadyIQ demo ▾” pill on every page switches surfaces and fixture consumers ( hides it;  restores fixtures).
+Logic lives in  (Unknown command: "test"
+
+
+Did you mean this?
+  npm test # Test a package
+To see a list of supported npm commands, run:
+  npm help). QR SVGs: .

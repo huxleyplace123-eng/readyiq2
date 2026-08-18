@@ -310,3 +310,11 @@ select.input { appearance: none; background-image: linear-gradient(45deg, transp
 .dark a.btn-primary, .dark .btn-primary { color: #fff; }
 .dark a.btn-secondary { color: var(--brand-ink); }
 .swatch { display: block; }
+
+/* ---------- small-screen fixes ---------- */
+code { overflow-wrap: anywhere; }
+@media (max-width: 600px) {
+  .btn-lg { white-space: normal; height: auto; min-height: 52px; padding: 12px 20px; line-height: 1.2; text-align: center; }
+  .mk-actions .btn-ghost, .mk-nav .btn-ghost { display: none; }
+  .mk-actions .btn { height: 40px; padding: 0 14px; font-size: var(--fs-13); }
+}

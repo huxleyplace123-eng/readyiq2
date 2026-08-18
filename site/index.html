@@ -64,6 +64,7 @@
   .window-bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); }
   .window-body { padding: 14px; display: grid; gap: 10px; }
   .window-body .card { border-radius: var(--r-2); box-shadow: none; }
+  .window-body > *, .suite-panel > *, .window { min-width: 0; }
   .modules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .modules .card { display: grid; gap: 8px; }
   .modules .ico { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; font-weight: 800; }
@@ -84,14 +85,14 @@
   @media (max-width: 960px) {
     .mk-links { display: none; }
     .hero { padding: var(--sp-12) 0 var(--sp-10); }
-    .hero-grid, .problem, .suite-head, .suite-panel, .org, .cx { grid-template-columns: 1fr; gap: var(--sp-6); }
+    .hero-grid, .problem, .suite-head, .suite-panel, .org, .cx { grid-template-columns: minmax(0, 1fr); gap: var(--sp-6); }
     .loop, .modules { grid-template-columns: 1fr 1fr; }
     .stat-row { grid-template-columns: 1fr; }
     .float-label { display: none; }
     .events > div { grid-template-columns: 1fr 1fr; }
     .events > div span:nth-child(1), .events > div span:nth-child(4) { display: none; }
   }
-  @media (max-width: 600px) { .loop, .modules { grid-template-columns: 1fr; } .phone { width: 100%; max-width: 320px; } }
+  @media (max-width: 600px) { .loop, .modules { grid-template-columns: 1fr; } .phone { width: 100%; max-width: 320px; } .hero-copy .row .btn { width: 100%; } .hero-copy .row { display: grid; } }
 </style>
 </head>
 <body>
@@ -187,7 +188,7 @@
 
 <section class="section dark" id="integrations"><div class="container stack-8">
   <div class="suite-head"><div class="stack-2"><p class="kicker accent">Integrations</p><h2 class="h1">One readiness network. <em>Every mortgage system.</em></h2></div><p class="lead">ReadyIQ lives on its own, appears on your website, and speaks inside your CRM. One API and one small status object; adapters translate it into each platform’s language.</p></div>
-  <div class="loop" style="grid-template-columns:repeat(4,1fr)">
+  <div class="loop">
     <div class="card card-glass card-pad"><span class="eyebrow" style="color:rgba(255,255,255,.6)">01</span><h3 class="h3">Mortgage entry point</h3><p class="muted">Website · CRM · POS · LO link</p></div>
     <div class="card card-lime card-pad"><span class="eyebrow" style="color:rgba(30,58,10,.7)">02</span><h3 class="h3">ReadyIQ orchestration</h3><p style="color:rgba(30,58,10,.8)">Identity · consent · pathways · Guardian</p></div>
     <div class="card card-glass card-pad"><span class="eyebrow" style="color:rgba(255,255,255,.6)">03</span><h3 class="h3">IDIQ engines</h3><p class="muted">MyScoreIQ · CreditBuilderIQ</p></div>

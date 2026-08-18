@@ -33,13 +33,13 @@
   .strip { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: var(--sp-8); align-items: center; }
   .footer { padding: var(--sp-8) 0 var(--sp-12); font-size: var(--fs-13); color: var(--ink-3); border-top: 1px solid var(--line-2); margin-top: var(--sp-12); display: grid; gap: 8px; }
   @media (max-width: 960px) {
-    .hero { grid-template-columns: 1fr; gap: var(--sp-8); padding: var(--sp-8) 0 var(--sp-6); }
+    .hero { grid-template-columns: minmax(0, 1fr); gap: var(--sp-8); padding: var(--sp-8) 0 var(--sp-6); overflow: hidden; }
     .stage { order: 2; }
     .float-a { right: 0; top: 60px; } .float-b { left: 0; }
     .how { grid-template-columns: 1fr; }
     .strip { grid-template-columns: 1fr; }
   }
-  @media (max-width: 480px) { .float-label { display: none; } }
+  @media (max-width: 480px) { .float-label { display: none; } .hero-cta { display: grid; } .hero-cta .btn { width: 100%; } }
 </style>
 </head>
 <body>
