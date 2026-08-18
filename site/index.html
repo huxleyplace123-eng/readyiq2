@@ -21,28 +21,34 @@
   .rmark { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -.02em; font-size: 18px; color: inherit; text-decoration: none !important; }
   .rmark i { width: 32px; height: 32px; border-radius: 10px; background: var(--lime); color: var(--lime-ink); display: grid; place-items: center; font-style: normal; font-weight: 800; }
   .rmark span span { color: var(--lime); }
-  .hero { position: relative; overflow: hidden; padding: var(--sp-20) 0 var(--sp-16); }
-  .hero .orb-lime { width: 520px; height: 520px; right: -140px; top: -120px; opacity: .22; }
-  .hero .orb-purple { width: 420px; height: 420px; left: -160px; bottom: -160px; opacity: .22; }
-  .hero-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: var(--sp-12); align-items: center; }
-  .hero-copy { display: grid; gap: var(--sp-5); max-width: 600px; }
-  .hero-copy .display { color: #fff; }
-  .hero-copy .display em { color: var(--lime); }
-  .proof { display: flex; gap: 18px; flex-wrap: wrap; font-size: var(--fs-13); color: rgba(255,255,255,.7); }
-  .proof span::before { content: "✓"; color: var(--lime); font-weight: 700; margin-right: 6px; }
-  .stage { position: relative; }
-  .stage .platform { position: relative; z-index: 1; color: var(--ink); }
-  .float-a { right: -14px; top: 168px; } .float-b { left: -22px; bottom: 60px; animation-delay: 1.4s; }
+  .hero { position: relative; overflow: hidden; padding: var(--sp-20) 0 0; }
+  .hero .orb-lime { width: 620px; height: 620px; right: -160px; top: -200px; opacity: .22; }
+  .hero .orb-purple { width: 480px; height: 480px; left: -200px; bottom: -120px; opacity: .22; }
+  .hero-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-16); align-items: center; padding-bottom: var(--sp-16); }
+  .hero-copy { display: grid; gap: var(--sp-6); max-width: 620px; }
+  .hero-copy .display { color: #fff; font-size: 66px; }
+  .hero-copy .display em { background: var(--text-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero-copy .lead { max-width: 56ch; }
+  .hero-pill { display: inline-flex; align-items: center; gap: 10px; height: 36px; padding: 0 14px 0 10px; border-radius: var(--r-pill); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.85); font-size: var(--fs-13); font-weight: 600; width: max-content; max-width: 100%; }
+  .hero-pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 4px rgba(255,122,46,.22); }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .hero-powered { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: var(--fs-13); color: rgba(255,255,255,.7); }
+  .hero-powered .pb { display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 8px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); color: #fff; font-weight: 700; font-size: 12px; letter-spacing: .01em; }
+  .hero-powered .sep { width: 1px; height: 16px; background: rgba(255,255,255,.18); margin: 0 4px; }
+  .stage { position: relative; perspective: 1600px; }
+  .stage .platform { position: relative; z-index: 1; color: var(--ink); transform: rotateY(-8deg) rotateX(3deg); transform-origin: 20% 50%; transition: transform var(--dur-4) var(--ease); box-shadow: 0 60px 120px -40px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.06); }
+  .stage:hover .platform { transform: none; }
+  .phone-mini { position: absolute; z-index: 4; left: -40px; bottom: -44px; width: 222px; display: grid; gap: 8px; padding: 14px; border-radius: 22px; background: #fff; color: var(--ink); border: 1px solid var(--line-2); box-shadow: 0 30px 70px -20px rgba(0,0,0,.55); transform: rotate(-3deg); }
+  .float-a { right: -14px; top: 118px; } .float-b { right: -22px; bottom: 132px; animation-delay: 1.4s; }
   .platform-context { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; }
-  .platform-context small { display: block; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); font-weight: 640; }
+  .platform-context small { display: block; font-size: 12px; color: var(--ink-3); font-weight: 600; }
   .platform-return { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 12px 16px; background: var(--paper-2); border-top: 1px solid var(--line-2); font-size: var(--fs-13); }
-  .platform-return small { display: block; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); font-weight: 640; }
-  .trust { padding: var(--sp-8) 0; border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2); }
-  .trust-inner { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; justify-content: space-between; }
-  .trust-inner > span { font-size: var(--fs-12); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); font-weight: 640; }
-  .logos { display: flex; gap: 26px; flex-wrap: wrap; align-items: center; }
-  .logos b { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); font-weight: 640; letter-spacing: .02em; font-size: var(--fs-13); }
-  .logos b i { width: 28px; height: 28px; border-radius: 8px; background: var(--paper); border: 1px solid var(--line-2); display: grid; place-items: center; font-style: normal; font-size: 11px; font-weight: 800; color: var(--ink); }
+  .platform-return small { display: block; font-size: 12px; color: var(--ink-3); font-weight: 600; }
+  .hero-trust { position: relative; display: flex; align-items: center; gap: 28px; flex-wrap: wrap; justify-content: space-between; padding: var(--sp-6) var(--sp-6) var(--sp-8); border-top: 1px solid rgba(255,255,255,.08); }
+  .hero-trust > span { font-size: var(--fs-12); letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); font-weight: 700; }
+  .logos { display: flex; gap: 22px; flex-wrap: wrap; align-items: center; }
+  .logos b { display: inline-flex; align-items: center; gap: 8px; color: rgba(255,255,255,.78); font-weight: 600; font-size: var(--fs-13); }
+  .logos b i { width: 28px; height: 28px; border-radius: 8px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); display: grid; place-items: center; font-style: normal; font-size: 11px; font-weight: 800; color: #fff; }
   .problem { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: var(--sp-12); align-items: start; }
   .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .stat-row .card { padding: 18px; }
@@ -85,7 +91,10 @@
   .mk-footer { padding: var(--sp-10) 0 var(--sp-16); font-size: var(--fs-13); color: var(--ink-3); display: grid; gap: 14px; }
   @media (max-width: 960px) {
     .mk-links { display: none; }
-    .hero { padding: var(--sp-12) 0 var(--sp-10); }
+    .hero { padding: var(--sp-12) 0 0; }
+    .hero-copy .display { font-size: var(--fs-44); }
+    .stage .platform { transform: none; }
+    .phone-mini { display: none; }
     .hero-grid, .problem, .suite-head, .suite-panel, .org, .cx { grid-template-columns: minmax(0, 1fr); gap: var(--sp-6); }
     .loop, .modules { grid-template-columns: 1fr 1fr; }
     .stat-row { grid-template-columns: 1fr; }
@@ -93,7 +102,7 @@
     .events > div { grid-template-columns: 1fr 1fr; }
     .events > div span:nth-child(1), .events > div span:nth-child(4) { display: none; }
   }
-  @media (max-width: 600px) { .loop, .modules { grid-template-columns: 1fr; } .phone { width: 100%; max-width: 320px; } .hero-copy .row .btn { width: 100%; } .hero-copy .row { display: grid; } }
+  @media (max-width: 600px) { .loop, .modules { grid-template-columns: 1fr; } .phone { width: 100%; max-width: 320px; } .hero-cta { display: grid; } .hero-cta .btn { width: 100%; } }
 </style>
 </head>
 <body>
@@ -107,11 +116,14 @@
   <i class="orb orb-lime"></i><i class="orb orb-purple"></i>
   <div class="container hero-grid">
     <div class="hero-copy">
-      <div class="chip"><span class="dot"></span>Built for mortgage companies · Not a CRM</div>
+      <div class="hero-pill"><i></i>Built for mortgage companies · Not a CRM</div>
       <h1 class="display">Turn more of the leads you already paid for into <em>future borrowers.</em></h1>
-      <p class="lead">ReadyIQ gives your organization a lender-branded credit-readiness system: consumers check where they stand, fix inaccuracies, build history with the bills they already pay, follow one next action at a time — and come back to the loan officer who sent them.</p>
-      <div class="row wrap"><a class="btn btn-accent btn-lg" href="lo/start/">Get your link in 60 seconds <span class="arrow">→</span></a><a class="btn btn-outline btn-lg" href="check/">Preview the consumer experience</a></div>
-      <div class="proof"><span>Guided Dispute Hub</span><span>Rent & utility reporting</span><span>Original loan officer protected</span><span>Powered by MyScoreIQ + CreditBuilderIQ</span></div>
+      <p class="lead">A lender-branded credit-readiness system. Consumers check where they stand, fix inaccuracies, build history with the bills they already pay, follow one next action at a time — and come back to the loan officer who sent them.</p>
+      <div class="hero-cta">
+        <a class="btn btn-accent btn-lg" href="lo/start/">Get your link in 60 seconds <span class="arrow">→</span></a>
+        <a class="btn btn-outline btn-lg" href="check/?c=harbor-smiller">See it in action</a>
+      </div>
+      <div class="hero-powered"><span class="muted">Powered by</span><span class="pb">MyScoreIQ</span><span class="pb">CreditBuilderIQ</span></div>
     </div>
     <div class="stage">
       <div class="platform" aria-hidden="true">
@@ -120,20 +132,28 @@
           <div class="platform-context"><span class="avatar" style="background:#FFEFE6;color:#B4400E">MD</span><div><small>Your path</small><b>Maria Delgado</b><div class="small muted">Invited by Sarah Miller · NMLS 1234567</div></div><span class="badge badge-build">Build Mode</span></div>
           <div class="card card-pad" style="padding:14px;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center"><div id="hero-ring"></div><div class="stack-1"><span class="number-delta up">↑ 14 since last check</span><p class="number-caption" style="font-size:12px">FICO® Score — not the mortgage-industry version lenders pull. A guide, not a preapproval.</p><span class="engine-tag">Powered by MyScoreIQ</span></div></div>
           <div class="grid-2" style="gap:10px">
-            <div class="card card-pad" style="padding:12px 14px;display:grid;gap:4px"><span class="eyebrow" style="font-size:10px">Dispute Hub</span><b>Duplicate collection</b><span class="small muted">Custom letter ready · Experian + TransUnion</span><span class="pill pill-draft" style="justify-self:start">draft</span></div>
-            <div class="card card-pad" style="padding:12px 14px;display:grid;gap:4px"><span class="eyebrow" style="font-size:10px">Build history</span><b>24 months of rent</b><span class="small muted">Found in linked bank · report to 3 bureaus</span><span class="pill pill-resolved" style="justify-self:start">ready</span></div>
+            <div class="card card-pad" style="padding:12px 14px;display:grid;gap:4px"><span class="eyebrow" style="font-size:12px">Dispute Hub</span><b>Duplicate collection</b><span class="small muted">Custom letter ready · Experian + TransUnion</span><span class="pill pill-draft" style="justify-self:start">draft</span></div>
+            <div class="card card-pad" style="padding:12px 14px;display:grid;gap:4px"><span class="eyebrow" style="font-size:12px">Build history</span><b>24 months of rent</b><span class="small muted">Found in linked bank · report to 3 bureaus</span><span class="pill pill-resolved" style="justify-self:start">ready</span></div>
           </div>
-          <div class="card card-pad" style="padding:12px 14px"><span class="eyebrow" style="font-size:10px">Your path</span><div id="hero-path"></div></div>
+          <div class="card card-pad" style="padding:12px 14px"><span class="eyebrow" style="font-size:12px">Your path</span><div id="hero-path"></div></div>
         </div>
         <div class="platform-return"><span class="avatar" style="background:#FF6A2B;color:#fff">SM</span><div><small>Original LO protected</small><b>Milestones route back to Sarah Miller</b></div><span class="chip"><span class="dot"></span>ReadyIQ → Total Expert</span></div>
       </div>
+      <div class="phone-mini" aria-hidden="true">
+        <div class="row" style="gap:8px"><span class="brand-mark" style="width:22px;height:22px;font-size:11px;background:#FF6A2B">H</span><b class="small">Harbor Home Loans</b></div>
+        <span class="chip chip-round" style="justify-self:start;height:26px;font-size:12px">Personal invitation · Sarah</span>
+        <b style="font-size:15px;line-height:1.25">Sarah invited you to check your credit readiness.</b>
+        <span class="small muted">3 minutes · no application · soft pull</span>
+        <span class="btn btn-primary btn-sm" style="justify-self:start">Accept invitation →</span>
+      </div>
       <div class="float-label float-a"><i class="tone-coral"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6l8-3zM9 12l2 2 4-4"/></svg></i><div><small>Dispute Hub</small><b>Custom letter ready</b></div></div>
-      <div class="float-label float-b"><i class="tone-mint"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4z M10 20v-6h4v6"/></svg></i><div><small>Build history</small><b>24 months of rent found</b></div></div>
+      <div class="float-label float-b"><i class="tone-mint"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4z M10 20v-6h4v6"/></svg></i><div><small>Readiness trigger</small><b>Sarah told the day it's ready</b></div></div>
     </div>
   </div>
+  <div class="container hero-trust"><span>Works with the mortgage stack you already have</span><div class="logos" id="logos"></div></div>
 </header>
 
-<section class="trust"><div class="container trust-inner"><span>Works with the mortgage stack you already have</span><div class="logos" id="logos"></div></div></section>
+
 
 <section class="section" id="platform"><div class="container problem">
   <div class="stack-4"><p class="kicker accent">The lost-lead problem</p><h2 class="h1">A “not yet” should not become <em>someone else’s borrower.</em></h2></div>
