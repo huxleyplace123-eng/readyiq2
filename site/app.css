@@ -2771,3 +2771,111 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .site-home .b2b-product-stage.hero-platform{height:390px}
   .site-hero-window{height:335px}
 }
+
+/* Mobile follow-up: one polished journey, a complete product selector and an uncropped plan preview. */
+@media(max-width:760px){
+  .site-home .b2b-flow{padding:50px 16px 54px;background:linear-gradient(180deg,#fff,#f3f7f4)}
+  .site-home .b2b-section-head>p{margin-top:18px;padding-left:14px;font-size:12.5px;line-height:1.55}
+  .site-home .b2b-flow .flow-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:3px;
+    margin-top:27px;
+    padding:8px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:24px;
+    background:radial-gradient(circle at 95% 0,rgba(199,243,108,.14),transparent 32%),#102d2c;
+    box-shadow:0 24px 55px rgba(13,46,42,.17);
+  }
+  .site-home .flow-grid article,
+  .site-home .flow-grid article:nth-child(2),
+  .site-home .flow-grid article:nth-child(3),
+  .site-home .flow-grid article.return-card{
+    min-height:106px;
+    display:grid;
+    grid-template-columns:43px minmax(0,1fr);
+    grid-template-rows:auto auto;
+    align-content:center;
+    column-gap:13px;
+    padding:15px 16px;
+    transform:none;
+    border:0;
+    border-radius:16px;
+    background:rgba(255,255,255,.055);
+    box-shadow:none;
+    color:#fff;
+  }
+  .site-home .flow-grid article:nth-child(2),
+  .site-home .flow-grid article:nth-child(3){background:rgba(255,255,255,.075)}
+  .site-home .flow-grid article.return-card{background:linear-gradient(125deg,rgba(199,243,108,.2),rgba(255,255,255,.075));border:1px solid rgba(199,243,108,.2)}
+  .site-home .flow-number{
+    grid-row:1/3;
+    align-self:center;
+    width:39px;
+    height:39px;
+    display:grid;
+    place-items:center;
+    border-radius:12px;
+    background:#e9f3ee;
+    color:#356d5c;
+    font-size:9px;
+    font-weight:950;
+    letter-spacing:.08em;
+  }
+  .site-home .flow-grid article:nth-child(2) .flow-number{background:#dff2e8;color:#2f735d}
+  .site-home .flow-grid article:nth-child(3) .flow-number{background:#edf8d5;color:#567d2f}
+  .site-home .flow-grid article.return-card .flow-number{background:var(--lime);color:#17332c}
+  .site-home .flow-grid h3,
+  .site-home .flow-grid .return-card h3{grid-column:2;margin:0 0 5px;color:#fff;font-size:19px;line-height:1.05}
+  .site-home .flow-grid p,
+  .site-home .flow-grid .return-card p{grid-column:2;margin:0;color:#b9cbc5;font-size:11.5px;line-height:1.45}
+  .site-home .flow-grid article>b{display:none}
+
+  .site-home .product-tabs{
+    position:static;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:7px;
+    width:auto;
+    margin:23px 16px 14px;
+    padding:7px;
+    overflow:visible;
+    border:1px solid #dbe5df;
+    border-radius:17px;
+    background:rgba(255,255,255,.7);
+    box-shadow:0 12px 30px rgba(26,61,53,.07);
+  }
+  .site-home .product-tabs button{
+    min-width:0;
+    width:100%;
+    min-height:44px;
+    justify-content:flex-start;
+    gap:8px;
+    padding:8px 10px;
+    border-radius:11px;
+    font-size:11px;
+    white-space:nowrap;
+  }
+  .site-home .product-tabs button i{
+    width:25px;
+    height:25px;
+    display:grid;
+    place-items:center;
+    flex:none;
+    border-radius:8px;
+    font-size:10px;
+  }
+  .site-home .product-tabs button.active i{background:var(--lime);color:#17332c}
+
+  .site-home .phone-scene{place-items:start center}
+  .site-home .phone-mock{align-self:start;padding-top:17px}
+  .site-home .phone-mock::before,.site-home .phone-top{display:none}
+  .site-home .phone-welcome>small{display:none}
+  .site-home .phone-welcome .invite-chip{margin:0 0 11px}
+}
+
+@media(max-width:350px){
+  .site-home .product-tabs button{gap:6px;padding:8px;font-size:10px}
+  .site-home .product-tabs button i{width:22px;height:22px}
+}
