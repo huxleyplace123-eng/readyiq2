@@ -150,9 +150,9 @@ export function PartnersPage({ previewDoor }: { previewDoor: (code: string) => v
       </section>
       <section className="attention-card">
         <div className="card-title-row"><div><span className="section-kicker">{p.name.toUpperCase()} · {p.kind.toUpperCase()}</span><h3>{p.link}</h3></div></div>
-        <div style={{ display: "grid", gridTemplateColumns: "148px 1fr", gap: 16, alignItems: "center" }}>
+        <div className="partner-detail-grid">
           <img src={`qr/${p.code}.svg`} alt={`QR code for ${p.link}`} width={148} height={148} style={{ borderRadius: 14, border: "1px solid var(--line)", background: "#fff", padding: 6 }} />
-          <div className="kpi-grid" style={{ gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
+          <div className="kpi-grid partner-kpis">
             <article><div><span>Sent</span></div><strong>{p.sent}</strong></article>
             <article><div><span>Working</span></div><strong>{p.working}</strong></article>
             <article className="dark-kpi"><div><span>Review</span></div><strong>{p.review}</strong></article>
