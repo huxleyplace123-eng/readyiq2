@@ -200,3 +200,5 @@ a.mini-card:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(16,34,3
 .frame-body,.site-win{color:#102226}
 .site-win .dh-item .dh-nm{white-space:normal}
 .site-hero h1 em{display:inline;font-size:1em;margin:0}
+.site-win .lx-body{grid-template-columns:auto minmax(0,1fr)!important;gap:18px}
+.site-win .lx-share span{flex:1;text-align:center;border:1px solid #dfe6e2;background:#fff;color:#102226;border-radius:11px;padding:10px 8px;font-size:12.5px;font-weight:750;white-space:nowrap}
