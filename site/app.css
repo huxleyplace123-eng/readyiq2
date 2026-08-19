@@ -2322,3 +2322,98 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .phone-quick-grid{grid-template-columns:1fr}
   .phone-quick-grid article{padding:9px 10px}
 }
+
+/* Premium Dispute Hub product scene. */
+.site-home .dispute-product{grid-template-columns:minmax(330px,.72fr) minmax(610px,1.28fr);gap:5%;padding:44px;background:radial-gradient(circle at 82% 16%,rgba(110,90,205,.08),transparent 31%),linear-gradient(145deg,#fff,#fbfcfb);overflow:hidden}
+.site-home .dispute-stage{position:relative;min-width:0;min-height:535px;padding:0 18px 18px;border:1px solid rgba(175,205,194,.3);border-radius:27px;background:radial-gradient(circle at 86% 14%,rgba(142,113,244,.22),transparent 28%),radial-gradient(circle at 15% 88%,rgba(197,255,91,.11),transparent 24%),linear-gradient(145deg,#091e22,#123431 65%,#173a34);box-shadow:0 40px 85px rgba(7,35,33,.27);overflow:hidden;isolation:isolate}
+.dispute-stage::before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.026) 1px,transparent 1px);background-size:46px 46px;mask-image:linear-gradient(to bottom,#000,transparent 78%)}
+.dispute-stage-glow{position:absolute;right:-76px;top:-88px;width:260px;height:260px;border-radius:50%;background:rgba(133,102,243,.2);filter:blur(60px);pointer-events:none}
+.dispute-stage-bar{position:relative;z-index:1;height:72px;display:flex;align-items:center;gap:14px;border-bottom:1px solid rgba(255,255,255,.1);color:#fff}
+.dispute-stage-brand{display:flex;align-items:center;gap:10px;margin-right:auto}
+.dispute-stage-brand>i{width:39px;height:39px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(145deg,#765ec8,#a98dff);box-shadow:0 12px 24px rgba(73,49,150,.36);font-style:normal;font-size:17px}
+.dispute-stage-brand>span{display:flex;flex-direction:column}
+.dispute-stage-brand small{color:#88a29b;font-size:8px;font-weight:900;letter-spacing:.16em}
+.dispute-stage-brand strong{margin-top:3px;font-size:14px}
+.dispute-stage-live{display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid rgba(199,255,91,.16);border-radius:999px;background:rgba(199,255,91,.07);color:#d9f6a7;font-size:8px;font-weight:900;letter-spacing:.1em}
+.dispute-stage-live>i{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(199,255,91,.1)}
+.dispute-stage-avatar{width:34px;height:34px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.12);border-radius:50%;background:#264846;color:#e8f2ef;font-size:10px;font-weight:900}
+.dispute-stage-progress{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);padding:19px 5px 18px;color:#74908a}
+.dispute-stage-progress>div{position:relative;display:flex;align-items:center;gap:7px;min-width:0}
+.dispute-stage-progress span{position:relative;z-index:2;width:25px;height:25px;display:grid;place-items:center;flex:none;border:1px solid #3a5754;border-radius:50%;background:#173733;color:#76918b;font-size:9px;font-weight:900}
+.dispute-stage-progress small{position:relative;z-index:2;font-size:8px;font-weight:850;letter-spacing:.08em}
+.dispute-stage-progress i{position:absolute;z-index:1;left:31px;right:7px;height:1px;background:#34504d}
+.dispute-stage-progress>div.active span{border-color:var(--lime);background:var(--lime);color:#17322c;box-shadow:0 0 0 5px rgba(199,255,91,.08)}
+.dispute-stage-progress>div.active small{color:#eef7f3}
+.dispute-stage-progress>div.active i{background:linear-gradient(90deg,var(--lime),#7567c5)}
+.dispute-stage-body{position:relative;z-index:1;display:grid;grid-template-columns:minmax(205px,.72fr) minmax(0,1.28fr);gap:13px;min-height:388px}
+.dispute-stage-rail{min-width:0;padding:15px;border:1px solid rgba(255,255,255,.09);border-radius:18px;background:rgba(6,25,27,.4);backdrop-filter:blur(12px)}
+.dispute-stage-rail-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;color:#83a099}
+.dispute-stage-rail-head span{font-size:8px;font-weight:900;letter-spacing:.12em}
+.dispute-stage-rail-head>b{min-width:23px;padding:4px 6px;border-radius:7px;background:#2a4643;color:#fff;font-size:9px;text-align:center}
+.dispute-stage-rail>article{display:grid;grid-template-columns:31px minmax(0,1fr) auto;gap:9px;align-items:center;margin-top:8px;padding:11px 9px;border:1px solid transparent;border-radius:12px;color:#dce8e4}
+.dispute-stage-rail>article.selected{border-color:rgba(171,144,255,.48);background:linear-gradient(135deg,rgba(122,95,205,.34),rgba(102,78,177,.16));box-shadow:0 14px 30px rgba(20,12,52,.19)}
+.dispute-stage-rail>article>i{width:30px;height:30px;display:grid;place-items:center;border-radius:9px;background:#2a4844;color:#a9beb8;font-style:normal;font-size:10px;font-weight:900}
+.dispute-stage-rail>article.selected>i{background:#9a80ec;color:#fff;box-shadow:0 8px 18px rgba(119,89,205,.28)}
+.dispute-stage-rail>article.complete{opacity:.55}
+.dispute-stage-rail>article.complete>i{background:#dff3e7;color:#35735c}
+.dispute-stage-rail>article>span{display:flex;flex-direction:column;min-width:0}
+.dispute-stage-rail article small{color:#829b95;font-size:7px;font-weight:850;letter-spacing:.08em}
+.dispute-stage-rail article strong{margin:3px 0;color:#fff;font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dispute-stage-rail article em{color:#839b96;font-size:8px;font-style:normal;white-space:nowrap}
+.dispute-stage-rail article>b{color:#cbbcff;font-size:7px;letter-spacing:.08em}
+.dispute-stage-privacy{display:flex;align-items:center;gap:9px;margin-top:14px;padding:11px;border-top:1px solid rgba(255,255,255,.09)}
+.dispute-stage-privacy>i{width:29px;height:29px;display:grid;place-items:center;flex:none;border-radius:9px;background:rgba(199,255,91,.11);color:var(--lime);font-style:normal;font-weight:900}
+.dispute-stage-privacy>span{display:flex;flex-direction:column}
+.dispute-stage-privacy small{color:#7f9b94;font-size:7px;font-weight:900;letter-spacing:.1em}
+.dispute-stage-privacy strong{margin-top:4px;color:#d8e6e1;font-size:8.5px;line-height:1.35}
+.dispute-stage-main{min-width:0;padding:19px;border-radius:18px;background:linear-gradient(145deg,#fff,#f5f8f6);box-shadow:0 23px 50px rgba(0,0,0,.22)}
+.dispute-stage-main-head{display:flex;align-items:center;gap:12px;padding-bottom:14px;border-bottom:1px solid #dfe7e2}
+.dispute-stage-main-head>span{display:flex;flex:1;flex-direction:column}
+.dispute-stage-main-head small{color:#728b82;font-size:7px;font-weight:900;letter-spacing:.13em}
+.dispute-stage-main-head strong{margin-top:4px;color:#142e2b;font-size:13px}
+.dispute-stage-main-head>b{padding:7px 9px;border-radius:8px;background:#eeeaff;color:#6658ad;font-size:7px;letter-spacing:.07em}
+.dispute-stage-question{padding:16px 1px 8px}
+.dispute-stage-question>span{color:#7868bc;font-size:7px;font-weight:900;letter-spacing:.12em}
+.dispute-stage-question h4{margin:5px 0 3px;color:#112b29;font-size:20px;letter-spacing:-.035em}
+.dispute-stage-question p{margin:0;color:#7a8b86;font-size:9px}
+.dispute-stage-options{display:grid;gap:7px;margin-top:7px}
+.dispute-stage-options button{display:flex;align-items:center;gap:10px;width:100%;padding:11px;border:1px solid #dce5e0;border-radius:11px;background:#fff;color:#203a34;text-align:left}
+.dispute-stage-options button.selected{border-color:#896fd5;background:linear-gradient(135deg,#f6f3ff,#fff);box-shadow:0 0 0 2px rgba(137,111,213,.11),0 10px 22px rgba(94,70,164,.07)}
+.dispute-stage-options button>i{width:25px;height:25px;display:grid;place-items:center;flex:none;border-radius:8px;background:#edf2ef;color:#789087;font-style:normal;font-size:10px;font-weight:900}
+.dispute-stage-options button.selected>i{background:#8269cc;color:#fff}
+.dispute-stage-options button>span{display:flex;flex-direction:column;min-width:0}
+.dispute-stage-options strong{font-size:9.5px}
+.dispute-stage-options small{margin-top:3px;color:#899791;font-size:8px}
+.dispute-stage-next{display:flex;align-items:center;gap:9px;margin:10px 0;padding:10px;border:1px dashed #cbd8d1;border-radius:11px;background:#f3f7f4}
+.dispute-stage-next>i{width:28px;height:28px;display:grid;place-items:center;flex:none;border-radius:9px;background:#e0eee6;color:#417461;font-style:normal;font-weight:900}
+.dispute-stage-next>span{display:flex;flex:1;flex-direction:column}
+.dispute-stage-next small{color:#698377;font-size:7px;font-weight:900;letter-spacing:.1em}
+.dispute-stage-next strong{margin-top:3px;color:#29433b;font-size:8.5px}
+.dispute-stage-next>b{color:#8a9993;font-size:7px}
+.dispute-stage-continue{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;border:0;border-radius:11px;background:linear-gradient(100deg,#102e30,#1b4641);box-shadow:0 13px 25px rgba(12,45,42,.2);color:#fff;font-size:10px;font-weight:900;cursor:pointer}
+.dispute-stage-continue span{color:var(--lime)}
+.dispute-stage-float{position:absolute;z-index:3;right:28px;bottom:14px;display:flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid rgba(255,255,255,.8);border-radius:12px;background:rgba(255,255,255,.96);box-shadow:0 15px 35px rgba(3,23,23,.24)}
+.dispute-stage-float>i{width:25px;height:25px;display:grid;place-items:center;border-radius:8px;background:var(--lime);color:#19332c;font-style:normal;font-size:10px;font-weight:900}
+.dispute-stage-float>span{display:flex;flex-direction:column}
+.dispute-stage-float small{color:#769087;font-size:6px;font-weight:900;letter-spacing:.1em}
+.dispute-stage-float strong{margin-top:2px;color:#16302b;font-size:8px}
+
+@media(max-width:1100px){
+  .site-home .dispute-product{grid-template-columns:1fr;gap:38px}
+  .site-home .dispute-stage{width:100%;max-width:850px;justify-self:center}
+}
+@media(max-width:760px){
+  .site-home .dispute-product{padding:21px}
+  .site-home .dispute-stage{min-height:0;padding:0 10px 15px;border-radius:21px}
+  .dispute-stage-bar{height:61px}
+  .dispute-stage-live{font-size:0;padding:8px}.dispute-stage-live>i{margin:0}
+  .dispute-stage-progress{padding:16px 2px 15px}
+  .dispute-stage-progress>div{gap:4px}.dispute-stage-progress small{font-size:6.5px}.dispute-stage-progress i{left:28px;right:4px}
+  .dispute-stage-body{grid-template-columns:1fr;min-height:0}
+  .dispute-stage-rail{display:none}
+  .dispute-stage-main{padding:15px;border-radius:15px}
+  .dispute-stage-main-head>b{display:none}
+  .dispute-stage-question h4{font-size:18px}
+  .dispute-stage-options button{padding:10px 9px}
+  .dispute-stage-float{display:none}
+}
