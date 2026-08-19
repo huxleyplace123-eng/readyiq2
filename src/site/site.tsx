@@ -30,9 +30,9 @@ export function SiteNav({ route }: { route: Route }) {
         <a href="trust/" className={is("trust") ? "on" : ""}>Trust</a>
         <a href="resources/" className={is("resources") ? "on" : ""}>Resources</a>
       </nav>
-      <div className="site-actions"><a className="site-try" href={DEMO + "?mode=consumer&cpage=result"}>Try the live demo</a><a className="site-signin" href="sign-in/">Sign in</a><a className="site-demo" href="book-a-demo/">Book a demo <span>↗</span></a><button className="site-burger" onClick={() => setOpen(!open)} aria-label="Menu">☰</button></div>
+      <div className="site-actions"><a className="site-try" href={DEMO + "?mode=consumer&cpage=result"}>Explore the live product</a><a className="site-book" href="book-a-demo/">Book a demo</a><a className="site-signin" href="sign-in/">Sign in</a><a className="site-demo" href={DEMO + "?mode=lender&lpage=start"}>Get started <span>→</span></a><button className="site-burger" onClick={() => setOpen(!open)} aria-label="Menu">☰</button></div>
     </div>
-    {open && <div className="site-mobile"><a href="platform/">Platform</a>{products.map(([h, l]) => <a key={h} href={h}>{l.split(" — ")[0]}</a>)}{who.map(([h, l]) => <a key={h} href={h}>{l.split(" — ")[0]}</a>)}<a href="integrations/">Integrations</a><a href="trust/">Trust</a><a href="resources/">Resources</a><a href="sign-in/">Sign in</a><a href="book-a-demo/">Book a demo</a><a href={DEMO + "?mode=consumer&cpage=result"}>Try the live demo</a></div>}
+    {open && <div className="site-mobile"><a href="platform/">Platform</a>{products.map(([h, l]) => <a key={h} href={h}>{l.split(" — ")[0]}</a>)}{who.map(([h, l]) => <a key={h} href={h}>{l.split(" — ")[0]}</a>)}<a href="integrations/">Integrations</a><a href="trust/">Trust</a><a href="resources/">Resources</a><a href={DEMO + "?mode=lender&lpage=start"}>Get started</a><a href="book-a-demo/">Book a demo</a><a href={DEMO + "?mode=consumer&cpage=result"}>Explore the live product</a><a href="sign-in/">Sign in</a></div>}
   </header>;
 }
 
@@ -41,7 +41,7 @@ export function HonestyStrip() {
 }
 
 export function CtaBand({ title = <>Give every “not yet” a <em>path back to you.</em></>, sub = "One link per loan officer. A front door for every consumer. Three bureau scores and approved progress in one clear view." }: { title?: ReactNode; sub?: string }) {
-  return <section className="cta-band"><div><span className="section-kicker light">READY WHEN YOU ARE</span><h2>{title}</h2><p>{sub}</p></div><div className="cta-band-actions"><a className="b2b-primary" href="book-a-demo/">Book a tailored demo →</a><a className="cta-ghost" href={DEMO + "?mode=lender&lpage=start"}>Explore the live lender view</a></div></section>;
+  return <section className="cta-band"><div><span className="section-kicker light">READY WHEN YOU ARE</span><h2>{title}</h2><p>{sub}</p></div><div className="cta-band-actions"><a className="b2b-primary" href={DEMO + "?mode=lender&lpage=start"}>Get started with ReadyIQ →</a><a className="cta-ghost" href="book-a-demo/">Book a tailored demo</a></div></section>;
 }
 
 export function SiteFooter() {
