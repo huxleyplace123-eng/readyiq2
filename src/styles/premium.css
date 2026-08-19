@@ -1818,3 +1818,35 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .site-home .product-tabs button{gap:6px;padding:8px;font-size:10px}
   .site-home .product-tabs button i{width:22px;height:22px}
 }
+
+.flow-title-mobile,.flow-copy-mobile{display:none}
+
+/* Mobile reduction pass: remove the repeated readiness story and lighten the logo ribbon. */
+@media(max-width:760px){
+  .site-home .readiness-explainer{display:none}
+
+  .site-home .b2b-trust{padding:17px 0 15px}
+  .site-home .b2b-trust>span{display:block;padding:0 20px;font-size:9px;line-height:1.35;letter-spacing:.13em}
+  .site-home .b2b-trust>div{margin-top:11px}
+  .site-home .brand-marquee{padding:2px 0 4px}
+  .site-home .brand-marquee-track{gap:10px}
+  .site-home .brand-marquee-sequence{gap:10px}
+  .site-home .brand-tile{
+    width:138px;
+    height:50px;
+    padding:9px 13px;
+    border-color:transparent;
+    border-radius:15px;
+    background:rgba(255,255,255,.76);
+    box-shadow:0 6px 16px rgba(24,58,50,.065);
+  }
+  .site-home .brand-tile:nth-child(2n){width:124px;transform:translateY(2px)}
+  .site-home .brand-tile:nth-child(3n){width:145px}
+
+  .flow-title-desktop,.flow-copy-desktop{display:none}
+  .flow-title-mobile,.flow-copy-mobile{display:inline}
+  .site-home .b2b-flow{padding-top:43px}
+  .site-home .b2b-section-head h2{max-width:330px;margin-top:10px;font-size:32px;line-height:1}
+  .site-home .b2b-section-head>p{margin-top:13px;padding-left:0;border-left:0;color:#72837d;font-size:12px}
+  .site-home .b2b-flow .flow-grid{margin-top:21px}
+}
