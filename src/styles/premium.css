@@ -31,6 +31,28 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .site-hero.accent-teal{background:radial-gradient(circle at 84% 18%,rgba(67,158,137,.24),transparent 35%),#0b2024}
 .site-section{padding-top:92px;padding-bottom:92px}
 .site-section-inner{max-width:1280px}
+.testimonial-section{position:relative;overflow:hidden;background:radial-gradient(circle at 82% 10%,rgba(199,255,91,.16),transparent 31%),linear-gradient(145deg,#071c20 0%,#0b2928 58%,#102f2c 100%);color:#f5f8f1}
+.testimonial-section::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to bottom,black,transparent 82%)}
+.testimonial-heading{position:relative;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,.65fr);gap:64px;align-items:end;margin-bottom:44px}
+.testimonial-heading h2{max-width:790px;margin:12px 0 0;color:#fff;font-size:clamp(40px,5vw,70px);line-height:.98;letter-spacing:-.055em}
+.testimonial-heading h2 em{color:var(--lime);font-family:Georgia,serif;font-weight:400}
+.testimonial-heading>p{margin:0 0 4px;color:rgba(239,247,241,.7);font-size:17px;line-height:1.65}
+.testimonial-grid{position:relative;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px}
+.testimonial-card{min-width:0;display:flex;flex-direction:column;min-height:330px;padding:30px;border:1px solid rgba(255,255,255,.12);border-radius:24px;background:rgba(244,248,243,.07);box-shadow:0 28px 70px rgba(0,0,0,.18);backdrop-filter:blur(16px)}
+.testimonial-card.featured{background:linear-gradient(145deg,rgba(199,255,91,.14),rgba(255,255,255,.07));border-color:rgba(199,255,91,.28)}
+.testimonial-card-top{display:flex;align-items:flex-start;justify-content:space-between}
+.testimonial-card-top>small{padding:6px 9px;border:1px solid rgba(255,255,255,.14);border-radius:999px;color:rgba(255,255,255,.62);font-size:9px;font-weight:850;letter-spacing:.12em}
+.testimonial-mark{width:42px;height:42px;display:grid;place-items:center;border-radius:14px;color:#082321;font:700 31px/1 Georgia,serif}
+.testimonial-mark.lime,.testimonial-avatar.lime{background:var(--lime)}
+.testimonial-mark.mint,.testimonial-avatar.mint{background:#8ee2bd}
+.testimonial-mark.violet,.testimonial-avatar.violet{background:#b9a7ff}
+.testimonial-card blockquote{flex:1;margin:28px 0 32px;color:#fff;font-size:clamp(21px,2vw,29px);font-weight:650;line-height:1.28;letter-spacing:-.025em}
+.testimonial-card footer{display:flex;align-items:center;gap:12px;padding-top:20px;border-top:1px solid rgba(255,255,255,.11)}
+.testimonial-avatar{width:42px;height:42px;display:grid;place-items:center;flex:0 0 auto;border-radius:50%;color:#082321;font-size:11px;font-weight:900}
+.testimonial-card footer div{display:flex;flex-direction:column;gap:3px}
+.testimonial-card footer strong{color:#fff;font-size:13px}
+.testimonial-card footer small{color:rgba(239,247,241,.58);font-size:11px}
+.testimonial-disclosure{position:relative;margin:22px 0 0;color:rgba(239,247,241,.48);font-size:11px;line-height:1.55;text-align:center}
 .site-copy h2{max-width:760px}
 .site-body p,.site-bullets li{font-size:15px;line-height:1.72}
 .mini-card,.site-aside .ui-frame,.stat{border-color:var(--premium-line)}
@@ -71,6 +93,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
 /* Mobile product shell: no horizontal chrome, no wrapped navigation labels. */
 @media(max-width:760px){
+  .testimonial-section{padding-top:70px;padding-bottom:70px}
+  .testimonial-heading{grid-template-columns:1fr;gap:20px;margin-bottom:30px}
+  .testimonial-heading h2{font-size:clamp(39px,12vw,54px)}
+  .testimonial-heading>p{font-size:15px}
+  .testimonial-grid{grid-template-columns:1fr;gap:12px}
+  .testimonial-card{min-height:0;padding:24px;border-radius:20px}
+  .testimonial-card blockquote{margin:24px 0 28px;font-size:23px}
+  .testimonial-disclosure{text-align:left}
   .demo-canvas,.consumer-app,.lender-app,.integration-hub{width:100%;max-width:100%;overflow-x:clip}
   .demo-toolbar-inner{height:auto}
   .demo-title .brand-mark{font-size:17px}
