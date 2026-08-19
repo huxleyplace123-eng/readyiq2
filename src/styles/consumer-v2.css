@@ -62,7 +62,8 @@
 .cx-progress .track{height:8px;border-radius:99px;background:#e6ece8;overflow:hidden}
 .cx-progress .track i{display:block;height:100%;width:29%;border-radius:99px;background:linear-gradient(90deg,#8bcf6b,#c8f36d)}
 .cx-progress small{display:block;margin-top:6px;font-size:11.5px;color:#72857f}
-.cx-window-foot{padding:12px 20px 14px;border-top:1px solid #e1e8e3;font-size:11.5px;color:#5f716b;line-height:1.55;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.cx-window-foot{padding:12px 20px 14px;border-top:1px solid #e1e8e3;font-size:11.5px;color:#5f716b;line-height:1.5;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.cx-window-foot .cx-inline{white-space:nowrap;flex:none}
 .cx-ring-col{display:flex;flex-direction:column;align-items:center;gap:10px}
 .cx-delta{font-size:11px;font-weight:800;color:#2f6a55;background:#e5f0e7;border-radius:99px;padding:5px 10px}
 .cx-float{position:absolute;z-index:5;background:rgba(255,255,255,.97);color:#182e29;border:1px solid rgba(255,255,255,.65);border-radius:13px;padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 20px 48px rgba(2,16,16,.28);backdrop-filter:blur(14px)}

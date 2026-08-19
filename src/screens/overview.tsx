@@ -23,9 +23,9 @@ export function Overview({ setPage, openReview }: { setPage: (p: Page) => void; 
           <div className="cx-gauges">
             {[["eq", "Equifax", 608, "+9", 62], ["ex", "Experian", 615, "+14", 66], ["tu", "TransUnion", 612, "+12", 64]].map(([k, name, score, delta, pct]) => <div key={k as string} className={`cx-gauge ${k}`}><div className="cx-gauge-ring" style={{ background: `conic-gradient(var(--g) 0 ${pct}%, #e6ece8 ${pct}% 100%)` }}><div><strong>{score}</strong><small>{delta}</small></div></div><span><i />{name}</span></div>)}
           </div>
-          <div className="cx-progress"><div><span>{es ? "Progreso del plan" : "Plan progress"}</span><span>2 {es ? "de" : "of"} 7</span></div><div className="track"><i /></div><small>{es ? "acciones prioritarias completadas · siguiente: utilización bajo 30%" : "priority actions complete · next: utilization under 30%"}</small></div>
+          <div className="cx-progress"><div><span>{es ? "Progreso del plan" : "Plan progress"}</span><span>2 {es ? "de" : "of"} 7</span></div><div className="track"><i /></div><small>{es ? "siguiente: utilización bajo 30%" : "next: utilization under 30%"}</small></div>
         </div>
-        <div className="cx-window-foot"><span>FICO® Score — not the version lenders pull. A guide, not a preapproval.</span><span><button className="cx-inline" onClick={() => setPage("progress")}>{es ? "Detalles →" : "Score details →"}</button> · <button className="cx-inline" onClick={() => setPage("passport")}>{es ? "Pasaporte →" : "Passport →"}</button></span></div>
+        <div className="cx-window-foot"><span>{es ? "FICO® — no es la versión que usan los prestamistas. Una guía, no una preaprobación." : "FICO® — not the version lenders pull. A guide, not a preapproval."}</span><button className="cx-inline" onClick={() => setPage("progress")}>{es ? "Detalles →" : "Score details →"}</button></div>
                 <div className="cx-float br lime"><i>◈</i><div><small>NEXT MILESTONE</small><strong>Utilization under 30%</strong></div></div>
       </div>
     </section>
