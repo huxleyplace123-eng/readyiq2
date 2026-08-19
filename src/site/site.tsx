@@ -270,9 +270,29 @@ function TestimonialSection() {
   </section>;
 }
 
+function ProductFilmSection() {
+  return <section className="product-film-section" aria-labelledby="product-film-title">
+    <div className="product-film-inner">
+      <div className="product-film-heading">
+        <div><span className="section-kicker light">THE COMPLETE READYIQ JOURNEY · 1:27</span><h2 id="product-film-title">See the lender portal and consumer experience <em>work together.</em></h2></div>
+        <div className="product-film-summary"><p>From the loan officer’s personal link to the consumer’s private credit tools—and the approved progress that comes back.</p><div><span>Loan officer portal</span><i>→</i><span>Consumer portal</span><i>→</i><span>Ready to reconnect</span></div></div>
+      </div>
+      <div className="product-film-frame">
+        <video controls playsInline preload="metadata" poster="media/readyiq-product-film-poster.jpg" aria-label="ReadyIQ lender and consumer portal product tour">
+          <source src="media/readyiq-product-film.mp4" type="video/mp4" />
+          <track kind="captions" src="media/readyiq-product-film.vtt" srcLang="en" label="English" default />
+          Your browser does not support the ReadyIQ product film.
+        </video>
+      </div>
+      <div className="product-film-footer"><span><i />Real prototype screens</span><span>Plain-English narration</span><span>Captions included</span><a href={DEMO + "?mode=lender&lpage=link"}>Explore the live portals →</a></div>
+    </div>
+  </section>;
+}
+
 function HomePage() {
   const to = (href: string) => () => { location.href = href; };
   return <div className="site-home"><ReadyIQWebsite openOrganization={to(DEMO + "?mode=lender&lpage=link")} openStart={to(DEMO + "?mode=lender&lpage=start")} openConsumer={(page = "welcome") => { location.href = page === "welcome" ? DEMO + "?mode=consumer" : DEMO + "?mode=consumer&cpage=" + page; }} openIntegrations={to("integrations/")} />
+    <ProductFilmSection />
     <TestimonialSection />
     <section className="site-section"><div className="site-section-inner one"><span className="section-kicker">CHOOSE YOUR VIEW</span><h2>See the part that matters <em>to you.</em></h2><div className="mini-cards four">{([["How ReadyIQ works", "See the simple path from first invitation to lender review.", "platform/"], ["For loan officers", "Get one link and clear progress updates—without another system to manage.", "loan-officers/"], ["For consumers", "Understand your credit and take one clear step at a time.", "consumers/"], ["Privacy and trust", "See what is shared, what stays private, and who stays in control.", "trust/"]] as [string, string, string][]).map(([t, d, h]) => <a key={t} href={h} className="mini-card"><strong>{t}</strong><p>{d}</p><b>Explore →</b></a>)}</div></div></section>
     <CtaBand title={<>Keep the consumer. <em>Build the relationship.</em></>} sub="Give every not-ready lead a clear next step and an easy path back to the original loan officer." />
