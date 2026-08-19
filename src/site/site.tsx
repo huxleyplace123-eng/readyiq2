@@ -280,8 +280,8 @@ function TestimonialSection() {
 function HomePage() {
   const to = (href: string) => () => { location.href = href; };
   return <div className="site-home"><ReadyIQWebsite openOrganization={to(DEMO + "?mode=lender&lpage=link")} openStart={to(DEMO + "?mode=lender&lpage=start")} openConsumer={(page = "welcome") => { location.href = page === "welcome" ? DEMO + "?mode=consumer" : DEMO + "?mode=consumer&cpage=" + page; }} openIntegrations={to("integrations/")} />
-    <TestimonialSection />
     <section className="site-section"><div className="site-section-inner one"><span className="section-kicker">CHOOSE YOUR VIEW</span><h2>See the part that matters <em>to you.</em></h2><div className="mini-cards four">{([["How ReadyIQ works", "See the simple path from first invitation to lender review.", "platform/"], ["For loan officers", "Get one link and clear progress updates—without another system to manage.", "loan-officers/"], ["For consumers", "Understand your credit and take one clear step at a time.", "consumers/"], ["Privacy and trust", "See what is shared, what stays private, and who stays in control.", "trust/"]] as [string, string, string][]).map(([t, d, h]) => <a key={t} href={h} className="mini-card"><strong>{t}</strong><p>{d}</p><b>Explore →</b></a>)}</div></div></section>
+    <TestimonialSection />
     <CtaBand title={<>Keep the consumer. <em>Build the relationship.</em></>} sub="Give every not-ready lead a clear next step and an easy path back to the original loan officer." />
   </div>;
 }
