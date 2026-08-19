@@ -1069,6 +1069,12 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .site-home .b2b-hero{min-height:620px;padding-top:58px;padding-bottom:68px}
 .site-home .b2b-hero h1{font-size:clamp(44px,4.15vw,62px);max-width:680px}
 .site-home .b2b-hero-copy>p{max-width:660px;color:#b3c5bf}
+.b2b-purpose-grid{display:grid;grid-template-columns:.86fr 1fr 1.35fr;gap:8px;margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.13)}
+.b2b-purpose-grid article{min-width:0;padding:10px 11px;border:1px solid rgba(255,255,255,.1);border-radius:11px;background:rgba(255,255,255,.045)}
+.b2b-purpose-grid small{display:block;color:#829b94;font-size:8.5px;font-weight:900;letter-spacing:.13em}
+.b2b-purpose-grid strong{display:block;margin-top:5px;color:#edf5f2;font-size:11px;line-height:1.35}
+.b2b-purpose-grid article:first-child{border-color:rgba(199,255,91,.24);background:rgba(199,255,91,.07)}
+.b2b-purpose-grid article:first-child strong{color:var(--lime)}
 .site-home .b2b-primary{box-shadow:0 15px 38px rgba(186,238,88,.18)}
 .site-home .b2b-problem{padding-top:70px;padding-bottom:70px}
 .site-home .b2b-flow,.site-home .diy-tools,.site-home .product-suite,.site-home .b2b-control,.site-home .b2b-consumer-preview{padding-top:74px;padding-bottom:74px}
@@ -1203,6 +1209,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .honesty span{font-size:11px;white-space:nowrap}
   .site-home .b2b-hero{min-height:0;padding-top:46px;padding-bottom:52px}
   .site-home .b2b-hero h1{font-size:clamp(38px,10vw,46px)}
+  .b2b-purpose-grid{grid-template-columns:1fr;margin-top:24px}
+  .b2b-purpose-grid article{padding:10px 12px}
+  .b2b-purpose-grid strong{font-size:11.5px}
   .site-home .b2b-problem,.site-home .b2b-flow,.site-home .diy-tools,.site-home .product-suite,.site-home .b2b-control,.site-home .b2b-consumer-preview{padding-top:54px;padding-bottom:54px}
   .site-home .b2b-problem h2,.site-home .b2b-section-head h2,.site-home .diy-heading h2,.site-home .product-suite-head h2,.site-home .control-copy h2,.site-home .b2b-consumer-preview h2{font-size:34px}
   .responsibility-map{grid-template-columns:1fr;gap:12px;margin-top:30px;padding:12px;border-radius:22px}
