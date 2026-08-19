@@ -514,6 +514,56 @@ a.primary-dark,a.primary-lime,a.outline-button{text-decoration:none;display:inli
 .seg-wrap+.dashboard-page,.seg-wrap+.plan-page,.seg-wrap+.dispute-page,.seg-wrap+.reporting-page,.seg-wrap+.cx-page{padding-top:18px}
 @media(max-width:760px){.seg-wrap{padding:16px 14px 0}.segments{display:flex}.segments button{flex:1;min-width:0;padding:8px 10px}.segments button small{display:none}}
 
+/* ---------- Dispute Hub, one thing at a time ---------- */
+.dh-items{display:flex;gap:8px;flex-wrap:wrap;margin:-4px 0 18px}
+.dh-items button{display:flex;align-items:center;gap:10px;border:1px solid #e1e8e3;background:#fff;border-radius:14px;padding:9px 14px 9px 10px;cursor:pointer;color:#102226;text-align:left;transition:box-shadow .15s,transform .15s}
+.dh-items button:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(16,34,38,.08)}
+.dh-items button i{width:30px;height:30px;border-radius:9px;background:#efe9ff;color:#5b52c9;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:13px}
+.dh-items button.done i{background:#e5f0e7;color:#2f6a55}
+.dh-items button strong{display:block;font-size:13px;letter-spacing:-.01em}
+.dh-items button small{display:block;font-size:11px;color:#7d8d88}
+.dh-items button.active{background:#102126;border-color:#102126;color:#fff}
+.dh-items button.active small{color:#c8f36d}
+.dh-items button.active i{background:rgba(255,255,255,.12);color:#fff}
+.dh-card{background:#fff;border:1px solid #e1e8e3;border-radius:22px;box-shadow:0 12px 34px rgba(16,34,38,.05);overflow:hidden}
+.dh-head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px;border-bottom:1px solid #eef2ef;flex-wrap:wrap}
+.dh-title{display:flex;align-items:center;gap:14px;min-width:0}
+.dh-title h3{font-size:20px;letter-spacing:-.025em;margin:0}
+.dh-title p{margin:3px 0 0;font-size:12.5px;color:#5f716b}
+.dh-steps{display:flex;gap:6px;flex-wrap:wrap}
+.dh-steps span{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:750;color:#98a5a1;padding:6px 10px 6px 6px;border-radius:99px;border:1px solid transparent}
+.dh-steps span i{width:20px;height:20px;border-radius:50%;border:1px solid #d5ded9;display:grid;place-items:center;font-style:normal;font-size:10.5px;font-weight:800;background:#fff}
+.dh-steps span.now{color:#102226;border-color:#e1e8e3;background:#f7faf8}
+.dh-steps span.now i{background:var(--lime);border-color:var(--lime);color:#142b27}
+.dh-steps span.done{color:#2f6a55}
+.dh-steps span.done i{background:#e5f0e7;border-color:#cfe3d6;color:#2f6a55}
+.dh-body{padding:22px 24px 8px}
+.dh-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.dh-facts>div{background:#f7faf8;border:1px solid #e6ece8;border-radius:12px;padding:10px 12px;min-width:0}
+.dh-facts small{display:block;font-size:9.5px;letter-spacing:.12em;font-weight:850;color:#7d8d88}
+.dh-facts strong{display:block;font-size:14.5px;margin-top:3px;letter-spacing:-.01em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dh-flag{display:flex;gap:12px;align-items:flex-start;margin-top:12px;background:#f4f1ff;border:1px solid #e3ddff;border-radius:12px;padding:12px 14px}
+.dh-flag i{flex:none;width:26px;height:26px;border-radius:8px;background:#6e67eb;color:#fff;display:grid;place-items:center;font-style:normal;font-size:13px}
+.dh-flag p{margin:0;font-size:13px;line-height:1.55;color:#3d524c}
+.dh-flag b{color:#102226}
+.dh-q{font-size:19px;letter-spacing:-.025em;margin:22px 0 12px}
+.dh-choice{display:flex;gap:10px;flex-wrap:wrap}
+.dh-choice .primary-dark{display:inline-flex;align-items:center;gap:8px;padding:14px 20px;font-size:14px}
+.dh-choice .outline-button{padding:14px 18px;font-size:14px}
+.dh-links{display:flex;gap:10px;align-items:center;margin:14px 0 8px;font-size:12.5px;color:#7d8d88}
+.dh-links button{border:0;background:none;color:#2f6a55;font-weight:750;font-size:12.5px;cursor:pointer;padding:0}
+.dh-reviewed{display:flex;gap:12px;align-items:center;margin-top:16px;background:#eef7ef;border:1px solid #d5e4d8;border-radius:12px;padding:14px;flex-wrap:wrap}
+.dh-reviewed i{width:28px;height:28px;border-radius:50%;background:var(--lime);color:#142b27;display:grid;place-items:center;font-style:normal;font-weight:900}
+.dh-reviewed p{margin:0;flex:1;font-size:13px;color:#3d524c;min-width:220px}
+.dh-reasons{margin-top:0}
+.dh-reasons button{font-size:14px}
+.dh-letter{margin-top:0}
+.dh-sent{margin:0}
+.dh-card .consumer-control-note{padding:12px 24px 18px;font-size:11.5px}
+.dh-card .detail-actions{margin:16px 0 8px}
+@media(max-width:900px){.dh-facts{grid-template-columns:1fr 1fr}.dh-head{padding:16px 18px}.dh-body{padding:18px 18px 8px}}
+@media(max-width:560px){.dh-choice .primary-dark,.dh-choice .outline-button{width:100%;justify-content:center}}
+
 /* leader.css — passport, tri-merge, underwriter notes, DPA, lost-lead revival, guide panel, language toggle. Same tokens. */
 
 /* language toggle */
