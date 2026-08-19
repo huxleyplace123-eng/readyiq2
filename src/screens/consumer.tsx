@@ -3,6 +3,7 @@ import { useLang } from "./lang";
 // src/screens/consumer.tsx — ReadyIQ 2 consumer features in the v11 look: three consents, honest number strip,
 // DTI + eligibility clock, mortgage-priority dispute notes, Guardian, review packet, Ask ReadyIQ.
 import { useState } from "react";
+import { BureauScores, MAYA_BUREAU_SCORES } from "./bureaus";
 
 export const REGB = "You can apply for a mortgage at any time — this is not required.";
 
@@ -12,7 +13,7 @@ export function ConsentBlock({ onChange }: { onChange: (ok: boolean) => void }) 
   const set = (k: keyof typeof c) => (e: React.ChangeEvent<HTMLInputElement>) => { const n = { ...c, [k]: e.target.checked }; setC(n); onChange(n.credit && n.status && n.text); };
   return <div className="permission-list" style={{ marginTop: 6 }}>
     <label className="consent-check"><input type="checkbox" checked={c.credit} onChange={set("credit")} /><span>{es ? <><strong>Permito que ReadyIQ consulte mi crédito para mi propia revisión.</strong> MyScoreIQ y CreditBuilderIQ obtienen mis reportes y mi FICO® Score para mí. Es una consulta suave — no afecta mi puntaje.</> : <><strong>Let ReadyIQ pull my credit for my own review.</strong> MyScoreIQ and CreditBuilderIQ obtain my reports and FICO® Score for me. This is a soft check — it does not affect my score.</>}</span></label>
-    <label className="consent-check"><input type="checkbox" checked={c.status} onChange={set("status")} /><span>{es ? <><strong>Compartir mi estatus — nunca mi reporte — con mi oficial de préstamos.</strong> Jordan ve dónde voy en el camino (como “Ronda 2, meta de utilización cumplida”). Jordan nunca ve mi reporte ni mi puntaje a menos que yo pida una revisión.</> : <><strong>Share my status — never my report — with my loan officer.</strong> Jordan sees where I am on the path (like “Round 2, utilization goal met”). Jordan never sees my credit report or score details unless I request a review.</>}</span></label>
+    <label className="consent-check"><input type="checkbox" checked={c.status} onChange={set("status")} /><span>{es ? <><strong>Compartir mis tres puntajes y mi progreso — nunca mi reporte — con mi oficial de préstamos.</strong> Jordan ve los puntajes de Equifax, Experian y TransUnion y dónde voy en el camino. No ve mis cuentas ni mi reporte de crédito privado.</> : <><strong>Share my three scores and progress — never my report — with my loan officer.</strong> Jordan sees my Equifax, Experian and TransUnion scores and where I am on the path. Jordan does not see my accounts or private credit report.</>}</span></label>
     <label className="consent-check"><input type="checkbox" checked={c.text} onChange={set("text")} /><span>{es ? <><strong>Envíenme mensajes de texto.</strong> ReadyIQ y Jordan pueden escribirme sobre mi camino. Pueden aplicar tarifas; responde STOP para cancelar.</> : <><strong>Text me.</strong> ReadyIQ and Jordan may text me about my path. Message rates may apply; reply STOP any time.</>}</span></label>
     <small style={{ color: "var(--muted)" }}>{es ? "Puedes solicitar una hipoteca cuando quieras — esto no es obligatorio." : REGB}</small>
   </div>;
@@ -20,10 +21,7 @@ export function ConsentBlock({ onChange }: { onChange: (ok: boolean) => void }) 
 
 /* three-bureau strip + honest caption, under the score ring */
 export function NumberStrip() {
-  return <div className="detail-stats" style={{ marginTop: 10 }}>
-    <p><span>Experian</span><strong>615</strong></p><p><span>TransUnion</span><strong>612</strong></p><p><span>Equifax</span><strong>608</strong></p>
-    <p style={{ gridColumn: "1 / -1" }}><span>Powered by MyScoreIQ</span><strong style={{ fontWeight: 500, color: "var(--muted)" }}>FICO® Score — not the mortgage-industry version lenders pull. A guide, not a preapproval.</strong></p>
-  </div>;
+  return <BureauScores scores={MAYA_BUREAU_SCORES} />;
 }
 
 /* DTI from the report + one income field */
@@ -76,10 +74,11 @@ export function GuardianPage({ on, setOn }: { on: boolean; setOn: (v: boolean) =
   </div>;
 }
 
-/* the review packet — status, never the report — with consent for the hard pull */
+/* the review packet — three scores + readiness, never the report — with consent for the hard pull */
 export function ReviewPacket({ close }: { close: () => void }) {
   const [sent, setSent] = useState(false); const [consent, setConsent] = useState(false);
-  return <div className="modal-backdrop"><div className="review-modal"><button className="modal-close" onClick={close}>×</button>{!sent ? <><span className="review-modal-icon">↗</span><span className="section-kicker">REQUEST REVIEW</span><h2>Ready for Jordan to take a real look?</h2><p>Jordan gets a consumer-authorized packet — your status, never your report — and pulls the real mortgage credit report when you talk.</p>
+  return <div className="modal-backdrop"><div className="review-modal"><button className="modal-close" onClick={close}>×</button>{!sent ? <><span className="review-modal-icon">↗</span><span className="section-kicker">REQUEST REVIEW</span><h2>Ready for Jordan to take a real look?</h2><p>Jordan gets your consumer-authorized Equifax, Experian and TransUnion scores together with your readiness summary—never your accounts or full report. Mortgage qualification begins only after you talk.</p>
+    <BureauScores scores={MAYA_BUREAU_SCORES} label="Scores included in your review request" />
     <div className="review-summary"><div><span>Pathway</span><strong>Build Mode · Round 2 of ~5</strong></div><div><span>Summit floors met</span><strong>FHA</strong></div><div><span>DTI estimate</span><strong>11%</strong></div><div><span>Rent history</span><strong>24 months</strong></div><div><span>Disputes</span><strong>1 sent · 0 open drafts</strong></div><div><span>Loan officer</span><strong>Jordan Lee</strong></div></div>
     <TriMerge /><label className="consent-check" style={{ marginTop: 10 }}><input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} /><span><strong>Jordan may pull my mortgage credit report when we talk.</strong> That’s a hard inquiry, done by Summit Home Loans with my permission — it’s how the real qualification starts. Nothing is pulled until we speak.</span></label>
     <button disabled={!consent} className="primary-lime wide dark-text" onClick={() => setSent(true)}>Send to Jordan →</button><small style={{ color: "var(--muted)" }}>{REGB}</small></> : <div className="modal-success"><span>✓</span><h2>Jordan has your packet.</h2><p>Jordan received a ReadyIQ alert and will reach out to schedule. Keep balances where they are until you talk.</p><button className="primary-dark" onClick={close}>Back to my path</button></div>}</div></div>;

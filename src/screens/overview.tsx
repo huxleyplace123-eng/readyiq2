@@ -2,6 +2,7 @@
 // a white "score window" with glass floats, the dark path frame (paper → mint → lime → dark), big toolkit tiles, lender band.
 import type { ReactNode } from "react";
 import { useLang } from "./lang";
+import { BureauScores, MAYA_BUREAU_SCORES } from "./bureaus";
 
 type Page = "welcome" | "consent" | "result" | "plan" | "disputes" | "reporting" | "progress" | "guardian" | "passport";
 
@@ -13,19 +14,17 @@ export function Overview({ setPage, openReview }: { setPage: (p: Page) => void; 
       <div className="cx-hero-copy">
         <span className="cx-pill"><i />{es ? "TRABAJANDO EN TU PLAN · PASO 2 DE ~5" : "WORKING ON YOUR PLAN · STEP 2 OF ~5"}</span>
         <h1>{es ? <>Buenos días, Maya. <em>Estás avanzando hacia tu próxima conversación hipotecaria.</em></> : <>Good morning, Maya. <em>You’re making progress toward your next mortgage conversation.</em></>}</h1>
-        <p>{es ? "Tu puntaje es solo una parte. Hoy tienes una acción clara: bajar el saldo de Summit Visa a menos del 30% de su límite. Jordan puede ver tu progreso, pero nunca tu reporte de crédito privado." : "Your score is only one part of the picture. Today you have one clear action: bring the Summit Visa balance below 30% of its limit. Jordan can see your progress, but never your private credit report."}</p>
+        <p>{es ? "Tus tres puntajes son solo una parte. Hoy tienes una acción clara: bajar el saldo de Summit Visa a menos del 30% de su límite. Con tu permiso, Jordan ve los tres puntajes y tu progreso, pero nunca tus cuentas ni tu reporte completo." : "Your three scores are only one part of the picture. Today you have one clear action: bring the Summit Visa balance below 30% of its limit. With your permission, Jordan sees all three scores and your progress—never your accounts or full report."}</p>
         <div className="cx-actions"><button className="lime" onClick={() => setPage("plan")}>{es ? "Ver la acción de hoy" : "See today’s action"} <span>→</span></button><button className="ghost" onClick={openReview}>{es ? "Pedir hablar con mi prestamista" : "Ask to speak with my lender"}</button></div>
-        <div className="cx-trust"><span>✓ {es ? "Revisarlo no baja tu puntaje" : "Checking this does not hurt your score"}</span><span>✓ {es ? "Jordan ve tu progreso, no tu reporte" : "Jordan sees your progress, not your report"}</span><span>✓ {es ? "Puedes solicitar cuando quieras" : "You can apply whenever you choose"}</span></div>
+        <div className="cx-trust"><span>✓ {es ? "Revisarlo no baja tu puntaje" : "Checking this does not hurt your score"}</span><span>✓ {es ? "Jordan ve los 3 puntajes y progreso" : "Jordan sees 3 scores + progress"}</span><span>✓ {es ? "Puedes solicitar cuando quieras" : "You can apply whenever you choose"}</span></div>
       </div>
       <div className="cx-window">
         <div className="cx-chrome"><span><i />{es ? "FICO® · 3 burós · MyScoreIQ" : "FICO® · 3 bureaus · MyScoreIQ"}</span><span /></div>
         <div className="cx-window-body">
-          <div className="cx-gauges">
-            {[["eq", "Equifax", 608, "+9", 62], ["ex", "Experian", 615, "+14", 66], ["tu", "TransUnion", 612, "+12", 64]].map(([k, name, score, delta, pct]) => <div key={k as string} className={`cx-gauge ${k}`}><div className="cx-gauge-ring" style={{ background: `conic-gradient(var(--g) 0 ${pct}%, #e6ece8 ${pct}% 100%)` }}><div><strong>{score}</strong><small>{delta}</small></div></div><span><i />{name}</span></div>)}
-          </div>
+          <BureauScores scores={MAYA_BUREAU_SCORES} showNotice={false} />
           <div className="cx-progress"><div><span>{es ? "Progreso del plan" : "Plan progress"}</span><span>2 {es ? "de" : "of"} 7</span></div><div className="track"><i /></div><small>{es ? "siguiente: utilización bajo 30%" : "next: utilization under 30%"}</small></div>
         </div>
-        <div className="cx-window-foot"><span>{es ? "FICO® — no es la versión que usan los prestamistas. Una guía, no una preaprobación." : "FICO® — not the version lenders pull. A guide, not a preapproval."}</span><button className="cx-inline" onClick={() => setPage("progress")}>{es ? "Detalles →" : "Score details →"}</button></div>
+        <div className="cx-window-foot"><span>{es ? "Tres puntajes FICO® de MyScoreIQ — pueden diferir de los puntajes hipotecarios. No es una preaprobación." : "Three MyScoreIQ FICO® scores — they may differ from the mortgage scores a lender pulls. Not a preapproval."}</span><button className="cx-inline" onClick={() => setPage("progress")}>{es ? "Detalles →" : "Score details →"}</button></div>
                 <div className="cx-float br lime"><i>◈</i><div><small>NEXT GOAL</small><strong>Card balance below 30%</strong></div></div>
       </div>
     </section>
