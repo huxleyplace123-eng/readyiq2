@@ -165,20 +165,39 @@
 .seg-wrap+.dashboard-page,.seg-wrap+.plan-page,.seg-wrap+.dispute-page,.seg-wrap+.reporting-page,.seg-wrap+.cx-page{padding-top:18px}
 @media(max-width:760px){.seg-wrap{padding:16px 14px 0}.segments{display:flex}.segments button{flex:1;min-width:0;padding:8px 10px}.segments button small{display:none}}
 
-/* ---------- Dispute Hub, one thing at a time ---------- */
+/* ---------- Dispute Hub: a slim vertical list of negative items, by bureau; each opens in place ---------- */
 .dispute-page .welcome-row{margin-bottom:14px}
 .dispute-page .welcome-row p{max-width:560px}
-.dh-items{display:flex;align-items:center;gap:6px;flex-wrap:nowrap;overflow-x:auto;margin:0 0 14px;padding-bottom:2px;scrollbar-width:none}
-.dh-items::-webkit-scrollbar{display:none}
-.dh-items>small{font-size:10px;letter-spacing:.14em;font-weight:900;color:#7d8d88;margin-right:6px;flex:none}
-.dh-items button{flex:none;display:inline-flex;align-items:center;gap:8px;border:1px solid #e1e8e3;background:#fff;border-radius:99px;padding:7px 13px 7px 9px;cursor:pointer;color:#3d524c;font-size:12.5px;font-weight:700;transition:box-shadow .15s}
-.dh-items button i{width:8px;height:8px;border-radius:50%;background:#6e67eb}
-.dh-items button.flag i{background:#e07a5f}
-.dh-items button.done i{background:#4c8d79}
-.dh-items button.done{color:#7d8d88}
-.dh-items button strong{font-weight:700}
-.dh-items button.active{background:#102126;border-color:#102126;color:#fff}
-.dh-items button.active i{background:var(--lime)}
+.dh-listhead{display:grid;grid-template-columns:14px minmax(0,1fr) 192px 96px 28px;gap:12px;align-items:end;padding:0 16px 8px;font-size:10px;letter-spacing:.14em;font-weight:900;color:#7d8d88}
+.dh-listhead>span:first-child{grid-column:2}
+.dh-bureaus-head{grid-column:3;display:grid;grid-template-columns:repeat(3,64px);text-align:center}
+.dh-bureaus-head b{font-weight:800;font-size:9.5px;letter-spacing:.02em;text-transform:none;color:#5f716b}
+.dh-list{display:flex;flex-direction:column;gap:6px}
+.dh-row{background:#fff;border:1px solid #e1e8e3;border-radius:14px;overflow:hidden;transition:box-shadow .2s,border-color .2s}
+.dh-row.open{box-shadow:0 16px 40px rgba(16,34,38,.08);border-color:#cfdad3}
+.dh-row-head{width:100%;display:grid;grid-template-columns:14px minmax(0,1fr) 192px 96px 28px;align-items:center;gap:12px;padding:12px 16px;border:0;background:none;text-align:left;cursor:pointer;color:#102226}
+.dh-row-head:hover{background:#f7faf8}
+.dh-dot{width:8px;height:8px;border-radius:50%;background:#6e67eb;justify-self:center}
+.dh-row.flag .dh-dot{background:#e07a5f}
+.dh-row.done .dh-dot{background:#4c8d79}
+.dh-name{min-width:0}
+.dh-name strong{display:block;font-size:13.5px;letter-spacing:-.01em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dh-name small{display:block;font-size:11.5px;color:#7d8d88;margin-top:1px}
+.dh-row.done .dh-name strong{color:#5f716b}
+.dh-bureaus{display:grid;grid-template-columns:repeat(3,64px);text-align:center}
+.dh-bureaus i{font-style:normal;font-size:11px;color:#cfd9d3}
+.dh-bureaus i.on{color:#6e67eb;font-size:12px}
+.dh-row.flag .dh-bureaus i.on{color:#e07a5f}
+.dh-row.done .dh-bureaus i.on{color:#4c8d79}
+.dh-status{font-size:10.5px;font-weight:800;letter-spacing:.04em;text-align:center;border-radius:99px;padding:5px 8px;background:#efe9ff;color:#5b52c9;white-space:nowrap}
+.dh-status.flag{background:#fdece6;color:#b0472c}
+.dh-status.done{background:#e5f0e7;color:#2f6a55}
+.dh-chev{width:24px;height:24px;border-radius:50%;border:1px solid #dfe6e2;display:grid;place-items:center;font-size:14px;color:#5f716b;justify-self:end}
+.dh-row.open .dh-chev{background:#102126;border-color:#102126;color:#fff}
+.dh-row .dh-body{border-top:1px solid #eef2ef;padding:16px 18px 14px}
+.dh-row .dh-steps{margin-bottom:12px}
+.dh-note{margin-top:12px;font-size:11px}
+@media(max-width:900px){.dh-row-head{grid-template-columns:12px minmax(0,1fr) 108px 24px;gap:10px;padding:11px 12px}.dh-bureaus{grid-template-columns:repeat(3,36px)}.dh-status{display:none}.dh-listhead{grid-template-columns:12px minmax(0,1fr) 108px 24px;gap:10px;padding:0 12px 8px}.dh-bureaus-head{grid-template-columns:repeat(3,36px)}.dh-bureaus-head b{font-size:8px}}
 .dh-card{background:#fff;border:1px solid #e1e8e3;border-radius:20px;box-shadow:0 12px 34px rgba(16,34,38,.05);overflow:hidden}
 .dh-head{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid #eef2ef;flex-wrap:wrap}
 .dh-title{display:flex;align-items:center;gap:12px;min-width:0}
