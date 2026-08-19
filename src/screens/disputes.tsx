@@ -15,12 +15,12 @@ export function DisputeHub() {
   const item = ITEMS[sel]; const done = item.status === "Reviewed";
   const go = (i: number) => { setSel(i); setStep(1); };
   return <div className="dashboard-page dispute-page">
-    <div className="welcome-row"><div><span className="section-kicker">READYIQ DISPUTE HUB</span><h2>Find it. Dispute it. <em>Track it.</em></h2><p>One item at a time. You decide what’s wrong; ReadyIQ writes the letter and keeps the clock. Nothing is sent without you.</p></div><span className="info-badge">2 flagged · {step >= 3 ? 1 : 0} draft</span></div>
+    <div className="welcome-row"><div><span className="section-kicker">READYIQ DISPUTE HUB</span><h2>Find it. Dispute it. <em>Track it.</em></h2><p>One item at a time. You decide what’s wrong; ReadyIQ writes the letter and keeps the clock.</p></div></div>
 
-    <div className="dh-items">{ITEMS.map((x, i) => <button key={x.creditor} className={`${sel === i ? "active" : ""} ${x.status === "Reviewed" ? "done" : ""}`} onClick={() => go(i)}><i>{x.id}</i><span><strong>{x.creditor}</strong><small>{x.status}</small></span></button>)}</div>
+    <div className="dh-items"><small>ITEMS</small>{ITEMS.map((x, i) => <button key={x.creditor} className={`${sel === i ? "active" : ""} ${x.status === "Reviewed" ? "done" : x.status === "Flagged" ? "flag" : "review"}`} onClick={() => go(i)}><i /><strong>{x.creditor.split(" / ")[0].replace(" Management", "")}</strong></button>)}</div>
 
     <section className="dh-card">
-      <div className="dh-head"><div className="dh-title"><span className="report-icon large">{item.id}</span><div><h3>{item.creditor}</h3><p>{item.type} · {item.bureau}</p></div></div>
+      <div className="dh-head"><div className="dh-title"><span className="report-icon large">{item.id}</span><div><h3>{item.creditor}</h3><p>{item.type} · {item.bureau} · <b>{item.status}</b></p></div></div>
         <div className="dh-steps">{[["Review", 1], ["Reason", 2], ["Letter", 3], ["Track", 4]].map(([l, n]) => <span key={l as string} className={step === n ? "now" : step > (n as number) ? "done" : ""}><i>{step > (n as number) ? "✓" : n}</i>{l}</span>)}</div></div>
 
       {step === 1 && <div className="dh-body">
