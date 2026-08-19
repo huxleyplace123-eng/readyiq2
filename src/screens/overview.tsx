@@ -18,13 +18,12 @@ export function Overview({ setPage, openReview }: { setPage: (p: Page) => void; 
         <div className="cx-trust"><span>✓ {es ? "Solo consulta suave" : "Soft pull only"}</span><span>✓ {es ? "Jordan ve tu estatus, nunca tu reporte" : "Jordan sees status, never your report"}</span><span>✓ {es ? "Puedes solicitar cuando quieras — no es obligatorio" : "You can apply at any time — this is not required"}</span></div>
       </div>
       <div className="cx-window">
-        <div className="cx-chrome"><span><i />Live · MyScoreIQ · refreshed today</span><span /></div>
+        <div className="cx-chrome"><span><i />{es ? "FICO® · 3 burós · MyScoreIQ" : "FICO® · 3 bureaus · MyScoreIQ"}</span><span /></div>
         <div className="cx-window-body">
-          <div className="cx-ring-col"><div className="cx-ring"><div><span>CONSUMER SCORE</span><strong>612</strong><small>FICO® · MyScoreIQ</small></div></div><span className="cx-delta">↗ +14 since last check</span></div>
-          <div>
-            <div className="cx-bureaus"><div><small>EXPERIAN</small><strong>615</strong></div><div><small>TRANSUNION</small><strong>612</strong></div><div><small>EQUIFAX</small><strong>608</strong></div></div>
-            <div className="cx-progress"><div><span>Plan progress</span><span>2 of 7</span></div><div className="track"><i /></div><small>priority actions complete · next: utilization under 30%</small></div>
+          <div className="cx-gauges">
+            {[["eq", "Equifax", 608, "+9", 62], ["ex", "Experian", 615, "+14", 66], ["tu", "TransUnion", 612, "+12", 64]].map(([k, name, score, delta, pct]) => <div key={k as string} className={`cx-gauge ${k}`}><div className="cx-gauge-ring" style={{ background: `conic-gradient(var(--g) 0 ${pct}%, #e6ece8 ${pct}% 100%)` }}><div><strong>{score}</strong><small>{delta}</small></div></div><span><i />{name}</span></div>)}
           </div>
+          <div className="cx-progress"><div><span>{es ? "Progreso del plan" : "Plan progress"}</span><span>2 {es ? "de" : "of"} 7</span></div><div className="track"><i /></div><small>{es ? "acciones prioritarias completadas · siguiente: utilización bajo 30%" : "priority actions complete · next: utilization under 30%"}</small></div>
         </div>
         <div className="cx-window-foot"><span>FICO® Score — not the version lenders pull. A guide, not a preapproval.</span><span><button className="cx-inline" onClick={() => setPage("progress")}>{es ? "Detalles →" : "Score details →"}</button> · <button className="cx-inline" onClick={() => setPage("passport")}>{es ? "Pasaporte →" : "Passport →"}</button></span></div>
                 <div className="cx-float br lime"><i>◈</i><div><small>NEXT MILESTONE</small><strong>Utilization under 30%</strong></div></div>
