@@ -17,14 +17,14 @@ export function DisputeHub() {
   return <div className="dashboard-page dispute-page">
     <div className="welcome-row"><div><span className="section-kicker">READYIQ DISPUTE HUB</span><h2>Find it. Dispute it. <em>Track it.</em></h2><p>Your negative items, one at a time. Open one, say whether it’s right, and ReadyIQ handles the letter and the clock.</p></div></div>
     <section className="dh-panel">
-      <div className="dh-panel-head"><h3>What you can dispute</h3><span className="dh-count">3 ITEMS · 2 TO REVIEW</span></div>
-      <div className="dh-legend"><span><i className="eq" />Equifax</span><span><i className="ex" />Experian</span><span><i className="tu" />TransUnion</span></div>
-      {ITEMS.map((item, i) => <div key={item.creditor} className={`dh-line ${sel === i ? "sel" : ""} ${item.tone}`} onClick={() => open(i)}>
-        <span className="dh-dots" aria-label={`Reported by ${[item.eq && "Equifax", item.ex && "Experian", item.tu && "TransUnion"].filter(Boolean).join(", ")}`}>{item.eq && <i className="eq" title="Equifax" />}{item.ex && <i className="ex" title="Experian" />}{item.tu && <i className="tu" title="TransUnion" />}</span>
-        <div className="dh-info"><div className="dh-nm">{item.creditor}</div><div className="dh-meta">{item.type} · {item.balance} · opened {item.opened} · on {[item.eq && "Equifax", item.ex && "Experian", item.tu && "TransUnion"].filter(Boolean).join(", ")}</div></div>
-        <span className={`dh-tag ${item.tone}`}>{item.status}</span>
-        {item.status !== "Reviewed" ? <button className="dh-btn" onClick={(e) => { e.stopPropagation(); setSel(i); setStep(2); }}>Dispute →</button> : <span className="dh-btn ghost">Reopen</span>}
-      </div>)}
+      <div className="dh-panel-head"><h3>Your negative items, by bureau</h3><span className="dh-count">3 ITEMS · 2 TO REVIEW</span></div>
+      <div className="dh-board">{([["eq", "Equifax"], ["ex", "Experian"], ["tu", "TransUnion"]] as const).map(([key, name]) => {
+        const rows = ITEMS.map((it, i) => ({ it, i })).filter(({ it }) => (it as any)[key]);
+        return <div key={key} className={`dh-col ${key}`}>
+          <div className="dh-col-head"><i />{name}<b>{rows.length}</b></div>
+          {rows.map(({ it, i }) => <button key={it.creditor} className={`dh-item ${sel === i ? "sel" : ""} ${it.tone}`} onClick={() => open(i)}><span className="dh-nm">{it.creditor}</span><span className="dh-meta">{it.type} · {it.balance}</span><span className={`dh-tag ${it.tone}`}>{it.status}</span></button>)}
+        </div>;
+      })}</div>
     </section>
 
     {sel >= 0 && (() => { const item = ITEMS[sel]; const i = sel; const done = item.status === "Reviewed"; const on = [item.eq && "Equifax", item.ex && "Experian", item.tu && "TransUnion"].filter(Boolean); return <section className="dh-card">
