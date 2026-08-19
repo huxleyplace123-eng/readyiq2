@@ -16,8 +16,8 @@ writeFileSync('site/app.css', css);
 
 // path → [title, description]
 const ROUTES = {
-  '': ['ReadyIQ — turn more of the leads you already paid for into future borrowers', 'Give every not-ready lead a clear next step. Consumers understand their credit, follow a simple plan, and return to their original loan officer when they are ready.'],
-  'platform': ['How ReadyIQ works', 'See the simple path from the first invitation to a consumer-requested lender review.'],
+  '': ['ReadyIQ — credit tools for consumers, progress for loan officers', 'Consumers can check, build, and dispute credit in a private workspace. Loan officers see approved progress and reconnect when the consumer is ready for a mortgage conversation.'],
+  'platform': ['How ReadyIQ works — consumer credit tools and loan officer progress', 'Consumers use guided credit-building and dispute tools. Loan officers receive permission-based progress updates, never the private credit report.'],
   'loan-officers': ['ReadyIQ for loan officers — one link, zero busywork', 'Sixty seconds to a link you can text, print or email. Status only, never the report.'],
   'consumers': ['ReadyIQ for consumers — understand your credit and take the next step', 'See your credit, follow one clear step at a time, review possible errors, and add eligible rent or bill history.'],
   'partners': ['ReadyIQ for partners — realtors and property managers', 'Partner links and QR for realtors and buildings. Renters start rent history 12–24 months early. Coarse status only.'],
