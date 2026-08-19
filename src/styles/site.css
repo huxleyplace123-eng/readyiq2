@@ -10,8 +10,9 @@
 .site-links>a,.site-links .dd>button{border:0;background:none;font:inherit;font-size:13px;font-weight:650;color:#4b5c57;text-decoration:none;padding:9px 11px;border-radius:9px;white-space:nowrap;cursor:pointer;letter-spacing:-.005em}
 .site-links>a:hover,.site-links .dd>button:hover,.site-links>a.on,.site-links .dd>button.on{color:#102226;background:#e9efe9}
 .dd{position:relative}
-.dd-menu{display:none;position:absolute;left:0;top:calc(100% + 8px);min-width:320px;background:#fff;border:1px solid #dfe6e2;border-radius:16px;padding:8px;box-shadow:0 24px 60px rgba(16,34,38,.16);flex-direction:column;gap:2px;z-index:130}
-.dd.show .dd-menu{display:flex}
+.dd-menu{display:none;position:absolute;left:0;top:100%;padding-top:8px;z-index:130}
+.dd.show .dd-menu{display:block}
+.dd-box{min-width:320px;background:#fff;border:1px solid #dfe6e2;border-radius:16px;padding:8px;box-shadow:0 24px 60px rgba(16,34,38,.16);display:flex;flex-direction:column;gap:2px}
 .dd-menu a{display:block;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:650;color:#102226;text-decoration:none;line-height:1.35}
 .dd-menu a:hover{background:#f1f6f2}
 .site-actions{display:flex;align-items:center;gap:6px;flex:none}

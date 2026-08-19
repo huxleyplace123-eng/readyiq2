@@ -1,6 +1,6 @@
 // src/site/site.tsx — the real website: one shell (nav · footer · CTA band · honesty strip), one page anatomy, and a page per topic.
 // Every page opens with a live window of the product (see windows.tsx). Links are relative to <base href> so clean URLs work on Pages.
-import { useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { ReadyIQWebsite, IntegrationHub } from "../v11-page";
 import { ScoreWindow, LinkWindow, BoardWindow, FeedWindow, EventsWindow, PassportWindow, DoorWindow, AskWindow, ProtectWindow, BuildWindow, TriWindow, Frame } from "./windows";
 
@@ -11,17 +11,19 @@ const DEMO = "demo/";
 function Brand() { return <a className="brand-mark site-brand" href="./"><span className="brand-symbol"><i />R</span><span>Ready<span>IQ</span></span></a>; }
 
 export function SiteNav({ route }: { route: Route }) {
-  const [open, setOpen] = useState(false); const [dd, setDd] = useState<string | null>(null);
+  const [open, setOpen] = useState(false); const [dd, setDd] = useState<string | null>(null); const closeT = useRef<number | null>(null);
+  const show = (k: string) => { if (closeT.current) { clearTimeout(closeT.current); closeT.current = null; } setDd(k); };
+  const hideSoon = () => { if (closeT.current) clearTimeout(closeT.current); closeT.current = window.setTimeout(() => setDd(null), 260); };
   const is = (r: string) => route === r || route.startsWith(r + "/");
   const products: [string, string][] = [["products/check/", "Check — three bureaus, honest FICO®"], ["products/dispute-hub/", "Dispute Hub — by bureau, one item at a time"], ["products/build-report/", "Build & report — rent and everyday bills"], ["products/protect-mode/", "Protect Mode — during the loan"], ["products/passport/", "Readiness Passport — a status you own"], ["products/ask/", "Ask ReadyIQ — the underwriter in your pocket"]];
   const who: [string, string][] = [["loan-officers/", "Loan officers — one link, status only"], ["consumers/", "Consumers — check, build, dispute"], ["partners/", "Partners — realtors and buildings"]];
   return <header className={`site-nav ${open ? "open" : ""}`}>
     <div className="site-nav-inner">
       <Brand />
-      <nav className="site-links" onMouseLeave={() => setDd(null)}>
+      <nav className="site-links">
         <a href="platform/" className={is("platform") ? "on" : ""}>Platform</a>
-        <div className={`dd ${dd === "p" ? "show" : ""}`} onMouseEnter={() => setDd("p")}><button className={is("products") ? "on" : ""} onClick={() => setDd(dd === "p" ? null : "p")}>Products ▾</button><div className="dd-menu">{products.map(([h, l]) => <a key={h} href={h}>{l}</a>)}</div></div>
-        <div className={`dd ${dd === "w" ? "show" : ""}`} onMouseEnter={() => setDd("w")}><button className={is("loan-officers") || is("consumers") || is("partners") ? "on" : ""} onClick={() => setDd(dd === "w" ? null : "w")}>Who it’s for ▾</button><div className="dd-menu">{who.map(([h, l]) => <a key={h} href={h}>{l}</a>)}</div></div>
+        <div className={`dd ${dd === "p" ? "show" : ""}`} onMouseEnter={() => show("p")} onMouseLeave={hideSoon}><button className={is("products") ? "on" : ""} onClick={() => (dd === "p" ? setDd(null) : show("p"))}>Products ▾</button><div className="dd-menu"><div className="dd-box">{products.map(([h, l]) => <a key={h} href={h}>{l}</a>)}</div></div></div>
+        <div className={`dd ${dd === "w" ? "show" : ""}`} onMouseEnter={() => show("w")} onMouseLeave={hideSoon}><button className={is("loan-officers") || is("consumers") || is("partners") ? "on" : ""} onClick={() => (dd === "w" ? setDd(null) : show("w"))}>Who it’s for ▾</button><div className="dd-menu"><div className="dd-box">{who.map(([h, l]) => <a key={h} href={h}>{l}</a>)}</div></div></div>
         <a href="integrations/" className={is("integrations") ? "on" : ""}>Integrations</a>
         <a href="trust/" className={is("trust") ? "on" : ""}>Trust</a>
         <a href="resources/" className={is("resources") ? "on" : ""}>Resources</a>
