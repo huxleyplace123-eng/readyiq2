@@ -16,7 +16,7 @@ writeFileSync('site/app.css', css);
 
 // path → [title, description]
 const ROUTES = {
-  '': ['ReadyIQ for mortgage teams — keep “not ready” leads moving', 'Give future homebuyers private credit-building and dispute tools, see approved progress, and reconnect when they are ready for the next mortgage conversation.'],
+  '': ['ReadyIQ for mortgage teams — guide credit-challenged leads', 'Give credit-challenged future homebuyers private tools and a clear next step, see approved progress, and reconnect when they are ready for another mortgage conversation.'],
   'platform': ['How ReadyIQ works — consumer credit tools and loan officer progress', 'Consumers use guided credit-building and dispute tools. Loan officers receive permission-based progress updates, never the private credit report.'],
   'loan-officers': ['ReadyIQ for loan officers — one link, zero busywork', 'Sixty seconds to a link you can text, print or email. Status only, never the report.'],
   'consumers': ['ReadyIQ for consumers — understand your credit and take the next step', 'See your credit, follow one clear step at a time, review possible errors, and add eligible rent or bill history.'],
