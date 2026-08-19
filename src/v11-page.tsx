@@ -64,31 +64,31 @@ function ProductSuite({ openConsumer }: { openConsumer: (page?: ConsumerPage) =>
 
 function DIYToolsSection({ openConsumer }: { openConsumer: (page?: ConsumerPage) => void }) {
   const steps = [
-    ["01", "Review the report"],
-    ["02", "Choose what looks inaccurate"],
-    ["03", "Answer guided questions"],
-    ["04", "Add supporting documents"],
-    ["05", "Create the dispute letter"],
-    ["06", "Track the bureau response"],
+    ["01", "Review"],
+    ["02", "Choose"],
+    ["03", "Explain"],
+    ["04", "Add proof"],
+    ["05", "Create letter"],
+    ["06", "Track"],
   ];
   return <section className="diy-tools" id="how-it-works">
-    <div className="diy-heading"><div className="diy-heading-title"><span className="b2b-kicker">THE CONSUMER STAYS IN CONTROL</span><h2>Credit can feel confusing. <em>ReadyIQ makes the next step clear.</em></h2></div><div className="diy-intro-note"><span className="diy-note-label">A PRIVATE PLACE TO MOVE FORWARD</span><p>The lender starts the invitation. ReadyIQ gives the consumer a private place to review their credit, explain what they believe is wrong, create their letter, and follow what happens next.</p><button onClick={()=>openConsumer("disputes")}>See the simple consumer flow <span>→</span></button></div></div>
+    <div className="diy-heading"><div className="diy-heading-title"><span className="b2b-kicker">THE CONSUMER STAYS IN CONTROL</span><h2>Private for the consumer. <em>Connected for the lender.</em></h2><p>The consumer does the work. ReadyIQ guides each step. The loan officer stays connected.</p></div></div>
     <div className="responsibility-map" aria-label="Who controls each part of the ReadyIQ experience">
       {[
-        { tone:"company", icon:"✉", label:"MORTGAGE COMPANY", title:"Keeps the relationship.", body:"The lender opens the door while the original loan officer, branch and lead source stay connected.", benefits:["Original loan officer stays attached","Company brand remains visible","Progress returns to current tools"] },
-        { tone:"readyiq", icon:"R", label:"READYIQ", title:"Guides the work.", body:"ReadyIQ turns a confusing credit process into one clear next action at a time.", benefits:["Report review stays organized","Evidence and letters stay together","Only approved milestones are shared"] },
-        { tone:"consumer", icon:"✓", label:"CONSUMER", title:"Controls every action.", body:"The consumer works privately, decides what looks wrong and chooses when to reconnect.", benefits:["Private place to work","Nothing disputed without approval","Consumer decides when to return"] }
+        { tone:"company", icon:"01", label:"LOAN OFFICER", title:"Starts the invitation." },
+        { tone:"readyiq", icon:"02", label:"READYIQ", title:"Guides the next step." },
+        { tone:"consumer", icon:"03", label:"CONSUMER", title:"Controls every action." }
       ].map((item)=><article key={item.label} className={`responsibility-card ${item.tone}`}>
         <header><span>{item.icon}</span><small>{item.label}</small></header>
-        <h3>{item.title}</h3><p>{item.body}</p>
-        <ul>{item.benefits.map((benefit)=><li key={benefit}><i>✓</i>{benefit}</li>)}</ul>
+        <h3>{item.title}</h3>
       </article>)}
     </div>
+    <button className="diy-inline-link" onClick={()=>openConsumer("disputes")}>See the consumer tools <span>→</span></button>
     <div className="diy-detail-grid">
-      <div className="diy-steps-panel"><span className="b2b-kicker">A SIMPLE, GUIDED DISPUTE</span><h3>Six clear steps. No credit expertise required.</h3><p>ReadyIQ does not make decisions for the consumer. It turns a confusing process into a clear series of questions and actions.</p><div className="diy-step-grid">{steps.map((x,i)=><article key={x[0]}><span className={i<2?"active":""}>{i<2?"✓":x[0]}</span><strong>{x[1]}</strong></article>)}</div></div>
-      <aside className="diy-timing"><span>WHAT HAPPENS NEXT</span><div className="diy-time-number"><strong>30</strong><small>DAYS</small></div><h3>Typical bureau investigation window</h3><p>Some investigations may take up to 45 days when additional information or certain circumstances extend the review.</p><div className="diy-score-note"><i>↗</i><p><strong>Can the score change?</strong>It can if score-related information is corrected. The amount and timing vary by consumer and outcome.</p></div></aside>
+      <div className="diy-steps-panel"><span className="b2b-kicker">A GUIDED DISPUTE</span><h3>Six steps. One clear path.</h3><div className="diy-step-grid">{steps.map((x)=><article key={x[0]}><span>{x[0]}</span><strong>{x[1]}</strong></article>)}</div></div>
+      <aside className="diy-timing"><span>TYPICAL REVIEW WINDOW</span><div className="diy-time-number"><strong>30</strong><small>DAYS</small></div><p>Some reviews can take up to 45 days.</p></aside>
     </div>
-    <div className="diy-disclaimer"><span>i</span><p>Consumers should dispute only information they believe is inaccurate. Credit score changes are not guaranteed, and ReadyIQ consumer scores are not mortgage qualification scores.</p></div>
+    <div className="diy-disclaimer"><span>i</span><p>Dispute only information you believe is inaccurate. Results vary; consumer scores are not mortgage qualification scores.</p></div>
   </section>;
 }
 
@@ -121,8 +121,8 @@ export function ReadyIQWebsite({ openOrganization, openConsumer, openIntegration
         <div className="platform-float float-history"><span>+</span><div><small>POSITIVE HISTORY FOUND</small><strong>24 months of rent</strong></div></div>
       </div></section>
       <section className="b2b-trust" aria-label="Mortgage technology integrations"><span>READYIQ WORKS ACROSS YOUR MORTGAGE STACK</span><div className="brand-marquee"><div className="brand-marquee-track">{[false,true].map((duplicate)=><div className="brand-marquee-sequence" aria-hidden={duplicate || undefined} key={duplicate ? "duplicate" : "primary"}>{integrationBrands.map((brand)=><figure className={`brand-tile brand-${brand.className}`} key={`${duplicate ? "duplicate-" : ""}${brand.name}`}><img src={brand.src} alt={duplicate ? "" : brand.name} loading="eager" /></figure>)}</div>)}</div></div></section>
-      <section className="b2b-problem" id="outcomes"><div className="problem-statement"><span className="section-sequence" aria-hidden="true">01</span><span className="b2b-kicker">WHAT READYIQ DOES</span><h2>The consumer does the work. <em>The loan officer follows the progress.</em></h2></div><div className="problem-copy"><p>A loan officer sends one ReadyIQ link. The consumer uses guided credit-building and dispute tools in a private workspace. The loan officer receives approved progress updates and a clear signal when the consumer wants to talk about a mortgage again.</p><div className="problem-metrics">{[["3","credit bureaus in one view"],["1","personalized action plan"],["0","private reports shown to the loan officer"]].map(([value,label])=><article key={label}><strong>{value}</strong><span>{label}</span></article>)}</div></div></section>
-      <section className="b2b-flow" id="platform"><div className="b2b-section-head"><span className="section-sequence" aria-hidden="true">02</span><div><span className="b2b-kicker">ONE CONNECTED PATH</span><h2>From “not ready yet” to a new lender conversation.</h2></div><p>ReadyIQ connects the consumer, the original loan officer, and the systems your team already uses. Everyone sees only what they need.</p></div><div className="flow-grid">{[["01","Invite","Send a personal link from your website, CRM, or loan officer.","⌁","START","Website · CRM · loan officer","Connection saved"],["02","Check","The consumer approves a soft credit check that does not hurt their score.","◎","PRIVATE CHECK","Consumer approved","Clear starting point"],["03","Improve","Follow simple steps to review, build, and track progress.","＋","CLEAR PLAN","Review · Build · Track","Progress saved"],["04","Reconnect","When the consumer is ready, ReadyIQ brings them back to the original loan officer.","↗","BACK TO THE LENDER","Milestone · review request","Original loan officer protected"]].map((x,i)=><article key={x[0]} className={i===3?"return-card":""}><div className="flow-card-top"><span>{x[0]}</span><i>{x[3]}</i></div><span className="flow-label">{x[4]}</span><h3>{x[1]}</h3><p>{x[2]}</p><footer className="flow-meta"><span>{x[5]}</span><i>✓ {x[6]}</i></footer>{i<3&&<b>→</b>}</article>)}</div></section>
+      <section className="b2b-problem" id="outcomes"><div className="problem-statement"><span className="b2b-kicker">WHAT READYIQ DOES</span><h2>The consumer does the work. <em>The loan officer follows the progress.</em></h2><p>One private workspace. One clear path back to a mortgage conversation.</p></div></section>
+      <section className="b2b-flow" id="platform"><div className="b2b-section-head"><div><span className="b2b-kicker">ONE CONNECTED PATH</span><h2>From “not ready yet” to ready to reconnect.</h2></div></div><div className="flow-grid">{[["01","Invite","One personal link"],["02","Check","Private credit check"],["03","Improve","Build · review · dispute"],["04","Reconnect","Back to the original LO"]].map((x,i)=><article key={x[0]} className={i===3?"return-card":""}><span className="flow-number">{x[0]}</span><h3>{x[1]}</h3><p>{x[2]}</p>{i<3&&<b aria-hidden="true">→</b>}</article>)}</div></section>
       <DIYToolsSection openConsumer={openConsumer} />
       <ProductSuite openConsumer={openConsumer} />
       <section className="b2b-modules"><div className="module-intro"><span className="b2b-kicker light">THE COMPLETE CONSUMER TOOLKIT</span><h2>Everything consumers need to take action on credit.</h2><p>ReadyIQ packages the full CreditBuilderIQ capability set for mortgage: report access, dispute tools, personalized guidance, positive reporting and progress tracking—inside the lender-branded journey.</p><button onClick={()=>openConsumer("disputes")}>Open the working consumer portal →</button></div><div className="module-grid">{[["◇","Dispute Hub","Flag potential inaccuracies, build custom dispute letters and track bureau responses."],["◎","Credit Report Review","Monthly report access with AI-assisted flags, factors and plain-language explanations."],["⌂","Rent Reporting","Verify current rent and eligible historical payments to add positive payment history."],["B","CreditBuilderIQ","Connect eligible rent, utility, mobile and recurring payments as non-traditional history."],["✓","Personalized Gameplan","Prioritized balance, dispute and credit-building actions based on the consumer profile."],["↗","Score Center","Monitor consumer scores, goals, factor changes and readiness milestones over time."]].map((x,i)=><article key={x[1]} className={i===0?"featured-module":""}><div className="module-card-head"><span className={`module-icon m${i}`}>{x[0]}</span><h3>{x[1]}</h3></div><p>{x[2]}</p>{i===0&&<b>FLAGSHIP</b>}</article>)}</div></section>
