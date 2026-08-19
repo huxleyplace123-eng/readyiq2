@@ -2633,3 +2633,141 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .pipeline-table .bureau-pipeline-table .pipeline-row-action,.borrower-table-card .bureau-pipeline-table .pipeline-row-action{grid-column:1/-1;align-items:stretch}
   .pipeline-table .bureau-pipeline-table .pipeline-row-action button,.borrower-table-card .bureau-pipeline-table .pipeline-row-action button{width:100%;padding:8px;border:1px solid #dbe5df;border-radius:8px;background:#f5f8f6;color:#42695d;font-weight:800}
 }
+
+/* Phone composition pass: concise stories, contained product previews, no desktop-sized canvases. */
+@media(max-width:760px){
+  html,body,#root{max-width:100%;overflow-x:hidden}
+  .b2b-site{overflow:clip}
+
+  /* The homepage should communicate the value before asking someone to scroll through a product tour. */
+  .site-home .b2b-hero{gap:30px;padding:38px 16px 48px}
+  .site-home .b2b-eyebrow span{padding:6px 9px;font-size:9px;line-height:1.35}
+  .site-home .b2b-hero h1{max-width:345px;margin:19px 0 17px;font-size:clamp(37px,10.7vw,43px);line-height:1.01;letter-spacing:-.055em}
+  .site-home .b2b-hero-copy>p{margin:0;color:#b7c7c2;font-size:13.5px;line-height:1.58}
+  .site-home .b2b-hero-actions{gap:8px;margin-top:23px}
+  .site-home .b2b-hero-actions button{min-height:46px;width:100%;padding:12px 15px}
+  .site-home .b2b-secondary{border-color:transparent;background:transparent;padding:8px 4px;text-align:left;box-shadow:none}
+  .site-home .b2b-purpose-grid{display:none}
+  .site-home .b2b-product-stage.hero-platform{position:relative;width:100%;height:410px;min-height:0;max-height:410px;margin:0;overflow:hidden;border-radius:19px;box-shadow:0 24px 55px rgba(0,0,0,.27)}
+  .site-home .b2b-product-stage.hero-platform::after,
+  .site-home .control-ui::after,
+  .site-home .product-window::after,
+  .site-home .phone-scene::after,
+  .site-hero-window::after{content:"";position:absolute;z-index:8;left:0;right:0;bottom:0;height:68px;pointer-events:none;background:linear-gradient(to bottom,transparent,rgba(247,250,247,.98))}
+  .site-home .b2b-product-stage.hero-platform::after{background:linear-gradient(to bottom,transparent,#f7faf7 88%)}
+
+  /* A faster homepage rhythm: each section has one job and one dominant visual. */
+  .site-home .readiness-explainer{padding:54px 16px 49px}
+  .readiness-story-head{gap:18px}
+  .readiness-story-head h2{margin-top:12px;font-size:clamp(34px,9.7vw,40px);line-height:1.03}
+  .readiness-story-head>p{padding-left:14px;font-size:13px;line-height:1.6}
+  .readiness-story-path{gap:8px;margin-top:28px;padding:7px;border-radius:20px}
+  .readiness-story-path article{min-height:224px;padding:20px}
+  .readiness-story-icon{width:42px;height:42px;margin-bottom:19px;border-radius:13px}
+  .readiness-story-path h3{margin:8px 0;font-size:22px}
+  .readiness-story-path p{font-size:12.5px;line-height:1.55}
+  .readiness-story-tags{left:20px;right:20px;bottom:17px}
+  .readiness-story-tags span{padding:5px 7px;font-size:7.5px}
+  .readiness-story-promise{gap:9px;margin-top:19px}
+
+  .site-home .b2b-flow{padding:52px 16px 55px}
+  .site-home .b2b-section-head h2{font-size:35px;line-height:1.04}
+  .site-home .flow-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:29px;padding:7px;border-radius:20px}
+  .site-home .flow-grid article{min-height:188px;padding:17px 14px;border-radius:15px}
+  .site-home .flow-grid h3{margin:18px 0 7px;font-size:20px}
+  .site-home .flow-grid p{font-size:11.5px;line-height:1.48}
+
+  .product-film-section{padding:50px 16px 48px}
+  .product-film-heading{gap:16px;margin-bottom:21px}
+  .product-film-heading h2{font-size:clamp(32px,9.2vw,38px);line-height:1.03}
+  .product-film-summary>p{font-size:12.5px;line-height:1.55}
+  .product-film-summary>div{margin-top:13px}
+  .product-film-summary i{display:none}
+  .product-film-summary span{padding:6px 8px;font-size:8px}
+  .product-film-play{width:64px;height:64px}
+  .product-film-footer{margin-top:13px}
+  .product-film-footer span:nth-of-type(n+2){display:none}
+  .product-film-footer button{width:auto;margin:0 0 0 auto;font-size:10.5px;text-align:right}
+
+  .site-home .product-suite{padding:54px 0 58px}
+  .site-home .product-suite-head{padding:0 16px}
+  .site-home .product-tabs{display:flex;width:100%;gap:7px;margin:25px 0 15px;padding:0 16px 7px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity}
+  .site-home .product-tabs::-webkit-scrollbar{display:none}
+  .site-home .product-tabs button{min-width:max-content;min-height:44px;padding:10px 13px;scroll-snap-align:start;border-radius:12px}
+  .site-home .product-panel{margin:0 16px;padding:18px;border-radius:21px}
+  .site-home .product-panel>div:first-child{padding:2px}
+  .site-home .product-panel h3{font-size:30px;line-height:1.04}
+  .site-home .product-panel p{font-size:12.5px;line-height:1.58}
+  .site-home .product-window{position:relative;min-height:0;height:372px;max-height:372px;overflow:hidden;border-radius:18px}
+  .site-home .product-window::after{background:linear-gradient(to bottom,transparent,rgba(248,251,249,.98))}
+  .site-home .dispute-stage{min-height:0;height:372px;padding:0 10px 10px;border-radius:18px}
+  .site-home .dispute-stage-bar{height:57px}
+  .site-home .dispute-stage-progress{padding:13px 2px}
+
+  .site-home .b2b-control{gap:32px;padding:56px 16px}
+  .site-home .control-copy h2,.site-home .b2b-consumer-preview h2{font-size:35px;line-height:1.04}
+  .site-home .control-copy ul{margin:18px 0}
+  .site-home .control-copy li{margin:12px 0}
+  .site-home .control-ui{position:relative;height:430px;min-height:430px;overflow:hidden}
+  .site-home .control-ui::after{background:linear-gradient(to bottom,transparent,#fff 92%)}
+  .site-home .control-chart{height:76px}
+
+  .site-home .b2b-consumer-preview{gap:30px;padding:56px 16px 58px}
+  .site-home .b2b-consumer-preview>div:first-child>p{font-size:13px;line-height:1.6}
+  .site-home .consumer-steps{gap:8px;margin:18px 0}
+  .site-home .consumer-steps span{font-size:10.5px}
+  .site-home .phone-scene{position:relative;height:520px;max-height:520px;overflow:hidden}
+  .site-home .phone-scene::after{background:linear-gradient(to bottom,transparent,#fff 92%)}
+  .site-home .phone-mock{margin-top:0}
+
+  /* Product and audience pages use a contained preview instead of a desktop canvas at full height. */
+  .site-hero{gap:25px;padding:31px 16px 39px}
+  .site-hero .cx-hero-copy h1{font-size:clamp(38px,10.6vw,46px);line-height:1.01}
+  .site-hero .cx-hero-copy>p{font-size:13.5px;line-height:1.6}
+  .site-hero .cx-actions{gap:8px;margin-top:22px}
+  .site-hero .cx-actions a,.site-hero .cx-actions button{min-height:46px}
+  .site-hero-window{position:relative;width:100%;height:356px;max-height:356px;overflow:hidden;border-radius:19px}
+  .site-hero-window::after{background:linear-gradient(to bottom,transparent,#f5f7f3 94%)}
+  .site-hero.hero-stacked .site-hero-window{margin:0 auto}
+  .site-hero-window>.ui-frame{min-height:0;border-radius:18px}
+
+  .site-section{padding:48px 16px}
+  .site-section-inner{gap:28px}
+  .site-section h2{font-size:clamp(33px,9.2vw,40px);line-height:1.04}
+  .site-section .section-copy>p{font-size:13.5px;line-height:1.63}
+  .steps{gap:9px}
+  .steps li{gap:11px;padding:12px}
+  .steps.row{gap:9px}
+  .steps.row li{display:grid;grid-template-columns:37px 1fr;gap:10px;align-items:start}
+  .steps.row span{width:37px;height:37px;font-size:12px}
+  .steps.row li>div{padding:12px 13px;border-radius:13px}
+  .steps.row strong{font-size:14px}
+  .steps.row p{font-size:11.5px;line-height:1.5}
+
+  /* Comparisons become scan-friendly cards instead of a wide table hidden inside a phone. */
+  .compare{overflow:visible;background:transparent;border:0;box-shadow:none}
+  .compare table,.compare tbody,.compare tr,.compare th,.compare td{display:block;width:100%;min-width:0}
+  .compare thead{display:none}
+  .compare tbody{display:grid;gap:10px}
+  .compare tr{overflow:hidden;border:1px solid #dce5df;border-radius:15px;background:#fff;box-shadow:0 9px 24px rgba(25,61,52,.055)}
+  .compare tr>th{padding:14px 15px 12px;border:0;background:#f1f6f3;color:#17332d;font-size:13px;text-align:left}
+  .compare td{display:grid;grid-template-columns:minmax(92px,.8fr) 1.2fr;gap:12px;padding:9px 15px;border:0;border-top:1px solid #edf1ee;font-size:11px;text-align:left}
+  .compare td::before{content:attr(data-label);color:#82958e;font-size:8px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+  .compare td.hi{background:rgba(199,243,108,.13)}
+
+  /* The integrations console had a 100% width plus padding; use the real available width. */
+  .site-hub .integration-side{position:fixed;z-index:60;top:auto;right:0;bottom:0;left:0;width:100%;height:64px;padding:4px 5px max(4px,env(safe-area-inset-bottom))}
+  .site-hub .integration-side .lender-sidebar-logo,.site-hub .integration-back{display:none}
+  .site-hub .integration-side nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin:0}
+  .integration-main{width:auto;max-width:100%;margin-left:0;padding:28px 13px 92px;box-sizing:border-box}
+  .integration-header,.architecture-strip,.connections-section,.event-stream{width:100%;max-width:100%;box-sizing:border-box}
+  .architecture-strip{display:grid;padding:13px}
+}
+
+@media(max-width:380px){
+  .site-home .b2b-hero h1,.site-hero .cx-hero-copy h1{font-size:36px}
+  .site-home .flow-grid{grid-template-columns:1fr}
+  .site-home .flow-grid article{min-height:160px}
+  .site-home .b2b-product-stage.hero-platform{height:390px}
+  .site-hero-window{height:335px}
+}
