@@ -1985,3 +1985,60 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .site-footer-brand{grid-template-columns:72px minmax(0,1fr);gap:7px 12px}
   .site-home .testimonial-card{flex-basis:78vw}
 }
+
+/* Mobile film viewer: isolate the tour from the page and give it the full screen. */
+.product-film-mobile-hit{display:none}
+.product-film-modal{
+  position:fixed;
+  z-index:1000;
+  inset:0;
+  display:grid;
+  place-items:center;
+  padding:max(10px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));
+  background:rgba(2,12,14,.94);
+  backdrop-filter:blur(18px);
+}
+.product-film-modal-shell{
+  width:min(960px,100%);
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.17);
+  border-radius:22px;
+  background:#06171a;
+  box-shadow:0 32px 100px rgba(0,0,0,.58);
+}
+.product-film-modal-shell>header,
+.product-film-modal-shell>footer{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 15px;color:#fff}
+.product-film-modal-shell>header>div{display:flex;min-width:0;flex-direction:column;gap:3px}
+.product-film-modal-shell>header small{color:#8ea49e;font-size:8px;font-weight:900;letter-spacing:.13em}
+.product-film-modal-shell>header strong{overflow:hidden;font-size:13px;text-overflow:ellipsis;white-space:nowrap}
+.product-film-modal-shell>header button{
+  width:34px;
+  height:34px;
+  flex:0 0 34px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:50%;
+  background:rgba(255,255,255,.09);
+  color:#fff;
+  font-size:23px;
+  line-height:1;
+}
+.product-film-modal-shell>video{width:100%;max-height:calc(100dvh - 150px);display:block;aspect-ratio:16/9;background:#000;object-fit:contain}
+.product-film-modal-shell>footer{color:#8fa7a0;font-size:9.5px}
+.product-film-modal-shell>footer span{display:flex;align-items:center;gap:7px}
+.product-film-modal-shell>footer span i{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(199,255,91,.1)}
+.product-film-modal-shell>footer button{border:0;background:transparent;color:var(--lime);font-family:inherit;font-size:10px;font-weight:800;line-height:1}
+
+@media(max-width:760px){
+  .product-film-frame video{pointer-events:none}
+  .product-film-mobile-hit{position:absolute;z-index:2;inset:5px;display:block;border:0;border-radius:13px;background:transparent}
+  .product-film-play{z-index:3}
+  .product-film-modal-shell{border-radius:18px}
+  .product-film-modal-shell>footer span::after{content:" · Rotate for the largest view"}
+}
+
+@media(max-width:760px) and (orientation:landscape){
+  .product-film-modal{padding:6px max(8px,env(safe-area-inset-right)) 6px max(8px,env(safe-area-inset-left))}
+  .product-film-modal-shell{width:min(900px,calc(100vw - 16px));display:grid;grid-template-rows:auto minmax(0,1fr) auto}
+  .product-film-modal-shell>header,.product-film-modal-shell>footer{padding:7px 12px}
+  .product-film-modal-shell>video{height:calc(100dvh - 90px);max-height:none;aspect-ratio:auto}
+}
