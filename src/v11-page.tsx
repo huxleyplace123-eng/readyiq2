@@ -81,11 +81,18 @@ function ProductFilmSection({ openPortals }: { openPortals: () => void }) {
   const playFilm = () => {
     filmRef.current?.play();
   };
-  return <section className="product-film-section" aria-labelledby="product-film-title">
+  return <section className="product-film-section" id="platform" aria-labelledby="product-film-title">
     <div className="product-film-inner">
       <div className="product-film-heading">
         <div><span className="section-kicker light">WATCH THE READYIQ JOURNEY · 1:27</span><h2 id="product-film-title">See the lender portal and consumer experience <em>work together.</em></h2></div>
-        <div className="product-film-summary"><p>See how a loan officer starts the connection, how the consumer uses private credit tools, and how approved progress returns to the original loan officer.</p><div><span>Loan officer invites</span><i>→</i><span>Consumer takes action</span><i>→</i><span>Both reconnect</span></div></div>
+        <div className="product-film-summary"><p>One private journey connects the first lender invitation to the next mortgage conversation.</p></div>
+      </div>
+      <div className="product-film-journey" aria-label="How the ReadyIQ journey works">
+        <article><span>01</span><div><strong>Invite</strong><small>The loan officer sends one secure link.</small></div></article>
+        <i aria-hidden="true">→</i>
+        <article><span>02</span><div><strong>Approve &amp; improve</strong><small>The consumer approves the check and follows private next steps.</small></div></article>
+        <i aria-hidden="true">→</i>
+        <article><span>03</span><div><strong>Reconnect</strong><small>Approved progress returns to the original loan officer.</small></div></article>
       </div>
       <div className={`product-film-frame ${filmPlaying ? "is-playing" : ""}`}>
         <video ref={filmRef} controls playsInline preload="metadata" poster="media/readyiq-product-film-poster.jpg?v=clean-opening" aria-label="ReadyIQ lender and consumer portal product tour" onPlay={()=>setFilmPlaying(true)} onPause={()=>setFilmPlaying(false)} onEnded={()=>setFilmPlaying(false)}>
@@ -138,7 +145,6 @@ export function ReadyIQWebsite({ openOrganization, openConsumer, openIntegration
         </div>
         <div className="readiness-story-promise"><span><i>✓</i><strong>The consumer stays in control.</strong></span><span><i>↗</i><strong>The lender keeps the relationship.</strong></span></div>
       </section>
-      <section className="b2b-flow" id="platform"><div className="b2b-section-head"><div><span className="b2b-kicker">ONE CONNECTED PATH</span><h2><span className="flow-title-desktop">From “not ready yet” to ready to reconnect.</span><span className="flow-title-mobile">Invite. Improve. Reconnect.</span></h2></div><p><span className="flow-copy-desktop">One relationship stays attached from the first invitation through the next mortgage conversation.</span><span className="flow-copy-mobile">One link. One private path. One clear return.</span></p></div><div className="flow-grid">{[["01","Invite","The loan officer sends one personal link."],["02","Check","The consumer approves a private soft credit check."],["03","Improve","ReadyIQ organizes building, review and dispute tools."],["04","Reconnect","Approved progress returns to the original loan officer."]].map((x,i)=><article key={x[0]} className={i===3?"return-card":""}><span className="flow-number">{x[0]}</span><h3>{x[1]}</h3><p>{x[2]}</p>{i<3&&<b aria-hidden="true">→</b>}</article>)}</div></section>
       <ProductFilmSection openPortals={openOrganization} />
       <ProductSuite openConsumer={openConsumer} />
       <section className="b2b-modules"><div className="module-intro"><span className="b2b-kicker light">THE COMPLETE CONSUMER TOOLKIT</span><h2>Everything consumers need to take action on credit.</h2><p>ReadyIQ packages the full CreditBuilderIQ capability set for mortgage: report access, dispute tools, personalized guidance, positive reporting and progress tracking—inside the lender-branded journey.</p><button onClick={()=>openConsumer("disputes")}>Open the working consumer portal →</button></div><div className="module-grid">{[["◇","Dispute Hub","Flag potential inaccuracies, build custom dispute letters and track bureau responses."],["◎","Credit Report Review","Monthly report access with AI-assisted flags, factors and plain-language explanations."],["⌂","Rent Reporting","Verify current rent and eligible historical payments to add positive payment history."],["B","CreditBuilderIQ","Connect eligible rent, utility, mobile and recurring payments as non-traditional history."],["✓","Personalized Gameplan","Prioritized balance, dispute and credit-building actions based on the consumer profile."],["↗","Score Center","Monitor consumer scores, goals, factor changes and readiness milestones over time."]].map((x,i)=><article key={x[1]} className={i===0?"featured-module":""}><div className="module-card-head"><span className={`module-icon m${i}`}>{x[0]}</span><h3>{x[1]}</h3></div><p>{x[2]}</p>{i===0&&<b>FLAGSHIP</b>}</article>)}</div></section>
