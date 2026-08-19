@@ -148,6 +148,18 @@ export function ReadyIQWebsite({ openOrganization, openConsumer, openIntegration
       <section className="b2b-hero"><div className="b2b-glow glow-one" /><div className="b2b-glow glow-two" /><div className="b2b-hero-copy"><div className="b2b-eyebrow"><span>FOR FUTURE HOMEBUYERS AND THEIR LOAN OFFICERS</span></div><h1>Give consumers tools to <em>build, review and dispute credit.</em></h1><p>ReadyIQ gives consumers one private place to check all three bureaus, review possible errors, create dispute letters, add eligible rent and bills, and follow a personalized plan. With permission, their loan officer sees all three scores together with readiness progress—not accounts or the private credit report—and can reconnect when the consumer is ready for a mortgage conversation.</p><div className="b2b-hero-actions"><button className="b2b-primary" onClick={()=>openConsumer()}>Open the consumer tools <span>→</span></button><button className="b2b-secondary" onClick={openStart}><i>↗</i> See the loan officer view</button></div><div className="b2b-purpose-grid"><article><small>CONSUMER</small><strong>Check · Build · Dispute</strong></article><article><small>LOAN OFFICER</small><strong>3 scores · approved progress</strong></article><article><small>THE GOAL</small><strong>Ready for a mortgage conversation</strong></article></div></div>
       <div className="b2b-product-stage hero-platform">
         <div className="hero-platform-aura aura-lime" /><div className="hero-platform-aura aura-violet" />
+        <div className="mobile-hero-product">
+          <header><span className="mobile-hero-brand"><i>R</i><strong>Ready<span>IQ</span></strong></span><b><i /> PRIVATE WORKSPACE</b></header>
+          <div className="mobile-hero-person"><span>MC</span><div><small>MAYA&apos;S PATH</small><h3>Mortgage readiness, made clear.</h3></div><b>2<small>/7</small></b></div>
+          <section className="mobile-hero-scores">
+            <header><span>ALL THREE BUREAUS</span><b><i /> UPDATED TODAY</b></header>
+            <div>{[["EQ","Equifax","608","+9"],["EX","Experian","615","+14"],["TU","TransUnion","612","+12"]].map((score,index)=><article key={score[0]}><i className={`mobile-bureau bureau-${index}`}>{score[0]}</i><strong>{score[2]}</strong><small>{score[1]}</small><b>{score[3]}</b></article>)}</div>
+            <p>MyScoreIQ FICO® scores · Lenders may use different score versions</p>
+          </section>
+          <section className="mobile-hero-next"><div><span>NEXT BEST STEP</span><b>HIGH IMPACT</b></div><h4>Lower card utilization</h4><p>One focused action at a time—with your plan and progress in one place.</p><div className="mobile-hero-progress"><span><i /></span><small>2 of 7 complete</small></div></section>
+          <div className="mobile-hero-signals"><span><i>◇</i><strong>2 items</strong><small>ready to review</small></span><span><i>＋</i><strong>24 months</strong><small>rent history found</small></span></div>
+          <footer><span className="mobile-lo">JL</span><div><small>ORIGINAL LO PROTECTED</small><strong>Connected to Jordan Lee</strong></div><b>Approved progress only <i>→</i></b></footer>
+        </div>
         <div className="platform-shell">
           <header className="platform-chrome"><div className="platform-lockup"><span className="summit-glyph">S</span><div><small>SUMMIT HOME LOANS</small><strong>Powered by ReadyIQ</strong></div></div><span className="platform-live"><i /> LIVE CONSUMER JOURNEY</span></header>
           <div className="platform-context"><span className="platform-avatar">MC</span><div><small>MY PATH</small><strong>Maya Collins</strong><p>Invited by Jordan Lee · NMLS 248193</p></div><span className="platform-ready"><b>2/7</b><small>PLAN</small></span></div>
