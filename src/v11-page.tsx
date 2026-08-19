@@ -77,11 +77,33 @@ function ProductSuite({ openConsumer }: { openConsumer: (page?: ConsumerPage) =>
 
 function ProductFilmSection({ openPortals }: { openPortals: () => void }) {
   const filmRef = useRef<HTMLVideoElement>(null);
+  const modalFilmRef = useRef<HTMLVideoElement>(null);
   const [filmPlaying, setFilmPlaying] = useState(false);
+  const [filmModalOpen, setFilmModalOpen] = useState(false);
   const playFilm = () => {
+    if (window.matchMedia("(max-width: 760px)").matches) {
+      filmRef.current?.pause();
+      setFilmModalOpen(true);
+      return;
+    }
     filmRef.current?.play();
   };
-  return <section className="product-film-section" id="platform" aria-labelledby="product-film-title">
+  const closeFilm = () => {
+    modalFilmRef.current?.pause();
+    setFilmModalOpen(false);
+  };
+  useEffect(() => {
+    if (!filmModalOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => event.key === "Escape" && closeFilm();
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [filmModalOpen]);
+  return <><section className="product-film-section" id="platform" aria-labelledby="product-film-title">
     <div className="product-film-inner">
       <div className="product-film-heading">
         <div><span className="section-kicker light">WATCH THE READYIQ JOURNEY · 1:27</span><h2 id="product-film-title">See the lender portal and consumer experience <em>work together.</em></h2></div>
@@ -100,11 +122,22 @@ function ProductFilmSection({ openPortals }: { openPortals: () => void }) {
           <track kind="captions" src="media/readyiq-product-film.vtt" srcLang="en" label="English" default />
           Your browser does not support the ReadyIQ product film.
         </video>
+        <button className="product-film-mobile-hit" onClick={playFilm} aria-label="Open the ReadyIQ product film in a full-screen viewer" />
         <button className="product-film-play" onClick={playFilm} aria-label="Play the ReadyIQ product film"><span aria-hidden="true" /></button>
       </div>
       <div className="product-film-footer"><span><i />Real prototype screens</span><span>Lender and consumer portals</span><span>Captions included</span><button onClick={openPortals}>Explore the live portals →</button></div>
     </div>
-  </section>;
+  </section>{filmModalOpen && <div className="product-film-modal" role="dialog" aria-modal="true" aria-labelledby="mobile-film-title" onMouseDown={event => event.currentTarget === event.target && closeFilm()}>
+    <div className="product-film-modal-shell">
+      <header><div><small>READYIQ PRODUCT TOUR · 1:27</small><strong id="mobile-film-title">Lender portal + consumer experience</strong></div><button autoFocus onClick={closeFilm} aria-label="Close video">×</button></header>
+      <video ref={modalFilmRef} controls autoPlay playsInline preload="auto" poster="media/readyiq-product-film-poster.jpg?v=clean-opening" aria-label="ReadyIQ lender and consumer portal product tour">
+        <source src="media/readyiq-product-film.mp4?v=clean-opening" type="video/mp4" />
+        <track kind="captions" src="media/readyiq-product-film.vtt" srcLang="en" label="English" default />
+        Your browser does not support the ReadyIQ product film.
+      </video>
+      <footer><span><i /> Full-width mobile viewing</span><button onClick={closeFilm}>Back to the page</button></footer>
+    </div>
+  </div>}</>;
 }
 
 export function ReadyIQWebsite({ openOrganization, openConsumer, openIntegrations, openStart }: { openOrganization: () => void; openConsumer: (page?: ConsumerPage) => void; openIntegrations: () => void; openStart: () => void }) {
