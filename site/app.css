@@ -3228,3 +3228,71 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .mobile-hero-person h3{font-size:15.5px}
   .mobile-hero-product>footer>b{display:none}
 }
+
+/* Final mobile density pass: one compact journey rail and one consistent logo rhythm. */
+@media(max-width:760px){
+  .site-home .product-film-journey{
+    gap:0;
+    margin:14px 0 13px;
+    padding:5px;
+    border:1px solid rgba(255,255,255,.11);
+    border-radius:15px;
+    background:rgba(255,255,255,.055);
+  }
+  .site-home .product-film-journey article{
+    min-height:48px;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    padding:7px 5px;
+    border:0;
+    border-radius:10px;
+    background:transparent;
+  }
+  .site-home .product-film-journey article:nth-of-type(2){
+    border-right:1px solid rgba(255,255,255,.1);
+    border-left:1px solid rgba(255,255,255,.1);
+    border-radius:0;
+  }
+  .site-home .product-film-journey article>span{
+    width:21px;
+    height:21px;
+    flex-basis:21px;
+    border-radius:7px;
+    font-size:7px;
+  }
+  .site-home .product-film-journey strong{font-size:9.5px;line-height:1.08}
+
+  .site-home .brand-marquee-track{gap:0}
+  .site-home .brand-marquee-sequence{gap:9px;padding-right:9px}
+  .site-home .brand-tile,
+  .site-home .brand-tile:nth-child(2n),
+  .site-home .brand-tile:nth-child(3n){
+    width:136px;
+    height:52px;
+    flex:0 0 136px;
+    padding:10px 14px;
+    transform:none;
+    border-radius:14px;
+  }
+  .site-home .brand-tile img,
+  .site-home .brand-total-expert img,
+  .site-home .brand-blend img,
+  .site-home .brand-encompass img,
+  .site-home .brand-shape img,
+  .site-home .brand-salesforce img,
+  .site-home .brand-lenderhomepage img{
+    width:100%;
+    height:23px;
+    max-width:108px;
+    max-height:23px;
+    object-fit:contain;
+  }
+}
+
+@media(max-width:350px){
+  .site-home .brand-tile,
+  .site-home .brand-tile:nth-child(2n),
+  .site-home .brand-tile:nth-child(3n){width:126px;flex-basis:126px}
+  .site-home .product-film-journey strong{font-size:8.5px}
+}
