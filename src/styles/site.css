@@ -9,7 +9,7 @@
 .site-links{display:flex;align-items:center;gap:6px;flex:1;justify-content:center;min-width:0}
 .site-links>a,.site-links .dd>button{border:0;background:none;font:inherit;font-size:13px;font-weight:650;color:#4b5c57;text-decoration:none;padding:9px 11px;border-radius:9px;white-space:nowrap;cursor:pointer;letter-spacing:-.005em}
 .site-links>a:hover,.site-links .dd>button:hover,.site-links>a.on,.site-links .dd>button.on{color:#102226;background:#e9efe9}
-.dd{position:relative}
+.dd{position:relative;padding:18px 0;margin:-18px 0}
 .dd-menu{display:none;position:absolute;left:0;top:100%;padding-top:8px;z-index:130}
 .dd.show .dd-menu{display:block}
 .dd-box{min-width:320px;background:#fff;border:1px solid #dfe6e2;border-radius:16px;padding:8px;box-shadow:0 24px 60px rgba(16,34,38,.16);display:flex;flex-direction:column;gap:2px}
@@ -203,3 +203,5 @@ a.mini-card:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(16,34,3
 .site-hero h1 em{display:inline;font-size:1em;margin:0}
 .site-win .lx-body{grid-template-columns:auto minmax(0,1fr)!important;gap:18px}
 .site-win .lx-share span{flex:1;text-align:center;border:1px solid #dfe6e2;background:#fff;color:#102226;border-radius:11px;padding:10px 8px;font-size:12.5px;font-weight:750;white-space:nowrap}
+/* dropdowns: pure CSS hover as the primary mechanism (no JS timing), JS click as the secondary */
+@media(hover:hover){.dd:hover .dd-menu{display:block}}

@@ -6,6 +6,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 const watch = process.argv.includes('--watch');
+const V = Date.now().toString(36); // cache-buster for app.js / app.css (GitHub Pages caches assets for 10 minutes)
 const SITE_URL = 'https://huxleyplace123-eng.github.io/readyiq2/';
 mkdirSync('site', { recursive: true });
 
@@ -47,9 +48,9 @@ const html = (route, title, desc) => {
 <link rel="canonical" href="${canonical}">
 <meta property="og:title" content="${title.replace(/"/g, '&quot;')}"><meta property="og:description" content="${desc.replace(/"/g, '&quot;')}"><meta property="og:type" content="website"><meta property="og:url" content="${canonical}">
 <meta name="theme-color" content="#0d2024">
-<link rel="icon" href="brands/favicon.svg"><link rel="stylesheet" href="app.css">
+<link rel="icon" href="brands/favicon.svg"><link rel="stylesheet" href="app.css?v=${V}">
 <script>window.__ROUTE__=${JSON.stringify(route)};</script></head>
-<body><div id="root"></div><script src="app.js"></script></body></html>
+<body><div id="root"></div><script src="app.js?v=${V}"></script></body></html>
 `;
 };
 for (const [route, [title, desc]] of Object.entries(ROUTES)) {

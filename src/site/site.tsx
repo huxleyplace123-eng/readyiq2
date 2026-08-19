@@ -1,6 +1,6 @@
 // src/site/site.tsx — the real website: one shell (nav · footer · CTA band · honesty strip), one page anatomy, and a page per topic.
 // Every page opens with a live window of the product (see windows.tsx). Links are relative to <base href> so clean URLs work on Pages.
-import { useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ReadyIQWebsite, IntegrationHub } from "../v11-page";
 import { ScoreWindow, LinkWindow, BoardWindow, FeedWindow, EventsWindow, PassportWindow, DoorWindow, AskWindow, ProtectWindow, BuildWindow, TriWindow, Frame } from "./windows";
 
@@ -13,7 +13,8 @@ function Brand() { return <a className="brand-mark site-brand" href="./"><span c
 export function SiteNav({ route }: { route: Route }) {
   const [open, setOpen] = useState(false); const [dd, setDd] = useState<string | null>(null); const closeT = useRef<number | null>(null);
   const show = (k: string) => { if (closeT.current) { clearTimeout(closeT.current); closeT.current = null; } setDd(k); };
-  const hideSoon = () => { if (closeT.current) clearTimeout(closeT.current); closeT.current = window.setTimeout(() => setDd(null), 260); };
+  const hideSoon = () => { if (closeT.current) clearTimeout(closeT.current); closeT.current = window.setTimeout(() => setDd(null), 450); };
+  useEffect(() => { const onDoc = (e: MouseEvent) => { if (!(e.target as HTMLElement).closest(".dd")) setDd(null); }; document.addEventListener("click", onDoc); return () => document.removeEventListener("click", onDoc); }, []);
   const is = (r: string) => route === r || route.startsWith(r + "/");
   const products: [string, string][] = [["products/check/", "Check — three bureaus, honest FICO®"], ["products/dispute-hub/", "Dispute Hub — by bureau, one item at a time"], ["products/build-report/", "Build & report — rent and everyday bills"], ["products/protect-mode/", "Protect Mode — during the loan"], ["products/passport/", "Readiness Passport — a status you own"], ["products/ask/", "Ask ReadyIQ — the underwriter in your pocket"]];
   const who: [string, string][] = [["loan-officers/", "Loan officers — one link, status only"], ["consumers/", "Consumers — check, build, dispute"], ["partners/", "Partners — realtors and buildings"]];
