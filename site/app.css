@@ -3484,3 +3484,41 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .demo-canvas .integration-side nav button,
   .demo-canvas .consumer-sidebar nav button{font-weight:500}
 }
+
+/* Final authority over legacy component weights, including phone-only rules. */
+.demo-toolbar :where(button,a){font-weight:var(--type-control)!important}
+.demo-toolbar :where(button.active,.guide-btn){font-weight:var(--type-emphasis)!important}
+.demo-toolbar button :where(span,b){font-weight:inherit!important}
+.demo-toolbar .brand-mark,
+.demo-toolbar .brand-mark span{font-weight:var(--type-emphasis)!important}
+
+.demo-canvas :where(p,li,td,dd,label,small){font-weight:var(--type-regular)!important}
+.demo-canvas :where(button,a){font-weight:var(--type-control)!important}
+.demo-canvas :where(button.active,a.active,.primary-lime,.primary-dark,.small-dark,.outline-button){font-weight:var(--type-emphasis)!important}
+.demo-canvas :where(strong,b){font-weight:var(--type-emphasis)!important}
+.demo-canvas span{font-weight:500!important}
+.demo-canvas label span,
+.demo-canvas button span,
+.demo-canvas a span{font-weight:inherit!important}
+
+.demo-canvas :where(
+  .section-kicker,.nav-label,.score-eyebrow,.product-number,.reporting-brand,
+  .dispute-list-label>span,.dispute-process>div span,.bureau-score-set-head>span,
+  .connection-overline,.integration-label,.cx-pill,.step-tag,.live-indicator,
+  .impact,.pp-status,.match-pill
+){font-weight:580!important}
+.demo-canvas :where(
+  .status-cell,.status-pill,.info-badge,.attention-tag,.mode-pill,.secure-pill,
+  .dh-count,.dh-tag,.factor-status,.toolkit-powered,.mobile-progress
+){font-weight:560!important}
+.demo-canvas :where(
+  .large-score-ring strong,.score-ring strong,.bureau-score-values article strong,
+  .result-score-column>strong,.plan-percent strong,.plan-percent span,.kpi-grid article>strong,
+  .dispute-summary strong,.breeze-match-count strong,.borrower-score>strong,
+  .monitor-score strong,.cx-ring strong,.cx-bureaus strong,.tri-scores strong
+){font-weight:var(--type-value)!important}
+.demo-canvas :where(
+  .person-avatar,.lo-avatar,.number,.mini-icon,.kpi-icon,.report-icon,.task-check,
+  .module-icon,.platform-mark,.breeze-logo
+){font-weight:620!important}
+.demo-canvas .bureau-score-values article small{font-weight:500!important}

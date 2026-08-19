@@ -18,6 +18,9 @@ test('navigation, controls, statuses, and scores have distinct emphasis', () => 
   assert.match(css, /\.demo-canvas \.lender-sidebar nav button,/);
   assert.match(css, /\.status-cell,\.status-pill,\.info-badge/);
   assert.match(css, /\.large-score-ring strong,\.score-ring strong,\.bureau-score-values article strong/);
+  assert.match(css, /\.demo-canvas span\{font-weight:500!important\}/);
+  assert.match(css, /\.demo-canvas :where\(p,li,td,dd,label,small\)\{font-weight:var\(--type-regular\)!important\}/);
+  assert.match(css, /\.demo-toolbar button :where\(span,b\)\{font-weight:inherit!important\}/);
 });
 
 test('dense public sections inherit the lighter hierarchy without changing heroes', () => {
