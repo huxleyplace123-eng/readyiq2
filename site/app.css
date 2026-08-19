@@ -3380,3 +3380,107 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .lx-body{grid-template-columns:76px minmax(0,1fr);gap:9px}
   .lx-qr{width:76px;height:76px}
 }
+
+/* Lightweight type system: editorial heroes, calm product UI. */
+:root{
+  --type-regular:400;
+  --type-control:540;
+  --type-emphasis:610;
+  --type-value:660;
+}
+
+/* The interactive product should read like software, not a wall of headlines. */
+.demo-toolbar,
+.demo-canvas{
+  font-variation-settings:"wght" 400;
+}
+.demo-toolbar :where(button,a),
+.demo-canvas :where(button,a){font-weight:var(--type-control)}
+.demo-toolbar :where(.active,.guide-btn),
+.demo-canvas :where(button.active,a.active,.primary-lime,.primary-dark,.small-dark,.outline-button){font-weight:var(--type-emphasis)}
+.demo-toolbar .brand-mark,
+.demo-toolbar .brand-mark span,
+.demo-canvas .brand-mark,
+.demo-canvas .brand-mark span{font-weight:var(--type-emphasis)}
+
+.demo-canvas :where(h1,h2,h3,h4){font-weight:var(--type-emphasis)}
+.demo-canvas :where(p,li,td,dd,label,small){font-weight:var(--type-regular)}
+.demo-canvas :where(strong,b){font-weight:var(--type-emphasis)}
+.demo-canvas :where(h1,h2) :where(strong,b){font-weight:inherit}
+
+.demo-canvas :where(
+  .section-kicker,.nav-label,.score-eyebrow,.product-number,.reporting-brand,
+  .dispute-list-label>span,.dispute-process>div span,.bureau-score-set-head>span,
+  .event-table .event-head,.connection-overline,.integration-label
+){font-weight:580;letter-spacing:.12em}
+
+.demo-toolbar .mode-switch button{font-weight:var(--type-control)}
+.demo-toolbar .mode-switch button.active{font-weight:var(--type-emphasis)}
+.demo-canvas .lender-sidebar nav button,
+.demo-canvas .integration-side nav button,
+.demo-canvas .consumer-sidebar nav button,
+.demo-canvas .filter-tabs button,
+.demo-canvas .product-tabs button,
+.demo-canvas .reason-selector>button,
+.demo-canvas .letter-tools button,
+.demo-canvas .detail-actions button,
+.demo-canvas .detail-actions a,
+.demo-canvas .lang-toggle button{font-weight:var(--type-control)}
+.demo-canvas .lender-sidebar nav button.active,
+.demo-canvas .integration-side nav button.active,
+.demo-canvas .consumer-sidebar nav button.active,
+.demo-canvas .filter-tabs button.active,
+.demo-canvas .product-tabs button.active,
+.demo-canvas .reason-selector>button.selected{font-weight:var(--type-emphasis)}
+.demo-canvas .company-switch .mini-summit span{font-weight:590}
+.demo-canvas .user-menu>span{font-weight:620}
+
+.demo-canvas :where(
+  .status-cell,.status-pill,.info-badge,.attention-tag,.mode-pill,.secure-pill,
+  .dh-count,.dh-tag,.factor-status,.toolkit-powered,.mobile-progress
+){font-weight:560}
+
+.demo-canvas :where(
+  .large-score-ring strong,.score-ring strong,.bureau-score-values article strong,
+  .result-score-column>strong,.plan-percent strong,.kpi-grid article>strong,
+  .dispute-summary strong,.breeze-match-count strong,.borrower-score>strong,
+  .monitor-score strong,.cx-ring strong,.cx-bureaus strong
+){font-weight:var(--type-value)}
+.demo-canvas .bureau-score-values article small{font-weight:500}
+.demo-canvas :where(.borrower-table th,.event-table .event-head){font-weight:560}
+.demo-canvas :where(.borrower-table td strong,.attention-list strong,.task-row strong,.blocker-row strong,.lender-timeline strong){font-weight:590}
+.demo-canvas :where(.person-avatar,.lo-avatar,.number,.mini-icon,.kpi-icon,.report-icon){font-weight:620}
+
+/* Carry the same restraint into dense marketing sections while preserving hero drama. */
+.site :where(
+  .site-section,.b2b-trust,.b2b-problem,.product-film-section,.product-suite,
+  .b2b-modules,.b2b-control,.b2b-consumer-preview
+) :where(p,li,small,label){font-weight:var(--type-regular)}
+.site :where(
+  .site-section,.b2b-trust,.b2b-problem,.product-film-section,.product-suite,
+  .b2b-modules,.b2b-control,.b2b-consumer-preview
+) :where(button,a){font-weight:var(--type-control)}
+.site :where(
+  .site-section,.b2b-trust,.b2b-problem,.product-film-section,.product-suite,
+  .b2b-modules,.b2b-control,.b2b-consumer-preview
+) :where(h3,h4,strong,b){font-weight:590}
+.site :where(
+  .site-section,.b2b-trust,.b2b-problem,.product-film-section,.product-suite,
+  .b2b-modules,.b2b-control,.b2b-consumer-preview
+) :where(h1,h2) :where(strong,b){font-weight:inherit}
+.site :where(.site-section,.product-suite,.b2b-modules,.b2b-control,.b2b-consumer-preview) .section-kicker{font-weight:580;letter-spacing:.12em}
+.site .site-section :where(h2,h3,h4){font-weight:600}
+.site .site-section :where(h1,h2) :where(strong,b){font-weight:inherit}
+.site .site-section .steps small{font-weight:580;letter-spacing:.08em}
+.site .site-section .steps span{font-weight:620}
+.site .site-section :where(.dh-col-head,.dh-count,.dh-tag,.dh-nm){font-weight:580}
+.site .site-section .dh-bureau b{font-weight:620}
+.site .site-section :where(.primary-dark,.outline-button){font-weight:600}
+.site-footer-inner>div>strong{font-weight:620}
+
+@media(max-width:760px){
+  .demo-canvas :where(.section-kicker,.nav-label,.score-eyebrow,.product-number){letter-spacing:.1em}
+  .demo-canvas .lender-sidebar nav button,
+  .demo-canvas .integration-side nav button,
+  .demo-canvas .consumer-sidebar nav button{font-weight:500}
+}
