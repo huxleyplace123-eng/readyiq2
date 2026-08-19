@@ -16,12 +16,12 @@ export function DisputeHub() {
   const next = (i: number) => { setSel(Math.min(i + 1, ITEMS.length - 1)); setStep(1); };
   return <div className="dashboard-page dispute-page">
     <div className="welcome-row"><div><span className="section-kicker">READYIQ DISPUTE HUB</span><h2>Find it. Dispute it. <em>Track it.</em></h2><p>Your negative items, one at a time. Open one, say whether it’s right, and ReadyIQ handles the letter and the clock.</p></div></div>
-    <div className="dh-listhead"><span>3 ITEMS ON YOUR REPORTS · 2 NEED A LOOK</span><span className="dh-bureaus-head"><b>Experian</b><b>TransUnion</b><b>Equifax</b></span></div>
+    <div className="dh-listhead"><span>3 ITEMS ON YOUR REPORTS · 2 NEED A LOOK</span><span className="dh-bureaus-head">ON WHICH BUREAUS</span></div>
     <div className="dh-list">{ITEMS.map((item, i) => {
       const isOpen = sel === i; const done = item.status === "Reviewed";
       return <article key={item.creditor} className={`dh-row ${isOpen ? "open" : ""} ${item.tone}`}>
         <button className="dh-row-head" onClick={() => open(i)}>
-          <span className="dh-dot" /><span className="dh-name"><strong>{item.creditor}</strong><small>{item.type} · {item.balance}</small></span><span className="dh-bureaus">{[item.ex, item.tu, item.eq].map((on, k) => <i key={k} className={on ? "on" : ""} title={["Experian", "TransUnion", "Equifax"][k]}>{on ? "●" : "–"}</i>)}</span><span className={`dh-status ${item.tone}`}>{item.status}</span><span className="dh-chev">{isOpen ? "−" : "+"}</span>
+          <span className="dh-dot" /><span className="dh-name"><strong>{item.creditor}</strong><small>{item.type} · {item.balance} · on {[item.ex && "Experian", item.tu && "TransUnion", item.eq && "Equifax"].filter(Boolean).join(", ")}</small></span><span className="dh-bureaus">{[[item.ex, "Experian"], [item.tu, "TransUnion"], [item.eq, "Equifax"]].map(([on, name]) => <i key={name as string} className={on ? "on" : ""} title={on ? `Reported by ${name}` : `Not on ${name}`}>{on ? "✓ " : ""}{name}</i>)}</span><span className={`dh-status ${item.tone}`}>{item.status}</span><span className="dh-chev">{isOpen ? "−" : "+"}</span>
         </button>
         {isOpen && <div className="dh-body">
           <div className="dh-steps">{[["Review", 1], ["Reason", 2], ["Letter", 3], ["Track", 4]].map(([l, n]) => <span key={l as string} className={step === n ? "now" : step > (n as number) ? "done" : ""}><i>{step > (n as number) ? "✓" : n}</i>{l}</span>)}</div>
