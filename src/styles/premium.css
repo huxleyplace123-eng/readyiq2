@@ -76,13 +76,35 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .site-home .b2b-flow,.site-home .diy-tools,.site-home .product-suite,.site-home .b2b-control,.site-home .b2b-consumer-preview{padding-top:74px;padding-bottom:74px}
 .site-home .b2b-problem h2,.site-home .b2b-section-head h2,.site-home .diy-heading h2,.site-home .product-suite-head h2,.site-home .control-copy h2,.site-home .b2b-consumer-preview h2{font-size:clamp(34px,3.45vw,50px)}
 .site-home .flow-grid article{min-height:215px;padding:21px}
-.site-home .diy-owner{min-height:205px;padding:21px}
 .site-home .product-panel{padding:36px}
 .site-home .flow-grid,.site-home .diy-ownership,.site-home .product-panel,.site-home .control-ui,.site-home .phone-mock{box-shadow:var(--premium-shadow)}
 .site-home .flow-grid article,.site-home .diy-owner,.site-home .module-grid article{border-color:rgba(25,61,56,.11)}
 .site-home .product-tabs button i{background:#eef3ef}
 .site-home .product-tabs button.active{box-shadow:0 16px 38px rgba(10,42,39,.18)}
 .site-home .b2b-final{padding:108px 20px;background:radial-gradient(circle at 50% 0,rgba(200,243,109,.14),transparent 36%),#0a2024}
+
+/* A responsibility map, visually distinct from the four-step journey above it. */
+.responsibility-map{position:relative;display:grid;grid-template-columns:1fr 1.12fr 1fr;gap:18px;align-items:center;margin-top:42px;padding:34px;border:1px solid #d7e4dd;border-radius:30px;background:radial-gradient(circle at 50% 20%,rgba(198,244,105,.2),transparent 27%),linear-gradient(145deg,#f9fcf9,#e7f0ea);box-shadow:0 24px 64px rgba(18,52,46,.11);isolation:isolate}
+.responsibility-map::before,.responsibility-map::after{content:"";position:absolute;top:50%;width:13%;height:2px;background:linear-gradient(90deg,rgba(63,127,104,.12),#76a994);z-index:-1}
+.responsibility-map::before{left:29%}.responsibility-map::after{right:29%;transform:scaleX(-1)}
+.responsibility-card{position:relative;min-width:0;padding:25px;border:1px solid #dce7e1;border-radius:20px;background:rgba(255,255,255,.88);box-shadow:0 16px 38px rgba(17,52,47,.08)}
+.responsibility-card.readyiq{padding:30px 27px;background:radial-gradient(circle at 80% 8%,rgba(199,255,91,.22),transparent 30%),linear-gradient(145deg,#102a2e,#173b38);border-color:#264945;color:#fff;box-shadow:0 24px 52px rgba(5,31,30,.22);transform:translateY(-8px)}
+.responsibility-card header{display:flex;align-items:center;gap:11px}
+.responsibility-card header>span{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:#e4f3eb;color:#2d7059;font-size:14px;font-weight:950}
+.responsibility-card.readyiq header>span{background:var(--lime);color:#17302b;box-shadow:0 10px 24px rgba(196,242,107,.2)}
+.responsibility-card.consumer header>span{background:#ede9ff;color:#6559b3}
+.responsibility-card header small{color:#4b7f6c;font-size:10.5px;font-weight:900;letter-spacing:.14em}
+.responsibility-card.readyiq header small{color:var(--lime)}
+.responsibility-card h3{margin:21px 0 9px;color:#122c27;font-size:23px;line-height:1.04;letter-spacing:-.035em}
+.responsibility-card.readyiq h3{color:#fff}
+.responsibility-card>p{min-height:68px;margin:0;color:#687b74;font-size:13.5px;line-height:1.65}
+.responsibility-card.readyiq>p{color:#b7c9c4}
+.responsibility-card ul{display:flex;flex-direction:column;gap:9px;margin:22px 0 0;padding:17px 0 0;border-top:1px solid #dfe8e3;list-style:none}
+.responsibility-card.readyiq ul{border-color:#35524e}
+.responsibility-card li{display:flex;align-items:center;gap:8px;color:#365a4f;font-size:12px;font-weight:750}
+.responsibility-card.readyiq li{color:#e5efec}
+.responsibility-card li i{width:18px;height:18px;display:grid;place-items:center;flex:0 0 auto;border-radius:50%;background:#e2f2e9;color:#34735d;font-size:10px;font-style:normal}
+.responsibility-card.readyiq li i{background:var(--lime);color:#17302b}
 
 /* Clearer conversion surfaces. */
 .demo-form{box-shadow:var(--premium-shadow);border-radius:22px}
@@ -185,6 +207,12 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .site-home .b2b-hero h1{font-size:clamp(38px,10vw,46px)}
   .site-home .b2b-problem,.site-home .b2b-flow,.site-home .diy-tools,.site-home .product-suite,.site-home .b2b-control,.site-home .b2b-consumer-preview{padding-top:54px;padding-bottom:54px}
   .site-home .b2b-problem h2,.site-home .b2b-section-head h2,.site-home .diy-heading h2,.site-home .product-suite-head h2,.site-home .control-copy h2,.site-home .b2b-consumer-preview h2{font-size:34px}
+  .responsibility-map{grid-template-columns:1fr;gap:12px;margin-top:30px;padding:12px;border-radius:22px}
+  .responsibility-map::before,.responsibility-map::after{display:none}
+  .responsibility-card,.responsibility-card.readyiq{padding:21px;transform:none}
+  .responsibility-card h3{margin-top:17px;font-size:22px}
+  .responsibility-card>p{min-height:0;font-size:13px}
+  .responsibility-card ul{margin-top:18px;padding-top:15px}
   .site-home .product-tabs{position:sticky;top:70px;z-index:10;background:#eef3ef;padding:8px 0;margin-top:28px}
   .site-home .b2b-final{padding:82px 18px}
   .site-home .b2b-final h2{font-size:44px}
