@@ -11,11 +11,11 @@ export function Overview({ setPage, openReview }: { setPage: (p: Page) => void; 
     <section className="cx-hero">
       <div className="cx-hero-bg"><span className="cx-aura lime" /><span className="cx-aura violet" /></div>
       <div className="cx-hero-copy">
-        <span className="cx-pill"><i />{es ? "MODO CONSTRUIR · RONDA 2 DE ~5" : "BUILD MODE · ROUND 2 OF ~5"}</span>
-        <h1>{es ? <>Buenos días, Maya. <em>Estás construyendo tu preparación hipotecaria.</em></> : <>Good morning, Maya. <em>You’re building toward mortgage readiness.</em></>}</h1>
-        <p>{es ? "Tu puntaje es solo una parte. Hoy hay exactamente una acción — bajar la Summit Visa a menos del 30% — y cada paso queda conectado con Jordan como estatus, nunca como tu reporte." : "Your score is one part of the picture. Today there is exactly one next action — bring the Summit Visa under 30% — and every step you take stays connected to Jordan as status, never as your report."}</p>
-        <div className="cx-actions"><button className="lime" onClick={() => setPage("plan")}>{es ? "Hacer la acción de hoy" : "Do today’s next action"} <span>→</span></button><button className="ghost" onClick={openReview}>{es ? "Pedir revisión del prestamista" : "Request lender review"}</button></div>
-        <div className="cx-trust"><span>✓ {es ? "Solo consulta suave" : "Soft pull only"}</span><span>✓ {es ? "Jordan ve tu estatus, nunca tu reporte" : "Jordan sees status, never your report"}</span><span>✓ {es ? "Puedes solicitar cuando quieras — no es obligatorio" : "You can apply at any time — this is not required"}</span></div>
+        <span className="cx-pill"><i />{es ? "TRABAJANDO EN TU PLAN · PASO 2 DE ~5" : "WORKING ON YOUR PLAN · STEP 2 OF ~5"}</span>
+        <h1>{es ? <>Buenos días, Maya. <em>Estás avanzando hacia tu próxima conversación hipotecaria.</em></> : <>Good morning, Maya. <em>You’re making progress toward your next mortgage conversation.</em></>}</h1>
+        <p>{es ? "Tu puntaje es solo una parte. Hoy tienes una acción clara: bajar el saldo de Summit Visa a menos del 30% de su límite. Jordan puede ver tu progreso, pero nunca tu reporte de crédito privado." : "Your score is only one part of the picture. Today you have one clear action: bring the Summit Visa balance below 30% of its limit. Jordan can see your progress, but never your private credit report."}</p>
+        <div className="cx-actions"><button className="lime" onClick={() => setPage("plan")}>{es ? "Ver la acción de hoy" : "See today’s action"} <span>→</span></button><button className="ghost" onClick={openReview}>{es ? "Pedir hablar con mi prestamista" : "Ask to speak with my lender"}</button></div>
+        <div className="cx-trust"><span>✓ {es ? "Revisarlo no baja tu puntaje" : "Checking this does not hurt your score"}</span><span>✓ {es ? "Jordan ve tu progreso, no tu reporte" : "Jordan sees your progress, not your report"}</span><span>✓ {es ? "Puedes solicitar cuando quieras" : "You can apply whenever you choose"}</span></div>
       </div>
       <div className="cx-window">
         <div className="cx-chrome"><span><i />{es ? "FICO® · 3 burós · MyScoreIQ" : "FICO® · 3 bureaus · MyScoreIQ"}</span><span /></div>
@@ -26,18 +26,18 @@ export function Overview({ setPage, openReview }: { setPage: (p: Page) => void; 
           <div className="cx-progress"><div><span>{es ? "Progreso del plan" : "Plan progress"}</span><span>2 {es ? "de" : "of"} 7</span></div><div className="track"><i /></div><small>{es ? "siguiente: utilización bajo 30%" : "next: utilization under 30%"}</small></div>
         </div>
         <div className="cx-window-foot"><span>{es ? "FICO® — no es la versión que usan los prestamistas. Una guía, no una preaprobación." : "FICO® — not the version lenders pull. A guide, not a preapproval."}</span><button className="cx-inline" onClick={() => setPage("progress")}>{es ? "Detalles →" : "Score details →"}</button></div>
-                <div className="cx-float br lime"><i>◈</i><div><small>NEXT MILESTONE</small><strong>Utilization under 30%</strong></div></div>
+                <div className="cx-float br lime"><i>◈</i><div><small>NEXT GOAL</small><strong>Card balance below 30%</strong></div></div>
       </div>
     </section>
 
     <section className="cx-steps-wrap">
-      <div className="section-title"><div><span className="section-kicker">YOUR NEXT BEST MOVES</span><h3>Three actions. <em>One clear path.</em></h3></div><button className="link-button" onClick={() => setPage("plan")}>View complete plan →</button></div>
+      <div className="section-title"><div><span className="section-kicker">WHAT TO DO NEXT</span><h3>Three actions. <em>One clear path.</em></h3></div><button className="link-button" onClick={() => setPage("plan")}>See my full plan →</button></div>
       <div className="cx-steps">
         <div className="cx-rail"><i style={{ width: "0%" }} /></div>
-        <Step n="01" state="now" title="Lower utilization" detail="Summit Visa 64% → under 30%" link="Do it →" click={() => setPage("plan")} />
+        <Step n="01" state="now" title="Lower your card balance" detail="Summit Visa: 64% of limit → below 30%" link="See the target →" click={() => setPage("plan")} />
         <Step n="02" state="next" title="Review 2 flagged items" detail="Midland · Comenity · 1 draft ready" link="Open Dispute Hub →" click={() => setPage("disputes")} />
         <Step n="03" state="then" title="Add rent history" detail="24 on-time months found" link="Verify rent →" click={() => setPage("reporting")} />
-        <Step n="04" state="review" title="Return to Jordan" detail="Unlocks at ~640 · you decide" link="How it works →" click={openReview} />
+        <Step n="04" state="review" title="Talk with Jordan again" detail="You decide when to ask for a review" link="See how it works →" click={openReview} />
       </div>
     </section>
 

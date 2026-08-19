@@ -1,0 +1,153 @@
+/* ReadyIQ premium refinement — loaded last so the established system stays intact. */
+:root{
+  --premium-ink:#092024;
+  --premium-paper:#f5f7f2;
+  --premium-line:rgba(17,52,49,.12);
+  --premium-shadow:0 28px 80px rgba(8,35,32,.14);
+}
+
+html,body,#root{max-width:100%;overflow-x:hidden}
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;background:var(--premium-paper)}
+button,a{transition:transform .2s ease,box-shadow .2s ease,background-color .2s ease,border-color .2s ease,color .2s ease}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid rgba(173,233,87,.55);outline-offset:3px}
+@media(hover:hover){button:hover,a:hover{transform:translateY(-1px)}}
+
+/* Public site: more restraint, stronger rhythm, and distinct product accents. */
+.site-nav-inner{max-width:1360px;min-height:72px;padding:0 28px}
+.site-nav{box-shadow:0 1px 0 rgba(10,35,33,.04)}
+.site-nav .site-demo{box-shadow:0 10px 30px rgba(9,32,36,.13)}
+.site-hero{min-height:640px;padding:72px max(5%,calc((100vw - 1360px)/2));position:relative;isolation:isolate}
+.site-hero:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 78% 28%,rgba(178,237,93,.12),transparent 30%),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:auto,64px 64px;mask-image:linear-gradient(to bottom,#000,transparent 92%)}
+.site-hero .cx-hero-copy{max-width:660px}
+.site-hero .cx-hero-copy>p{max-width:610px;color:#b4c4bf;font-size:16px;line-height:1.7}
+.site-hero h1{max-width:820px}
+.site-hero-window>.ui-frame{border-radius:24px;overflow:hidden;box-shadow:var(--premium-shadow);transform:perspective(1200px) rotateY(-1.4deg)}
+.site-hero.hero-rev .site-hero-window>.ui-frame{transform:perspective(1200px) rotateY(1.4deg)}
+.site-hero.accent-violet{background:radial-gradient(circle at 85% 20%,rgba(128,105,232,.22),transparent 34%),#0c2028}
+.site-hero.accent-violet .cx-pill{border-color:rgba(172,152,255,.42);color:#d5ccff}
+.site-hero.accent-violet .cx-pill i{background:#a894ff}
+.site-hero.accent-gold{background:radial-gradient(circle at 82% 18%,rgba(231,179,78,.2),transparent 32%),#102225}
+.site-hero.accent-mint{background:radial-gradient(circle at 85% 20%,rgba(105,205,168,.22),transparent 34%),#0b2224}
+.site-hero.accent-teal{background:radial-gradient(circle at 84% 18%,rgba(67,158,137,.24),transparent 35%),#0b2024}
+.site-section{padding-top:92px;padding-bottom:92px}
+.site-section-inner{max-width:1280px}
+.site-copy h2{max-width:760px}
+.site-body p,.site-bullets li{font-size:15px;line-height:1.72}
+.mini-card,.site-aside .ui-frame,.stat{border-color:var(--premium-line)}
+.mini-card{border-radius:18px;padding:24px}
+@media(hover:hover){.mini-card:hover{box-shadow:0 22px 54px rgba(16,52,46,.1);border-color:rgba(52,114,94,.3)}}
+.honesty{gap:9px;padding:14px 5%;background:#fbfcf9}
+.honesty span{padding:8px 11px;border-radius:99px;background:#edf4ee;color:#49665d}
+.cta-band{padding-top:88px;padding-bottom:88px;background:radial-gradient(circle at 75% 15%,rgba(200,243,109,.16),transparent 31%),#0a2024}
+.site-footer{padding-top:68px}
+
+/* The homepage now ends once and lets the interactive product story do the work. */
+.site-home .b2b-modules,.site-home .b2b-final,.site-home .b2b-footer{display:none}
+.site-home+.site-section{border-top:1px solid #dfe7e1}
+.site-home .b2b-hero{min-height:720px}
+.site-home .b2b-hero-copy>p{max-width:660px;color:#b3c5bf}
+.site-home .b2b-primary{box-shadow:0 15px 38px rgba(186,238,88,.18)}
+.site-home .b2b-problem{padding-top:92px;padding-bottom:92px}
+.site-home .b2b-flow,.site-home .diy-tools,.site-home .product-suite,.site-home .b2b-control,.site-home .b2b-consumer-preview{padding-top:96px;padding-bottom:96px}
+.site-home .flow-grid,.site-home .diy-ownership,.site-home .product-panel,.site-home .control-ui,.site-home .phone-mock{box-shadow:var(--premium-shadow)}
+.site-home .flow-grid article,.site-home .diy-owner,.site-home .module-grid article{border-color:rgba(25,61,56,.11)}
+.site-home .product-tabs button i{background:#eef3ef}
+.site-home .product-tabs button.active{box-shadow:0 16px 38px rgba(10,42,39,.18)}
+.site-home .b2b-final{padding:108px 20px;background:radial-gradient(circle at 50% 0,rgba(200,243,109,.14),transparent 36%),#0a2024}
+
+/* Clearer conversion surfaces. */
+.demo-form{box-shadow:var(--premium-shadow);border-radius:22px}
+.demo-form input,.demo-form select{min-height:48px;background:#fbfcfa}
+.demo-form .primary-lime{min-height:50px}
+.demo-form .form-panel>small{color:#6b7c76}
+.signin-card{border-radius:18px;padding:23px}
+
+/* Desktop portals: confident spacing and clearer surface hierarchy. */
+.consumer-app .dashboard-page,.lender-page{max-width:1360px}
+.consumer-app .cx-hero,.lender-page .lx-hero{box-shadow:0 28px 72px rgba(12,45,41,.14)}
+.consumer-app .cx-window,.lender-app .link-window{box-shadow:0 24px 60px rgba(10,38,35,.14)}
+.lender-header,.consumer-topbar{backdrop-filter:blur(16px);background:rgba(255,255,255,.94)}
+.lender-sidebar,.consumer-sidebar,.integration-side{box-shadow:12px 0 40px rgba(4,25,24,.06)}
+
+/* Mobile product shell: no horizontal chrome, no wrapped navigation labels. */
+@media(max-width:760px){
+  .demo-canvas,.consumer-app,.lender-app,.integration-hub{width:100%;max-width:100%;overflow-x:clip}
+  .demo-toolbar-inner{height:auto}
+  .demo-title .brand-mark{font-size:17px}
+  .demo-mobile-toggle{min-width:128px;justify-content:space-between}
+  .guide-btn{margin:0;white-space:nowrap}
+
+  .consumer-topbar{height:62px;padding:0 12px;gap:8px;top:0}
+  .powered-brand{gap:7px;min-width:0}
+  .powered-brand .brand-mark{font-size:15.5px;flex:none}
+  .powered-brand .mini-summit{max-width:84px;font-size:8px;line-height:1.05}
+  .powered-brand .mini-summit b{width:23px;height:23px;font-size:12px;flex:none}
+  .consumer-context{gap:6px;margin-left:auto}
+  .consumer-context .lang-toggle{transform:scale(.9);transform-origin:right center}
+  .consumer-context .avatar-button{display:none}
+  .mobile-progress{font-size:10.5px;padding:7px 8px;white-space:nowrap}
+  .consumer-app .dashboard-page{padding:16px 12px 104px}
+  .consumer-app .cx-hero{padding:25px 19px 21px;border-radius:22px;gap:22px}
+  .consumer-app .cx-hero h1{font-size:clamp(34px,10vw,42px);line-height:.98}
+  .consumer-app .cx-hero-copy>p{font-size:14px;line-height:1.62}
+  .consumer-app .cx-actions{gap:8px}
+  .consumer-app .cx-actions button{min-height:48px}
+  .consumer-app .cx-trust{gap:7px;margin-top:16px}
+  .consumer-app .cx-window{margin-top:2px}
+  .consumer-sidebar{height:68px;padding:5px 6px max(5px,env(safe-area-inset-bottom));background:rgba(255,255,255,.97);backdrop-filter:blur(18px);box-shadow:0 -12px 34px rgba(16,47,43,.12)}
+  .consumer-sidebar nav{height:100%;gap:3px}
+  .consumer-app .consumer-sidebar nav button{min-width:0;font-size:9.5px;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:5px 1px}
+  .consumer-app .consumer-sidebar nav button i{font-size:15px}
+  .consumer-app .consumer-sidebar nav button b{margin:-24px 0 0 26px}
+  .consumer-content{padding-bottom:68px}
+  .ask-fab{bottom:82px;right:10px;width:72px;height:40px;padding:0 10px;font-size:0;box-shadow:0 16px 34px rgba(6,27,25,.28)}
+  .ask-fab::after{content:"Help";font-size:12px;font-weight:800}
+  .ask-panel{right:10px;left:10px;width:auto;bottom:128px}
+
+  .lender-sidebar{height:68px;padding:5px 6px max(5px,env(safe-area-inset-bottom));background:rgba(9,30,34,.98);backdrop-filter:blur(18px);box-shadow:0 -12px 34px rgba(4,20,22,.28)}
+  .lender-sidebar nav{height:100%;grid-template-columns:repeat(5,1fr);gap:2px}
+  .lender-sidebar nav button{min-width:0;font-size:9.5px;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:5px 1px}
+  .lender-sidebar nav button:nth-of-type(n+6){display:none}
+  .lender-main{padding-bottom:68px}
+  .lender-header{height:58px;padding:0 12px}
+  .header-search{width:min(64vw,230px)}
+  .header-search input{font-size:11.5px}
+  .lender-page{padding:20px 12px 94px}
+  .link-page .lx-hero,.lender-page .lx-hero{border-radius:22px;padding:24px 18px}
+
+  .integration-side{height:64px;padding:4px 5px max(4px,env(safe-area-inset-bottom));background:rgba(9,28,32,.98);backdrop-filter:blur(18px);box-shadow:0 -12px 34px rgba(0,0,0,.24)}
+  .integration-side nav{height:100%;gap:2px}
+  .integration-side nav button{min-width:0;font-size:0;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:4px 1px}
+  .integration-side nav button::after{font-size:9px;font-weight:750}
+  .integration-side nav button:nth-child(1)::after{content:"Connections"}
+  .integration-side nav button:nth-child(2)::after{content:"Access"}
+  .integration-side nav button:nth-child(3)::after{content:"Updates"}
+  .integration-side nav button:nth-child(4)::after{content:"Match data"}
+  .integration-side nav button:nth-child(5)::after{content:"History"}
+  .integration-main{padding:28px 12px 92px}
+  .integration-header h1,.integration-header h1 em{font-size:clamp(38px,11vw,48px)}
+  .architecture-strip{padding:12px}
+  .arch-fragment>div{padding:14px 8px}
+  .event-table{border-radius:12px;scrollbar-width:none}
+  .event-table::-webkit-scrollbar{display:none}
+
+  .site-nav-inner{min-height:70px;padding:0 15px}
+  .site-nav .site-demo{padding:11px 14px}
+  .site-hero{min-height:0;padding:42px 18px 48px}
+  .site-hero:before{background-size:auto,42px 42px}
+  .site-hero .cx-hero-copy>p{font-size:14.5px;line-height:1.65}
+  .site-hero-window>.ui-frame,.site-hero.hero-rev .site-hero-window>.ui-frame{transform:none;border-radius:18px}
+  .site-section{padding:64px 18px}
+  .site-body p,.site-bullets li{font-size:14px}
+  .honesty{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;padding:10px 14px;scrollbar-width:none}
+  .honesty::-webkit-scrollbar{display:none}
+  .honesty span{font-size:11px;white-space:nowrap}
+  .site-home .b2b-hero{min-height:0;padding-top:58px}
+  .site-home .b2b-hero h1{font-size:clamp(45px,12vw,58px)}
+  .site-home .b2b-problem,.site-home .b2b-flow,.site-home .diy-tools,.site-home .product-suite,.site-home .b2b-control,.site-home .b2b-consumer-preview{padding-top:66px;padding-bottom:66px}
+  .site-home .product-tabs{position:sticky;top:70px;z-index:10;background:#eef3ef;padding:8px 0;margin-top:28px}
+  .site-home .b2b-final{padding:82px 18px}
+  .site-home .b2b-final h2{font-size:44px}
+}
+
+@media(prefers-reduced-motion:reduce){button,a,.consumer-app .plan-page,.consumer-app .dispute-page,.consumer-app .reporting-page,.consumer-app .progress-page{transition:none!important;animation:none!important}}
