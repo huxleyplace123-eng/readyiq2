@@ -41,7 +41,7 @@ export function HonestyStrip() {
 }
 
 export function CtaBand({ title = <>Give every “not yet” a <em>path back to you.</em></>, sub = "One link per loan officer. A front door for every consumer. Three bureau scores and approved progress in one clear view." }: { title?: ReactNode; sub?: string }) {
-  return <section className="cta-band"><div><span className="section-kicker light">READY WHEN YOU ARE</span><h2>{title}</h2><p>{sub}</p></div><div className="cta-band-actions"><a className="b2b-primary" href={DEMO + "?mode=lender&lpage=start"}>Get your link in 60 seconds →</a><a className="cta-ghost" href="book-a-demo/">Book a demo</a></div></section>;
+  return <section className="cta-band"><div><span className="section-kicker light">READY WHEN YOU ARE</span><h2>{title}</h2><p>{sub}</p></div><div className="cta-band-actions"><a className="b2b-primary" href="book-a-demo/">Book a tailored demo →</a><a className="cta-ghost" href={DEMO + "?mode=lender&lpage=start"}>Explore the live lender view</a></div></section>;
 }
 
 export function SiteFooter() {
