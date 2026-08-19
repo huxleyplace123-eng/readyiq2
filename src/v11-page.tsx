@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { YourLinkPage, LoStartPage, StatusFeedPage, PartnersPage, resolveLink, type Door } from "./screens/lo";
 import { StatusObjectSection } from "./screens/integrations";
 import { Overview } from "./screens/overview";
@@ -63,18 +63,24 @@ function ProductSuite({ openConsumer }: { openConsumer: (page?: ConsumerPage) =>
 }
 
 function ProductFilmSection({ openPortals }: { openPortals: () => void }) {
+  const filmRef = useRef<HTMLVideoElement>(null);
+  const [filmPlaying, setFilmPlaying] = useState(false);
+  const playFilm = () => {
+    filmRef.current?.play();
+  };
   return <section className="product-film-section" aria-labelledby="product-film-title">
     <div className="product-film-inner">
       <div className="product-film-heading">
         <div><span className="section-kicker light">WATCH THE READYIQ JOURNEY · 1:27</span><h2 id="product-film-title">See the lender portal and consumer experience <em>work together.</em></h2></div>
         <div className="product-film-summary"><p>See how a loan officer starts the connection, how the consumer uses private credit tools, and how approved progress returns to the original loan officer.</p><div><span>Loan officer invites</span><i>→</i><span>Consumer takes action</span><i>→</i><span>Both reconnect</span></div></div>
       </div>
-      <div className="product-film-frame">
-        <video controls playsInline preload="metadata" poster="media/readyiq-product-film-poster.jpg" aria-label="ReadyIQ lender and consumer portal product tour">
+      <div className={`product-film-frame ${filmPlaying ? "is-playing" : ""}`}>
+        <video ref={filmRef} controls playsInline preload="metadata" poster="media/readyiq-product-film-poster.jpg" aria-label="ReadyIQ lender and consumer portal product tour" onPlay={()=>setFilmPlaying(true)} onPause={()=>setFilmPlaying(false)} onEnded={()=>setFilmPlaying(false)}>
           <source src="media/readyiq-product-film.mp4" type="video/mp4" />
           <track kind="captions" src="media/readyiq-product-film.vtt" srcLang="en" label="English" default />
           Your browser does not support the ReadyIQ product film.
         </video>
+        <button className="product-film-play" onClick={playFilm} aria-label="Play the ReadyIQ product film"><span aria-hidden="true" /></button>
       </div>
       <div className="product-film-footer"><span><i />Real prototype screens</span><span>Lender and consumer portals</span><span>Captions included</span><button onClick={openPortals}>Explore the live portals →</button></div>
     </div>
