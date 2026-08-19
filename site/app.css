@@ -958,3 +958,40 @@ a.mini-card:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(16,34,3
 .site-win .lx-share span{flex:1;text-align:center;border:1px solid #dfe6e2;background:#fff;color:#102226;border-radius:11px;padding:10px 8px;font-size:12.5px;font-weight:750;white-space:nowrap}
 /* dropdowns: pure CSS hover as the primary mechanism (no JS timing), JS click as the secondary */
 @media(hover:hover){.dd:hover .dd-menu{display:block}}
+
+/* ---------- layout variety ---------- */
+/* hero variants */
+.site-hero.hero-rev .cx-hero-copy{order:2}.site-hero.hero-rev .site-hero-window{order:1}
+.site-hero.hero-stacked{grid-template-columns:1fr;gap:34px;text-align:center;padding-bottom:0}
+.site-hero.hero-stacked .cx-hero-copy{align-items:center}
+.site-hero.hero-stacked .cx-hero-copy p{margin-left:auto;margin-right:auto;max-width:680px}
+.site-hero.hero-stacked .cx-actions{justify-content:center}
+.site-hero.hero-stacked .site-hero-window{max-width:860px;width:100%;margin:0 auto -54px;position:relative;z-index:3}
+.site-hero.hero-stacked+.honesty{padding-top:74px}
+/* section variants */
+.lay-center .site-section-inner.one{gap:34px}
+.lay-center .site-copy{text-align:center;max-width:780px;margin:0 auto}
+.lay-center .site-body p{margin-left:auto;margin-right:auto}
+.lay-center .site-bullets{align-items:center}
+.lay-center .site-aside{max-width:1100px;margin:0 auto;width:100%}
+.lay-center .site-aside .frame{max-width:760px;margin:0 auto}
+.lay-center .loop-cards{grid-template-columns:repeat(4,1fr)}
+.lay-narrow .site-copy{max-width:720px;margin:0 auto;text-align:left}
+.lay-narrow .site-section-inner.one{justify-items:center}
+.lay-narrow .site-body p{max-width:none}
+.lay-band .site-section-inner.one{gap:28px}
+.lay-band .site-copy{text-align:center;max-width:760px;margin:0 auto}
+.lay-band .site-body p{margin-left:auto;margin-right:auto}
+.lay-band .site-bullets{max-width:720px;margin:14px auto 0}
+.lay-band .site-aside{width:100%}
+.stat-grid.four{grid-template-columns:repeat(4,1fr)}
+.lay-band .stat{text-align:center;padding:24px 18px}
+.lay-band .stat strong{font-size:40px}
+.lay-grid .site-copy{text-align:center;max-width:780px;margin:0 auto}
+.lay-grid .site-body p{margin-left:auto;margin-right:auto}
+.lay-grid .site-aside{width:100%;margin-top:6px}
+.lay-grid .mini-cards{grid-template-columns:repeat(3,1fr)}
+.consent-demo{padding:14px 16px 6px}
+.consent-demo .permission-list{margin-top:0}
+@media(max-width:1000px){.lay-center .loop-cards{grid-template-columns:1fr 1fr}.stat-grid.four{grid-template-columns:1fr 1fr}.lay-grid .mini-cards{grid-template-columns:1fr}.site-hero.hero-rev .cx-hero-copy{order:1}.site-hero.hero-rev .site-hero-window{order:2}.site-hero.hero-stacked .site-hero-window{margin-bottom:-30px}.site-hero.hero-stacked+.honesty{padding-top:50px}}
+.site-hero.hero-stacked{overflow:visible}
