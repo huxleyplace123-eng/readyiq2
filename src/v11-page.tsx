@@ -73,8 +73,16 @@ function DIYToolsSection({ openConsumer }: { openConsumer: (page?: ConsumerPage)
   ];
   return <section className="diy-tools" id="how-it-works">
     <div className="diy-heading"><div><span className="b2b-kicker">THE CONSUMER STAYS IN CONTROL</span><h2>Credit can feel confusing. <em>ReadyIQ makes the next step clear.</em></h2></div><div><p>The lender starts the invitation. ReadyIQ gives the consumer a private place to review their credit, explain what they believe is wrong, create their letter, and follow what happens next.</p><button onClick={()=>openConsumer("disputes")}>See the simple consumer flow <span>→</span></button></div></div>
-    <div className="diy-ownership">
-      {[["01","✉","MORTGAGE COMPANY","Sends the invitation.","The lender keeps the original loan officer, branch and lead source attached."],["02","R","READYIQ","Provides the tools.","Simple prompts organize the report review, dispute reasons, evidence and letters."],["03","✓","CONSUMER","Reviews and approves.","The consumer privately confirms what they believe is inaccurate and controls every action."]].map((x,i)=><article key={x[0]} className={`diy-owner diy-owner-${i}`}><header><span>{x[0]}</span><i>{x[1]}</i></header><small>{x[2]}</small><h3>{x[3]}</h3><p>{x[4]}</p>{i<2&&<b>→</b>}</article>)}
+    <div className="responsibility-map" aria-label="Who controls each part of the ReadyIQ experience">
+      {[
+        { tone:"company", icon:"✉", label:"MORTGAGE COMPANY", title:"Keeps the relationship.", body:"The lender opens the door while the original loan officer, branch and lead source stay connected.", benefits:["Original loan officer stays attached","Company brand remains visible","Progress returns to current tools"] },
+        { tone:"readyiq", icon:"R", label:"READYIQ", title:"Guides the work.", body:"ReadyIQ turns a confusing credit process into one clear next action at a time.", benefits:["Report review stays organized","Evidence and letters stay together","Only approved milestones are shared"] },
+        { tone:"consumer", icon:"✓", label:"CONSUMER", title:"Controls every action.", body:"The consumer works privately, decides what looks wrong and chooses when to reconnect.", benefits:["Private place to work","Nothing disputed without approval","Consumer decides when to return"] }
+      ].map((item)=><article key={item.label} className={`responsibility-card ${item.tone}`}>
+        <header><span>{item.icon}</span><small>{item.label}</small></header>
+        <h3>{item.title}</h3><p>{item.body}</p>
+        <ul>{item.benefits.map((benefit)=><li key={benefit}><i>✓</i>{benefit}</li>)}</ul>
+      </article>)}
     </div>
     <div className="diy-detail-grid">
       <div className="diy-steps-panel"><span className="b2b-kicker">A SIMPLE, GUIDED DISPUTE</span><h3>Six clear steps. No credit expertise required.</h3><p>ReadyIQ does not make decisions for the consumer. It turns a confusing process into a clear series of questions and actions.</p><div className="diy-step-grid">{steps.map((x,i)=><article key={x[0]}><span className={i<2?"active":""}>{i<2?"✓":x[0]}</span><strong>{x[1]}</strong></article>)}</div></div>
