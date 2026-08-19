@@ -69,7 +69,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .product-film-footer{display:flex;align-items:center;gap:22px;margin-top:20px;color:#8fa7a0;font-size:11.5px;font-weight:750}
 .product-film-footer span{display:flex;align-items:center;gap:8px}
 .product-film-footer span:first-child i{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 5px rgba(199,255,91,.1)}
-.product-film-footer a{margin-left:auto;color:var(--lime);font-size:12.5px;font-weight:900;text-decoration:none}
+.product-film-footer a,.product-film-footer button{margin-left:auto;padding:0;border:0;background:transparent;color:var(--lime);font-family:inherit;font-size:12.5px;font-weight:900;line-height:1;text-decoration:none;cursor:pointer}
 .site-section h2{font-size:clamp(27px,2.45vw,37px)}
 .site-copy h2{max-width:760px}
 .site-body p,.site-bullets li{font-size:15px;line-height:1.72}
@@ -206,7 +206,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .product-film-frame{padding:5px;border-radius:18px}
   .product-film-frame video{border-radius:13px}
   .product-film-footer{gap:9px;flex-wrap:wrap;margin-top:15px;font-size:10px}
-  .product-film-footer a{width:100%;margin:7px 0 0;font-size:12px}
+  .product-film-footer a,.product-film-footer button{width:100%;margin:7px 0 0;font-size:12px;text-align:left}
   .demo-canvas,.consumer-app,.lender-app,.integration-hub{width:100%;max-width:100%;overflow-x:clip}
   .demo-toolbar-inner{height:auto}
   .demo-title .brand-mark{font-size:17px}
