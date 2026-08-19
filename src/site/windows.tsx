@@ -2,6 +2,7 @@
 // product screens (same classes/tokens as the portals), shown inside a device frame.
 import { useState } from "react";
 import { PassportCard } from "../screens/leader";
+import { BureauScores, type BureauScoreSet } from "../screens/bureaus";
 
 export function Frame({ label, children, dark = false }: { label: string; children: React.ReactNode; dark?: boolean }) {
   return <div className={`frame ${dark ? "dark" : ""}`}><div className="frame-bar"><i /><i /><i /><span>{label}</span></div><div className="frame-body">{children}</div></div>;
@@ -50,12 +51,17 @@ export function BoardWindow() {
   </div>;
 }
 
-const FEED = [["AP", "Aaron Patel", "Ready Now", "Review requested", "gold"], ["DY", "Derek Young", "Near Ready", "Threshold reached", "lime"], ["MC", "Maya Collins", "Build Mode", "Round 2 of ~5", "mint"], ["SR", "Sofia Ramirez", "Dispute Mode", "Disputes sent", "violet"]];
+const FEED: [string, string, string, string, string, BureauScoreSet][] = [
+  ["AP", "Aaron Patel", "Ready Now", "Review requested", "gold", { equifax: 688, experian: 696, transunion: 691 }],
+  ["DY", "Derek Young", "Near Ready", "Threshold reached", "lime", { equifax: 654, experian: 662, transunion: 658 }],
+  ["MC", "Maya Collins", "Build Mode", "Round 2 of ~5", "mint", { equifax: 608, experian: 615, transunion: 612 }],
+  ["SR", "Sofia Ramirez", "Dispute Mode", "Disputes sent", "violet", { equifax: 579, experian: 587, transunion: 584 }],
+];
 export function FeedWindow() {
   return <div className="cx-window site-win">
-    <div className="cx-chrome"><span><i />Status feed · read-only</span><span>Jordan Lee</span></div>
-    <div className="lx-attn" style={{ padding: "12px 12px 6px" }}>{FEED.map(([ini, name, path, st, tone]) => <button key={name}><span className={`person-avatar ${tone}`}>{ini}</span><div><strong>{name}</strong><small>{path} · {st}</small></div><b>{st === "Review requested" ? "Review →" : "Status"}</b></button>)}</div>
-    <div className="cx-window-foot"><span>Pathway · round · next milestone · review requests. Never the report.</span><a className="cx-inline" href="demo/?mode=lender&lpage=borrowers">Open the feed →</a></div>
+    <div className="cx-chrome"><span><i />Readiness pipeline · 3 bureau scores</span><span>Jordan Lee</span></div>
+    <div className="lx-attn site-score-feed" style={{ padding: "12px 12px 6px" }}>{FEED.map(([ini, name, path, st, tone, scores]) => <button key={name}><span className={`person-avatar ${tone}`}>{ini}</span><div><strong>{name}</strong><small>{path} · {st}</small><BureauScores scores={scores} compact showNotice={false} /></div><b>{st === "Review requested" ? "Review →" : "Open"}</b></button>)}</div>
+    <div className="cx-window-foot"><span>MyScoreIQ FICO® scores · May differ from mortgage scores · Never the full report.</span><a className="cx-inline" href="demo/?mode=lender&lpage=borrowers">Open the pipeline →</a></div>
   </div>;
 }
 
