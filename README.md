@@ -16,7 +16,9 @@ npm test              # node --test over src/state.js
 npm run qr            # regenerate QR SVGs into site/qr/
 ```
 
-Deep links (the demo toolbar sets the same params):
+The real website lives at the root (`/`, `/platform/`, `/products/dispute-hub/`, `/loan-officers/`, `/consumers/`, `/partners/`, `/integrations/`, `/trust/`, `/resources/`, `/resources/guide/`, `/book-a-demo/`, `/sign-in/`) — one `index.html` per route, written by `build.mjs`, each with `<base href>` back to the root so clean URLs work on GitHub Pages. The interactive prototype lives at `/demo/`.
+
+Demo deep links (the demo toolbar sets the same params; root + these params still opens the demo):
 
 ```
 ?mode=marketing
@@ -39,6 +41,8 @@ src/screens/overview.tsx  consumer Overview: dark hero + score window, path step
 src/screens/door.tsx      front door + enrollment as one scrolling page (three cards, sticky rail)
 src/screens/leader.tsx    the leader moves: Readiness Passport (+ public view, verified-ready badge), soft tri-merge, underwriter notes, DPA match, lost-lead revival, the Guide
 src/screens/lang.tsx      Spanish as a first-class language (context + EN/ES toggle)
+src/site/site.tsx         the website: nav · footer · CTA band · honesty strip · one page anatomy · a page per topic
+src/site/windows.tsx      the live windows every page opens with (score gauges, link, bureau board, feed, events, passport…)
 src/screens/consumer.tsx  three consents · honest 3-bureau strip · DTI + clock · mortgage-why · why-it-moved · Guardian · review packet · Ask ReadyIQ
 src/state.js              fixtures + rules (tests in test/)
 src/styles/               v11.css (the system, type rescaled by scripts/rescale-type.py) · consumer-v2.css (consumer portal, marketing-grade) · additions.css · inter.css (Inter embedded, OFL)
