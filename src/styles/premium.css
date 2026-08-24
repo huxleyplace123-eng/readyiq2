@@ -34,7 +34,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .testimonial-section{position:relative;overflow:hidden;background:radial-gradient(circle at 82% 10%,rgba(199,255,91,.16),transparent 31%),linear-gradient(145deg,#071c20 0%,#0b2928 58%,#102f2c 100%);color:#f5f8f1}
 .testimonial-section::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to bottom,black,transparent 82%)}
 .testimonial-heading{position:relative;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.65fr);gap:48px;align-items:end;margin-bottom:32px}
-.testimonial-heading h2{max-width:680px;margin:10px 0 0;color:#fff;font-size:clamp(35px,4vw,52px);line-height:1;letter-spacing:-.05em}
+.testimonial-heading h2{max-width:680px;margin:10px 0 0;color:#fff;font-size:clamp(28px,3.2vw,40px);line-height:1;letter-spacing:-.05em}
 .testimonial-heading h2 em{color:var(--lime);font-family:Georgia,serif;font-weight:400}
 .testimonial-heading>p{margin:0 0 3px;color:rgba(239,247,241,.7);font-size:15px;line-height:1.6}
 .testimonial-grid{position:relative;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px}
@@ -46,7 +46,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .testimonial-mark.lime,.testimonial-avatar.lime{background:var(--lime)}
 .testimonial-mark.mint,.testimonial-avatar.mint{background:#8ee2bd}
 .testimonial-mark.violet,.testimonial-avatar.violet{background:#b9a7ff}
-.testimonial-card blockquote{flex:1;margin:22px 0 25px;color:#fff;font-size:clamp(18px,1.55vw,23px);font-weight:650;line-height:1.32;letter-spacing:-.02em}
+.testimonial-card blockquote{flex:1;margin:22px 0 25px;color:#fff;font-size:clamp(15px,1.2vw,18px);font-weight:650;line-height:1.32;letter-spacing:-.02em}
 .testimonial-card footer{display:flex;align-items:center;gap:11px;padding-top:16px;border-top:1px solid rgba(255,255,255,.11)}
 .testimonial-avatar{width:36px;height:36px;display:grid;place-items:center;flex:0 0 auto;border-radius:50%;color:#082321;font-size:10px;font-weight:900}
 .testimonial-card footer div{display:flex;flex-direction:column;gap:3px}
@@ -90,9 +90,22 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 /* The homepage now ends once and lets the interactive product story do the work. */
 .site-home .b2b-modules,.site-home .b2b-final,.site-home .b2b-footer{display:none}
 .site-home+.site-section{border-top:1px solid #dfe7e1}
-.site-home .b2b-hero{min-height:620px;padding-top:58px;padding-bottom:68px}
-.site-home .b2b-hero h1{font-size:clamp(44px,4.15vw,62px);max-width:680px}
-.site-home .b2b-hero-copy>p{max-width:660px;color:#b3c5bf}
+/* Hero breathing room. The copy column and the product shot both ran out to the
+   full 1440px content width with only a 5% gutter between them, so two dense
+   blocks sat shoulder to shoulder with no air anywhere. Narrow the content,
+   widen the gutter, and cap the measure so the copy stops filling every pixel
+   it is handed. */
+.site-home .b2b-hero{min-height:0;padding-top:92px;padding-bottom:100px;padding-left:max(7%,calc((100vw - 1240px)/2));padding-right:max(7%,calc((100vw - 1240px)/2));grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);gap:clamp(52px,5.5vw,104px)}
+.site-home .b2b-hero h1{font-size:clamp(38px,3.4vw,54px);line-height:1.06;letter-spacing:-.045em;margin:24px 0 22px;max-width:560px}
+.site-home .b2b-hero-copy>p{max-width:462px;line-height:1.8;color:#b3c5bf}
+.site-home .b2b-hero-actions{margin-top:38px}
+/* The three purpose tiles were boxed cards squeezed three-across inside the copy
+   column, and the frames were most of what made the hero read as packed. Same
+   three facts, no chrome. */
+.site-home .b2b-purpose-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:44px;padding-top:26px}
+.site-home .b2b-purpose-grid article,.site-home .b2b-purpose-grid article:first-child{padding:0;border:0;border-radius:0;background:none}
+.site-home .b2b-purpose-grid small{font-size:9px;letter-spacing:.14em}
+.site-home .b2b-purpose-grid strong{margin-top:8px;font-size:11.5px;line-height:1.45}
 .b2b-purpose-grid{display:grid;grid-template-columns:.86fr 1fr 1.35fr;gap:8px;margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.13)}
 .b2b-purpose-grid article{min-width:0;padding:10px 11px;border:1px solid rgba(255,255,255,.1);border-radius:11px;background:rgba(255,255,255,.045)}
 .b2b-purpose-grid small{display:block;color:#829b94;font-size:8.5px;font-weight:900;letter-spacing:.13em}
@@ -196,11 +209,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media(max-width:760px){
   .testimonial-section{padding-top:54px;padding-bottom:54px}
   .testimonial-heading{grid-template-columns:1fr;gap:20px;margin-bottom:30px}
-  .testimonial-heading h2{font-size:clamp(32px,9.5vw,40px)}
+  .testimonial-heading h2{font-size:clamp(26px,7.6vw,32px)}
   .testimonial-heading>p{font-size:14px}
   .testimonial-grid{grid-template-columns:1fr;gap:12px}
   .testimonial-card{min-height:0;padding:20px;border-radius:18px}
-  .testimonial-card blockquote{margin:20px 0 22px;font-size:19px}
+  .testimonial-card blockquote{margin:20px 0 22px;font-size:16px}
   .testimonial-disclosure{text-align:left}
   .product-film-section{padding:58px 16px 62px}
   .product-film-heading{grid-template-columns:1fr;gap:22px;margin-bottom:27px}
@@ -1921,7 +1934,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .site-home .testimonial-section{padding:46px 0 40px}
   .site-home .testimonial-section .site-section-inner{padding-left:16px;padding-right:0}
   .site-home .testimonial-heading{gap:0;margin:0 16px 22px 0}
-  .site-home .testimonial-heading h2{max-width:335px;font-size:30px;line-height:1.02}
+  .site-home .testimonial-heading h2{max-width:335px;font-size:25px;line-height:1.04}
   .site-home .testimonial-heading>p{display:none}
   .site-home .testimonial-grid{
     display:flex;
@@ -1943,7 +1956,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   }
   .site-home .testimonial-mark{width:30px;height:30px;border-radius:9px;font-size:22px}
   .site-home .testimonial-card-top>small{padding:5px 7px;font-size:7.5px}
-  .site-home .testimonial-card blockquote{margin:15px 0 16px;font-size:16px;line-height:1.3}
+  .site-home .testimonial-card blockquote{margin:15px 0 16px;font-size:14.5px;line-height:1.35}
   .site-home .testimonial-card footer{gap:9px;padding-top:12px}
   .site-home .testimonial-avatar{width:30px;height:30px;font-size:8px}
   .site-home .testimonial-card footer strong{font-size:11px}
@@ -2460,3 +2473,20 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .module-icon,.platform-mark,.breeze-logo
 ){font-weight:620!important}
 .demo-canvas .bureau-score-values article small{font-weight:500!important}
+
+/* Hero: the breathing-room rules above are .site-home-scoped, which outranks
+   v11's unscoped single-column stacking rules, so those layouts have to be
+   restated here at matching weight or the hero stays two-up on a phone. */
+@media(max-width:1100px){
+  .site-home .b2b-hero{grid-template-columns:1fr;gap:36px;padding-top:74px;padding-bottom:80px;padding-left:max(6%,calc((100vw - 900px)/2));padding-right:max(6%,calc((100vw - 900px)/2))}
+  .site-home .b2b-hero h1{max-width:640px}
+  .site-home .b2b-hero-copy>p{max-width:580px}
+  .site-home .b2b-purpose-grid{gap:20px}
+}
+@media(max-width:760px){
+  .site-home .b2b-hero{padding:56px 20px 68px;gap:28px}
+  .site-home .b2b-hero h1{font-size:clamp(34px,8.8vw,44px);line-height:1.08;max-width:none;margin:20px 0 18px}
+  .site-home .b2b-hero-copy>p{max-width:none}
+  .site-home .b2b-hero-actions{margin-top:30px}
+  .site-home .b2b-purpose-grid{grid-template-columns:1fr;gap:15px;margin-top:30px;padding-top:20px}
+}
