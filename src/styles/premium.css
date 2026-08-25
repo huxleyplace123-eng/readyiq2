@@ -46,7 +46,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .testimonial-mark.lime,.testimonial-avatar.lime{background:var(--lime)}
 .testimonial-mark.mint,.testimonial-avatar.mint{background:#8ee2bd}
 .testimonial-mark.violet,.testimonial-avatar.violet{background:#b9a7ff}
-.testimonial-card blockquote{flex:1;margin:22px 0 25px;color:#fff;font-size:clamp(15px,1.2vw,18px);font-weight:650;line-height:1.32;letter-spacing:-.02em}
+.testimonial-card blockquote{flex:1;margin:22px 0 25px;color:#fff;font-size:clamp(14px,1vw,15.5px);font-weight:600;line-height:1.45;letter-spacing:-.012em}
 .testimonial-card footer{display:flex;align-items:center;gap:11px;padding-top:16px;border-top:1px solid rgba(255,255,255,.11)}
 .testimonial-avatar{width:36px;height:36px;display:grid;place-items:center;flex:0 0 auto;border-radius:50%;color:#082321;font-size:10px;font-weight:900}
 .testimonial-card footer div{display:flex;flex-direction:column;gap:3px}
@@ -213,7 +213,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .testimonial-heading>p{font-size:14px}
   .testimonial-grid{grid-template-columns:1fr;gap:12px}
   .testimonial-card{min-height:0;padding:20px;border-radius:18px}
-  .testimonial-card blockquote{margin:20px 0 22px;font-size:16px}
+  .testimonial-card blockquote{margin:20px 0 22px;font-size:14.5px}
   .testimonial-disclosure{text-align:left}
   .product-film-section{padding:58px 16px 62px}
   .product-film-heading{grid-template-columns:1fr;gap:22px;margin-bottom:27px}
@@ -1956,7 +1956,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   }
   .site-home .testimonial-mark{width:30px;height:30px;border-radius:9px;font-size:22px}
   .site-home .testimonial-card-top>small{padding:5px 7px;font-size:7.5px}
-  .site-home .testimonial-card blockquote{margin:15px 0 16px;font-size:14.5px;line-height:1.35}
+  .site-home .testimonial-card blockquote{margin:15px 0 16px;font-size:13.5px;line-height:1.42}
   .site-home .testimonial-card footer{gap:9px;padding-top:12px}
   .site-home .testimonial-avatar{width:30px;height:30px;font-size:8px}
   .site-home .testimonial-card footer strong{font-size:11px}
