@@ -2904,3 +2904,23 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .lo-hero-scores small{font-size:9px;letter-spacing:.11em}
   .lo-hero-tools span{font-size:11px}
 }
+
+/* ── The film section on a phone ───────────────────────────────────────────
+   At 390px the heading block ran 237px against a 207px video - the introduction
+   was physically larger than the thing it introduced, and you read about 290px
+   of text before reaching a 1:27 film that explains it all anyway.
+
+   Most of that was one headline: 59 characters at 36px is four lines on a
+   phone. It is 32 now, which is two, and the step chips carry the specifics
+   the longer wording used to. The rest is spacing - the section and the
+   heading block were both padded for a desktop column. */
+@media(max-width:760px){
+  .site-home .product-film-section{padding-top:42px;padding-bottom:40px}
+  .site-home .product-film-heading{margin-bottom:20px}
+  .site-home .product-film-summary>p{font-size:13.5px;line-height:1.6}
+  .site-home .product-film-journey{margin-top:16px}
+  /* "Approve & improve" wrapped while the other two did not, so the row read
+     uneven; stacking the badge gives every label the full chip width */
+  .site-home .product-film-journey article{flex-direction:column;align-items:center;gap:7px;padding:11px 4px;text-align:center}
+  .site-home .product-film-journey strong{font-size:10px;line-height:1.15;white-space:nowrap}
+}
