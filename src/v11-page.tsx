@@ -117,7 +117,7 @@ function ProductFilmSection({ openPortals }: { openPortals: () => void }) {
         <article><span>03</span><div><strong>Reconnect</strong><small>Approved progress returns to the original loan officer.</small></div></article>
       </div>
       <div className={`product-film-frame ${filmPlaying ? "is-playing" : ""}`}>
-        <video ref={filmRef} controls playsInline preload="metadata" poster="media/readyiq-product-film-poster.jpg?v=clean-opening" aria-label="ReadyIQ lender and consumer portal product tour" onPlay={()=>setFilmPlaying(true)} onPause={()=>setFilmPlaying(false)} onEnded={()=>setFilmPlaying(false)}>
+        <video ref={filmRef} controls={filmPlaying} playsInline preload="metadata" poster="media/readyiq-product-film-poster.jpg?v=clean-opening" aria-label="ReadyIQ lender and consumer portal product tour" onPlay={()=>setFilmPlaying(true)} onPause={()=>setFilmPlaying(false)} onEnded={()=>setFilmPlaying(false)}>
           <source src="media/readyiq-product-film.mp4?v=clean-opening" type="video/mp4" />
           <track kind="captions" src="media/readyiq-product-film.vtt" srcLang="en" label="English" default />
           Your browser does not support the ReadyIQ product film.
