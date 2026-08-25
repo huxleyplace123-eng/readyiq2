@@ -267,7 +267,7 @@ function TestimonialSection() {
       </div>
       <div className="testimonial-grid">
         {testimonials.map((item, index) => <article className={`testimonial-card ${index === 0 ? "featured" : ""}`} key={item.role}>
-          <div className="testimonial-card-top"><span className={`testimonial-mark ${item.tone}`}>“</span><small>ILLUSTRATIVE</small></div>
+          <div className="testimonial-card-top"><small>ILLUSTRATIVE</small></div>
           <blockquote>{item.quote}</blockquote>
           <footer><span className={`testimonial-avatar ${item.tone}`}>{index === 0 ? "LO" : index === 1 ? "C" : "P"}</span><div><strong>{item.role}</strong><small>{item.detail}</small></div></footer>
         </article>)}

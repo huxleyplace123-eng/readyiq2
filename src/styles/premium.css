@@ -40,13 +40,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .testimonial-grid{position:relative;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px}
 .testimonial-card{min-width:0;display:flex;flex-direction:column;min-height:255px;padding:23px;border:1px solid rgba(255,255,255,.12);border-radius:20px;background:rgba(244,248,243,.07);box-shadow:0 24px 58px rgba(0,0,0,.16);backdrop-filter:blur(16px)}
 .testimonial-card.featured{background:linear-gradient(145deg,rgba(199,255,91,.14),rgba(255,255,255,.07));border-color:rgba(199,255,91,.28)}
-.testimonial-card-top{display:flex;align-items:flex-start;justify-content:space-between}
+.testimonial-card-top{display:flex;align-items:flex-start;justify-content:flex-end}
 .testimonial-card-top>small{padding:6px 9px;border:1px solid rgba(255,255,255,.14);border-radius:999px;color:rgba(255,255,255,.62);font-size:9px;font-weight:850;letter-spacing:.12em}
-.testimonial-mark{width:36px;height:36px;display:grid;place-items:center;border-radius:11px;color:#082321;font:700 27px/1 Georgia,serif}
-.testimonial-mark.lime,.testimonial-avatar.lime{background:var(--lime)}
-.testimonial-mark.mint,.testimonial-avatar.mint{background:#8ee2bd}
-.testimonial-mark.violet,.testimonial-avatar.violet{background:#b9a7ff}
-.testimonial-card blockquote{flex:1;margin:22px 0 25px;color:#fff;font-size:clamp(14px,1vw,15.5px);font-weight:600;line-height:1.45;letter-spacing:-.012em}
+.testimonial-avatar.lime{background:var(--lime)}
+.testimonial-avatar.mint{background:#8ee2bd}
+.testimonial-avatar.violet{background:#b9a7ff}
+.testimonial-card blockquote{flex:1;margin:22px 0 25px;color:#fff;font-size:clamp(14px,1vw,15.5px);font-style:italic;font-weight:600;line-height:1.45;letter-spacing:-.012em}
+.testimonial-card blockquote::before{content:"“"}
+.testimonial-card blockquote::after{content:"”"}
 .testimonial-card footer{display:flex;align-items:center;gap:11px;padding-top:16px;border-top:1px solid rgba(255,255,255,.11)}
 .testimonial-avatar{width:36px;height:36px;display:grid;place-items:center;flex:0 0 auto;border-radius:50%;color:#082321;font-size:10px;font-weight:900}
 .testimonial-card footer div{display:flex;flex-direction:column;gap:3px}
@@ -1954,7 +1955,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
     scroll-snap-align:start;
     border-radius:17px;
   }
-  .site-home .testimonial-mark{width:30px;height:30px;border-radius:9px;font-size:22px}
   .site-home .testimonial-card-top>small{padding:5px 7px;font-size:7.5px}
   .site-home .testimonial-card blockquote{margin:15px 0 16px;font-size:13.5px;line-height:1.42}
   .site-home .testimonial-card footer{gap:9px;padding-top:12px}
