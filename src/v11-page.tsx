@@ -149,12 +149,10 @@ export function ReadyIQWebsite({ openOrganization, openConsumer, openIntegration
       <div className="b2b-product-stage hero-platform">
         <div className="hero-platform-aura aura-lime" /><div className="hero-platform-aura aura-violet" />
         <div className="lo-hero">
-          <header className="lo-hero-chrome"><span className="lo-hero-lockup"><span className="summit-glyph">S</span><div><small>SUMMIT HOME LOANS</small><strong>Powered by ReadyIQ</strong></div></span><span className="lo-hero-live"><i /> LIVE</span></header>
-          <div className="lo-hero-borrower"><span className="lo-hero-avatar">MC</span><div><small>YOUR BORROWER</small><strong>Maya Collins</strong><p>Invited by you · day 94</p></div><b className="lo-hero-flag">READY TO RECONNECT</b></div>
-          <div className="lo-hero-progress"><span className="lo-hero-label">APPROVED PROGRESS SHARED WITH YOU</span><div className="lo-hero-deltas">{[["Equifax","+11"],["Experian","+14"],["TransUnion","+9"]].map((d)=><article key={d[0]}><strong>{d[1]}</strong><small>{d[0]}</small></article>)}</div><p className="lo-hero-note">Movement only. You never receive her scores or her report.</p></div>
-          <div className="lo-hero-milestones">{[["Dispute resolved","Collection corrected with the bureau"],["24 months of rent added","Verified positive payment history"],["Plan 7 of 7 complete","She finished the work herself"]].map((m)=><article key={m[0]}><i>✓</i><span><strong>{m[0]}</strong><small>{m[1]}</small></span></article>)}</div>
-          <button className="lo-hero-cta" onClick={openOrganization}>Start the mortgage conversation <span>→</span></button>
-          <footer className="lo-hero-foot"><span className="lo-hero-jl">JL</span><div><small>ATTRIBUTION HELD</small><strong>Still your borrower</strong></div><span className="lo-hero-sync"><i>↗</i>Total Expert</span></footer>
+          <div className="lo-hero-who"><span className="lo-hero-avatar">MC</span><strong>Maya Collins</strong><b className="lo-hero-flag">Ready to reconnect</b></div>
+          <div className="lo-hero-deltas">{[["Equifax","+11"],["Experian","+14"],["TransUnion","+9"]].map((d)=><article key={d[0]}><strong>{d[1]}</strong><small>{d[0]}</small></article>)}</div>
+          <p className="lo-hero-line">You see the movement.<em>Never the report.</em></p>
+          <button className="lo-hero-cta" onClick={openOrganization}>Start the conversation <span>→</span></button>
         </div>
       </div></section>
       <section className="b2b-trust" aria-label="Mortgage technology integrations"><span>READYIQ WORKS ACROSS YOUR MORTGAGE STACK</span><div className="brand-marquee"><div className="brand-marquee-track">{[false,true].map((duplicate)=><div className="brand-marquee-sequence" aria-hidden={duplicate || undefined} key={duplicate ? "duplicate" : "primary"}>{integrationBrands.map((brand)=><figure className={`brand-tile brand-${brand.className}`} key={`${duplicate ? "duplicate-" : ""}${brand.name}`}><img src={brand.src} alt={duplicate ? "" : brand.name} loading="eager" /></figure>)}</div>)}</div></div></section>
