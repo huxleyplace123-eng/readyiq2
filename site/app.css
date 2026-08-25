@@ -3832,3 +3832,51 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .site-home .product-window{height:auto;max-height:none}
   .site-home .product-window::after{content:none}
 }
+
+/* The dispute mock's header row broke down at phone width. In 303px it had to
+   carry a 39px icon, "ReadyIQ / Dispute Hub", a pill reading MAYA'S PRIVATE
+   WORKSPACE and an MC avatar - about 334px of content. So the brand wrapped to
+   two lines, the pill wrapped to two lines, and the avatar was flex-squeezed
+   from a 34px circle into a 23x34 oval. Three separate ways of looking broken
+   in one row.
+
+   The avatar goes on mobile: the pill already names Maya, so it was the one
+   piece carrying no information the row did not already have, and dropping it
+   returns 48px. Everything else then holds a single line. */
+.site-home .dispute-stage-avatar{flex:none}
+@media(max-width:760px){
+  .site-home .dispute-stage-bar{gap:9px}
+  .site-home .dispute-stage-brand{min-width:0;gap:9px}
+  .site-home .dispute-stage-brand>i{width:32px;height:32px;flex:none;border-radius:10px;font-size:15px;box-shadow:0 8px 16px rgba(73,49,150,.3)}
+  .site-home .dispute-stage-brand>span{min-width:0}
+  .site-home .dispute-stage-brand small{white-space:nowrap}
+  .site-home .dispute-stage-brand strong{font-size:13px;white-space:nowrap}
+  .site-home .dispute-stage-live{flex:none;white-space:nowrap;gap:6px;padding:6px 10px;font-size:9.5px;letter-spacing:.06em}
+  .site-home .dispute-stage-avatar{display:none}
+}
+/* At 390px the brand and the pill came to exactly 303px with nothing between
+   them, so "Dispute Hub" and the pill sat shoulder to shoulder with no gap.
+   The possessive is the part the row can afford to lose on a phone - the tag
+   directly above the mock already says whose screen this is - so mobile reads
+   PRIVATE WORKSPACE and the row gets about 40px of air back. */
+.site-home .dispute-stage-live b{font:inherit;letter-spacing:inherit}
+@media(max-width:760px){
+  .site-home .dispute-stage-live b{display:none}
+}
+
+/* The stepper was laid out as [circle][label][connector] in a row, sized for a
+   desktop panel. In a 303px rail each cell is 74.8px, which is narrower than a
+   25px circle plus a label, so "Evidence" ran 7px into the next cell and every
+   connector line was drawn straight through the label beside it - which is why
+   Review and Reason looked struck through.
+
+   On mobile the label sits under its circle instead, so each one has the full
+   cell width, and the connectors go: with four steps across 303px there is no
+   room to draw a line between them without crossing something. */
+@media(max-width:760px){
+  .site-home .dispute-stage-progress{padding:13px 0 12px}
+  .site-home .dispute-stage-progress>div{flex-direction:column;align-items:center;gap:6px;text-align:center}
+  .site-home .dispute-stage-progress>div>i{display:none}
+  .site-home .dispute-stage-progress span{width:23px;height:23px;font-size:9.5px}
+  .site-home .dispute-stage-progress small{font-size:9.5px;letter-spacing:.04em}
+}
