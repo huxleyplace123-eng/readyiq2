@@ -2890,9 +2890,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .lo-hero-foot strong{margin-top:1px;font-size:11.5px;letter-spacing:-.01em}
 .lo-hero-sync{display:flex;align-items:center;gap:6px;flex:none;color:#4c7f6b;font-size:10.5px;font-weight:800}
 .lo-hero-sync i{font-style:normal;color:var(--lime)}
-.platform-float.float-ready{right:-26px;bottom:58px}
-.platform-float.float-ready>span{background:var(--lime);color:#1c3628}
-@media(max-width:1100px){.platform-float.float-ready{right:-10px;bottom:34px}}
 @media(max-width:760px){
   .lo-hero{position:static;inset:auto;height:auto}
   /* the flag took 145px of a 335px row, squeezing the name column to 98px so
@@ -2904,5 +2901,49 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .lo-hero-borrower strong{font-size:15px}
   .lo-hero-deltas strong{font-size:19px}
   .lo-hero-milestones{flex:none}
-  .platform-float.float-ready{display:none}
+}
+
+/* ── Hero card, 20% smaller on desktop ─────────────────────────────────────
+   618x553 down to roughly 495x443. The card fills the stage absolutely, so
+   the stage carries the new box and the card's own padding and type scale with
+   it - shrinking the box alone would only have reflowed the same type into a
+   narrower, taller card. The stage is pinned to the right of its column, so
+   the width comes off the inside edge and its right edge stays aligned with
+   every section below.
+
+   Desktop only: on a phone the card is already full-width and content-sized,
+   where 20% smaller would just mean smaller text. */
+@media(min-width:761px){
+  .site-home .b2b-product-stage.hero-platform{width:495px;max-width:100%;justify-self:end;min-height:438px}
+  .lo-hero-chrome{padding:10px 13px}
+  .lo-hero-lockup{gap:8px}
+  .lo-hero-lockup .summit-glyph{width:25px;height:25px;border-radius:8px;font-size:11px}
+  .lo-hero-lockup small{font-size:8.5px;letter-spacing:.1em}
+  .lo-hero-lockup strong{font-size:11px}
+  .lo-hero-live{padding:5px 8px;font-size:8.5px}
+  .lo-hero-live>i{width:5px;height:5px;box-shadow:0 0 0 3px rgba(199,255,91,.22)}
+  .lo-hero-borrower{gap:9px;padding:11px 13px}
+  .lo-hero-avatar{width:31px;height:31px;font-size:10.5px}
+  .lo-hero-borrower small{font-size:8.5px;letter-spacing:.1em}
+  .lo-hero-borrower strong{font-size:13.5px}
+  .lo-hero-borrower p{font-size:9.5px}
+  .lo-hero-flag{padding:6px 8px;font-size:8.5px;letter-spacing:.06em}
+  .lo-hero-progress{padding:11px 13px 10px}
+  .lo-hero-label{font-size:8.5px;letter-spacing:.1em}
+  .lo-hero-deltas{gap:6px;margin-top:8px}
+  .lo-hero-deltas article{padding:8px 5px;border-radius:10px}
+  .lo-hero-deltas strong{font-size:17px}
+  .lo-hero-deltas small{font-size:8.5px}
+  .lo-hero-note{margin-top:8px;font-size:9px;line-height:1.4}
+  .lo-hero-milestones{padding:8px 13px 2px}
+  .lo-hero-milestones article{gap:8px;padding:4px 0}
+  .lo-hero-milestones i{width:16px;height:16px;font-size:8.5px}
+  .lo-hero-milestones strong{font-size:11px}
+  .lo-hero-milestones small{font-size:9px}
+  .lo-hero-cta{margin:6px 13px 9px;padding:10px;border-radius:10px;font-size:11px}
+  .lo-hero-foot{gap:8px;padding:9px 13px}
+  .lo-hero-jl{width:23px;height:23px;font-size:8.5px}
+  .lo-hero-foot small{font-size:8.5px;letter-spacing:.09em}
+  .lo-hero-foot strong{font-size:10px}
+  .lo-hero-sync{font-size:9px;gap:5px}
 }
