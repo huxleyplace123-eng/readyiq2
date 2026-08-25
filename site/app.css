@@ -3906,42 +3906,56 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
 /* ── Hero card ─────────────────────────────────────────────────────────────
    Four things: who came back, how far she moved, the line that separates this
-   product from a CRM, and the action. It used to carry six stacked blocks -
-   app chrome, a labelled borrower row, the deltas, three milestones with
-   subtitles, the button and an attribution footer - roughly three times the
-   text for the same single idea.
+   product from a CRM, and the action.
 
-   No 3D transform on the stage. Any 3D transform makes the browser rasterise
-   the element and resample it, which discards subpixel antialiasing; that is
-   what softened every glyph and made the card read as a photocopy. */
-.lo-hero{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:26px;padding:34px 32px;overflow:hidden;border-radius:19px;background:#fff;color:#0c2a23}
-.lo-hero-who{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.lo-hero-avatar{width:40px;height:40px;flex:none;display:grid;place-items:center;border-radius:50%;background:#e6f3ea;color:#256b4f;font-size:13px;font-weight:800}
-.lo-hero-who strong{font-size:19px;letter-spacing:-.03em}
-.lo-hero-flag{flex:none;padding:7px 11px;border-radius:999px;background:#e9f9c9;color:#33591f;font-size:10px;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
-.lo-hero-deltas{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.lo-hero-deltas article{display:flex;flex-direction:column;align-items:center;gap:5px;padding:17px 8px;border-radius:14px;background:#f5f9f6}
-.lo-hero-deltas strong{color:#1d6b48;font-size:30px;font-weight:750;letter-spacing:-.04em;line-height:1}
-.lo-hero-deltas small{color:#4e675e;font-size:10.5px;font-weight:650}
-.lo-hero-line{margin:0;font-size:16px;line-height:1.45;letter-spacing:-.02em}
-.lo-hero-line em{display:block;font-style:normal;color:#4e675e}
-.lo-hero-cta{padding:14px;border:0;border-radius:12px;background:#0c2a23;color:#fff;font-size:13px;font-weight:800;letter-spacing:-.01em;cursor:pointer}
-.lo-hero-cta span{margin-left:8px;color:var(--lime)}
+   Built in the site's own premium vocabulary rather than a generic white panel
+   - the same layered treatment the dispute stage uses: a violet and a lime
+   radial over a dark green gradient, a light hairline border, deep shadow, and
+   a 1px inner top highlight so the surface catches light like a real one.
+   White on this ground is 15:1 and the muted tone 6.4:1.
+
+   The deltas are the point of the card, so they are set as a stat row divided
+   by hairlines rather than three boxes, at 34px in lime with the sign kept
+   lighter than the number. "Never the report" takes the Georgia italic the
+   brand uses for emphasis everywhere else.
+
+   No 3D transform on the stage: any 3D transform makes the browser rasterise
+   the element and resample it, discarding subpixel antialiasing, which is what
+   made this card read as a photocopy. */
+.lo-hero{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:26px;padding:34px 32px;overflow:hidden;border-radius:19px;color:#f2f8f4;
+  background:radial-gradient(circle at 88% 6%,rgba(142,113,244,.22),transparent 34%),radial-gradient(circle at 6% 96%,rgba(197,255,91,.13),transparent 32%),linear-gradient(150deg,#091e22,#123431 62%,#173a34);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.09)}
+.lo-hero-who{display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+.lo-hero-avatar{width:42px;height:42px;flex:none;display:grid;place-items:center;border-radius:50%;background:rgba(199,255,91,.14);border:1px solid rgba(199,255,91,.3);color:var(--lime);font-size:13px;font-weight:800;letter-spacing:.04em}
+.lo-hero-who strong{font-size:20px;font-weight:650;letter-spacing:-.03em;color:#fff}
+.lo-hero-flag{display:inline-flex;align-items:center;gap:7px;flex:none;color:var(--lime);font-size:10.5px;font-weight:850;letter-spacing:.11em;text-transform:uppercase}
+.lo-hero-flag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(199,255,91,.14)}
+.lo-hero-deltas{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
+.lo-hero-deltas article{display:flex;flex-direction:column;align-items:center;gap:7px;padding:20px 6px}
+.lo-hero-deltas article+article{border-left:1px solid rgba(255,255,255,.1)}
+.lo-hero-deltas strong{color:var(--lime);font-size:34px;font-weight:700;letter-spacing:-.045em;line-height:1;font-variant-numeric:tabular-nums}
+.lo-hero-deltas small{color:#93aca3;font-size:9.5px;font-weight:800;letter-spacing:.15em;text-transform:uppercase}
+.lo-hero-line{margin:0;font-size:17px;line-height:1.4;letter-spacing:-.02em;color:#fff}
+.lo-hero-line em{display:block;margin-top:2px;font:italic 400 1em Georgia,serif;letter-spacing:0;color:#9dbdb0}
+.lo-hero-cta{padding:14px;border:0;border-radius:12px;background:var(--lime);color:#12291f;font-size:13px;font-weight:850;letter-spacing:-.01em;cursor:pointer}
+.lo-hero-cta span{margin-left:8px}
 @media(min-width:761px){
   .site-home .b2b-product-stage.hero-platform{
     transform:none;
-    width:495px;max-width:100%;justify-self:end;min-height:400px;
-    background:#fff;
-    border:1px solid rgba(13,42,36,.09);
-    border-radius:18px;
-    box-shadow:0 2px 4px rgba(9,32,27,.05),0 14px 30px rgba(9,32,27,.1),0 46px 90px rgba(3,18,15,.36);
+    width:495px;max-width:100%;justify-self:end;min-height:412px;
+    background:none;
+    border:1px solid rgba(175,205,194,.26);
+    border-radius:20px;
+    box-shadow:0 3px 8px rgba(2,14,12,.3),0 20px 44px rgba(2,14,12,.36),0 54px 110px rgba(1,10,9,.46);
   }
-  /* opaque card, so the blurred auras behind it can no longer tint the white */
+  /* the blurred auras sat inside the card and muddied it; the gradients do that job now */
   .site-home .hero-platform .hero-platform-aura{display:none}
 }
 @media(max-width:760px){
   .lo-hero{position:static;inset:auto;height:auto;gap:22px;padding:26px 22px}
   .lo-hero-who strong{font-size:18px}
-  .lo-hero-deltas strong{font-size:26px}
-  .lo-hero-line{font-size:15px}
+  .lo-hero-deltas article{padding:17px 4px}
+  .lo-hero-deltas strong{font-size:29px}
+  .lo-hero-deltas small{font-size:9px;letter-spacing:.11em}
+  .lo-hero-line{font-size:16px}
 }
