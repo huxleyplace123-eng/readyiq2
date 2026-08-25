@@ -156,7 +156,6 @@ export function ReadyIQWebsite({ openOrganization, openConsumer, openIntegration
           <button className="lo-hero-cta" onClick={openOrganization}>Start the mortgage conversation <span>→</span></button>
           <footer className="lo-hero-foot"><span className="lo-hero-jl">JL</span><div><small>ATTRIBUTION HELD</small><strong>Still your borrower</strong></div><span className="lo-hero-sync"><i>↗</i>Total Expert</span></footer>
         </div>
-        <div className="platform-float float-ready"><span>●</span><div><small>DAY 94</small><strong>She came back ready</strong></div></div>
       </div></section>
       <section className="b2b-trust" aria-label="Mortgage technology integrations"><span>READYIQ WORKS ACROSS YOUR MORTGAGE STACK</span><div className="brand-marquee"><div className="brand-marquee-track">{[false,true].map((duplicate)=><div className="brand-marquee-sequence" aria-hidden={duplicate || undefined} key={duplicate ? "duplicate" : "primary"}>{integrationBrands.map((brand)=><figure className={`brand-tile brand-${brand.className}`} key={`${duplicate ? "duplicate-" : ""}${brand.name}`}><img src={brand.src} alt={duplicate ? "" : brand.name} loading="eager" /></figure>)}</div>)}</div></div></section>
       <section className="b2b-problem readiness-explainer" id="outcomes">
