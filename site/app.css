@@ -3903,3 +3903,68 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .site-home .site-section:not(.testimonial-section){background:#fff}
   .site-home .cta-band{border-top:1px solid rgba(255,255,255,.12)}
 }
+
+/* ── The hero now shows the loan officer's side ────────────────────────────
+   The page is addressed to mortgage companies and used to open on Maya's
+   consumer portal - the same screen the consumer-preview section showed again
+   1,200px later. Nine of ten content motifs were shared between them, and the
+   two disagreed about her scores (608/615/612 against 612/607/619), so the
+   duplicate was also a factual conflict.
+
+   One image now states the whole product: what the loan officer receives
+   (movement, milestones, a ready signal), what they never receive (the scores
+   and the report), and the action that follows. Deltas rather than scores is
+   deliberate - it is the product's actual rule, drawn rather than claimed. */
+.lo-hero{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;border-radius:19px;background:linear-gradient(160deg,#f9fbf9,#eef4f0);color:#14312c}
+.lo-hero-chrome{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;border-bottom:1px solid rgba(47,88,75,.11)}
+.lo-hero-lockup{display:flex;align-items:center;gap:10px;min-width:0}
+.lo-hero-lockup .summit-glyph{width:30px;height:30px;flex:none;display:grid;place-items:center;border-radius:9px;background:#12262a;color:var(--lime);font-size:13px;font-weight:900}
+.lo-hero-lockup small{display:block;color:#6d8880;font-size:9.5px;font-weight:900;letter-spacing:.12em}
+.lo-hero-lockup strong{display:block;margin-top:2px;font-size:12.5px;letter-spacing:-.02em}
+.lo-hero-live{display:flex;align-items:center;gap:6px;flex:none;padding:6px 10px;border:1px solid rgba(47,88,75,.14);border-radius:999px;background:rgba(255,255,255,.7);color:#3d7a63;font-size:9.5px;font-weight:900;letter-spacing:.1em}
+.lo-hero-live>i{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(199,255,91,.22)}
+.lo-hero-borrower{display:flex;align-items:center;gap:11px;padding:14px 16px;border-bottom:1px solid rgba(47,88,75,.09)}
+.lo-hero-avatar{width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:50%;background:#dcefe4;color:#2f6b57;font-size:12px;font-weight:900}
+.lo-hero-borrower>div{display:flex;min-width:0;flex:1;flex-direction:column}
+.lo-hero-borrower small{color:#6d8880;font-size:9.5px;font-weight:900;letter-spacing:.12em}
+.lo-hero-borrower strong{margin-top:2px;font-size:16px;letter-spacing:-.03em}
+.lo-hero-borrower p{margin:2px 0 0;color:#6d8880;font-size:11px}
+.lo-hero-flag{flex:none;padding:7px 10px;border-radius:999px;background:var(--lime);color:#17332a;font-size:9.5px;font-weight:900;letter-spacing:.08em;box-shadow:0 8px 18px rgba(150,200,80,.28)}
+.lo-hero-progress{padding:14px 16px 13px;border-bottom:1px solid rgba(47,88,75,.09)}
+.lo-hero-label{display:block;color:#6d8880;font-size:9.5px;font-weight:900;letter-spacing:.12em}
+.lo-hero-deltas{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.lo-hero-deltas article{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 6px;border:1px solid rgba(47,88,75,.11);border-radius:12px;background:#fff}
+.lo-hero-deltas strong{color:#2f7a56;font-size:21px;letter-spacing:-.04em}
+.lo-hero-deltas small{color:#6d8880;font-size:10px;font-weight:700}
+.lo-hero-note{margin:10px 0 0;color:#6d8880;font-size:10.5px;line-height:1.45}
+.lo-hero-milestones{flex:1;min-height:0;padding:11px 16px 4px}
+.lo-hero-milestones article{display:flex;align-items:flex-start;gap:9px;padding:6px 0}
+.lo-hero-milestones i{width:19px;height:19px;flex:none;margin-top:1px;display:grid;place-items:center;border-radius:50%;background:#dcefe4;color:#2f7a56;font-style:normal;font-size:10px;font-weight:900}
+.lo-hero-milestones span{display:flex;min-width:0;flex-direction:column}
+.lo-hero-milestones strong{font-size:12.5px;letter-spacing:-.01em}
+.lo-hero-milestones small{margin-top:1px;color:#6d8880;font-size:10.5px}
+.lo-hero-cta{margin:8px 16px 12px;padding:13px;border:0;border-radius:12px;background:#12262a;color:#fff;font-size:12.5px;font-weight:850;letter-spacing:-.01em;cursor:pointer}
+.lo-hero-cta span{margin-left:8px;color:var(--lime)}
+.lo-hero-foot{display:flex;align-items:center;gap:10px;padding:11px 16px;border-top:1px solid rgba(47,88,75,.11);background:rgba(255,255,255,.6)}
+.lo-hero-jl{width:28px;height:28px;flex:none;display:grid;place-items:center;border-radius:50%;background:#12262a;color:var(--lime);font-size:10px;font-weight:900}
+.lo-hero-foot>div{display:flex;min-width:0;flex:1;flex-direction:column}
+.lo-hero-foot small{color:#6d8880;font-size:9.5px;font-weight:900;letter-spacing:.11em}
+.lo-hero-foot strong{margin-top:1px;font-size:11.5px;letter-spacing:-.01em}
+.lo-hero-sync{display:flex;align-items:center;gap:6px;flex:none;color:#4c7f6b;font-size:10.5px;font-weight:800}
+.lo-hero-sync i{font-style:normal;color:var(--lime)}
+.platform-float.float-ready{right:-26px;bottom:58px}
+.platform-float.float-ready>span{background:var(--lime);color:#1c3628}
+@media(max-width:1100px){.platform-float.float-ready{right:-10px;bottom:34px}}
+@media(max-width:760px){
+  .lo-hero{position:static;inset:auto;height:auto}
+  /* the flag took 145px of a 335px row, squeezing the name column to 98px so
+     both its labels wrapped; on a phone it gets its own line instead */
+  .lo-hero-borrower{flex-wrap:wrap}
+  .lo-hero-borrower>div{flex:1 1 auto;min-width:150px}
+  .lo-hero-borrower small,.lo-hero-borrower p{white-space:nowrap}
+  .lo-hero-flag{order:3;margin:10px 0 0 49px}
+  .lo-hero-borrower strong{font-size:15px}
+  .lo-hero-deltas strong{font-size:19px}
+  .lo-hero-milestones{flex:none}
+  .platform-float.float-ready{display:none}
+}
