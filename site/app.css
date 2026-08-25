@@ -3621,3 +3621,21 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .site-home .site-section h2,
   .site-home .cta-band h2{font-size:clamp(30px,2.6vw,40px);line-height:1.09;letter-spacing:-.04em}
 }
+
+/* The product mocks sat unlabelled on a page addressed to lenders, so every
+   screenshot read as part of the lender's own app. Each mock now carries the
+   one fact that separates this product from a CRM: the consumer owns the
+   screen and the loan officer never sees it. */
+.site-home .product-view{min-width:0;display:flex;flex-direction:column;gap:13px}
+.site-home .product-view-tag{align-self:flex-start;display:inline-flex;align-items:center;gap:9px;padding:8px 14px;border:1px solid rgba(47,88,75,.17);border-radius:999px;background:rgba(255,255,255,.72);color:#2b4940;font-size:9.5px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
+.site-home .product-view-tag i{font-style:normal;color:#4c8c78;font-size:11px}
+.site-home .product-view-tag b{margin-left:2px;padding-left:11px;border-left:1px solid rgba(47,88,75,.2);color:#6d817a;font-size:9.5px;font-weight:650;letter-spacing:.04em;text-transform:none}
+.site-home .dispute-product .product-view-tag{border-color:rgba(47,88,75,.2);background:rgba(255,255,255,.9)}
+@media(max-width:760px){
+  .site-home .product-view{gap:10px}
+  .site-home .product-view-tag{padding:7px 11px;font-size:8.5px;letter-spacing:.1em}
+  .site-home .product-view-tag b{display:none}
+}
+/* the lender half of the same pair, so the two screens read as opposites */
+.site-home .product-view-tag.lender-view{border-color:rgba(47,88,75,.2);background:rgba(255,255,255,.86);color:#294a54}
+.site-home .product-view-tag.lender-view i{color:#3f7fa0}
