@@ -2748,7 +2748,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
      screen now comes first, directly under the tabs it belongs to, and the
      copy explains what you are already looking at. */
   .site-home .product-panel{gap:20px;padding:16px 16px 20px}
-  .site-home .product-view{order:-1;gap:10px}
+  .site-home .product-panel .product-view{order:-1}
+  .site-home .product-view{gap:10px}
   .site-home .product-copy>h3{margin-top:2px}
   .site-home .product-copy ul{margin:16px 0 0}
   .site-home .product-copy li{margin:12px 0}
@@ -2817,4 +2818,26 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .site-home .dispute-stage-progress>div>i{display:none}
   .site-home .dispute-stage-progress span{width:23px;height:23px;font-size:9.5px}
   .site-home .dispute-stage-progress small{font-size:9.5px;letter-spacing:.04em}
+}
+
+/* ── Section breaks on mobile ──────────────────────────────────────────────
+   Sampling the rendered page down its left edge found one unbroken band of
+   colour 2,754px long, running from the Dispute Hub section straight through
+   the lender command centre, and another 1,838px long across the last three
+   sections. product-suite is rgb(238,243,239) and b2b-control is
+   rgb(234,241,237) - four points apart, which is no boundary at all.
+
+   Two things were wrong. The tones did not alternate, and the lender section
+   had lost its heading: v11 set .control-ui{order:2} so mobile led with the
+   copy, but wrapping that mock in .product-view orphaned the rule and the
+   panel reorder then pushed the card above the heading, so the section opened
+   with a card and nothing announcing it. */
+@media(max-width:760px){
+  .site-home .b2b-control .product-view{order:2}
+
+  .site-home .product-suite{background:#eef3ef}
+  .site-home .b2b-control{background:#fff}
+  .site-home .b2b-consumer-preview{background:#eef3ef}
+  .site-home .site-section:not(.testimonial-section){background:#fff}
+  .site-home .cta-band{border-top:1px solid rgba(255,255,255,.12)}
 }
