@@ -2405,9 +2405,19 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 /* Premium Dispute Hub product scene. */
 .site-home .dispute-product{grid-template-columns:minmax(330px,.72fr) minmax(610px,1.28fr);gap:5%;padding:44px;background:radial-gradient(circle at 82% 16%,rgba(110,90,205,.08),transparent 31%),linear-gradient(145deg,#fff,#fbfcfb);overflow:hidden}
 .site-home .dispute-stage{position:relative;min-width:0;min-height:535px;padding:0 18px 18px;border:1px solid rgba(175,205,194,.3);border-radius:27px;background:radial-gradient(circle at 86% 14%,rgba(142,113,244,.22),transparent 28%),radial-gradient(circle at 15% 88%,rgba(197,255,91,.11),transparent 24%),linear-gradient(145deg,#091e22,#123431 65%,#173a34);box-shadow:0 40px 85px rgba(7,35,33,.27);overflow:hidden;isolation:isolate}
+/* Flagship product panel. The panel heading clamped up to 46px, within four
+   pixels of the 50px section heading above it, so the panel competed with its
+   own section and drove the copy column to 606px. Bring the heading back to a
+   supporting size, trim the frame, and stop the stage reserving 535px of
+   height it does not need. */
+.site-home .product-suite{padding-top:64px;padding-bottom:64px;padding-left:max(6%,calc((100vw - 1300px)/2));padding-right:max(6%,calc((100vw - 1300px)/2))}
+.site-home .product-tabs{margin:32px 0 12px}
+.site-home .product-copy h3{margin:10px 0;font-size:clamp(26px,2.1vw,32px);line-height:1.14;letter-spacing:-.035em}
+.site-home .dispute-product{padding:34px;border-radius:22px;box-shadow:0 18px 50px rgba(8,35,32,.1)}
+.site-home .dispute-stage{min-height:452px;border-radius:22px;box-shadow:0 24px 56px rgba(7,35,33,.2)}
 .dispute-stage::before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.026) 1px,transparent 1px);background-size:46px 46px;mask-image:linear-gradient(to bottom,#000,transparent 78%)}
 .dispute-stage-glow{position:absolute;right:-76px;top:-88px;width:260px;height:260px;border-radius:50%;background:rgba(133,102,243,.2);filter:blur(60px);pointer-events:none}
-.dispute-stage-bar{position:relative;z-index:1;height:72px;display:flex;align-items:center;gap:14px;border-bottom:1px solid rgba(255,255,255,.1);color:#fff}
+.dispute-stage-bar{position:relative;z-index:1;height:62px;display:flex;align-items:center;gap:14px;border-bottom:1px solid rgba(255,255,255,.1);color:#fff}
 .dispute-stage-brand{display:flex;align-items:center;gap:10px;margin-right:auto}
 .dispute-stage-brand>i{width:39px;height:39px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(145deg,#765ec8,#a98dff);box-shadow:0 12px 24px rgba(73,49,150,.36);font-style:normal;font-size:17px}
 .dispute-stage-brand>span{display:flex;flex-direction:column}
@@ -2416,7 +2426,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .dispute-stage-live{display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid rgba(199,255,91,.16);border-radius:999px;background:rgba(199,255,91,.07);color:#d9f6a7;font-size:8px;font-weight:900;letter-spacing:.1em}
 .dispute-stage-live>i{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(199,255,91,.1)}
 .dispute-stage-avatar{width:34px;height:34px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.12);border-radius:50%;background:#264846;color:#e8f2ef;font-size:10px;font-weight:900}
-.dispute-stage-progress{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);padding:19px 5px 18px;color:#74908a}
+.dispute-stage-progress{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);padding:14px 5px 13px;color:#74908a}
 .dispute-stage-progress>div{position:relative;display:flex;align-items:center;gap:7px;min-width:0}
 .dispute-stage-progress span{position:relative;z-index:2;width:25px;height:25px;display:grid;place-items:center;flex:none;border:1px solid #3a5754;border-radius:50%;background:#173733;color:#76918b;font-size:9px;font-weight:900}
 .dispute-stage-progress small{position:relative;z-index:2;font-size:8px;font-weight:850;letter-spacing:.08em}
