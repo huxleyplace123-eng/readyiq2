@@ -3987,32 +3987,34 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .site-home .product-film-journey strong{font-size:10px;line-height:1.15;white-space:nowrap}
 }
 
-/* ── Readiness story cards, 20% lighter ────────────────────────────────────
-   408x275 boxes carrying a 40px icon, a 20px heading and 26px of padding. The
-   card was sized for the icon rather than the sentence, so three of them made
-   a heavy band across the middle of the page.
+/* ── Readiness story cards: smaller box, same text ─────────────────────────
+   The first attempt at this shrank the type, which was the wrong lever - the
+   words were never the problem. Type is back at full size: 20px headings,
+   13.5px body, 10px eyebrows, 9px tags.
 
-   Everything inside comes down about a fifth: 32px icon, 17px heading, 21px
-   padding. The height follows to roughly 220px. Width is left alone - they are
-   three across the 1265px shell every other section sits on, and narrowing
-   them would break that alignment to fix a weight problem.
+   The height comes out of everything that is not text. Padding 26/24 to 18/16.
+   The icon, which is a graphic rather than a word, 40px to 30px with its gap
+   under it 20px to 12px - that block alone was 60px of a 275px card. The space
+   above the tag row 20px to 12px, and a couple of pixels off the heading
+   margins.
 
-   The refinement is in what goes away: the drop shadow, which was doing the
-   separating that the border already does; the pill borders on the tags; and
-   4px off the corner radius, because an 18px radius on a 220px card reads
-   softer than the card is. */
+   275px to about 230px with every word the size it was. Width is untouched -
+   they are three across the same 1265px shell every other section uses.
+
+   The drop shadow and the tag pill borders stay gone: the border already does
+   the separating, and the outlines were making four small boxes inside a box. */
 @media(min-width:761px){
   .site-home .readiness-story-path{gap:18px;margin-top:38px}
-  .site-home .readiness-story-path article{padding:19px 19px 18px;border-radius:14px;box-shadow:none;border-color:rgba(47,88,75,.16)}
-  .site-home .readiness-story-icon{width:32px;height:32px;margin-bottom:13px;border-radius:10px;font-size:13px}
-  .site-home .readiness-story-path article>small{font-size:9.5px;letter-spacing:.12em}
-  .site-home .readiness-story-path h3{margin:7px 0 6px;font-size:17px;line-height:1.14}
-  .site-home .readiness-story-path p{font-size:12.5px;line-height:1.55}
-  .site-home .readiness-story-tags{gap:5px;padding-top:13px}
-  .site-home .readiness-story-tags span{padding:4px 8px;font-size:8.5px;border-color:transparent;background:rgba(47,88,75,.07)}
+  .site-home .readiness-story-path article{padding:18px 20px 16px;border-radius:14px;box-shadow:none;border-color:rgba(47,88,75,.16)}
+  .site-home .readiness-story-icon{width:30px;height:30px;margin-bottom:12px;border-radius:9px;font-size:13px}
+  .site-home .readiness-story-path article>small{font-size:10px;letter-spacing:.13em}
+  .site-home .readiness-story-path h3{margin:6px 0 5px;font-size:20px;line-height:1.12}
+  .site-home .readiness-story-path p{font-size:13.5px;line-height:1.6}
+  .site-home .readiness-story-tags{gap:6px;padding-top:12px}
+  .site-home .readiness-story-tags span{padding:5px 9px;font-size:9px;border-color:transparent;background:rgba(47,88,75,.07)}
   .site-home .readiness-return-card .readiness-story-tags span{background:rgba(255,255,255,.1)}
   .site-home .readiness-story-path .readiness-return-card{box-shadow:none}
-  .site-home .readiness-step{right:18px;top:16px;font-size:10px}
+  .site-home .readiness-step{right:18px;top:15px;font-size:11px}
   .site-home .readiness-story-path article:not(:last-child)::after{width:26px;height:26px;right:-22px;border-width:3px;font-size:11px}
   .site-home .readiness-story-promise{margin-top:20px}
 }
