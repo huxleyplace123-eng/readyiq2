@@ -3816,3 +3816,19 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .site-home .product-copy li{margin:12px 0}
   .site-home .product-copy>button{margin-top:16px}
 }
+
+/* Every product mock was pinned to height:372px with overflow hidden and a fade
+   painted over the bottom, but none of them are 372px tall: the Dispute Hub
+   runs 516, Rent & bills 450, Build credit 437 and Track & learn 599. So the
+   first thing anyone saw on a phone was a screen sliced through the middle of
+   a card - the Dispute Hub lost its second answer, the add-proof row and the
+   Continue button, which is the whole point of showing that screen.
+
+   They size to their content now. 437-599px is an ordinary height for the one
+   image a section is built around, and each mock reads as a finished screen
+   rather than a screenshot someone cropped by accident. overflow stays hidden
+   so the decorative glow inside the dispute stage is still contained. */
+@media(max-width:760px){
+  .site-home .product-window{height:auto;max-height:none}
+  .site-home .product-window::after{content:none}
+}
