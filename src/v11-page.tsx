@@ -149,9 +149,9 @@ export function ReadyIQWebsite({ openOrganization, openConsumer, openIntegration
       <div className="b2b-product-stage hero-platform">
         <div className="hero-platform-aura aura-lime" /><div className="hero-platform-aura aura-violet" />
         <div className="lo-hero">
-          <div className="lo-hero-who"><span className="lo-hero-avatar">MC</span><strong>Maya Collins</strong><b className="lo-hero-flag">Ready to reconnect</b></div>
-          <div className="lo-hero-deltas">{[["Equifax","+11"],["Experian","+14"],["TransUnion","+9"]].map((d)=><article key={d[0]}><strong>{d[1]}</strong><small>{d[0]}</small></article>)}</div>
-          <p className="lo-hero-line">You see the movement.<em>Never the report.</em></p>
+          <div className="lo-hero-who"><span className="lo-hero-avatar">MC</span><div><strong>Maya Collins</strong><b className="lo-hero-flag">Ready to reconnect</b></div></div>
+          <div className="lo-hero-scores">{[["Equifax","608","+11"],["Experian","615","+14"],["TransUnion","612","+9"]].map((s)=><article key={s[0]}><strong>{s[1]}</strong><em>{s[2]}</em><small>{s[0]}</small></article>)}</div>
+          <div className="lo-hero-tools">{[["◇","Dispute Hub","2 items resolved"],["＋","Build credit","24 months of rent added"]].map((t)=><article key={t[1]}><i>{t[0]}</i><strong>{t[1]}</strong><span>{t[2]}</span></article>)}</div>
           <button className="lo-hero-cta" onClick={openOrganization}>Start the conversation <span>→</span></button>
         </div>
       </div></section>

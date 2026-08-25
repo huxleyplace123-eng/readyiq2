@@ -2843,57 +2843,64 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 }
 
 /* ── Hero card ─────────────────────────────────────────────────────────────
-   Four things: who came back, how far she moved, the line that separates this
-   product from a CRM, and the action.
+   Three bureau scores with their movement, the two tools she used, and the
+   action. Set on the treatment the dispute stage already uses - a violet and a
+   lime radial over a dark green gradient, hairline border, layered shadow and a
+   1px inner top highlight - so the surface catches light like a real one.
 
-   Built in the site's own premium vocabulary rather than a generic white panel
-   - the same layered treatment the dispute stage uses: a violet and a lime
-   radial over a dark green gradient, a light hairline border, deep shadow, and
-   a 1px inner top highlight so the surface catches light like a real one.
-   White on this ground is 15:1 and the muted tone 6.4:1.
+   The spacing is the design. 34px padding, 30px between blocks, and rules with
+   air on both sides rather than boxes around everything: the scores are a stat
+   row divided by hairlines, and the tools are two rows separated by one. Every
+   number is tabular so the three columns line up on their digits.
 
-   The deltas are the point of the card, so they are set as a stat row divided
-   by hairlines rather than three boxes, at 34px in lime with the sign kept
-   lighter than the number. "Never the report" takes the Georgia italic the
-   brand uses for emphasis everywhere else.
-
-   No 3D transform on the stage: any 3D transform makes the browser rasterise
+   No 3D transform on the stage - any 3D transform makes the browser rasterise
    the element and resample it, discarding subpixel antialiasing, which is what
    made this card read as a photocopy. */
-.lo-hero{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:26px;padding:34px 32px;overflow:hidden;border-radius:19px;color:#f2f8f4;
-  background:radial-gradient(circle at 88% 6%,rgba(142,113,244,.22),transparent 34%),radial-gradient(circle at 6% 96%,rgba(197,255,91,.13),transparent 32%),linear-gradient(150deg,#091e22,#123431 62%,#173a34);
+.lo-hero{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:30px;padding:34px 32px;overflow:hidden;border-radius:19px;color:#f2f8f4;
+  background:radial-gradient(circle at 88% 4%,rgba(142,113,244,.2),transparent 34%),radial-gradient(circle at 4% 98%,rgba(197,255,91,.12),transparent 32%),linear-gradient(150deg,#091e22,#123431 62%,#173a34);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.09)}
-.lo-hero-who{display:flex;align-items:center;gap:13px;flex-wrap:wrap}
-.lo-hero-avatar{width:42px;height:42px;flex:none;display:grid;place-items:center;border-radius:50%;background:rgba(199,255,91,.14);border:1px solid rgba(199,255,91,.3);color:var(--lime);font-size:13px;font-weight:800;letter-spacing:.04em}
-.lo-hero-who strong{font-size:20px;font-weight:650;letter-spacing:-.03em;color:#fff}
-.lo-hero-flag{display:inline-flex;align-items:center;gap:7px;flex:none;color:var(--lime);font-size:10.5px;font-weight:850;letter-spacing:.11em;text-transform:uppercase}
-.lo-hero-flag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(199,255,91,.14)}
-.lo-hero-deltas{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
-.lo-hero-deltas article{display:flex;flex-direction:column;align-items:center;gap:7px;padding:20px 6px}
-.lo-hero-deltas article+article{border-left:1px solid rgba(255,255,255,.1)}
-.lo-hero-deltas strong{color:var(--lime);font-size:34px;font-weight:700;letter-spacing:-.045em;line-height:1;font-variant-numeric:tabular-nums}
-.lo-hero-deltas small{color:#93aca3;font-size:9.5px;font-weight:800;letter-spacing:.15em;text-transform:uppercase}
-.lo-hero-line{margin:0;font-size:17px;line-height:1.4;letter-spacing:-.02em;color:#fff}
-.lo-hero-line em{display:block;margin-top:2px;font:italic 400 1em Georgia,serif;letter-spacing:0;color:#9dbdb0}
-.lo-hero-cta{padding:14px;border:0;border-radius:12px;background:var(--lime);color:#12291f;font-size:13px;font-weight:850;letter-spacing:-.01em;cursor:pointer}
+
+.lo-hero-who{display:flex;align-items:center;gap:14px}
+.lo-hero-avatar{width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:50%;background:rgba(199,255,91,.13);border:1px solid rgba(199,255,91,.3);color:var(--lime);font-size:13.5px;font-weight:800;letter-spacing:.04em}
+.lo-hero-who>div{display:flex;min-width:0;flex-direction:column;gap:5px}
+.lo-hero-who strong{font-size:20px;font-weight:650;letter-spacing:-.03em;color:#fff;line-height:1}
+.lo-hero-flag{display:inline-flex;align-items:center;gap:7px;color:var(--lime);font-size:10px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+.lo-hero-flag::before{content:"";width:6px;height:6px;flex:none;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(199,255,91,.14)}
+
+.lo-hero-scores{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
+.lo-hero-scores article{display:flex;flex-direction:column;align-items:center;gap:6px;padding:22px 6px}
+.lo-hero-scores article+article{border-left:1px solid rgba(255,255,255,.1)}
+.lo-hero-scores strong{color:#fff;font-size:32px;font-weight:700;letter-spacing:-.045em;line-height:1;font-variant-numeric:tabular-nums}
+.lo-hero-scores em{color:var(--lime);font-style:normal;font-size:12px;font-weight:800;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.lo-hero-scores small{margin-top:1px;color:#93aca3;font-size:9.5px;font-weight:800;letter-spacing:.15em;text-transform:uppercase}
+
+.lo-hero-tools{display:flex;flex-direction:column}
+.lo-hero-tools article{display:flex;align-items:center;gap:13px;padding:14px 0}
+.lo-hero-tools article+article{border-top:1px solid rgba(255,255,255,.09)}
+.lo-hero-tools i{width:30px;height:30px;flex:none;display:grid;place-items:center;border-radius:9px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:var(--lime);font-style:normal;font-size:13px}
+.lo-hero-tools strong{flex:1;font-size:14px;font-weight:600;letter-spacing:-.02em;color:#fff}
+.lo-hero-tools span{flex:none;color:#93aca3;font-size:11.5px;letter-spacing:-.01em}
+
+.lo-hero-cta{padding:15px;border:0;border-radius:12px;background:var(--lime);color:#12291f;font-size:13px;font-weight:850;letter-spacing:-.01em;cursor:pointer}
 .lo-hero-cta span{margin-left:8px}
+
 @media(min-width:761px){
   .site-home .b2b-product-stage.hero-platform{
     transform:none;
-    width:495px;max-width:100%;justify-self:end;min-height:412px;
+    width:495px;max-width:100%;justify-self:end;min-height:500px;
     background:none;
     border:1px solid rgba(175,205,194,.26);
     border-radius:20px;
     box-shadow:0 3px 8px rgba(2,14,12,.3),0 20px 44px rgba(2,14,12,.36),0 54px 110px rgba(1,10,9,.46);
   }
-  /* the blurred auras sat inside the card and muddied it; the gradients do that job now */
+  /* the blurred auras sat inside the card and muddied it; the gradients do that job */
   .site-home .hero-platform .hero-platform-aura{display:none}
 }
 @media(max-width:760px){
-  .lo-hero{position:static;inset:auto;height:auto;gap:22px;padding:26px 22px}
+  .lo-hero{position:static;inset:auto;height:auto;gap:26px;padding:26px 22px}
   .lo-hero-who strong{font-size:18px}
-  .lo-hero-deltas article{padding:17px 4px}
-  .lo-hero-deltas strong{font-size:29px}
-  .lo-hero-deltas small{font-size:9px;letter-spacing:.11em}
-  .lo-hero-line{font-size:16px}
+  .lo-hero-scores article{padding:19px 4px}
+  .lo-hero-scores strong{font-size:28px}
+  .lo-hero-scores small{font-size:9px;letter-spacing:.11em}
+  .lo-hero-tools span{font-size:11px}
 }
