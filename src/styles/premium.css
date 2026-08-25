@@ -2853,40 +2853,40 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
    (movement, milestones, a ready signal), what they never receive (the scores
    and the report), and the action that follows. Deltas rather than scores is
    deliberate - it is the product's actual rule, drawn rather than claimed. */
-.lo-hero{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;border-radius:19px;background:linear-gradient(160deg,#f9fbf9,#eef4f0);color:#14312c}
+.lo-hero{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;border-radius:19px;background:#fff;color:#0c2a23}
 .lo-hero-chrome{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;border-bottom:1px solid rgba(47,88,75,.11)}
 .lo-hero-lockup{display:flex;align-items:center;gap:10px;min-width:0}
 .lo-hero-lockup .summit-glyph{width:30px;height:30px;flex:none;display:grid;place-items:center;border-radius:9px;background:#12262a;color:var(--lime);font-size:13px;font-weight:900}
-.lo-hero-lockup small{display:block;color:#6d8880;font-size:9.5px;font-weight:900;letter-spacing:.12em}
+.lo-hero-lockup small{display:block;color:#4e675e;font-size:9.5px;font-weight:900;letter-spacing:.12em}
 .lo-hero-lockup strong{display:block;margin-top:2px;font-size:12.5px;letter-spacing:-.02em}
 .lo-hero-live{display:flex;align-items:center;gap:6px;flex:none;padding:6px 10px;border:1px solid rgba(47,88,75,.14);border-radius:999px;background:rgba(255,255,255,.7);color:#3d7a63;font-size:9.5px;font-weight:900;letter-spacing:.1em}
 .lo-hero-live>i{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(199,255,91,.22)}
 .lo-hero-borrower{display:flex;align-items:center;gap:11px;padding:14px 16px;border-bottom:1px solid rgba(47,88,75,.09)}
 .lo-hero-avatar{width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:50%;background:#dcefe4;color:#2f6b57;font-size:12px;font-weight:900}
 .lo-hero-borrower>div{display:flex;min-width:0;flex:1;flex-direction:column}
-.lo-hero-borrower small{color:#6d8880;font-size:9.5px;font-weight:900;letter-spacing:.12em}
+.lo-hero-borrower small{color:#4e675e;font-size:9.5px;font-weight:900;letter-spacing:.12em}
 .lo-hero-borrower strong{margin-top:2px;font-size:16px;letter-spacing:-.03em}
-.lo-hero-borrower p{margin:2px 0 0;color:#6d8880;font-size:11px}
+.lo-hero-borrower p{margin:2px 0 0;color:#4e675e;font-size:11px}
 .lo-hero-flag{flex:none;padding:7px 10px;border-radius:999px;background:var(--lime);color:#17332a;font-size:9.5px;font-weight:900;letter-spacing:.08em;box-shadow:0 8px 18px rgba(150,200,80,.28)}
 .lo-hero-progress{padding:14px 16px 13px;border-bottom:1px solid rgba(47,88,75,.09)}
-.lo-hero-label{display:block;color:#6d8880;font-size:9.5px;font-weight:900;letter-spacing:.12em}
+.lo-hero-label{display:block;color:#4e675e;font-size:9.5px;font-weight:900;letter-spacing:.12em}
 .lo-hero-deltas{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
 .lo-hero-deltas article{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 6px;border:1px solid rgba(47,88,75,.11);border-radius:12px;background:#fff}
 .lo-hero-deltas strong{color:#2f7a56;font-size:21px;letter-spacing:-.04em}
-.lo-hero-deltas small{color:#6d8880;font-size:10px;font-weight:700}
-.lo-hero-note{margin:10px 0 0;color:#6d8880;font-size:10.5px;line-height:1.45}
+.lo-hero-deltas small{color:#4e675e;font-size:10px;font-weight:700}
+.lo-hero-note{margin:10px 0 0;color:#4e675e;font-size:10.5px;line-height:1.45}
 .lo-hero-milestones{flex:1;min-height:0;padding:11px 16px 4px}
 .lo-hero-milestones article{display:flex;align-items:flex-start;gap:9px;padding:6px 0}
 .lo-hero-milestones i{width:19px;height:19px;flex:none;margin-top:1px;display:grid;place-items:center;border-radius:50%;background:#dcefe4;color:#2f7a56;font-style:normal;font-size:10px;font-weight:900}
 .lo-hero-milestones span{display:flex;min-width:0;flex-direction:column}
 .lo-hero-milestones strong{font-size:12.5px;letter-spacing:-.01em}
-.lo-hero-milestones small{margin-top:1px;color:#6d8880;font-size:10.5px}
+.lo-hero-milestones small{margin-top:1px;color:#4e675e;font-size:10.5px}
 .lo-hero-cta{margin:8px 16px 12px;padding:13px;border:0;border-radius:12px;background:#12262a;color:#fff;font-size:12.5px;font-weight:850;letter-spacing:-.01em;cursor:pointer}
 .lo-hero-cta span{margin-left:8px;color:var(--lime)}
 .lo-hero-foot{display:flex;align-items:center;gap:10px;padding:11px 16px;border-top:1px solid rgba(47,88,75,.11);background:rgba(255,255,255,.6)}
 .lo-hero-jl{width:28px;height:28px;flex:none;display:grid;place-items:center;border-radius:50%;background:#12262a;color:var(--lime);font-size:10px;font-weight:900}
 .lo-hero-foot>div{display:flex;min-width:0;flex:1;flex-direction:column}
-.lo-hero-foot small{color:#6d8880;font-size:9.5px;font-weight:900;letter-spacing:.11em}
+.lo-hero-foot small{color:#4e675e;font-size:9.5px;font-weight:900;letter-spacing:.11em}
 .lo-hero-foot strong{margin-top:1px;font-size:11.5px;letter-spacing:-.01em}
 .lo-hero-sync{display:flex;align-items:center;gap:6px;flex:none;color:#4c7f6b;font-size:10.5px;font-weight:800}
 .lo-hero-sync i{font-style:normal;color:var(--lime)}
@@ -2946,4 +2946,53 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .lo-hero-foot small{font-size:8.5px;letter-spacing:.09em}
   .lo-hero-foot strong{font-size:10px}
   .lo-hero-sync{font-size:9px;gap:5px}
+}
+
+/* ── Why the hero card looked photocopied ──────────────────────────────────
+   Two causes, and the first is literal.
+
+   The stage carried transform:perspective(1400px) rotateY(-4deg) rotateX(1deg).
+   Any 3D transform forces the browser to rasterise the element to a texture and
+   resample it, which throws away subpixel antialiasing and softens every glyph
+   inside. The card was not styled to look photographed - it was being
+   photographed, then reprinted at a slight angle.
+
+   Second, it was pale on pale: a #f9fbf9 to #eef4f0 wash carrying grey-green
+   secondary text at 3.68:1, under the 4.5:1 minimum. Low contrast on a tinted
+   ground is what makes print look like a bad copy of itself.
+
+   So: no transform, one surface instead of a stage and a card stacked with
+   different radii, true white, and secondary text taken to 5.9:1. */
+@media(min-width:761px){
+  .site-home .b2b-product-stage.hero-platform{
+    transform:none;
+    background:#fff;
+    border:1px solid rgba(13,42,36,.09);
+    border-radius:18px;
+    box-shadow:0 2px 4px rgba(9,32,27,.05),0 14px 30px rgba(9,32,27,.10),0 46px 90px rgba(3,18,15,.36);
+  }
+  /* the card is opaque so the decorative auras cannot tint the white; with the
+     stage clipping them they had nowhere useful to go, so they come out */
+  .site-home .hero-platform .lo-hero{background:#fff;border-radius:17px;color:#0c2a23}
+  .site-home .hero-platform .hero-platform-aura{display:none}
+  .site-home .hero-platform .lo-hero-chrome{border-bottom-color:rgba(13,42,36,.1)}
+  .site-home .hero-platform .lo-hero-borrower{border-bottom-color:rgba(13,42,36,.08)}
+  .site-home .hero-platform .lo-hero-progress{border-bottom-color:rgba(13,42,36,.08)}
+  .site-home .hero-platform .lo-hero-lockup small,
+  .site-home .hero-platform .lo-hero-borrower small,
+  .site-home .hero-platform .lo-hero-label,
+  .site-home .hero-platform .lo-hero-foot small{color:#4e675e}
+  .site-home .hero-platform .lo-hero-borrower p,
+  .site-home .hero-platform .lo-hero-note,
+  .site-home .hero-platform .lo-hero-milestones small,
+  .site-home .hero-platform .lo-hero-deltas small{color:#4e675e}
+  .site-home .hero-platform .lo-hero-lockup strong,
+  .site-home .hero-platform .lo-hero-borrower strong,
+  .site-home .hero-platform .lo-hero-milestones strong,
+  .site-home .hero-platform .lo-hero-foot strong{color:#0c2a23}
+  /* the numbers are the point of the card, so let them carry weight */
+  .site-home .hero-platform .lo-hero-deltas article{background:#f4f8f5;border-color:rgba(13,42,36,.08)}
+  .site-home .hero-platform .lo-hero-deltas strong{color:#1d6b48;font-size:19px;font-weight:800}
+  .site-home .hero-platform .lo-hero-foot{background:#f7faf8;border-top-color:rgba(13,42,36,.1)}
+  .site-home .hero-platform .lo-hero-cta{background:#0c2a23}
 }
