@@ -2657,41 +2657,100 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 }
 
 /* ── Tabs belong to the panel ──────────────────────────────────────────────
-   The four product tabs floated above the panel as loose pills on desktop,
-   and on a phone they were a second bordered card sitting 14px clear of the
-   first. Either way they read as a menu that happened to be near a picture,
-   rather than as the chrome of one product surface.
+   The tabs were stretched with repeat(4,1fr), so each one was 303px wide to
+   hold an 82px label - 181px of dead space apiece - and the active tab became
+   a 303x58 dark slab. Four slabs above a card do not read as its chrome, they
+   read as navigation that landed nearby, and the whole bar stood 86px tall.
 
-   They are now the panel's own toolbar: same card, same top corners, a
-   hairline where the toolbar ends and the content begins, and no seam
-   between them. Split by breakpoint so each side is explicit. */
+   Now they are tabs: content-width, left-aligned, no fill, and the active one
+   carries a 2px rule along the bottom edge of the toolbar that runs straight
+   into the panel. There is no divider line, so the toolbar and the panel are
+   one uninterrupted surface and the underline is the only thing marking which
+   part of it you are looking at. */
 @media(min-width:761px){
   .site-home .product-tabs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:2px;
     margin:32px 0 0;
-    gap:8px;
-    padding:13px 13px 14px;
+    padding:7px 12px 0;
     border:1px solid rgba(47,88,75,.14);
-    border-bottom:1px solid rgba(47,88,75,.09);
+    border-bottom:0;
     border-radius:22px 22px 0 0;
     background:#fff;
   }
-  .site-home .product-tabs button{border:1px solid transparent;background:transparent;box-shadow:none}
-  .site-home .product-tabs button:not(.active){color:#63776f}
-  .site-home .product-tabs button:not(.active) i{background:#eef3ef}
-  .site-home .product-tabs button.active{background:#142d31;border-color:#142d31;color:#fff;box-shadow:0 10px 22px rgba(20,45,49,.15)}
+  .site-home .product-tabs button{
+    position:relative;
+    flex:0 0 auto;
+    width:auto;
+    min-height:0;
+    gap:8px;
+    padding:12px 14px 13px;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    color:#677b73;
+    font-size:13px;
+  }
+  .site-home .product-tabs button i{width:22px;height:22px;flex:none;display:grid;place-items:center;border-radius:7px;background:#eef3ef;font-size:11px}
+  .site-home .product-tabs button:hover{color:#264840}
+  .site-home .product-tabs button.active{background:transparent;border-color:transparent;color:#12312e;box-shadow:none}
+  .site-home .product-tabs button.active i{background:#142d31;color:var(--lime)}
+  .site-home .product-tabs button.active::after{content:"";position:absolute;left:14px;right:14px;bottom:0;height:2px;border-radius:2px 2px 0 0;background:#142d31}
   .site-home .product-panel,
   .site-home .dispute-product{margin-top:0;border-top:0;border-top-left-radius:0;border-top-right-radius:0;border-bottom-left-radius:22px;border-bottom-right-radius:22px}
 }
 @media(max-width:760px){
   .site-home .product-tabs{
+    position:static;
+    display:flex;
+    flex-wrap:nowrap;
+    gap:0;
+    width:auto;
     margin:23px 16px 0;
-    padding:9px 9px 10px;
+    padding:0 4px;
+    overflow-x:auto;
+    scrollbar-width:none;
     border:1px solid rgba(47,88,75,.14);
-    border-bottom:1px solid rgba(47,88,75,.1);
+    border-bottom:0;
     border-radius:17px 17px 0 0;
     background:#fff;
     box-shadow:none;
   }
+  .site-home .product-tabs::-webkit-scrollbar{display:none}
+  .site-home .product-tabs button{
+    position:relative;
+    flex:0 0 auto;
+    width:auto;
+    min-width:0;
+    min-height:46px;
+    justify-content:center;
+    gap:0;
+    padding:0 9px;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    color:#677b73;
+    font-size:11.5px;
+    white-space:nowrap;
+  }
+  .site-home .product-tabs button i{display:none}
+  .site-home .product-tabs button.active{background:transparent;border-color:transparent;color:#12312e}
+  .site-home .product-tabs button.active::after{content:"";position:absolute;left:7px;right:7px;bottom:0;height:2px;border-radius:2px 2px 0 0;background:#142d31}
   .site-home .product-panel,
   .site-home .dispute-product{margin:0 16px;border-top:0;border-top-left-radius:0;border-top-right-radius:0;border-bottom-left-radius:17px;border-bottom-right-radius:17px}
+
+  /* On a phone the panel stacked copy first, so you tapped a tab, scrolled
+     565px of heading, paragraph and feature list, and only then reached the
+     screen you had just chosen. Nothing tied the tab to the picture. The
+     screen now comes first, directly under the tabs it belongs to, and the
+     copy explains what you are already looking at. */
+  .site-home .product-panel{gap:20px;padding:16px 16px 20px}
+  .site-home .product-view{order:-1;gap:10px}
+  .site-home .product-copy>h3{margin-top:2px}
+  .site-home .product-copy ul{margin:16px 0 0}
+  .site-home .product-copy li{margin:12px 0}
+  .site-home .product-copy>button{margin-top:16px}
 }
