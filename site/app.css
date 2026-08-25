@@ -3717,3 +3717,43 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .site-home .testimonial-disclosure{font-size:10px}
   .site-home .testimonial-card footer small{font-size:10px}
 }
+
+/* ── Tabs belong to the panel ──────────────────────────────────────────────
+   The four product tabs floated above the panel as loose pills on desktop,
+   and on a phone they were a second bordered card sitting 14px clear of the
+   first. Either way they read as a menu that happened to be near a picture,
+   rather than as the chrome of one product surface.
+
+   They are now the panel's own toolbar: same card, same top corners, a
+   hairline where the toolbar ends and the content begins, and no seam
+   between them. Split by breakpoint so each side is explicit. */
+@media(min-width:761px){
+  .site-home .product-tabs{
+    margin:32px 0 0;
+    gap:8px;
+    padding:13px 13px 14px;
+    border:1px solid rgba(47,88,75,.14);
+    border-bottom:1px solid rgba(47,88,75,.09);
+    border-radius:22px 22px 0 0;
+    background:#fff;
+  }
+  .site-home .product-tabs button{border:1px solid transparent;background:transparent;box-shadow:none}
+  .site-home .product-tabs button:not(.active){color:#63776f}
+  .site-home .product-tabs button:not(.active) i{background:#eef3ef}
+  .site-home .product-tabs button.active{background:#142d31;border-color:#142d31;color:#fff;box-shadow:0 10px 22px rgba(20,45,49,.15)}
+  .site-home .product-panel,
+  .site-home .dispute-product{margin-top:0;border-top:0;border-top-left-radius:0;border-top-right-radius:0;border-bottom-left-radius:22px;border-bottom-right-radius:22px}
+}
+@media(max-width:760px){
+  .site-home .product-tabs{
+    margin:23px 16px 0;
+    padding:9px 9px 10px;
+    border:1px solid rgba(47,88,75,.14);
+    border-bottom:1px solid rgba(47,88,75,.1);
+    border-radius:17px 17px 0 0;
+    background:#fff;
+    box-shadow:none;
+  }
+  .site-home .product-panel,
+  .site-home .dispute-product{margin:0 16px;border-top:0;border-top-left-radius:0;border-top-right-radius:0;border-bottom-left-radius:17px;border-bottom-right-radius:17px}
+}
