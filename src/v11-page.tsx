@@ -106,7 +106,7 @@ function ProductFilmSection({ openPortals }: { openPortals: () => void }) {
   return <><section className="product-film-section" id="platform" aria-labelledby="product-film-title">
     <div className="product-film-inner">
       <div className="product-film-heading">
-        <div><span className="section-kicker light">WATCH THE READYIQ JOURNEY · 1:27</span><h2 id="product-film-title">See the lender portal and consumer experience <em>work together.</em></h2></div>
+        <div><span className="section-kicker light">WATCH THE READYIQ JOURNEY · 1:27</span><h2 id="product-film-title">See both portals <em>work together.</em></h2></div>
         <div className="product-film-summary"><p>One private journey connects the first lender invitation to the next mortgage conversation.</p></div>
       </div>
       <div className="product-film-journey" aria-label="How the ReadyIQ journey works">
