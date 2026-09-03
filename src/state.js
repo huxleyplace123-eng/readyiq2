@@ -12,6 +12,13 @@ export const PATHWAY_BLURBS = {
   dispute: 'Something on the report looks wrong. Fix it before you apply.',
   dti: 'Debt load is the obstacle — a plan for the payments, not the score.',
 };
+export const STAGES = ['not_ready', 'working', 'approaching', 'ready_to_review'];
+export const STAGE_LABELS = { not_ready: 'Not ready', working: 'Working', approaching: 'Approaching ready', ready_to_review: 'Ready to review' };
+/** Borrower-facing: same state, different words. Never "Not ready". */
+export const STAGE_STEPS = { not_ready: 'Step 1 of 4 — getting your picture', working: 'Step 2 of 4 — clearing the blockers', approaching: 'Step 3 of 4 — almost there', ready_to_review: 'Step 4 of 4 — your loan officer has your summary' };
+/** Consumer FICO 8/9 and mortgage FICO 2/4/5 routinely differ by 15–30 points; the buffer is the band where ReadyIQ stops asserting and hands off to a real pull. */
+export const BUFFER_DEFAULT = 20;
+export const APPROACH_BAND = 15;
 export const STATUS_LABELS = { invited: 'Invited', consented: 'Consented', checked: 'Checked', active: 'Active', review_requested: 'Review requested', handed_off: 'With your lender', applied: 'Application in progress', funded: 'Funded', lost: 'Closed' };
 
 const M = (label, date, state) => ({ label, date, state });
@@ -20,7 +27,7 @@ const FIXTURES = {
   lender: {
     id: 'harbor', name: 'Harbor Home Loans', site: 'harborhomeloans.com', nmls: '1809922',
     brand: { primary: '#FF7A1A', secondary: '#FFA640', soft: '#FFEFDF', ink: '#B34700' },
-    floors: { fha: 620, conventional: 640, dpa: 660 }, floorDefault: 640,
+    floors: { fha: 620, conventional: 640, dpa: 660 }, floorDefault: 640, buffer: 20,
     programs: [{ id: 'fha', name: 'FHA', floor: 620 }, { id: 'conventional', name: 'Conventional', floor: 640 }, { id: 'dpa', name: 'Harbor Down-Payment Assist', floor: 660 }],
   },
   los: [
@@ -181,6 +188,19 @@ export function assignPathway(c, lender) {
   if (score < floor || cr.utilization > 0.3) return 'near_ready';
   return 'ready_now';
 }
+export function stage(c, lender) {
+  const floor = lender.floorDefault, buf = lender.buffer ?? BUFFER_DEFAULT;
+  const score = c.score?.value ?? null, cr = c.credit;
+  if (score == null || cr.tradelines < 3) return 'not_ready';
+  const openDisputes = (c.disputes || []).some((d) => d.status !== 'resolved');
+  const r = dti(cr.monthlyDebts, c.income);
+  const derog24 = cr.latesLast24mo > 0 || (c.publicRecords || []).some((p) => monthsSince(p.date) <= 24);
+  if (openDisputes || derog24 || cr.utilization > 0.5 || (r != null && r > 0.45) || score < floor - APPROACH_BAND) return 'working';
+  if (score < floor + buf) return 'approaching';
+  return cr.utilization <= 0.3 && !cr.derogLast12mo ? 'ready_to_review' : 'approaching';
+}
+/** The pathway survives as the reason shown under a stage. */
+export function stageReason(c, lender) { return assignPathway(c, lender); }
 export function addYears(iso, n) { const [y, m, d] = iso.split('-').map(Number); return `${String(y + n).padStart(4, '0')}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`; }
 export function addMonths(iso, n) { const [y, m, d] = iso.split('-').map(Number); const t = (y * 12 + (m - 1)) + n; return `${String(Math.floor(t / 12)).padStart(4, '0')}-${String((t % 12) + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`; }
 export function daysBetween(a, b) { return Math.round((Date.parse(b + 'T00:00:00Z') - Date.parse(a + 'T00:00:00Z')) / 86400000); }
