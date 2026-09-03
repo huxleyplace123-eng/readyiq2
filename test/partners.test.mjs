@@ -4,6 +4,7 @@ import { PARTNER_PLATFORMS, PARTNER_IDS, getPartner, partnerLevel, partnersByLev
 import { normalizeUpdate, applyPartnerUpdate } from '../server/partners/normalize.js';
 import { fixtures, getConsumer, stage } from '../src/state.js';
 import { parseCsv, CSV_COLUMNS } from '../server/partners/csv.js';
+import { verifyZapierToken, fromZapier } from '../server/partners/zapier.js';
 
 test('the ladder is L0 csv, L1 zapier, L2 natives — and only DisputeChat is buildable today', () => {
   assert.deepEqual(partnersByLevel(), { 0: ['csv'], 1: ['zapier'], 2: ['disputechat', 'credit_repair_cloud', 'disputefox'] });
@@ -59,4 +60,15 @@ test('L0: a CSV row becomes a partner_update; unknown columns and report data ar
   assert.equal(u.note, 'paid Midland');
   assert.throws(() => parseCsv('consumer_ref,score\nc_sam,700'), /unknown column "score"/);
   assert.deepEqual(parseCsv(''), []);
+});
+
+test('L1: a Zap posts flat fields with a shared token', () => {
+  assert.equal(verifyZapierToken({ 'x-readyiq-token': 'zap_abc' }, 'zap_abc'), true);
+  assert.equal(verifyZapierToken({ 'x-readyiq-token': 'zap_abd' }, 'zap_abc'), false);
+  assert.equal(verifyZapierToken({}, 'zap_abc'), false);
+  const u = fromZapier({ consumer_ref: 'c_maria', disputes_resolved: '1', round_completed: 'true', blockers_cleared: 'utilization', occurred_at: '2026-09-04T10:00:00Z' });
+  assert.equal(u.source, 'zapier');
+  assert.deepEqual(u.disputes, { open: null, resolved: 1 });
+  assert.equal(u.round_completed, true);
+  assert.deepEqual(u.blockers_cleared, ['utilization']);
 });
