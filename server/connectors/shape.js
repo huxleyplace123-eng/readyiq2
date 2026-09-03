@@ -153,6 +153,7 @@ export function mapToShapeFields(status, identity = {}) {
     readyiq_consumer_ref: status.consumer_ref,
     readyiq_pathway: status.pathway,
     readyiq_stage: status.stage,
+    readyiq_readiness_stage: status.readiness_stage ?? undefined,
     readyiq_round: status.round?.n != null ? `${status.round.n} of ~${status.round.of ?? '?'}` : undefined,
     readyiq_next_milestone: status.next_milestone ?? undefined,
     readyiq_review_requested: status.flags?.review_requested ? 'yes' : 'no',
