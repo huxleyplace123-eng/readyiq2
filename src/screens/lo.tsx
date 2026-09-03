@@ -1,7 +1,8 @@
 // src/screens/lo.tsx — loan-officer surfaces in the v11 look: 60-second sign-up, Your link (link · QR · text · invite),
 // and the read-only status feed. Uses v11's own classes (lender-page, kpi-grid, org-card, borrower-table-card…) so it looks native.
 import { useEffect, useState } from "react";
-import { BureauScores, type BureauScoreSet } from "./bureaus";
+import { type BureauScoreSet } from "./bureaus";
+import { StagePill, BUCKETS, bucketOf, type Stage } from "./stage";
 
 const LO = { first: "Jordan", last: "Lee", nmls: "1849201", company: "Summit Home Loans", branch: "Scottsdale North", states: ["AZ", "CA", "NV"], mobile: "(480) 555-0190", email: "jordan@summithomeloans.com", code: "summit-jlee" };
 const LINK = `ready.summithomeloans.com/${LO.code.split("-")[1]}`;
@@ -77,30 +78,25 @@ export function LoStartPage({ done }: { done: () => void }) {
 }
 
 /* ---------- read-only status feed ---------- */
-const FEED = [
-  { name: "Aaron Patel", initials: "AP", tone: "gold", pathway: "Ready Now", status: "Review requested", round: "2 of ~2", next: "Lender review", last: "2 days ago", review: true, scores: { equifax: 688, experian: 696, transunion: 691, deltas: { equifax: "+8", experian: "+11", transunion: "+9" } } as BureauScoreSet },
-  { name: "Derek Young", initials: "DY", tone: "lime", pathway: "Near Ready", status: "Threshold reached", round: "3 of ~3", next: "Cross 640", last: "1 hr ago", review: false, scores: { equifax: 654, experian: 662, transunion: 658, deltas: { equifax: "+7", experian: "+12", transunion: "+9" } } as BureauScoreSet },
-  { name: "Maya Collins", initials: "MC", tone: "mint", pathway: "Build Mode", status: "Active", round: "2 of ~5", next: "Utilization under 30%", last: "12 min ago", review: false, scores: { equifax: 608, experian: 615, transunion: 612, deltas: { equifax: "+9", experian: "+14", transunion: "+12" } } as BureauScoreSet },
-  { name: "Sofia Ramirez", initials: "SR", tone: "violet", pathway: "Dispute Mode", status: "Disputes sent", round: "1 of ~4", next: "Bureau responses · due Sep 8", last: "Yesterday", review: false, scores: { equifax: 579, experian: 587, transunion: 584, deltas: { equifax: "+3", experian: "+6", transunion: "+5" } } as BureauScoreSet },
-  { name: "Nina Brooks", initials: "NB", tone: "blue", pathway: "Thin Credit", status: "Active", round: "1 of ~4", next: "Report 19 months of rent", last: "3 days ago", review: false, scores: { equifax: 599, experian: 606, transunion: 603, deltas: { equifax: "+4", experian: "+6", transunion: "+5" } } as BureauScoreSet },
+const FEED: { name: string; initials: string; tone: string; stage: Stage; blocker: string; partner?: string; last: string; scores: BureauScoreSet }[] = [
+  { name: "Aaron Patel", initials: "AP", tone: "gold", stage: "ready_to_review", blocker: "Summary from Brightpath · Aug 30", partner: "Brightpath", last: "2 days ago", scores: { equifax: 688, experian: 696, transunion: 691 } },
+  { name: "Derek Young", initials: "DY", tone: "lime", stage: "approaching", blocker: "Crossed floor · inside buffer", last: "1 hr ago", scores: { equifax: 654, experian: 662, transunion: 658 } },
+  { name: "Maya Collins", initials: "MC", tone: "mint", stage: "working", blocker: "Utilization 41% → target 30%", partner: "Brightpath", last: "12 min ago", scores: { equifax: 608, experian: 615, transunion: 612 } },
+  { name: "Sofia Ramirez", initials: "SR", tone: "violet", stage: "working", blocker: "2 disputes sent · responses due Sep 8", last: "Yesterday", scores: { equifax: 579, experian: 587, transunion: 584 } },
+  { name: "Nina Brooks", initials: "NB", tone: "blue", stage: "not_ready", blocker: "Thin file · reporting 19 mo of rent", last: "3 days ago", scores: { equifax: 599, experian: 606, transunion: 603 } },
 ];
 export function StatusFeedPage({ openInvite, onSelect }: { openInvite: () => void; onSelect: () => void }) {
-  const [filter, setFilter] = useState("All");
-  const filters = ["All", "Ready Now", "Near Ready", "Build Mode", "Thin Credit", "Dispute Mode"];
-  const rows = FEED.filter((r) => filter === "All" || r.pathway === filter);
-  const pinned = rows.filter((r) => r.review), rest = rows.filter((r) => !r.review);
-  const Row = ({ r }: { r: typeof FEED[number] }) => <tr onClick={onSelect}><td data-label="Consumer"><span className={`person-avatar ${r.tone}`}>{r.initials}</span><div><strong>{r.name}</strong><small>Assigned to Jordan Lee · {r.status}</small></div></td><td data-label="Pathway"><span className={`status-cell ${r.tone}`}>● {r.pathway}</span></td><td data-label="All 3 bureau scores"><BureauScores scores={r.scores} compact showNotice={false} /></td><td data-label="Round"><strong>{r.round}</strong><small>round</small></td><td data-label="Next milestone">{r.next}</td><td data-label="Last activity">{r.last}</td><td className="pipeline-row-action"><button onClick={(e) => { e.stopPropagation(); alert(`Calling ${r.name.split(" ")[0]}…`); }}>Call</button></td></tr>;
+  const [sending, setSending] = useState<string | null>(null);
+  const [partners, setPartners] = useState<string[]>([]);
+  const action = (r: typeof FEED[number]) => r.stage === "ready_to_review" ? "Request formal pull →" : r.stage === "approaching" ? "Request soft pull →" : r.stage === "working" ? "View →" : "Nudge →";
+  const Row = ({ r }: { r: typeof FEED[number] }) => <div className="lx-row" onClick={onSelect}><span className={`person-avatar ${r.tone}`}>{r.initials}</span><div><strong>{r.name}</strong><small>{r.blocker}{r.partner ? ` · CR partner: ${r.partner}` : ""}</small></div><StagePill stage={r.stage} /><small>{r.last}</small><button className="cx-inline" onClick={(e) => { e.stopPropagation(); alert(`${action(r).replace(" →", "")} for ${r.name}`); }}>{action(r)}</button>{r.stage !== "ready_to_review" && !r.partner && <button className="outline-button" onClick={(e) => { e.stopPropagation(); setSending(r.name); setPartners([]); }}>Send to credit-repair partner</button>}</div>;
   return <div className="lender-page">
-    <div className="lender-page-title"><div><span className="section-kicker">READINESS PIPELINE · READ-ONLY</span><h1>Where your people <em>are.</em></h1><p>All three bureau scores, pathway, milestones and review requests in one scan. Account details and the full credit report stay private.</p></div><button className="primary-lime dark-text" onClick={openInvite}>＋ Invite consumer</button></div>
-    <div className="filter-bar"><div className="filter-tabs">{filters.map((x) => <button key={x} className={filter === x ? "active" : ""} onClick={() => setFilter(x)}>{x}{x === "All" && <b>{FEED.length}</b>}</button>)}</div><span className="info-badge">{pinned.length} review requested</span></div>
-    {pinned.length > 0 && <section className="borrower-table-card pipeline-table"><div className="card-title-row"><div><span className="section-kicker">REVIEW REQUESTED</span><h3>Waiting on you</h3></div></div><div className="table-wrap"><table className="borrower-table bureau-pipeline-table"><thead><tr><th>Consumer</th><th>Pathway</th><th>All 3 bureau scores</th><th>Round</th><th>Next milestone</th><th>Last activity</th><th /></tr></thead><tbody>{pinned.map((r) => <Row key={r.name} r={r} />)}</tbody></table></div><ScoreNotice /></section>}
-    <section className="borrower-table-card pipeline-table"><div className="card-title-row"><div><span className="section-kicker">WORKING</span><h3>{rest.length} consumers</h3></div></div><div className="table-wrap"><table className="borrower-table bureau-pipeline-table"><thead><tr><th>Consumer</th><th>Pathway</th><th>All 3 bureau scores</th><th>Round</th><th>Next milestone</th><th>Last activity</th><th /></tr></thead><tbody>{rest.map((r) => <Row key={r.name} r={r} />)}</tbody></table></div><ScoreNotice /></section>
-    <div className="sharing-card" style={{ marginTop: 16 }}><span>⌁</span><div><strong>Consumers control what you see.</strong><p>The pipeline shows the consumer-authorized three-bureau score summary and readiness status—not account details or the full report.</p></div></div>
+    <div className="lender-page-title"><div><span className="section-kicker">READINESS PIPELINE · READ-ONLY</span><h1>Where your people <em>are.</em></h1><p>Who’s not ready, who’s progressing, who’s ready to review. One blocker per person. Scores live on the detail page, with permission — never here.</p></div><button className="primary-lime dark-text" onClick={openInvite}>＋ Invite consumer</button></div>
+    <div className="filter-bar"><span className="info-badge">Ready-to-review precision <b>71%</b> · 5 of 7 qualified on formal pull</span></div>
+    <div className="lx-buckets">{BUCKETS.map(([key, label]) => { const rows = FEED.filter((r) => bucketOf(r.stage) === key); return <section key={key} className="borrower-table-card pipeline-table"><div className="card-title-row"><div><span className="section-kicker">{label.toUpperCase()}</span><h3>{rows.length}</h3></div></div>{rows.map((r) => <Row key={r.name} r={r} />)}</section>; })}</div>
+    {sending && <div className="invite-modal-overlay" onMouseDown={(e) => e.currentTarget === e.target && setSending(null)}><section className="invite-modal"><header><div><span className="section-kicker">SEND TO CREDIT-REPAIR PARTNER</span><h2>{sending}</h2><p>Pick one or more partners. {sending.split(" ")[0]} will be asked to consent before anything is shared. No score, no report — a stage and the blockers.</p></div><button onClick={() => setSending(null)}>×</button></header><div className="invite-form">{["Brightpath Credit", "DisputeChat", "Clearpath Repair"].map((p) => <label key={p} className="full-field"><input type="checkbox" checked={partners.includes(p)} onChange={() => setPartners(partners.includes(p) ? partners.filter((x) => x !== p) : [...partners, p])} /> {p}</label>)}<small>Nothing of value changes hands for this referral. Flat pricing — never per referral.</small></div><footer><button className="outline-button" onClick={() => setSending(null)}>Cancel</button><button className="primary-lime dark-text" disabled={partners.length === 0} onClick={() => { alert(`Referral to ${partners.join(", ")} drafted — ${sending.split(" ")[0]} will be asked to consent.`); setSending(null); }}>Send with consent <span>→</span></button></footer></section></div>}
+    <div className="sharing-card" style={{ marginTop: 16 }}><span>⌁</span><div><strong>Consumers control what you see.</strong><p>The pipeline shows a stage and one blocker. Account details, scores and the full report stay private.</p></div></div>
   </div>;
-}
-
-function ScoreNotice() {
-  return <div className="pipeline-score-notice"><i>i</i><span><strong>MyScoreIQ FICO® scores</strong> · Equifax, Experian and TransUnion are always shown together. These consumer scores may differ from mortgage scores and are not a preapproval.</span></div>;
 }
 
 /* ---------- link resolver: one link per human, attribution baked in ---------- */
