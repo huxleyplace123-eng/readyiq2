@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { PARTNER_PLATFORMS, PARTNER_IDS, getPartner, partnerLevel, partnersByLevel } from '../server/partners/registry.js';
 import { normalizeUpdate, applyPartnerUpdate } from '../server/partners/normalize.js';
 import { fixtures, getConsumer, stage } from '../src/state.js';
+import { parseCsv, CSV_COLUMNS } from '../server/partners/csv.js';
 
 test('the ladder is L0 csv, L1 zapier, L2 natives — and only DisputeChat is buildable today', () => {
   assert.deepEqual(partnersByLevel(), { 0: ['csv'], 1: ['zapier'], 2: ['disputechat', 'credit_repair_cloud', 'disputefox'] });
@@ -44,4 +45,18 @@ test('an update with nothing new emits nothing', () => {
   assert.deepEqual(out.events, []);
   assert.equal(out.before, out.after);
   assert.throws(() => applyPartnerUpdate(s, normalizeUpdate({ source: 'csv', consumer_ref: 'c_nobody' }), { lender: s.lender }), /unknown consumer/);
+});
+
+test('L0: a CSV row becomes a partner_update; unknown columns and report data are rejected', () => {
+  const text = [CSV_COLUMNS.join(','), 'c_sam,2026-09-03,0,2,yes,,collection|late_payment,"paid Midland"'].join('\n');
+  const [u] = parseCsv(text);
+  assert.equal(u.source, 'csv');
+  assert.equal(u.consumer_ref, 'c_sam');
+  assert.deepEqual(u.disputes, { open: 0, resolved: 2 });
+  assert.equal(u.round_completed, true);
+  assert.equal(u.rent_months_verified, null);
+  assert.deepEqual(u.blockers_cleared, ['collection', 'late_payment']);
+  assert.equal(u.note, 'paid Midland');
+  assert.throws(() => parseCsv('consumer_ref,score\nc_sam,700'), /unknown column "score"/);
+  assert.deepEqual(parseCsv(''), []);
 });
