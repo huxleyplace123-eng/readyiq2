@@ -75,6 +75,7 @@ test('L1: a Zap posts flat fields with a shared token', () => {
   assert.deepEqual(u.disputes, { open: null, resolved: 1 });
   assert.equal(u.round_completed, true);
   assert.deepEqual(u.blockers_cleared, ['utilization']);
+  assert.deepEqual(fromZapier({ consumer_ref: 'c_maria', blockers_cleared: 'utilization | collection |' }).blockers_cleared, ['utilization', 'collection']);
 });
 
 test('L2 (ours): DisputeChat signs with our scheme and maps its dispute-round shape', () => {

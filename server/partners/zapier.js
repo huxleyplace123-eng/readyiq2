@@ -11,7 +11,7 @@ export function verifyZapierToken(headers = {}, expected) {
 }
 
 export function fromZapier(body = {}) {
-  const list = (v) => Array.isArray(v) ? v : (v ? String(v).split('|') : []);
+  const list = (v) => Array.isArray(v) ? v : (v ? String(v).split('|').map((s) => s.trim()).filter(Boolean) : []);
   return normalizeUpdate({
     source: 'zapier',
     consumer_ref: body.consumer_ref,
