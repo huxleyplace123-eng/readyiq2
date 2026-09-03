@@ -51,3 +51,32 @@ test('recordReviewOutcome stores the formal-pull result on the consumer', () => 
   assert.throws(() => S.recordReviewOutcome(s, 'priya', { outcome: 'maybe' }), /unknown outcome/);
   assert.equal(S.recordReviewOutcome(s, 'nobody', { outcome: 'short' }), null);
 });
+
+test('RISK names every threshold once and riskSignals reads a real file correctly', () => {
+  assert.deepEqual(S.RISK, { utilizationHigh: 0.5, utilizationTarget: 0.3, dtiMax: 0.45, derogWindowMonths: 24 });
+  const s = S.fixtures();
+  const sam = S.riskSignals(S.getConsumer(s, 'sam'));       // 2 unresolved disputes, util .22, dti .12
+  assert.equal(sam.openDisputes, true);
+  assert.equal(sam.dtiRatio, 0.12);
+  assert.equal(sam.dtiOverMax, false);
+  assert.equal(sam.utilizationHigh, false);
+  assert.equal(sam.utilizationOverTarget, false);
+  const maria = S.riskSignals(S.getConsumer(s, 'maria'));   // 2 lates in 24mo, util .41
+  assert.equal(maria.derogRecent, true);
+  assert.equal(maria.utilizationOverTarget, true);
+  assert.equal(maria.utilizationHigh, false);
+  assert.equal(S.riskSignals({ ...S.getConsumer(s, 'maria'), income: null }).dtiRatio, null);
+});
+
+test('the pathway and the stage never disagree about what counts as risk', () => {
+  const s = S.fixtures();
+  for (const c of s.consumers) {
+    const risk = S.riskSignals(c);
+    const path = S.assignPathway(c, s.lender), st = S.stage(c, s.lender);
+    if (risk.openDisputes || risk.derogRecent || risk.utilizationHigh || risk.dtiOverMax) {
+      assert.notEqual(st, 'ready_to_review', `${c.id}: carries risk but the stage says ready_to_review`);
+      assert.ok(['dispute', 'dti', 'build', 'thin'].includes(path), `${c.id}: carries risk but the pathway is ${path}`);
+    }
+    if (st === 'ready_to_review') assert.equal(path, 'ready_now', `${c.id}: ready_to_review must imply the ready_now pathway`);
+  }
+});

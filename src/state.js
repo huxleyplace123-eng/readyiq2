@@ -174,30 +174,51 @@ export function monthsSince(iso, today = TODAY) {
   const a = new Date(iso + 'T00:00:00Z'), b = new Date(today + 'T00:00:00Z');
   return (b.getUTCFullYear() - a.getUTCFullYear()) * 12 + (b.getUTCMonth() - a.getUTCMonth());
 }
+/** The underwriting thresholds, named once so a change lands in one place. */
+export const RISK = Object.freeze({ utilizationHigh: 0.5, utilizationTarget: 0.3, dtiMax: 0.45, derogWindowMonths: 24 });
+
+/**
+ * The four risk questions every rule in this file asks of a file.
+ *
+ * `assignPathway` and `stage` answer different questions — what should this
+ * person work on next, versus can we hand them to a loan officer — and their
+ * score bands stay deliberately separate. But they must never disagree about
+ * what *counts* as risk, which is what happens when a threshold moves in one
+ * function and not the other.
+ */
+export function riskSignals(c) {
+  const cr = c.credit;
+  const dtiRatio = dti(cr.monthlyDebts, c.income);
+  return {
+    openDisputes: (c.disputes || []).some((d) => d.status !== 'resolved'),
+    dtiRatio,
+    dtiOverMax: dtiRatio != null && dtiRatio > RISK.dtiMax,
+    derogRecent: cr.latesLast24mo > 0 || (c.publicRecords || []).some((p) => monthsSince(p.date) <= RISK.derogWindowMonths),
+    utilizationHigh: cr.utilization > RISK.utilizationHigh,
+    utilizationOverTarget: cr.utilization > RISK.utilizationTarget,
+  };
+}
+
 export function assignPathway(c, lender) {
   const floor = lender.floorDefault;
   const cr = c.credit, score = c.score?.value ?? null;
-  const openDisputes = (c.disputes || []).some((d) => d.status !== 'resolved');
-  if (openDisputes) return 'dispute';
+  const risk = riskSignals(c);
+  if (risk.openDisputes) return 'dispute';
   if (score == null || cr.tradelines < 3) return 'thin';
-  const r = dti(cr.monthlyDebts, c.income);
-  if (r != null && r > 0.45) return 'dti';
-  const recentDerog = cr.latesLast24mo > 0 || (c.publicRecords || []).some((p) => monthsSince(p.date) <= 24);
-  if (recentDerog || cr.utilization > 0.5) return 'build';
+  if (risk.dtiOverMax) return 'dti';
+  if (risk.derogRecent || risk.utilizationHigh) return 'build';
   if (score < floor - 30) return 'build';
-  if (score < floor || cr.utilization > 0.3) return 'near_ready';
+  if (score < floor || risk.utilizationOverTarget) return 'near_ready';
   return 'ready_now';
 }
 export function stage(c, lender) {
   const floor = lender.floorDefault, buf = lender.buffer ?? BUFFER_DEFAULT;
   const score = c.score?.value ?? null, cr = c.credit;
   if (score == null || cr.tradelines < 3) return 'not_ready';
-  const openDisputes = (c.disputes || []).some((d) => d.status !== 'resolved');
-  const r = dti(cr.monthlyDebts, c.income);
-  const derog24 = cr.latesLast24mo > 0 || (c.publicRecords || []).some((p) => monthsSince(p.date) <= 24);
-  if (openDisputes || derog24 || cr.utilization > 0.5 || (r != null && r > 0.45) || score < floor - APPROACH_BAND) return 'working';
+  const risk = riskSignals(c);
+  if (risk.openDisputes || risk.derogRecent || risk.utilizationHigh || risk.dtiOverMax || score < floor - APPROACH_BAND) return 'working';
   if (score < floor + buf) return 'approaching';
-  return cr.utilization <= 0.3 && !cr.derogLast12mo ? 'ready_to_review' : 'approaching';
+  return !risk.utilizationOverTarget && !cr.derogLast12mo ? 'ready_to_review' : 'approaching';
 }
 /** The pathway survives as the reason shown under a stage. */
 export function stageReason(c, lender) { return assignPathway(c, lender); }
@@ -229,8 +250,8 @@ export function dti(monthlyDebts = [], income) {
 }
 export function readinessTrigger(c, lender) {
   const score = c.score?.value; if (score == null) return false;
-  const openDisputes = (c.disputes || []).some((d) => d.status !== 'resolved');
-  return score >= lender.floorDefault && !openDisputes && !c.credit.derogLast12mo && c.credit.utilization <= 0.3;
+  const risk = riskSignals(c);
+  return score >= lender.floorDefault && !risk.openDisputes && !c.credit.derogLast12mo && !risk.utilizationOverTarget;
 }
 
 // ---------- links / query ----------

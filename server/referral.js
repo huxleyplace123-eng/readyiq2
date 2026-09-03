@@ -9,7 +9,7 @@
 
 import { randomUUID } from 'node:crypto';
 import { assertNoReportData } from './status-object.js';
-import { stage, stageReason, dti, BUFFER_DEFAULT, REVIEW_OUTCOMES } from '../src/state.js';
+import { stage, stageReason, dti, BUFFER_DEFAULT, REVIEW_OUTCOMES, RISK } from '../src/state.js';
 
 export const REFERRAL_VERSION = 1;
 export const REFERRAL_DIRECTIONS = ['lo_to_cr', 'cr_to_lo'];
@@ -32,7 +32,7 @@ export function buildReadinessSummary(consumer, lender) {
     stage: stage(consumer, lender),
     reason: stageReason(consumer, lender),
     floors_met: (lender.programs || []).filter((p) => score != null && score >= p.floor).map((p) => p.name),
-    dti_in_range: r == null ? null : r <= 0.45,
+    dti_in_range: r == null ? null : r <= RISK.dtiMax,
     rent_months_verified: consumer.rentReporting?.linked ? consumer.rentReporting.monthsAvailable : 0,
     disputes: {
       open: (consumer.disputes || []).filter((d) => d.status !== 'resolved').length,
