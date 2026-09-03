@@ -5,6 +5,10 @@ import { normalizeUpdate, applyPartnerUpdate } from '../server/partners/normaliz
 import { fixtures, getConsumer, stage } from '../src/state.js';
 import { parseCsv, CSV_COLUMNS } from '../server/partners/csv.js';
 import { verifyZapierToken, fromZapier } from '../server/partners/zapier.js';
+import { verifyDisputeChat, fromDisputeChat } from '../server/partners/disputechat.js';
+import { fromCreditRepairCloud, PartnerNotAvailable } from '../server/partners/credit-repair-cloud.js';
+import { fromDisputeFox } from '../server/partners/disputefox.js';
+import { signature } from '../server/dispatch.js';
 
 test('the ladder is L0 csv, L1 zapier, L2 natives — and only DisputeChat is buildable today', () => {
   assert.deepEqual(partnersByLevel(), { 0: ['csv'], 1: ['zapier'], 2: ['disputechat', 'credit_repair_cloud', 'disputefox'] });
@@ -71,4 +75,23 @@ test('L1: a Zap posts flat fields with a shared token', () => {
   assert.deepEqual(u.disputes, { open: null, resolved: 1 });
   assert.equal(u.round_completed, true);
   assert.deepEqual(u.blockers_cleared, ['utilization']);
+});
+
+test('L2 (ours): DisputeChat signs with our scheme and maps its dispute-round shape', () => {
+  const body = JSON.stringify({ clientId: 'sam', disputeRound: { n: 1, open: 0, resolved: 2 }, occurredAt: '2026-09-05T09:00:00Z' });
+  const ts = Math.floor(Date.now() / 1000);
+  const good = { 'x-readyiq-signature': signature('dc_secret', ts, body) };
+  assert.equal(verifyDisputeChat(good, body, 'dc_secret'), true);
+  assert.equal(verifyDisputeChat(good, body + ' ', 'dc_secret'), false);
+  const u = fromDisputeChat(JSON.parse(body));
+  assert.equal(u.source, 'disputechat');
+  assert.equal(u.consumer_ref, 'c_sam');
+  assert.deepEqual(u.disputes, { open: 0, resolved: 2 });
+  assert.equal(u.round_completed, true);
+});
+
+test('L2 (theirs): CRC and DisputeFox fail loudly and point at Zapier', () => {
+  for (const fn of [fromCreditRepairCloud, fromDisputeFox]) {
+    assert.throws(() => fn({}), (e) => e instanceof PartnerNotAvailable && e.workaround === 'zapier' && /blocked on/.test(e.message));
+  }
 });
