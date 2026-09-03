@@ -9,7 +9,7 @@
 
 import { randomUUID } from 'node:crypto';
 import { assertNoReportData } from './status-object.js';
-import { stage, stageReason, dti, BUFFER_DEFAULT, REVIEW_OUTCOMES, RISK } from '../src/state.js';
+import { stage, stageReason, dti, BUFFER_DEFAULT, REVIEW_OUTCOMES, RISK, isDisputeOpen } from '../src/state.js';
 
 export const REFERRAL_VERSION = 1;
 export const REFERRAL_DIRECTIONS = ['lo_to_cr', 'cr_to_lo'];
@@ -34,9 +34,13 @@ export function buildReadinessSummary(consumer, lender) {
     floors_met: (lender.programs || []).filter((p) => score != null && score >= p.floor).map((p) => p.name),
     dti_in_range: r == null ? null : r <= RISK.dtiMax,
     rent_months_verified: consumer.rentReporting?.linked ? consumer.rentReporting.monthsAvailable : 0,
+    // Withdrawn is reported separately and never folded into resolved: the loan
+    // officer is deciding whether to pay for a pull, so "we dropped it" must not
+    // read as "the bureau agreed with us".
     disputes: {
-      open: (consumer.disputes || []).filter((d) => d.status !== 'resolved').length,
+      open: (consumer.disputes || []).filter(isDisputeOpen).length,
       resolved: (consumer.disputes || []).filter((d) => d.status === 'resolved').length,
+      withdrawn: (consumer.disputes || []).filter((d) => d.status === 'withdrawn').length,
     },
     lo_of_record: consumer.attribution?.lo ?? consumer.loId ?? null,
     buffer_applied: lender.buffer ?? BUFFER_DEFAULT,

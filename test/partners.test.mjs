@@ -37,11 +37,17 @@ test('normalizeUpdate fills defaults and refuses report data', () => {
 test('resolving the open disputes moves Sam from working to approaching and emits the events', () => {
   const s = fixtures();
   assert.equal(stage(getConsumer(s, 'sam'), s.lender), 'working');
-  const out = applyPartnerUpdate(s, normalizeUpdate({ source: 'csv', consumer_ref: 'c_sam', disputes: { resolved: 2 }, round_completed: true }), { lender: s.lender });
+  // The partner reports the round closed out: nothing open, two "done". Sam has one
+  // letter that was actually mailed (d1, sent) and one that never was (d2, draft).
+  const out = applyPartnerUpdate(s, normalizeUpdate({ source: 'csv', consumer_ref: 'c_sam', disputes: { open: 0, resolved: 2 }, round_completed: true }), { lender: s.lender });
   assert.equal(out.before, 'working');
   assert.equal(out.after, 'approaching');            // sam: 648, floor 640, buffer 20 → inside the band
   assert.deepEqual(out.events, ['round.completed', 'readiness.approaching']);
-  assert.equal(getConsumer(s, 'sam').disputes.filter((d) => d.status === 'resolved').length, 2);
+  const sam = getConsumer(s, 'sam');
+  assert.equal(sam.disputes.filter((d) => d.status === 'resolved').length, 1, 'only the mailed letter can be resolved');
+  assert.equal(sam.disputes.filter((d) => d.status === 'withdrawn').length, 1, 'the never-mailed draft is withdrawn, not a win');
+  assert.equal(sam.disputes.find((d) => d.id === 'd1').status, 'resolved');
+  assert.equal(sam.disputes.find((d) => d.id === 'd2').status, 'withdrawn');
 });
 
 test('an update with nothing new emits nothing', () => {
@@ -95,4 +101,23 @@ test('L2 (theirs): CRC and DisputeFox fail loudly and point at Zapier', () => {
   for (const fn of [fromCreditRepairCloud, fromDisputeFox]) {
     assert.throws(() => fn({}), (e) => e instanceof PartnerNotAvailable && e.workaround === 'zapier' && /blocked on/.test(e.message));
   }
+});
+
+test('a partner cannot report a never-mailed letter as resolved, however many it claims', () => {
+  const s = fixtures();
+  // Sam has one mailed letter (d1) and one draft (d2). The partner over-claims: 5 resolved.
+  applyPartnerUpdate(s, normalizeUpdate({ source: 'zapier', consumer_ref: 'c_sam', disputes: { resolved: 5 } }), { lender: s.lender });
+  const sam = getConsumer(s, 'sam');
+  assert.equal(sam.disputes.filter((d) => d.status === 'resolved').length, 1, 'only the mailed letter moves');
+  assert.equal(sam.disputes.find((d) => d.id === 'd2').status, 'draft', 'an unmailed draft is untouched while work is still open');
+  // Without an explicit "nothing open", the draft is still open work and Sam stays put.
+  assert.equal(stage(sam, s.lender), 'working');
+});
+
+test('the readiness summary a loan officer reads separates dropped from won', async () => {
+  const { buildReadinessSummary } = await import('../server/referral.js');
+  const s = fixtures();
+  applyPartnerUpdate(s, normalizeUpdate({ source: 'zapier', consumer_ref: 'c_sam', disputes: { open: 0, resolved: 2 } }), { lender: s.lender });
+  const sum = buildReadinessSummary(getConsumer(s, 'sam'), s.lender);
+  assert.deepEqual(sum.disputes, { open: 0, resolved: 1, withdrawn: 1 });
 });

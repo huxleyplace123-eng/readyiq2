@@ -14,7 +14,7 @@ test('a readiness summary is derived status only and never carries report data',
   assert.equal(sum.object, 'readiness_summary');
   assert.equal(sum.stage, 'working');
   assert.equal(sum.reason, 'dispute');
-  assert.deepEqual(sum.disputes, { open: 2, resolved: 0 });
+  assert.deepEqual(sum.disputes, { open: 2, resolved: 0, withdrawn: 0 });
   assert.equal(sum.dti_in_range, true);          // 873 / 7100 = 0.12
   assert.equal(sum.rent_months_verified, 0);
   assert.equal(sum.lo_of_record, 'sarah');

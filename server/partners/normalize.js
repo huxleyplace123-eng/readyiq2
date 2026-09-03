@@ -33,9 +33,18 @@ export function applyPartnerUpdate(state, update, { lender } = {}) {
   const before = stage(c, lender);
   const events = [];
 
+  const day = update.occurred_at.slice(0, 10);
+  // Only a letter that actually reached a bureau can come back resolved. A draft
+  // was never mailed, so it cannot be a win no matter what the partner reports —
+  // this count is what a loan officer reads when deciding whether to pull credit.
   if (update.disputes.resolved != null) {
     let toResolve = update.disputes.resolved - c.disputes.filter((d) => d.status === 'resolved').length;
-    for (const d of c.disputes) if (toResolve > 0 && d.status !== 'resolved') { d.status = 'resolved'; d.resolvedAt = update.occurred_at.slice(0, 10); toResolve--; }
+    for (const d of c.disputes) if (toResolve > 0 && d.status === 'sent') { d.status = 'resolved'; d.resolvedAt = day; toResolve--; }
+  }
+  // The partner says nothing is open any more: anything still drafted was
+  // abandoned, not won. It stays visible, labelled for what it is.
+  if (update.disputes.open === 0) {
+    for (const d of c.disputes) if (d.status === 'draft') { d.status = 'withdrawn'; d.withdrawnAt = day; }
   }
   if (update.rent_months_verified != null) {
     c.rentReporting = { ...c.rentReporting, linked: true, monthsAvailable: update.rent_months_verified };

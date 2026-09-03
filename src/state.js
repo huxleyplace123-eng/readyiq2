@@ -178,6 +178,16 @@ export function monthsSince(iso, today = TODAY) {
 export const RISK = Object.freeze({ utilizationHigh: 0.5, utilizationTarget: 0.3, dtiMax: 0.45, derogWindowMonths: 24 });
 
 /**
+ * A dispute letter's life: draft (written) → sent (mailed to the bureau) →
+ * resolved (the bureau answered). A draft the firm decided not to pursue is
+ * `withdrawn`. Only `draft` and `sent` are still open work; `withdrawn` is
+ * closed but is NOT a win, which is why it is counted separately everywhere
+ * a loan officer reads it.
+ */
+export const DISPUTE_CLOSED = Object.freeze(['resolved', 'withdrawn']);
+export const isDisputeOpen = (d) => !DISPUTE_CLOSED.includes(d.status);
+
+/**
  * The four risk questions every rule in this file asks of a file.
  *
  * `assignPathway` and `stage` answer different questions — what should this
@@ -190,7 +200,7 @@ export function riskSignals(c) {
   const cr = c.credit;
   const dtiRatio = dti(cr.monthlyDebts, c.income);
   return {
-    openDisputes: (c.disputes || []).some((d) => d.status !== 'resolved'),
+    openDisputes: (c.disputes || []).some(isDisputeOpen),
     dtiRatio,
     dtiOverMax: dtiRatio != null && dtiRatio > RISK.dtiMax,
     derogRecent: cr.latesLast24mo > 0 || (c.publicRecords || []).some((p) => monthsSince(p.date) <= RISK.derogWindowMonths),
@@ -314,7 +324,7 @@ export function packet(state, id) {
     floorsMet: state.lender.programs.filter((p) => score != null && score >= p.floor).map((p) => p.name),
     dtiEstimate: dti(c.credit.monthlyDebts, c.income),
     rentMonths: c.rentReporting.linked ? c.rentReporting.monthsAvailable : 0,
-    disputesOpen: c.disputes.filter((d) => d.status !== 'resolved').length,
+    disputesOpen: c.disputes.filter(isDisputeOpen).length,
     disputesResolved: c.disputes.filter((d) => d.status === 'resolved').length,
     income: c.income,
   };

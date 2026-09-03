@@ -19,7 +19,7 @@ const consent = { granted_at: '2026-09-02T15:00:00Z', scope: 'share_readiness_su
 test('the loop over HTTP: zapier in → referral out → outcome → precision', async () => {
   const { base, sent, close } = await boot();
   try {
-    const inb = await fetch(`${base}/v1/inbound/zapier?tenant=harbor`, { method: 'POST', headers: { 'content-type': 'application/json', 'x-readyiq-token': 'zap_abc' }, body: JSON.stringify({ consumer_ref: 'c_sam', disputes_resolved: 2, round_completed: 'yes' }) });
+    const inb = await fetch(`${base}/v1/inbound/zapier?tenant=harbor`, { method: 'POST', headers: { 'content-type': 'application/json', 'x-readyiq-token': 'zap_abc' }, body: JSON.stringify({ consumer_ref: 'c_sam', disputes_open: 0, disputes_resolved: 2, round_completed: 'yes' }) });
     assert.equal(inb.status, 200);
     assert.deepEqual((await j(inb)).applied[0].events, ['round.completed', 'readiness.approaching']);
 
