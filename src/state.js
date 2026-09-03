@@ -53,7 +53,7 @@ const FIXTURES = {
       deltas: [{ points: 14, cause: 'Utilization down — Capital One paid to $210' }, { points: 6, cause: 'Lates aging — now 14 months old' }, { points: -6, cause: 'New inquiry — Honda Financial' }],
       milestones: [M('Enrolled', '2026-06-20', 'done'), M('Round 1 complete', '2026-07-20', 'done'), M('Utilization under 50%', '2026-08-02', 'done'), M('Round 2', null, 'current'), M('Utilization under 30%', null, 'upcoming'), M('12 clean months', '2026-10-15', 'upcoming'), M('Request review', null, 'upcoming')],
       nextAction: { title: 'Pay Capital One below 30% before the 22nd', detail: 'Your statement closes on the 22nd. Paying $95 more moves the whole card under 30% — the fastest lever you have this round.', lever: 'utilization', engine: 'CreditBuilderIQ', href: '#plan' },
-      alerts: [], loanFile: null },
+      alerts: [], loanFile: null, reviewOutcome: null },
     { id: 'jordan', first: 'Jordan', last: 'Lee', email: 'jordan.lee@example.com', mobile: '(628) 555-0133', loId: 'sarah',
       attribution: { lender: 'harbor', lo: 'sarah', source: 'agent', partner: 'dana', campaign: null },
       status: 'active', pathway: 'thin', round: 1, roundsEstimated: 4, guardian: false, reviewRequestedAt: null, enrolledAt: '2026-08-05',
@@ -65,7 +65,7 @@ const FIXTURES = {
       deltas: [],
       milestones: [M('Enrolled', '2026-08-05', 'done'), M('Bank linked', '2026-08-06', 'done'), M('Report 19 months of rent', null, 'current'), M('Add utilities', null, 'upcoming'), M('First score', null, 'upcoming'), M('Request review', null, 'upcoming')],
       nextAction: { title: 'Report your 19 months of rent', detail: 'We found 19 on-time rent payments in your linked bank account. Reporting them adds history to all three bureaus and builds the 12-month rent record lenders can use.', lever: 'thin-file', engine: 'CreditBuilderIQ', href: '#build' },
-      alerts: [], loanFile: null },
+      alerts: [], loanFile: null, reviewOutcome: null },
     { id: 'denise', first: 'Denise', last: 'Alvarez', email: 'denise.a@example.com', mobile: '(925) 555-0161', loId: 'marcus',
       attribution: { lender: 'harbor', lo: 'marcus', source: 'lo', partner: null, campaign: null },
       status: 'active', pathway: 'near_ready', round: 3, roundsEstimated: 3, guardian: false, reviewRequestedAt: null, enrolledAt: '2026-05-28',
@@ -77,7 +77,7 @@ const FIXTURES = {
       deltas: [{ points: 13, cause: 'Utilization down — Discover paid from 52% to 34%' }],
       milestones: [M('Enrolled', '2026-05-28', 'done'), M('Round 1 complete', '2026-06-28', 'done'), M('Round 2 complete', '2026-07-28', 'done'), M('Round 3', null, 'current'), M('Cross 640', null, 'upcoming'), M('Request review', null, 'upcoming')],
       nextAction: { title: 'Take Discover from 34% to under 30%', detail: 'You are 6 points from Harbor’s conventional floor. About $190 before the 22nd statement date is the shortest path.', lever: 'utilization', engine: 'CreditBuilderIQ', href: '#plan' },
-      alerts: [], loanFile: null },
+      alerts: [], loanFile: null, reviewOutcome: null },
     { id: 'sam', first: 'Sam', last: 'Okafor', email: 'sam.okafor@example.com', mobile: '(510) 555-0184', loId: 'sarah',
       attribution: { lender: 'harbor', lo: 'sarah', source: 'campaign', partner: null, campaign: 'spring-reactivation' },
       status: 'active', pathway: 'dispute', round: 1, roundsEstimated: 4, guardian: false, reviewRequestedAt: null, enrolledAt: '2026-08-01',
@@ -94,7 +94,7 @@ const FIXTURES = {
       deltas: [],
       milestones: [M('Enrolled', '2026-08-01', 'done'), M('Disputes sent', '2026-08-06', 'current'), M('Bureau responses', null, 'upcoming'), M('Disputes resolved', null, 'upcoming'), M('Request review', null, 'upcoming')],
       nextAction: { title: 'Send the duplicate-collection dispute', detail: 'The Midland collection repeats a balance already on your Comenity account. Sending it now keeps both disputes on the same 30-day clock so they finish before your review.', lever: 'derogatories', engine: 'CreditBuilderIQ', href: '#disputes' },
-      alerts: [], loanFile: null },
+      alerts: [], loanFile: null, reviewOutcome: null },
     { id: 'priya', first: 'Priya', last: 'Nair', email: 'priya.nair@example.com', mobile: '(650) 555-0107', loId: 'sarah',
       attribution: { lender: 'harbor', lo: 'sarah', source: 'lo', partner: null, campaign: null },
       status: 'review_requested', pathway: 'ready_now', round: 2, roundsEstimated: 2, guardian: false, reviewRequestedAt: '2026-08-17', enrolledAt: '2026-06-02',
@@ -106,7 +106,7 @@ const FIXTURES = {
       deltas: [{ points: 14, cause: 'Utilization down — Amex paid from 29% to 18%' }],
       milestones: [M('Enrolled', '2026-06-02', 'done'), M('Round 1 complete', '2026-07-02', 'done'), M('Crossed 640', '2026-07-30', 'done'), M('Review requested', '2026-08-17', 'current'), M('Lender review', null, 'upcoming')],
       nextAction: { title: 'Sarah has your packet', detail: 'You requested a review on Aug 17. Sarah Miller has been notified and will reach out to schedule. Keep balances where they are until you talk.', lever: 'review', engine: 'MyScoreIQ', href: '#review' },
-      alerts: [], loanFile: null },
+      alerts: [], loanFile: null, reviewOutcome: null },
     { id: 'tom', first: 'Tom', last: 'Reyes', email: 'tom.reyes@example.com', mobile: '(408) 555-0122', loId: 'marcus',
       attribution: { lender: 'harbor', lo: 'marcus', source: 'lo', partner: null, campaign: null },
       status: 'applied', pathway: 'ready_now', round: 3, roundsEstimated: 3, guardian: true, reviewRequestedAt: '2026-07-20', enrolledAt: '2026-04-15',
@@ -119,7 +119,7 @@ const FIXTURES = {
       milestones: [M('Enrolled', '2026-04-15', 'done'), M('Review requested', '2026-07-20', 'done'), M('Application started', '2026-07-28', 'done'), M('Guardian on', '2026-07-28', 'current'), M('Closing', '2026-09-24', 'upcoming')],
       nextAction: { title: 'Ask Marcus before you act on the CarMax inquiry', detail: 'A new hard inquiry appeared yesterday. If you are shopping for a car, tell Marcus first — a new loan before closing can change your approval.', lever: 'guardian', engine: 'MyScoreIQ', href: '#guardian' },
       alerts: [{ type: 'inquiry', text: 'New hard inquiry — CarMax Auto Finance', date: '2026-08-17' }, { type: 'balance', text: 'Chase Freedom balance up $640', date: '2026-08-12' }],
-      loanFile: { active: true, closingDate: '2026-09-24' } },
+      loanFile: { active: true, closingDate: '2026-09-24' }, reviewOutcome: null },
     { id: 'aisha', first: 'Aisha', last: 'Bell', email: 'aisha.bell@example.com', mobile: '(916) 555-0148', loId: 'sarah',
       attribution: { lender: 'harbor', lo: 'sarah', source: 'lo', partner: null, campaign: null },
       status: 'active', pathway: 'build', round: 1, roundsEstimated: 6, guardian: false, reviewRequestedAt: null, enrolledAt: '2026-08-10',
@@ -131,7 +131,7 @@ const FIXTURES = {
       deltas: [],
       milestones: [M('Enrolled', '2026-08-10', 'done'), M('Round 1', null, 'current'), M('Utilization under 30%', null, 'upcoming'), M('Rent history reported', null, 'upcoming'), M('FHA eligibility date', '2027-03-12', 'upcoming'), M('Request review', null, 'upcoming')],
       nextAction: { title: 'Bring the secured card under 30%', detail: 'Your Chapter 7 waiting period runs until March 12, 2027 for FHA. Every month until then is building time — utilization first, then rent history.', lever: 'utilization', engine: 'CreditBuilderIQ', href: '#plan' },
-      alerts: [], loanFile: null },
+      alerts: [], loanFile: null, reviewOutcome: null },
   ],
   invites: [
     { id: 'i1', first: 'Luis', last: 'Herrera', email: 'luis.h@example.com', mobile: '(510) 555-0171', loId: 'sarah', branch: 'Oakland', source: 'Website', channel: 'Email + text', invitedAt: '2026-08-16', status: 'invited' },
@@ -264,6 +264,13 @@ export function requestReview(state, id, { income } = {}) {
   c.milestones.splice(i < 0 ? c.milestones.length : i, 0, M('Review requested', TODAY, 'current'));
   const lo = getLO(state, c.loId);
   c.nextAction = { title: `${lo ? lo.first : 'Your loan officer'} has your packet`, detail: 'Your loan officer has been notified and will reach out to schedule. Keep balances where they are until you talk.', lever: 'review', engine: 'MyScoreIQ', href: '#review' };
+  return c;
+}
+export const REVIEW_OUTCOMES = ['qualified', 'short', 'declined_review'];
+export function recordReviewOutcome(state, id, { outcome, at = TODAY } = {}) {
+  const c = getConsumer(state, id); if (!c) return null;
+  if (!REVIEW_OUTCOMES.includes(outcome)) throw new RangeError(`unknown outcome "${outcome}"`);
+  c.reviewOutcome = { outcome, at };
   return c;
 }
 export function setGuardian(state, id, on) { const c = getConsumer(state, id); if (c) c.guardian = !!on; return c; }

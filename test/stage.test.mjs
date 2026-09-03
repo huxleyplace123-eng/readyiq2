@@ -43,3 +43,11 @@ test('stageReason keeps the pathway as the reason under Working', () => {
   assert.equal(S.stageReason(S.getConsumer(s, 'maria'), s.lender), 'build');
   assert.equal(S.stageReason(S.getConsumer(s, 'jordan'), s.lender), 'thin');
 });
+
+test('recordReviewOutcome stores the formal-pull result on the consumer', () => {
+  const s = S.fixtures();
+  const c = S.recordReviewOutcome(s, 'priya', { outcome: 'qualified', at: '2026-09-03' });
+  assert.deepEqual(c.reviewOutcome, { outcome: 'qualified', at: '2026-09-03' });
+  assert.throws(() => S.recordReviewOutcome(s, 'priya', { outcome: 'maybe' }), /unknown outcome/);
+  assert.equal(S.recordReviewOutcome(s, 'nobody', { outcome: 'short' }), null);
+});
