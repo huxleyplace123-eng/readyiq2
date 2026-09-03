@@ -50,4 +50,6 @@ test('nothing of value may ride on a referral, at any depth', () => {
     assert.throws(() => assertReferralCompliant({ ...r, extra: { [bad]: 1 } }), ReferralNotCompliant, bad);
   }
   assert.throws(() => assertReferralCompliant({ ...r, summary: { ...r.summary, score: 700 } }), /report data/);
+  assert.throws(() => assertReferralCompliant({ ...r, income: 5000 }), /report data/);           // report key at the top level
+  assert.throws(() => assertReferralCompliant({ ...r, to: [{ ...lo, fee: 1 }] }), ReferralNotCompliant); // value key nested inside an array element
 });

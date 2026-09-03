@@ -70,7 +70,7 @@ export function assertReferralCompliant(referral) {
   for (const p of referral.to) if (!PARTY_KINDS.includes(p.kind)) throw new ReferralNotCompliant(`unknown party kind "${p.kind}"`);
   if (!referral.consent?.granted_at) throw new ReferralNotCompliant('consent.granted_at missing');
   walk(referral, 'referral');
-  assertNoReportData(referral.summary, 'referral.summary');
+  assertNoReportData(referral, 'referral');
   return referral;
 }
 
