@@ -1000,7 +1000,7 @@ Goal: prove that an LO acts on a readiness summary. No portal needed.
    disputes open / resolved, whether a round finished, verified rent months, which blockers cleared.
    Never enter a score, a balance, or anything from the report itself — the importer rejects those columns.
 2. Fill one row per client in `level-0-template.csv` (consumer_ref is the `c_<id>` ReadyIQ gave you).
-3. Send the CSV to ReadyIQ: `curl -F file=@level-0.csv http://<rail>/v1/inbound/csv?tenant=<tenant>` (or hand it over; the operator runs `node scripts/import-csv.mjs`).
+3. Send the CSV to ReadyIQ as the raw request body: `curl --data-binary @level-0.csv -H "content-type: text/csv" "http://<rail>/v1/inbound/csv?tenant=<tenant>"` (or hand the file to the ReadyIQ operator, who runs the same command against the local rail started with `npm run rail`).
 4. ReadyIQ recomputes each client's stage. Anyone who crosses into **Approaching ready** triggers a
    "recommend soft tri-merge" event to the LO of record.
 
@@ -1010,7 +1010,7 @@ Goal: prove that an LO acts on a readiness summary. No portal needed.
    Pick one or MORE loan officers. Never one by default.
 6. The LO receives the readiness summary (stage, floors met, DTI in range, rent months, disputes) — no score, no report.
 7. The LO requests the formal pull through their normal vendor and records the result:
-   `POST /v1/referrals/<id>/outcome {"outcome":"qualified"|"short"}`.
+   `POST /v1/referrals/<id>/outcome?tenant=<tenant> {"outcome":"qualified"|"short"}`.
 
 ## What we measure
 - Precision: qualified ÷ (qualified + short) from `GET /v1/precision?tenant=<tenant>`. Below ~0.7, widen the buffer.
