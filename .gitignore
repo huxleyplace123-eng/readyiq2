@@ -1,2 +1,6 @@
 node_modules/
 .sites-runtime/
+
+# agent worktrees + scratch
+.worktrees/
+.superpowers/
