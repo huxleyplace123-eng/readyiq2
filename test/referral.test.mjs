@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildReadinessSummary, buildReferral, assertReferralCompliant, ReferralNotCompliant, REFERRAL_DIRECTIONS } from '../server/referral.js';
+import { buildReadinessSummary, buildReferral, assertReferralCompliant, ReferralNotCompliant, REFERRAL_DIRECTIONS, ReferralLog } from '../server/referral.js';
 import { assertNoReportData } from '../server/status-object.js';
 import { fixtures, getConsumer } from '../src/state.js';
 
@@ -52,4 +52,24 @@ test('nothing of value may ride on a referral, at any depth', () => {
   assert.throws(() => assertReferralCompliant({ ...r, summary: { ...r.summary, score: 700 } }), /report data/);
   assert.throws(() => assertReferralCompliant({ ...r, income: 5000 }), /report data/);           // report key at the top level
   assert.throws(() => assertReferralCompliant({ ...r, to: [{ ...lo, fee: 1 }] }), ReferralNotCompliant); // value key nested inside an array element
+});
+
+test('the log is append-only and the precision number is qualified over flagged', () => {
+  const log = new ReferralLog();
+  const mk = (id, who) => buildReferral({ direction: 'cr_to_lo', from: cr, to: [lo], consumer: getConsumer(s, who), lender: s.lender, consent, id });
+  log.record(mk('ref_a', 'priya'), { tenantId: 'harbor' });
+  log.record(mk('ref_b', 'tom'), { tenantId: 'harbor' });
+  log.record(mk('ref_c', 'denise'), { tenantId: 'harbor' });
+  log.record(mk('ref_d', 'priya'), { tenantId: 'other' });
+
+  assert.equal(log.list({ tenantId: 'harbor' }).length, 3);
+  assert.equal(log.list({ tenantId: 'harbor', consumerRef: 'c_priya' }).length, 1);
+  assert.deepEqual(log.precision('harbor'), { flagged: 3, qualified: 0, short: 0, rate: null });
+
+  log.setOutcome('ref_a', { outcome: 'qualified', at: '2026-09-05' });
+  log.setOutcome('ref_b', { outcome: 'short', at: '2026-09-06' });
+  assert.deepEqual(log.precision('harbor'), { flagged: 3, qualified: 1, short: 1, rate: 0.5 });
+  assert.throws(() => log.setOutcome('ref_zzz', { outcome: 'qualified' }), /not found/);
+  assert.throws(() => log.setOutcome('ref_c', { outcome: 'maybe' }), /unknown outcome/);
+  assert.throws(() => log.record(mk('ref_a', 'priya'), { tenantId: 'harbor' }), /already recorded/);
 });

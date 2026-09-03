@@ -9,7 +9,7 @@
 
 import { randomUUID } from 'node:crypto';
 import { assertNoReportData } from './status-object.js';
-import { stage, stageReason, dti, BUFFER_DEFAULT } from '../src/state.js';
+import { stage, stageReason, dti, BUFFER_DEFAULT, REVIEW_OUTCOMES } from '../src/state.js';
 
 export const REFERRAL_VERSION = 1;
 export const REFERRAL_DIRECTIONS = ['lo_to_cr', 'cr_to_lo'];
@@ -81,5 +81,44 @@ function walk(value, path, seen = new Set()) {
   for (const [k, v] of Object.entries(value)) {
     if (VALUE_KEYS.has(k.toLowerCase())) throw new ReferralNotCompliant(`a referral may not carry a thing of value (found "${path}.${k}")`);
     walk(v, `${path}.${k}`, seen);
+  }
+}
+
+/** Append-only, in-memory, database-shaped. The audit trail a RESPA reviewer asks for. */
+export class ReferralLog {
+  #entries = new Map();
+
+  record(referral, { tenantId } = {}) {
+    assertReferralCompliant(referral);
+    if (!tenantId) throw new TypeError('tenantId required');
+    if (this.#entries.has(referral.id)) throw new Error(`referral ${referral.id} already recorded`);
+    this.#entries.set(referral.id, { tenantId, referral, outcome: null, recordedAt: new Date().toISOString() });
+    return referral;
+  }
+
+  get(id) { return this.#entries.get(id) ?? null; }
+
+  list({ tenantId, direction, consumerRef } = {}) {
+    return [...this.#entries.values()].filter((e) =>
+      (!tenantId || e.tenantId === tenantId) &&
+      (!direction || e.referral.direction === direction) &&
+      (!consumerRef || e.referral.consumer_ref === consumerRef));
+  }
+
+  /** Set by the LO after the formal pull. `rate` is qualified ÷ (qualified + short). */
+  setOutcome(id, { outcome, at = new Date().toISOString().slice(0, 10) } = {}) {
+    const entry = this.#entries.get(id);
+    if (!entry) throw new Error(`referral ${id} not found`);
+    if (!REVIEW_OUTCOMES.includes(outcome)) throw new RangeError(`unknown outcome "${outcome}"`);
+    entry.outcome = { outcome, at };
+    return entry;
+  }
+
+  precision(tenantId) {
+    const sent = this.list({ tenantId, direction: 'cr_to_lo' });
+    const qualified = sent.filter((e) => e.outcome?.outcome === 'qualified').length;
+    const short = sent.filter((e) => e.outcome?.outcome === 'short').length;
+    const decided = qualified + short;
+    return { flagged: sent.length, qualified, short, rate: decided ? Math.round((qualified / decided) * 100) / 100 : null };
   }
 }
