@@ -49,3 +49,31 @@ test('errors are JSON with the right status', async () => {
     assert.equal((await fetch(`${base}/v1/inbound/credit_repair_cloud?tenant=harbor`, { method: 'POST', body: '{}' })).status, 501);
   } finally { await close(); }
 });
+
+test('an oversized body gets a real 413, not a dropped connection', async () => {
+  const { base, close } = await boot();
+  try {
+    const big = 'x'.repeat(300 * 1024);
+    const r = await fetch(`${base}/v1/referrals?tenant=harbor`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: big });
+    assert.equal(r.status, 413);
+    assert.deepEqual(await r.json(), { error: 'body_too_large' });
+  } finally { await close(); }
+});
+
+test('referrals, outcomes and precision are tenant-scoped', async () => {
+  const { base, close } = await boot();
+  try {
+    const mk = (tenant) => fetch(`${base}/v1/referrals?tenant=${tenant}`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ direction: 'cr_to_lo', from: { kind: 'credit_repair', id: 'brightpath' }, to: [{ kind: 'lo', id: 'sarah' }], consumerId: 'priya', consent }) });
+    const harbor = await (await mk('harbor')).json();
+    await mk('other');
+    assert.equal((await fetch(`${base}/v1/referrals`)).status, 400);
+    assert.equal((await fetch(`${base}/v1/precision`)).status, 400);
+    assert.equal((await (await fetch(`${base}/v1/referrals?tenant=harbor`)).json()).length, 1);
+    const wrong = await fetch(`${base}/v1/referrals/${harbor.id}/outcome?tenant=other`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ outcome: 'qualified' }) });
+    assert.equal(wrong.status, 404);
+    assert.equal((await fetch(`${base}/v1/referrals/${harbor.id}/outcome`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ outcome: 'qualified' }) })).status, 400);
+    const right = await fetch(`${base}/v1/referrals/${harbor.id}/outcome?tenant=harbor`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ outcome: 'qualified' }) });
+    assert.equal(right.status, 200);
+    assert.deepEqual(await (await fetch(`${base}/v1/precision?tenant=other`)).json(), { flagged: 1, qualified: 0, short: 0, rate: null });
+  } finally { await close(); }
+});

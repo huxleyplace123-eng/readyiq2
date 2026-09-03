@@ -1526,7 +1526,7 @@ Add to `package.json` scripts: `"rail": "node scripts/rail.mjs"`.
 
 Run: `npm test`
 Expected: PASS. Then smoke: `npm run rail` in one terminal, and in another:
-`curl -s -X POST "http://localhost:4630/v1/precision?tenant=harbor"` → `{"flagged":0,"qualified":0,"short":0,"rate":null}`
+`curl -s "http://localhost:4630/v1/precision?tenant=harbor"` → `{"flagged":0,"qualified":0,"short":0,"rate":null}`
 
 - [ ] **Step 5: Commit**
 
