@@ -186,3 +186,15 @@ a.primary-dark,a.primary-lime,a.outline-button{text-decoration:none;display:inli
   .partner-row{grid-template-columns:38px minmax(0,1fr);row-gap:6px}
   .partner-row>:nth-child(n+3){grid-column:2;justify-self:start}
 }
+
+/* — Home hero: stage first, scores demoted to a caption — */
+.lo-hero-stage{display:grid;gap:8px;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+.lo-hero-stage .status-cell{justify-self:start;font-size:12px}
+.lo-hero-stage p{margin:0;font-size:14px;line-height:1.45;color:#e7efe9}
+.lo-hero-stage small{font-size:11.5px;color:#8ea39b}
+/* — Works-with band: honest about what is live today — */
+.stack-band{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;justify-content:center;padding:6px 0}
+.stack-band b{font-size:13px;font-weight:800;padding:6px 12px;border-radius:20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#e7efe9}
+.stack-band i{flex-basis:100%;text-align:center;font-style:normal;font-size:12px;color:#8ea39b;margin-top:4px}
+.module-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:900px){.module-grid.three{grid-template-columns:1fr}}

@@ -91,12 +91,22 @@ function walk(value, path, seen = new Set()) {
 /** Append-only, in-memory, database-shaped. The audit trail a RESPA reviewer asks for. */
 export class ReferralLog {
   #entries = new Map();
+  #store;
+
+  /** @param {{ store?: { load(fallback:any):any, save(v:any):any } }} [opts] */
+  constructor({ store } = {}) {
+    this.#store = store ?? null;
+    const saved = this.#store?.load([]) ?? [];
+    for (const e of saved) this.#entries.set(e.referral.id, e);
+  }
+  #persist() { if (this.#store) this.#store.save([...this.#entries.values()]); }
 
   record(referral, { tenantId } = {}) {
     assertReferralCompliant(referral);
     if (!tenantId) throw new TypeError('tenantId required');
     if (this.#entries.has(referral.id)) throw new Error(`referral ${referral.id} already recorded`);
     this.#entries.set(referral.id, { tenantId, referral, outcome: null, recordedAt: new Date().toISOString() });
+    this.#persist();
     return referral;
   }
 
@@ -115,6 +125,7 @@ export class ReferralLog {
     if (!entry) throw new Error(`referral ${id} not found`);
     if (!REVIEW_OUTCOMES.includes(outcome)) throw new RangeError(`unknown outcome "${outcome}"`);
     entry.outcome = { outcome, at };
+    this.#persist();
     return entry;
   }
 

@@ -16,10 +16,11 @@ writeFileSync('site/app.css', css);
 
 // path → [title, description]
 const ROUTES = {
-  '': ['ReadyIQ for mortgage teams — guide credit-challenged leads', 'Give credit-challenged future homebuyers private tools and a clear next step, see approved progress, and reconnect when they are ready for another mortgage conversation.'],
-  'platform': ['How ReadyIQ works — consumer credit tools and loan officer progress', 'Consumers use guided credit-building and dispute tools. Loan officers receive permission-based progress updates, never the private credit report.'],
-  'loan-officers': ['ReadyIQ for loan officers — one link, zero busywork', 'Sixty seconds to a link you can text, print or email. Status only, never the report.'],
-  'consumers': ['ReadyIQ for consumers — understand your credit and take the next step', 'See your credit, follow one clear step at a time, review possible errors, and add eligible rent or bill history.'],
+  '': ['ReadyIQ — turn declines into a managed pipeline', 'Every not-ready borrower gets a readiness stage, a plan, and a way back to the loan officer. Credit-repair partners work the file. One signal comes back when it is time: ready to review.'],
+  'platform': ['How ReadyIQ works — four stages, one buffer, one signal', 'A decline is a stage, not an ending. The loop between loan officers and credit-repair partners, with a buffer so nobody is called ready on a non-mortgage score.'],
+  'credit-repair': ['ReadyIQ for credit repair firms — win and keep LO referral relationships', 'Send a client back to their loan officer with consent, in one screen: a stage and the blockers, never a score or the report.'],
+  'loan-officers': ['ReadyIQ for loan officers — who’s not ready, progressing, ready to review', 'One feed, one blocker per person, one signal when a soft pull is worth your money.'],
+  'consumers': ['ReadyIQ for borrowers — your stage and your next step', 'You are not a decline. See where you are, the one thing to do next, and who can see what.'],
   'partners': ['ReadyIQ for partners — realtors and property managers', 'Partner links and QR for realtors and buildings. Renters start rent history 12–24 months early. Coarse status only.'],
   'products/check': ['Check your credit without hurting your score | ReadyIQ', 'With your permission, see information from Equifax, Experian, and TransUnion through a soft credit check.'],
   'products/dispute-hub': ['Dispute Hub — by bureau, one item at a time | ReadyIQ', 'Negative items by bureau, handled one at a time: is this right → reason → letter → track. CreditBuilderIQ.'],
@@ -27,7 +28,7 @@ const ROUTES = {
   'products/protect-mode': ['Protect Mode — from application to closing | ReadyIQ', 'Disputes paused, report watched daily, ask before you act. Keeps files from blowing up before closing.'],
   'products/passport': ['Share your ReadyIQ progress | ReadyIQ', 'A simple progress summary the consumer controls and chooses when to share.'],
   'products/ask': ['Ask ReadyIQ — mortgage guidance in plain English', 'Clear explanations of common mortgage questions. ReadyIQ never predicts an approval.'],
-  'integrations': ['Integrations — one status object, every mortgage system | ReadyIQ', 'Total Expert, Blend, Encompass, Shape, Salesforce, LenderHomePage. Status object, webhooks, API.'],
+  'integrations': ['Integrations — CSV, Zapier and webhooks today; connectors by agreement | ReadyIQ', 'Reach every CRM through a signed webhook today. Shape and Total Expert connectors available; DisputeChat native on the credit-repair side.'],
   'trust': ['Privacy and trust | ReadyIQ', 'See what is shared, what stays private, and how the consumer stays in control.'],
   'resources': ['Resources — guide, explainers, FAQ | ReadyIQ', 'The guide to the eight leader moves, consumer score vs. mortgage score, and frequent questions.'],
   'resources/guide': ['The ReadyIQ Guide — eight ways to make the next step easier', 'Eight clear examples, each linked to the live product tour.'],

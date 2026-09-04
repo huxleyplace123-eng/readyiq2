@@ -8,11 +8,17 @@ import { getConsumer, recordReviewOutcome } from '../src/state.js';
 const MAX_BODY = 256 * 1024;
 const HARD_CAP = 4 * 1024 * 1024; // beyond this, stop reading and drop the connection
 
-export function createRailServer({ state, lender, secretsFor = () => ({}), connections, log }) {
+export function createRailServer({ state, lender, secretsFor = () => ({}), connections, log, stateStore = null }) {
   return createServer(async (req, res) => {
     const url = new URL(req.url, 'http://x');
     const tenantId = url.searchParams.get('tenant');
     const send = (status, body) => { res.writeHead(status, { 'content-type': 'application/json' }); res.end(JSON.stringify(body)); };
+    // The tour is a static site on a different origin; the rail must answer it.
+    res.setHeader('access-control-allow-origin', '*');
+    res.setHeader('access-control-allow-headers', 'content-type, x-readyiq-token, x-readyiq-signature');
+    res.setHeader('access-control-allow-methods', 'GET, POST, OPTIONS');
+    if (req.method === 'OPTIONS') { res.writeHead(204); return res.end(); }
+    if (req.method === 'GET' && (url.pathname === '/' || url.pathname === '/v1/health')) return send(200, { ok: true, service: 'readyiq-rail', tenant: lender?.id ?? null, referrals: log.list({}).length });
 
     let rawBody = '';
     try { rawBody = await readBody(req); } catch { res.setHeader('connection', 'close'); return send(413, { error: 'body_too_large' }); }
@@ -22,6 +28,7 @@ export function createRailServer({ state, lender, secretsFor = () => ({}), conne
 
     if ((match = m('POST', /^\/v1\/inbound\/([a-z_]+)$/))) {
       const out = await receiveInbound({ source: match[1], tenantId, headers: req.headers, rawBody, state, lender, secrets: secretsFor(tenantId), connections });
+      if (out.ok && stateStore) stateStore.save(state);
       return send(out.status, out);
     }
 
