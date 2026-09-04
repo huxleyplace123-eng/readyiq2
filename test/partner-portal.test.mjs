@@ -49,3 +49,9 @@ test('the stage table collapses to cards on phones', () => {
   assert.match(css, /@media\(max-width:767px\)\{[\s\S]*?\.stage-table thead\{display:none\}/);
   assert.match(css, /\.stage-table td::before\{content:attr\(data-label\)/);
 });
+
+test('phone widths: the loan-officer picker outranks the form-label rule, pills wrap instead of clipping', () => {
+  assert.ok(css.includes('.invite-form .partner-lo-pick{display:grid'), 'the picker stays a grid inside .invite-form');
+  assert.match(css, /@media\(max-width:767px\)\{[\s\S]*?\.stage-table \.status-cell\{white-space:normal/);
+  assert.match(css, /\.partner-app \.org-stats\{grid-template-columns:1fr 1fr/);
+});
