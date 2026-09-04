@@ -144,3 +144,45 @@ a.primary-dark,a.primary-lime,a.outline-button{text-decoration:none;display:inli
   .lx-row{grid-template-columns:36px minmax(0,1fr);row-gap:8px}
   .lx-row>:nth-child(n+3){grid-column:2;justify-self:start}
 }
+
+/* — Credit-repair firm surface (screens/partner.tsx) — */
+.partner-dot{background:#c8f36d}
+.partner-mark{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--lime);color:var(--navy);font-weight:900;font-size:12px;letter-spacing:-.02em}
+.partner-buckets{display:grid;gap:14px}
+.partner-row{display:grid;grid-template-columns:38px minmax(0,1fr) auto auto auto auto;gap:12px;align-items:center;width:100%;padding:11px 2px;border:0;border-top:1px solid var(--line);background:none;text-align:left;cursor:pointer}
+.partner-row:hover{background:#f7faf8}
+.partner-row strong{display:block;font-size:14.5px}
+.partner-row small{display:block;color:var(--muted);font-size:12.5px}
+.partner-row b{font-size:12.5px;font-weight:800;color:#2f6a55;white-space:nowrap}
+.partner-days,.partner-lo{white-space:nowrap}
+.partner-case-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-top:16px}
+/* The summary is the trust moment: what goes, beside what never does. */
+.partner-summary{margin-top:10px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.partner-summary dl{margin:0}
+.partner-summary dl>div{display:flex;justify-content:space-between;gap:14px;padding:10px 14px;border-bottom:1px solid #eef2ef}
+.partner-summary dt{font-size:12.5px;color:var(--muted)}
+.partner-summary dd{margin:0;font-size:13.5px;font-weight:700;text-align:right}
+.partner-never{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:11px 14px;background:#f5f8f6}
+.partner-never strong{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a9a94;margin-right:2px}
+.partner-never span{font-size:12px;color:#7b8b85;padding:2px 8px;border:1px solid #dfe7e2;border-radius:20px;background:#fff;text-decoration:line-through}
+.partner-step{display:flex;gap:11px;align-items:flex-start;margin:18px 0 8px}
+.partner-step:first-child{margin-top:4px}
+.partner-step-n{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:var(--lime);font-size:12px;font-weight:800}
+.partner-step strong{display:block;font-size:14.5px}
+.partner-step p{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
+.partner-consent{margin-top:4px}
+.partner-lo-list{display:grid;gap:8px}
+.partner-lo-pick{display:grid;grid-template-columns:18px 34px minmax(0,1fr);gap:11px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:#fff}
+.partner-lo-pick.on{border-color:#9bc44a;background:#f7fce9}
+.partner-lo-pick strong{display:block;font-size:14px}
+.partner-lo-pick small{display:block;color:var(--muted);font-size:12px}
+.partner-fine{display:flex;gap:10px;align-items:flex-start;margin-top:16px;padding:12px 14px;border-radius:12px;background:#f5f8f6;border:1px solid var(--line)}
+.partner-fine p{margin:0;font-size:12.5px;line-height:1.55;color:#5f716b}
+.partner-modal{max-width:640px}
+.partner-form{max-height:min(62vh,560px);overflow-y:auto}
+.partner-next{color:var(--muted);font-size:13px}
+@media(max-width:900px){
+  .partner-case-grid{grid-template-columns:1fr}
+  .partner-row{grid-template-columns:38px minmax(0,1fr);row-gap:6px}
+  .partner-row>:nth-child(n+3){grid-column:2;justify-self:start}
+}
