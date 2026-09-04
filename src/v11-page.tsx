@@ -55,8 +55,8 @@ function DemoToolbar({ mode, setMode, reset, openGuide }: { mode: DemoMode; setM
 
 function ProductSuite({ openConsumer }: { openConsumer: (page?: ConsumerPage) => void }) {
   const [active, setActive] = useState<"dispute" | "reporting" | "building" | "monitoring">("dispute");
-  const tabs = [["dispute", "◇", "Dispute Hub"], ["reporting", "⌂", "Rent & bills"], ["building", "+", "Build credit"], ["monitoring", "↗", "Track & learn"]] as const;
-  return <section className="product-suite" id="products"><div className="product-suite-head"><div><span className="b2b-kicker">WHAT THE CONSUMER SEES</span><h2>Your borrower does the work. <em>You see the progress.</em></h2></div><p>Every screen below is the consumer’s own private workspace, opened from your invitation. They review what may be wrong, build their own dispute letters, add rent or bill history and follow a clear plan — and you see approved progress, never the report itself.</p></div><div className="product-tabs">{tabs.map(([id,icon,label])=><button key={id} className={active===id?"active":""} onClick={()=>setActive(id)}><i>{icon}</i><span>{label}</span></button>)}</div>
+  const tabs = [["dispute", "◇", "Check for mistakes"], ["reporting", "⌂", "Rent & bills"], ["building", "+", "My plan"], ["monitoring", "↗", "Progress"]] as const;
+  return <section className="product-suite" id="products"><div className="product-suite-head"><div><span className="b2b-kicker">WHAT THE BORROWER SEES</span><h2>The borrower does the work. <em>You see the stage.</em></h2></div><p>Every screen below is the borrower’s own private workspace — reached from a loan officer’s link or a credit-repair partner’s case. They fix what’s wrong, add what counts and follow one step at a time. You see a stage and the blockers, never the report itself.</p></div><div className="product-tabs">{tabs.map(([id,icon,label])=><button key={id} className={active===id?"active":""} onClick={()=>setActive(id)}><i>{icon}</i><span>{label}</span></button>)}</div>
     {active === "dispute" && <div className="product-panel dispute-product">
       <div className="product-copy"><span className="product-number">01 · FLAGSHIP PRODUCT</span><h3>Find, build and track disputes in one guided hub.</h3><p>ReadyIQ analyzes the consumer report for items that may deserve review. The consumer—not the lender—confirms what is inaccurate, chooses the reason, adds evidence and creates bureau-ready dispute letters.</p><ul><li><i>✓</i><span><strong>AI-assisted report review</strong>Flag duplicate accounts, incorrect dates, balances, late payments and unfamiliar accounts.</span></li><li><i>✓</i><span><strong>Custom letter builder</strong>Choose the bureau, reason and supporting records; ReadyIQ organizes the letter.</span></li><li><i>✓</i><span><strong>Status and response tracking</strong>Keep drafts, mailed letters, deadlines and bureau responses together.</span></li></ul><button className="b2b-primary dark" onClick={()=>openConsumer("disputes")}>Open the Dispute Hub <span>→</span></button></div>
       <div className="product-view"><span className="product-view-tag"><i>◉</i>What the consumer sees<b>Loan officers see approved progress, never this screen</b></span><div className="product-window dispute-stage">
@@ -107,15 +107,15 @@ function ProductFilmSection({ openPortals }: { openPortals: () => void }) {
   return <><section className="product-film-section" id="platform" aria-labelledby="product-film-title">
     <div className="product-film-inner">
       <div className="product-film-heading">
-        <div><span className="section-kicker light">WATCH THE READYIQ JOURNEY · 1:27</span><h2 id="product-film-title">See both portals <em>work together.</em></h2></div>
-        <div className="product-film-summary"><p>One private journey connects the first lender invitation to the next mortgage conversation.</p></div>
+        <div><span className="section-kicker light">WATCH THE READYIQ JOURNEY · 1:27</span><h2 id="product-film-title">See the loop <em>close.</em></h2></div>
+        <div className="product-film-summary"><p>A loan officer refers a decline out, a credit-repair partner works it, and the borrower comes back ready to review — with their consent on the handoff.</p></div>
       </div>
       <div className="product-film-journey" aria-label="How the ReadyIQ journey works">
-        <article><span>01</span><div><strong>Invite</strong><small>The loan officer sends one secure link.</small></div></article>
+        <article><span>01</span><div><strong>Refer out</strong><small>A decline goes to a credit-repair partner, with consent.</small></div></article>
         <i aria-hidden="true">→</i>
-        <article><span>02</span><div><strong>Approve &amp; improve</strong><small>The consumer approves the check and follows private next steps.</small></div></article>
+        <article><span>02</span><div><strong>Work the file</strong><small>Letters, rent history, balances — the stage moves as the work lands.</small></div></article>
         <i aria-hidden="true">→</i>
-        <article><span>03</span><div><strong>Reconnect</strong><small>Approved progress returns to the original loan officer.</small></div></article>
+        <article><span>03</span><div><strong>Send back</strong><small>Approaching ready: a summary returns to the loan officer, never a score.</small></div></article>
       </div>
       <div className={`product-film-frame ${filmPlaying ? "is-playing" : ""}`}>
         <video ref={filmRef} controls={filmPlaying} playsInline preload="metadata" poster="media/readyiq-product-film-poster.jpg?v=clean-opening" aria-label="ReadyIQ lender and consumer portal product tour" onPlay={()=>setFilmPlaying(true)} onPause={()=>setFilmPlaying(false)} onEnded={()=>setFilmPlaying(false)}>

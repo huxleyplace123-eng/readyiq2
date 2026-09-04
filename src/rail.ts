@@ -11,7 +11,9 @@ export type Referral = { id: string; direction: "lo_to_cr" | "cr_to_lo"; to: Par
 
 const q = typeof location !== "undefined" ? new URLSearchParams(location.search) : new URLSearchParams();
 const HOST_DEFAULTS: Record<string, string> = {
-  // filled in when the rail is deployed; localhost tours talk to `npm run rail`
+  // the published tour talks to the deployed rail (Railway project readyiq-rail, service rail)
+  "huxleyplace123-eng.github.io": "https://rail-production-d1d2.up.railway.app",
+  // local tours talk to `npm run rail`
   "localhost": "http://localhost:4630",
   "127.0.0.1": "http://localhost:4630",
 };
