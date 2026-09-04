@@ -1,0 +1,368 @@
+<title>ReadyIQ Declines-to-Pipeline Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F3F4F0;--surface:#FBFBF9;--surface-2:#E9ECE6;--ink:#14201E;--ink-2:#5B6763;--ink-3:#8A9490;
+  --rule:#D8DDD6;--rule-soft:#E4E8E1;--accent:#1F5C4A;--accent-soft:#DCEBE3;--warn:#8A5A12;--warn-soft:#F1E8D6;
+  --st-not:#7A8480;--st-work:#2E7D6B;--st-appr:#B8860B;--st-ready:#5A8F1F;--focus:#1F5C4A;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#121615;--surface:#191E1C;--surface-2:#232A27;--ink:#E8EBE6;--ink-2:#9AA49F;--ink-3:#76807B;
+  --rule:#2B322F;--rule-soft:#242B28;--accent:#7CC5A8;--accent-soft:#1B2E27;--warn:#D9A755;--warn-soft:#2A2317;
+  --st-not:#8B958F;--st-work:#5FBBA3;--st-appr:#E0B54A;--st-ready:#A6E05A;--focus:#7CC5A8;}}
+:root[data-theme="dark"]{
+  --ground:#121615;--surface:#191E1C;--surface-2:#232A27;--ink:#E8EBE6;--ink-2:#9AA49F;--ink-3:#76807B;
+  --rule:#2B322F;--rule-soft:#242B28;--accent:#7CC5A8;--accent-soft:#1B2E27;--warn:#D9A755;--warn-soft:#2A2317;
+  --st-not:#8B958F;--st-work:#5FBBA3;--st-appr:#E0B54A;--st-ready:#A6E05A;--focus:#7CC5A8;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:"IBM Plex Sans",-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px 96px}
+.mast{padding:44px 0 26px;border-bottom:2px solid var(--ink)}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+h1{font-family:"Source Serif 4",Georgia,serif;font-weight:600;font-size:clamp(32px,5.5vw,48px);line-height:1.05;letter-spacing:-.015em;margin:0 0 14px;text-wrap:balance}
+.stand{font-size:16px;color:var(--ink-2);max-width:64ch;margin:0}
+.stand b{color:var(--ink);font-weight:600}
+.meta{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:18px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-2)}
+.meta b{color:var(--ink);font-weight:500}
+.shell{display:block}nav.rail{display:none}
+@media(min-width:960px){.shell{display:grid;grid-template-columns:220px minmax(0,1fr);gap:56px;align-items:start}
+nav.rail{display:block;position:sticky;top:20px;padding-top:34px}nav.rail ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:3px}
+nav.rail a{display:block;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.04em;color:var(--ink-2);text-decoration:none;padding:5px 0 5px 12px;border-left:2px solid var(--rule)}
+nav.rail a:hover{color:var(--accent);border-left-color:var(--accent)}}
+section{padding-top:46px;scroll-margin-top:24px}
+h2{font-family:"Source Serif 4",Georgia,serif;font-weight:600;font-size:27px;letter-spacing:-.01em;margin:0 0 6px}
+h3{font-family:"Source Serif 4",Georgia,serif;font-weight:600;font-size:19px;margin:22px 0 8px}
+.lead{margin:0 0 4px;color:var(--ink-2);font-size:14.5px;max-width:62ch}
+p{max-width:68ch}
+/* verdict */
+.verdict{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+@media(max-width:760px){.verdict{grid-template-columns:1fr}}
+.vcard{background:var(--surface);border:1px solid var(--rule);border-top:3px solid var(--accent);padding:16px 18px}
+.vcard.cut{border-top-color:var(--warn)}.vcard.keep{border-top-color:var(--st-work)}
+.vcard h4{margin:0 0 8px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.vcard ul{margin:0;padding-left:18px;font-size:14px}.vcard li{margin-bottom:6px}
+/* before/after */
+.ba{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border:1px solid var(--rule);margin:14px 0 22px;background:var(--surface)}
+@media(max-width:760px){.ba{grid-template-columns:1fr}}
+.ba>div{padding:14px 16px}.ba>div:first-child{border-right:1px solid var(--rule-soft)}
+@media(max-width:760px){.ba>div:first-child{border-right:0;border-bottom:1px solid var(--rule-soft)}}
+.ba .lab{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin:0 0 8px}
+.ba .lab.now{color:var(--ink-3)}.ba .lab.new{color:var(--accent)}
+.ba .copy{margin:0;font-size:14.5px}.ba .copy+.copy{margin-top:8px}
+.ba .copy.h{font-family:"Source Serif 4",Georgia,serif;font-size:20px;line-height:1.25;font-weight:600}
+.ba em{font-style:normal;color:var(--accent)}
+.why{margin:6px 0 0;font-size:13px;color:var(--ink-2);max-width:68ch}
+.why b{color:var(--ink);font-weight:600}
+code,.mono{font-family:"IBM Plex Mono",monospace;font-size:12.5px}
+code{background:var(--surface-2);padding:1px 5px;border-radius:3px}
+pre{background:var(--surface);border:1px solid var(--rule);padding:14px 16px;overflow-x:auto;font-family:"IBM Plex Mono",monospace;font-size:12.5px;line-height:1.55;margin:12px 0 18px}
+/* tables */
+.tbl{overflow-x:auto;margin:12px 0 18px}
+table{border-collapse:collapse;width:100%;font-size:14px;background:var(--surface)}
+th{text-align:left;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding:10px 12px;border-bottom:1px solid var(--ink);font-weight:500}
+td{padding:10px 12px;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+td.mono{font-size:12.5px}
+.pill{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:2px;color:#fff;white-space:nowrap}
+.p-not{background:var(--st-not)}.p-work{background:var(--st-work)}.p-appr{background:var(--st-appr)}.p-ready{background:var(--st-ready)}
+/* lo mock */
+.mock{background:var(--surface);border:1px solid var(--rule);margin:14px 0 18px}
+.mock-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--rule-soft);flex-wrap:wrap}
+.mock-top strong{font-family:"Source Serif 4",Georgia,serif;font-size:18px;font-weight:600}
+.mock-top .prec{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-2)}
+.mock-top .prec b{color:var(--st-ready);font-weight:500}
+.buckets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:760px){.buckets{grid-template-columns:1fr}}
+.bucket{padding:12px 14px;border-right:1px solid var(--rule-soft)}.bucket:last-child{border-right:0}
+@media(max-width:760px){.bucket{border-right:0;border-bottom:1px solid var(--rule-soft)}}
+.bucket h5{margin:0 0 10px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;display:flex;justify-content:space-between}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;padding:9px 0;border-top:1px solid var(--rule-soft);font-size:13.5px}
+.row strong{font-weight:600}.row small{display:block;color:var(--ink-2);font-size:12.5px}
+.row .act{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--accent);align-self:center;white-space:nowrap}
+/* swatches */
+.sw{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 18px}
+.sw div{display:flex;align-items:center;gap:8px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-2)}
+.sw i{width:26px;height:26px;border-radius:4px;border:1px solid var(--rule);display:inline-block}
+/* plan */
+.days{border-top:1px solid var(--ink);margin-top:14px}
+.day{display:grid;grid-template-columns:70px minmax(0,1fr);gap:0 16px;padding:14px 0;border-bottom:1px solid var(--rule-soft)}
+.day span{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--accent);padding-top:3px}
+.day strong{display:block;font-weight:600;margin-bottom:3px}.day p{margin:0;color:var(--ink-2);font-size:14px}
+.caution{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--warn);padding:14px 18px;margin:14px 0 18px;font-size:14px;max-width:none}
+.caution b{font-weight:600}
+ul.tight{margin:6px 0 12px;padding-left:20px}ul.tight li{margin-bottom:6px;max-width:66ch}
+.colophon{margin-top:56px;padding-top:18px;border-top:1px solid var(--rule);font-family:"IBM Plex Mono",monospace;font-size:11.5px;line-height:1.7;color:var(--ink-3);max-width:76ch}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+<header class="mast">
+  <p class="eyebrow">ReadyIQ 2 · go-to-market redesign brief · week of Sep 2, 2026</p>
+  <h1>From “credit tools for consumers” to “declines into a managed pipeline”</h1>
+  <p class="stand">Everything below is grounded in the live source — <b>src/site/site.tsx</b>, <b>src/v11-page.tsx</b>, <b>src/screens/lo.tsx</b>, <b>src/state.js</b> — not the doc alone. Each change says what the site says today, what it should say, and why. The short version: the visual system is good and should stay; the <b>words</b>, the <b>stage model</b>, and the <b>LO view</b> are pointed at the old positioning, and one surface the new buyer lives in doesn’t exist yet.</p>
+  <div class="meta"><span>Repo <b>huxleyplace123-eng/readyiq2</b></span><span>Live <b>huxleyplace123-eng.github.io/readyiq2</b></span><span>Local <b>node serve.mjs · :4620</b></span><span>Concurrent agent <b>Shout5000 — rebase before push</b></span></div>
+</header>
+
+<div class="shell">
+<nav class="rail" aria-label="Sections"><ol>
+  <li><a href="#verdict">Verdict</a></li><li><a href="#position">Positioning</a></li><li><a href="#copy">Copy, page by page</a></li>
+  <li><a href="#stages">Stage model + buffer</a></li><li><a href="#lo">LO view</a></li><li><a href="#cr">Credit-repair portal</a></li>
+  <li><a href="#visual">Visual changes</a></li><li><a href="#week">This week</a></li><li><a href="#keep">Do not touch</a></li>
+</ol></nav>
+
+<main>
+
+<section id="verdict">
+  <h2>Verdict</h2>
+  <p class="lead">What to keep, what to change, what to cut — before any of the detail.</p>
+  <div class="verdict">
+    <div class="vcard keep"><h4>Keep</h4><ul>
+      <li>The navy / paper / lime system and Inter. It’s distinctive and already built.</li>
+      <li>“Live window” page anatomy — every page opens on the product.</li>
+      <li>The honesty strip as a device (its lines change).</li>
+      <li>The LO 60-second link flow, partners, Passport, Protect Mode.</li>
+      <li>The <code>packet()</code> contract — it already omits score and report.</li>
+    </ul></div>
+    <div class="vcard"><h4>Change</h4><ul>
+      <li>Hero, nav, honesty strip, CTA band, footer, page titles — all say “credit tools,” none say “declines” or “pipeline.”</li>
+      <li>Stage vocabulary: six pathways → four stages, with a buffer. <code>readinessTrigger</code> currently fires at the raw lender floor on a consumer score.</li>
+      <li>LO status feed: score-first rows → three buckets, one blocker, one action.</li>
+      <li>Hero window leads with 608 / 615 / 612. Lead with the stage.</li>
+    </ul></div>
+    <div class="vcard cut"><h4>Cut (this week)</h4><ul>
+      <li>Six-product dropdown in primary nav.</li>
+      <li>The six-logo integration marquee (over-promises; five of six need partner agreements).</li>
+      <li>Fictional stats presented as real (214 / 173 / 612 / 127).</li>
+      <li>“Flexible commercial model … consumer-paid structure” in the org page — that line is the CROA exposure.</li>
+      <li>The borrower portal as a login. Keep the front door + the “r/” link.</li>
+    </ul></div>
+  </div>
+</section>
+
+<section id="position">
+  <h2>The positioning shift</h2>
+  <p class="lead">Today the site sells a thing the lender <i>gives</i> the consumer. The doc sells a thing the lender <i>gets back</i>. Every sentence has to flip direction.</p>
+  <div class="ba">
+    <div><p class="lab now">Now · the site’s thesis</p><p class="copy">“ReadyIQ gives future homebuyers private tools to check, build, and dispute credit. Mortgage teams see approved progress and know when to reconnect.”</p><p class="why">Subject is the consumer. The lender is an observer. There is no buyer with a budget in that sentence.</p></div>
+    <div><p class="lab new">Proposed · the thesis</p><p class="copy"><b>ReadyIQ turns mortgage declines into a managed pipeline, and credit-repair clients into mortgage opportunities.</b></p><p class="copy">The score is a clue. The readiness plan is the product. Nobody is told they’re ready on a non-mortgage score.</p><p class="why">Subject is the pipeline. Two buyers are named. The compliance posture is in the thesis, not a footnote.</p></div>
+  </div>
+  <div class="caution"><b>Two lines that must appear on the site before the first sales call</b> — they’re the difference between a SaaS vendor and a referral scheme: (1) <i>ReadyIQ never bills the consumer</i> — this keeps ReadyIQ outside the CROA definition of a credit repair organization; (2) <i>Flat per-seat pricing — never per referral, never per funded loan</i> — this is the RESPA §8(c)(2) posture. Both go in the honesty strip and the trust page. Get a scoped RESPA opinion before lender #1 signs.</div>
+</section>
+
+<section id="copy">
+  <h2>Copy, page by page</h2>
+  <p class="lead">Current text is quoted from source. Proposed text is ready to paste. Rationale under each.</p>
+
+  <h3>Home hero — <span class="mono">v11-page.tsx › ReadyIQWebsite</span></h3>
+  <div class="ba">
+    <div><p class="lab now">Now</p><p class="copy mono" style="font-size:11px">FOR MORTGAGE COMPANIES, BROKERS &amp; LOAN OFFICERS</p><p class="copy h">Give every credit-challenged mortgage lead a clear next step.</p><p class="copy"><b>Keep the relationship moving forward.</b> ReadyIQ gives future homebuyers private tools to check, build, and dispute credit. Mortgage teams see approved progress and know when to reconnect—never the private report.</p><p class="copy mono" style="font-size:11px">CONSUMER · Check · Build · Dispute &nbsp;/&nbsp; LOAN OFFICER · 3 scores · approved progress &nbsp;/&nbsp; THE GOAL · Ready for a mortgage conversation</p></div>
+    <div><p class="lab new">Proposed</p><p class="copy mono" style="font-size:11px">FOR LOAN OFFICERS, MORTGAGE COMPANIES &amp; CREDIT REPAIR FIRMS</p><p class="copy h">Turn declines into a <em>managed pipeline.</em></p><p class="copy"><b>Stop losing not-ready borrowers.</b> Every decline gets a readiness stage, a plan, and a way back to you. Credit-repair partners work the file. You get one signal when it’s time: <b>ready to review.</b></p><p class="copy mono" style="font-size:11px">LOAN OFFICER · Not ready · Progressing · Ready to review &nbsp;/&nbsp; CREDIT REPAIR · Work the file · Send to mortgage partner &nbsp;/&nbsp; BORROWER · A stage and a next step — not a score</p></div>
+  </div>
+  <p class="why"><b>Hero window:</b> today it’s Maya’s three scores in 40-pt type with “READY TO RECONNECT.” That is the exact thing the doc forbids leading with. Replace with a stage card: <i>Maya Collins · <span class="pill p-appr">Approaching ready</span> · 2 blockers left · Recommended: request soft tri-merge</i>. Scores move to a 12-px footnote: “Consumer FICO® 608–615 · directional only.”</p>
+
+  <h3>Primary nav — <span class="mono">site.tsx › SiteNav</span></h3>
+  <div class="ba">
+    <div><p class="lab now">Now</p><p class="copy">Platform · Products ▾ (6 items) · Who it’s for ▾ (Loan officers / Consumers / Partners) · Integrations · Trust · Resources · <i>Explore the live product · Book a demo · Sign in · Get started →</i></p></div>
+    <div><p class="lab new">Proposed</p><p class="copy">How it works · Who it’s for ▾ (<b>Loan officers</b> / <b>Mortgage companies</b> / <b>Credit repair firms</b> / Borrowers) · Integrations · Trust · <i>See the LO view · Book a demo · Sign in · <b>Get your link →</b></i></p><p class="why">Products dropdown moves under How it works. “Credit repair firms” is a first-class audience, not a partner. Four actions on the right is too many; drop “Explore the live product” into the hero.</p></div>
+  </div>
+
+  <h3>Honesty strip — <span class="mono">site.tsx › HonestyStrip</span> (every page)</h3>
+  <div class="ba">
+    <div><p class="lab now">Now</p><p class="copy">✓ Three scores together, never the full report · ✓ No promised deletions, points or approvals · ✓ Soft pull only — apply at any time, never required · ✓ MyScoreIQ + CreditBuilderIQ, named on every screen</p></div>
+    <div><p class="lab new">Proposed</p><p class="copy">✓ Stages, never a claimed mortgage score · ✓ Blockers from the report, not the number · ✓ ReadyIQ never bills the borrower · ✓ Flat pricing — never per referral</p><p class="why">Lines 3 and 4 are the CROA and RESPA postures. They belong where every visitor sees them.</p></div>
+  </div>
+
+  <h3>CTA band — <span class="mono">site.tsx › CtaBand</span> (default)</h3>
+  <div class="ba">
+    <div><p class="lab now">Now</p><p class="copy h">Give every “not yet” a path back to you.</p><p class="copy">One link per loan officer. A front door for every consumer. Three bureau scores and approved progress in one clear view.</p></div>
+    <div><p class="lab new">Proposed</p><p class="copy h">Stop losing <em>not-ready borrowers.</em></p><p class="copy">Give every decline a stage, a plan, and a moment to come back. You’ll know who’s not ready, who’s progressing, and who’s ready to review.</p></div>
+  </div>
+
+  <h3>Footer — <span class="mono">site.tsx › SiteFooter</span></h3>
+  <div class="ba">
+    <div><p class="lab now">Now</p><p class="copy">A lender-owned credit-readiness platform on IDIQ’s MyScoreIQ and CreditBuilderIQ. Not a CRM, on purpose.</p></div>
+    <div><p class="lab new">Proposed</p><p class="copy">The bridge from not ready to ready to review. Not a credit repair company. Not a CRM. Never paid per referral.</p><p class="why">Keep the existing legal line under it unchanged.</p></div>
+  </div>
+
+  <h3>Platform page — <span class="mono">PAGES.platform</span></h3>
+  <div class="ba">
+    <div><p class="lab now">Now</p><p class="copy h">Credit tools for consumers. Progress for loan officers.</p><p class="copy">Kicker: PLATFORM · WHAT READYIQ DOES. Sections: How it works (Invite → Check → Build and dispute → Reconnect) · What the LO sees · Works with your tools · What it is not · What consumers can use.</p></div>
+    <div><p class="lab new">Proposed</p><p class="copy h">A decline is a stage, <em>not an ending.</em></p><p class="copy">Kicker: HOW IT WORKS. Sections: <b>The loop</b> (LO refers → partner works the file → “Send to mortgage partner” → LO requests a formal pull) · <b>Four stages, one buffer</b> (the table in §Stages) · <b>What the LO sees</b> (three buckets, one blocker, one action) · <b>What it is not</b> — add a “Credit repair company” column with “never” in the row “Bills the consumer.” · <b>Works with your tools</b> — CSV + Zapier + webhooks today; connectors by agreement.</p><p class="why">The current “Loop” component (Invite / Check / Build and dispute / Reconnect) is a consumer journey. The new loop is a two-sided referral loop — different object.</p></div>
+  </div>
+
+  <h3>Loan officers page — <span class="mono">PAGES["loan-officers"]</span></h3>
+  <div class="ba">
+    <div><p class="lab now">Now</p><p class="copy h">One link. Zero busywork.</p><p class="copy">Sections: 60 seconds · The leads you already paid for (214 / 173 / 12 / 0 stat grid) · The last mile (soft tri-merge).</p></div>
+    <div><p class="lab new">Proposed</p><p class="copy h">Who’s not ready. Who’s progressing. <em>Who’s ready to review.</em></p><p class="copy">Lede: Your declines don’t disappear — they get a stage. Send a not-ready borrower to a credit-repair partner through ReadyIQ, or into ReadyIQ’s own plan. Either way you see one feed and get one signal. <b>Sections:</b> The three buckets (LO mock) · Your link (keep) · <b>The recommended re-pull</b> (rename “The last mile”: when a borrower crosses the buffer, ReadyIQ recommends a soft tri-merge through your normal vendor — never claims a mortgage score) · <b>Precision, not volume</b> (new: “of the borrowers we flag ready to review, this % qualify on the formal pull” — the number that keeps LOs).</p><p class="why">The 214 / 173 stat grid reads as data. Either label it ILLUSTRATIVE like the testimonials already are, or replace with the pilot’s real numbers.</p></div>
+  </div>
+
+  <h3>New page: <span class="mono">credit-repair/</span> — add to <span class="mono">PAGES</span> and <span class="mono">ROUTES</span></h3>
+  <div class="ba">
+    <div><p class="lab now">Now</p><p class="copy">Does not exist. Closest is <code>partners/</code> (“realtors and property teams”), which is the wrong audience.</p></div>
+    <div><p class="lab new">Proposed</p><p class="copy mono" style="font-size:11px">FOR CREDIT REPAIR FIRMS</p><p class="copy h">Win the LO relationships <em>you’re already working for.</em></p><p class="copy">Loan officers send you not-ready borrowers. You work the file the way you already do. When a client is approaching ready, one button sends a clean readiness summary back to the LO — no score, no report, no vague “making progress.”</p>
+    <p class="copy"><b>Sections:</b> Why LOs stop referring (vague updates, no moment to re-engage) · <b>Send to mortgage partner</b> (exactly what’s in the summary — stage, floors met, DTI in range, verified rent months, disputes open/resolved, LO of record; never score, never report — this is <code>packet()</code> as it exists) · Your cases in one screen · <b>What ReadyIQ is not</b> (you are the credit repair organization; ReadyIQ never bills your client; flat per-seat; no referral fees in either direction; your client may be sent to more than one LO) · FAQ: “Does this replace Credit Repair Cloud?” — answer honestly.</p><p class="why">This page is the sales collateral for the beachhead customer. Window: a CaseWindow (see §Credit-repair portal).</p></div>
+  </div>
+
+  <h3>Consumers page → Borrowers</h3>
+  <div class="ba">
+    <div><p class="lab now">Now</p><p class="copy h">Understand your credit. Take the next right step.</p><p class="copy">Route <code>consumers/</code>; nav label “Consumers — check, build, dispute.”</p></div>
+    <div><p class="lab new">Proposed</p><p class="copy h">You’re not a decline. <em>You’re at a step.</em></p><p class="copy">Route stays for links; nav label “Borrowers — your stage and next step.” Lede: ReadyIQ shows you where you are — Step 2 of 4 — and the one thing to do next. Your loan officer sees your stage, never your report. You can apply anywhere, any time.</p><p class="why">Borrower-facing never says “Not ready.” Same state, different words.</p></div>
+  </div>
+
+  <h3>Trust page — one FAQ answer to harden</h3>
+  <div class="ba">
+    <div><p class="lab now">Now</p><p class="copy"><b>Is ReadyIQ a credit repair organization?</b> The consumer drives every dispute and approves every letter; ReadyIQ provides tools and guidance and makes no outcome claims. Program terms are reviewed with counsel for each market.</p></div>
+    <div><p class="lab new">Proposed</p><p class="copy"><b>Is ReadyIQ a credit repair organization?</b> No. ReadyIQ is software sold to loan officers, mortgage companies and credit-repair firms. It never charges the borrower, never promises a result, and never takes a fee for a referral. Where a credit-repair firm works a file through ReadyIQ, that firm is the credit repair organization under CROA and its state equivalents.</p><p class="why">Add a second FAQ: “How do you stay on the right side of RESPA?” — flat per-seat pricing, no exclusivity, nothing of value between the two sides.</p></div>
+  </div>
+
+  <h3>Book a demo — role list</h3>
+  <p class="why">Add <b>Credit repair owner / operator</b> to the “Your role” select and <b>“Sending clients to LOs”</b> to “What matters most.” Two-line change in <code>BookDemoPage</code>.</p>
+
+  <h3>Page titles — <span class="mono">build.mjs › ROUTES</span></h3>
+  <div class="tbl"><table><thead><tr><th>Route</th><th>Now</th><th>Proposed</th></tr></thead><tbody>
+  <tr><td class="mono">''</td><td>ReadyIQ for mortgage teams — guide credit-challenged leads</td><td>ReadyIQ — turn declines into a managed pipeline</td></tr>
+  <tr><td class="mono">platform</td><td>How ReadyIQ works — consumer credit tools and loan officer progress</td><td>How ReadyIQ works — four stages, one buffer, one signal</td></tr>
+  <tr><td class="mono">loan-officers</td><td>ReadyIQ for loan officers — one link, zero busywork</td><td>ReadyIQ for loan officers — who’s not ready, progressing, ready to review</td></tr>
+  <tr><td class="mono">credit-repair</td><td>—</td><td>ReadyIQ for credit repair firms — win and keep LO referral relationships</td></tr>
+  <tr><td class="mono">consumers</td><td>ReadyIQ for consumers — understand your credit and take the next step</td><td>ReadyIQ for borrowers — your stage and your next step</td></tr>
+  <tr><td class="mono">integrations</td><td>Integrations — one status object, every mortgage system</td><td>Integrations — CSV, Zapier and webhooks today; connectors by agreement</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="stages">
+  <h2>Stage model + variance buffer</h2>
+  <p class="lead">This is the one place the code contradicts the doc outright, and it’s a 20-line fix with tests.</p>
+  <p>What <code>state.js</code> does today: six pathways (<code>ready_now · near_ready · build · thin · dispute · dti</code>), and <code>readinessTrigger()</code> returns true at <code>score &gt;= lender.floorDefault</code> — the raw 640 — on a MyScoreIQ consumer score. That is precisely “telling someone they’re ready based solely on a non-mortgage score.” The LO feed then labels that person <span class="pill p-ready">Ready Now</span>.</p>
+  <div class="tbl"><table><thead><tr><th>Stage (LO + site)</th><th>Borrower sees</th><th>Maps from today’s pathway</th><th>Rule</th></tr></thead><tbody>
+  <tr><td><span class="pill p-not">Not ready</span></td><td>“Step 1 of 4 — getting your picture”</td><td>no score yet · <code>thin</code> · invited/consented</td><td>No usable score, or fewer than 3 tradelines</td></tr>
+  <tr><td><span class="pill p-work">Working</span></td><td>“Step 2 of 4 — fixing the blockers” + the reason in plain words</td><td><code>build</code> · <code>dispute</code> · <code>dti</code></td><td>Open disputes, or derog ≤ 24 mo, or util &gt; 50%, or DTI &gt; 45%, or score &lt; floor − 15</td></tr>
+  <tr><td><span class="pill p-appr">Approaching ready</span></td><td>“Step 3 of 4 — almost there”</td><td><code>near_ready</code></td><td>floor − 15 ≤ score &lt; floor + <b>buffer</b>, no open disputes. <b>Fires “recommend soft tri-merge” to the LO.</b></td></tr>
+  <tr><td><span class="pill p-ready">Ready to review</span></td><td>“Step 4 of 4 — your LO has your summary”</td><td><code>ready_now</code></td><td>score ≥ floor + <b>buffer</b> · util ≤ 30% · no derog 12 mo · no open disputes. Still never called “ready” — “ready <i>to review</i>.”</td></tr>
+  </tbody></table></div>
+<pre>// state.js — proposed
+export const STAGES = ['not_ready','working','approaching','ready_to_review'];
+export const STAGE_LABELS = { not_ready:'Not ready', working:'Working', approaching:'Approaching ready', ready_to_review:'Ready to review' };
+export const BUFFER_DEFAULT = 20;            // lender-configurable 15–30; consumer FICO vs mortgage 2/4/5 spread
+
+export function stage(c, lender) {
+  const floor = lender.floorDefault, buf = lender.buffer ?? BUFFER_DEFAULT;
+  const score = c.score?.value ?? null, cr = c.credit;
+  const openDisputes = (c.disputes||[]).some(d => d.status !== 'resolved');
+  if (score == null || cr.tradelines &lt; 3) return 'not_ready';
+  const r = dti(cr.monthlyDebts, c.income);
+  const derog24 = cr.latesLast24mo &gt; 0 || (c.publicRecords||[]).some(p => monthsSince(p.date) &lt;= 24);
+  if (openDisputes || derog24 || cr.utilization &gt; .5 || (r != null && r &gt; .45) || score &lt; floor - 15) return 'working';
+  if (score &lt; floor + buf) return 'approaching';
+  return (cr.utilization &lt;= .3 && !cr.derogLast12mo) ? 'ready_to_review' : 'approaching';
+}
+// keep pathway as the *reason* under Working: 'build' | 'thin' | 'dispute' | 'dti'
+export const reason = (c, lender) => assignPathway(c, lender);</pre>
+  <p class="why"><b>Why 20:</b> consumer FICO 8/9 and mortgage FICO 2/4/5 routinely differ by 15–30 points in either direction. The buffer isn’t a claim about the borrower’s mortgage score; it’s the width of the band where ReadyIQ stops asserting anything and hands the decision to a real pull. Make it a lender setting next to <code>floors</code>, and surface it on the trust page as “the buffer.”</p>
+  <p class="why"><b>Instrument precision from day one:</b> add <code>reviewOutcome: 'qualified' | 'short' | null</code> to the consumer record, set by the LO after the formal pull. The LO view shows <i>qualified ÷ flagged</i>. Below ~70% the channel dies; above it, the buffer can tighten.</p>
+</section>
+
+<section id="lo">
+  <h2>The LO view — dead simple</h2>
+  <p class="lead">Today’s <code>StatusFeedPage</code> row: avatar · pathway pill · <b>three tinted bureau-score chips</b> · round · next milestone · last activity · Call. The scores are the loudest thing in the row, and the row answers “what’s their score,” not “what do I do.”</p>
+  <div class="mock">
+    <div class="mock-top"><strong>Where your people are</strong><span class="prec">Ready-to-review precision <b>71%</b> · 5 of 7 qualified on formal pull</span></div>
+    <div class="buckets">
+      <div class="bucket"><h5><span class="pill p-not">Not ready</span><span>2</span></h5>
+        <div class="row"><div><strong>Nina Brooks</strong><small>Thin file · reporting 19 mo of rent</small></div><span class="act">Nudge →</span></div>
+        <div class="row"><div><strong>Luis Herrera</strong><small>Invited Aug 16 · not started</small></div><span class="act">Re-invite →</span></div>
+      </div>
+      <div class="bucket"><h5><span class="pill p-work">Progressing</span><span>2</span></h5>
+        <div class="row"><div><strong>Maya Collins</strong><small>Utilization 41% → target 30% · CR partner: Brightpath</small></div><span class="act">View →</span></div>
+        <div class="row"><div><strong>Sofia Ramirez</strong><small>2 disputes sent · responses due Sep 8</small></div><span class="act">View →</span></div>
+      </div>
+      <div class="bucket"><h5><span class="pill p-ready">Ready to review</span><span>2</span></h5>
+        <div class="row"><div><strong>Derek Young</strong><small><span class="pill p-appr">Approaching</span> · crossed floor, inside buffer</small></div><span class="act">Request soft pull →</span></div>
+        <div class="row"><div><strong>Aaron Patel</strong><small>Summary from Brightpath · Aug 30</small></div><span class="act">Request formal pull →</span></div>
+      </div>
+    </div>
+  </div>
+  <ul class="tight">
+    <li><b>Row = name · one blocker in words · one action.</b> Scores leave the row; they live in the detail page behind “with permission,” as a footnote.</li>
+    <li><b>“Approaching ready” sits inside the Ready-to-review column</b> with a distinct pill, because that’s where the LO’s action is (soft pull). Three columns, four states.</li>
+    <li>Filter tabs today are the six pathways. Replace with the three buckets; the pathway becomes the grey sub-line.</li>
+    <li>Precision stat at the top is the number that keeps LOs. Show it even when the sample is tiny (“2 of 2”).</li>
+    <li>Where a credit-repair partner is working the file, say so on the row (“CR partner: Brightpath”). That’s the flywheel made visible.</li>
+    <li>Keep <code>YourLinkPage</code> and <code>LoStartPage</code> as they are — they’re the best-built part of the LO surface.</li>
+  </ul>
+</section>
+
+<section id="cr">
+  <h2>The credit-repair admin portal — the missing surface</h2>
+  <p class="lead">Your beachhead customer lives here all day, and it does not exist in the build. Spec it this week; build it next; run the first pilot by hand.</p>
+  <div class="tbl"><table><thead><tr><th>Screen</th><th>What’s on it</th><th>Reuse</th></tr></thead><tbody>
+  <tr><td><b>Cases</b></td><td>Every client as a row: name · stage · blocker · days in stage · referring LO (or “walk-in”) · last touch. Same three buckets as the LO view so both sides speak one language.</td><td><code>StatusFeedPage</code> layout, <code>lender-page</code> classes</td></tr>
+  <tr><td><b>Case</b></td><td>Blockers by bureau (the tri-merge board from Dispute Hub), dispute rounds, stage history, consent status, and the <b>Send to mortgage partner</b> button — disabled until stage ≥ Approaching. Pressing it: shows the summary exactly as the LO will see it, requires the client’s consent checkbox, lets the operator pick one <i>or more</i> LOs, logs the referral.</td><td><code>BoardWindow</code>, <code>BorrowerDetail</code>, <code>packet()</code></td></tr>
+  <tr><td><b>Partners</b></td><td>LOs who refer into this firm and LOs this firm sends to. No rankings, no “preferred,” no per-referral counters that look like a scoreboard — a list.</td><td><code>PartnersPage</code></td></tr>
+  <tr><td><b>Referral log</b></td><td>Every send, both directions, with timestamp, consent record, and what was in the summary. This is the audit trail a RESPA reviewer asks for.</td><td><code>audit-logger</code> pattern from dchub</td></tr>
+  </tbody></table></div>
+  <div class="caution"><b>Design constraints that come from the law, not taste:</b> the operator can send a client to more than one LO; nothing on this surface expresses value flowing to or from an LO; the summary never carries a score or a report; and the case data comes from the firm’s <i>own</i> monitoring pull, entered or imported by the operator — not a ReadyIQ scrape. That last point is also the v1 data strategy: the firm already pulls this monthly.</div>
+</section>
+
+<section id="visual">
+  <h2>Visual changes</h2>
+  <p class="lead">Small, and mostly about what the eye lands on first.</p>
+  <h3>Keep the system, add a stage palette</h3>
+  <p>Navy <code>#0d2024</code> · paper <code>#f2f6f2</code> · lime <code>#c8f36d</code> · Inter — keep all of it. The site currently uses tone colors per <i>person</i> (gold / lime / mint / violet avatars). Re-assign them to <i>stages</i>, and use the same four everywhere: site, LO feed, borrower link, credit-repair cases.</p>
+  <div class="sw">
+    <div><i style="background:#71817c"></i>Not ready · <code>--muted</code></div>
+    <div><i style="background:#55aa90"></i>Working · <code>--teal</code></div>
+    <div><i style="background:#edbd61"></i>Approaching · <code>--gold</code></div>
+    <div><i style="background:#c8f36d;border-color:#9bc44a"></i>Ready to review · <code>--lime</code></div>
+  </div>
+  <p class="why">Lime is already the brand’s “go” color; making it mean exactly one thing — ready to review — gives it more weight, not less. Violet and coral stay for disputes and high-impact blockers.</p>
+
+  <h3>Hero window: stage first, scores last</h3>
+  <p>The current <code>lo-hero</code> block sets 608 / 615 / 612 in the largest type on the page. Swap the hierarchy: stage pill + “2 blockers left” at hero size, the recommended action as the button (“Request soft tri-merge →” instead of “Start the conversation →”), scores as a 12-px caption. Same component, three lines moved.</p>
+
+  <h3>Replace the logo marquee</h3>
+  <p>Six CRM logos scrolling reads as “integrated today.” Per the connector audit, only Shape is self-serve and five of six issue credentials per lender. Replace the marquee with a single honest band: <b>Works with your stack</b> — CSV import · Zapier · webhooks · status API — <i>Total Expert and Shape connectors available; Encompass, Blend, LenderHomePage by partner agreement.</i> Keep the logos on the integrations page where the caveats can sit next to them.</p>
+
+  <h3>Label or remove invented numbers</h3>
+  <p>The testimonials already carry an <b>ILLUSTRATIVE</b> tag — good. The stat grids don’t: 214 not-ready leads · 173 invitations · 612 invitations · 127 active consumers · “64% engagement.” A credit-repair owner will ask where those came from. Either tag them the same way or swap in the first pilot’s real counts, even if the real counts are 6 and 2.</p>
+
+  <h3>Module grid: six → three</h3>
+  <p>The “complete consumer toolkit” grid (Dispute Hub · Credit Report Review · Rent Reporting · CreditBuilderIQ · Gameplan · Score Center) is the old product story. Keep the three that serve the bridge — <b>Blockers by bureau</b>, <b>Readiness plan</b>, <b>Send to mortgage partner</b> — and move the rest to the platform page.</p>
+
+  <h3>One line to delete on the org page</h3>
+  <p><code>OrganizationPage</code> › “Flexible commercial model — Summit may sponsor the full product suite, configure eligibility by branch or use a blended lender-sponsored <b>and consumer-paid</b> structure.” Delete the consumer-paid half. It is the sentence that turns ReadyIQ into a CRO.</p>
+
+  <h3>Second brand context</h3>
+  <p>Every demo screen is “Summit Home Loans.” The credit-repair page and portal need a second fixture brand (e.g. <i>Brightpath Credit</i>) so the two-sided loop is visible as two logos, not one lender talking to itself. One new entry in <code>HUMANS</code> and one door kind <code>"cr"</code> in <code>resolveLink</code>.</p>
+</section>
+
+<section id="week">
+  <h2>This week</h2>
+  <p class="lead">Ship the words and the stage model. Spec the portal. Prove the loop by hand.</p>
+  <div class="days">
+    <div class="day"><span>Day 1</span><div><strong>Words</strong><p>Hero, nav, honesty strip, CTA band, footer, ROUTES titles, trust FAQ, demo role list. All in <code>site.tsx</code>, <code>v11-page.tsx</code>, <code>build.mjs</code>. Rebase on Shout5000 first; this time our hero copy wins.</p></div></div>
+    <div class="day"><span>Day 2</span><div><strong>Stages</strong><p><code>stage()</code> + <code>BUFFER_DEFAULT</code> + <code>reviewOutcome</code> in <code>state.js</code>, with <code>npm test</code> cases for each boundary (floor − 16, floor − 15, floor + 19, floor + 20). Replace pathway pills with stage pills across the LO feed, hero window and borrower door.</p></div></div>
+    <div class="day"><span>Day 3</span><div><strong>LO view</strong><p><code>StatusFeedPage</code> → three buckets, one-blocker rows, precision stat, “CR partner” sub-line. Hero window hierarchy flip. Delete the consumer-paid line.</p></div></div>
+    <div class="day"><span>Day 4</span><div><strong>Credit-repair page + second brand</strong><p>New <code>PAGES["credit-repair"]</code> with a <code>CaseWindow</code>, Brightpath fixture, nav entry. Replace the marquee. Tag or replace the stat grids.</p></div></div>
+    <div class="day"><span>Day 5</span><div><strong>Build, verify, ship</strong><p><code>node build.mjs</code>, check every route renders, mobile at 375 via the iframe trick, PR to main → Pages redeploys. Then: ten conversations, LOs first, spreadsheet pilot with one firm.</p></div></div>
+  </div>
+  <p class="why"><b>Not this week:</b> the credit-repair admin portal build, enterprise tier, any data partnership work, any new CRM connector. The IDIQ partner-API question is unanswered; nothing that depends on it gets estimated until it is.</p>
+</section>
+
+<section id="keep">
+  <h2>Do not touch</h2>
+  <ul class="tight">
+    <li><b>Passport, Protect Mode, Dispute Hub tri-merge board, rent reporting.</b> They’re built, they’re honest, and two of them become the credit-repair portal’s case view.</li>
+    <li><b>The Reg B line</b> (“You can apply for a mortgage at any time — this is not required”) on every consumer surface.</li>
+    <li><b><code>packet()</code></b> — it already sends pathway, floors met, DTI band, rent months, dispute counts, and nothing else. Rename the field <code>pathway → stage</code>; leave the rest.</li>
+    <li><b>The LO 60-second link flow.</b> It’s the best-executed thing in the product.</li>
+    <li><b>Spanish.</b> Every string you change in <code>DOOR_ES</code> and <code>lang.tsx</code> gets its translation in the same commit or the toggle breaks.</li>
+  </ul>
+</section>
+
+<p class="colophon">Sources read: src/site/site.tsx (all PAGES, shell, special pages) · src/v11-page.tsx (ReadyIQWebsite, ProductSuite, LenderOverview, BorrowerTable, BorrowerDetail, OrganizationPage) · src/screens/lo.tsx · src/state.js (PATHWAYS, assignPathway, readinessTrigger, packet) · build.mjs ROUTES · src/styles tokens · live render at :4620. Connector access reality and the IDIQ blocker from the Aug 20 audit. Prepared 2 September 2026.</p>
+
+</main>
+</div>
+</div>

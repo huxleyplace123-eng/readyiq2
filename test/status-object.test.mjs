@@ -81,3 +81,14 @@ test('identity travels beside the status object, never inside it', () => {
   assert.doesNotMatch(serialised, new RegExp(consumer.email, 'i'));
   assert.doesNotMatch(serialised, new RegExp(consumer.last, 'i'));
 });
+
+import { fixtures as fx } from '../src/state.js';
+test('the status object carries the four-state readiness stage when a lender is supplied', () => {
+  const s = fx();
+  const priya = s.consumers.find((c) => c.id === 'priya');
+  const status = buildStatusObject(priya, { lender: s.lender });
+  assert.equal(status.readiness_stage, 'ready_to_review');
+  assert.equal(status.readiness_reason, 'ready_now');
+  assert.equal(buildStatusObject(priya).readiness_stage, null);
+  assertNoReportData(status);
+});

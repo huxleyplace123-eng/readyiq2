@@ -12,6 +12,13 @@ export const PATHWAY_BLURBS = {
   dispute: 'Something on the report looks wrong. Fix it before you apply.',
   dti: 'Debt load is the obstacle — a plan for the payments, not the score.',
 };
+export const STAGES = ['not_ready', 'working', 'approaching', 'ready_to_review'];
+export const STAGE_LABELS = { not_ready: 'Not ready', working: 'Working', approaching: 'Approaching ready', ready_to_review: 'Ready to review' };
+/** Borrower-facing: same state, different words. Never "Not ready". */
+export const STAGE_STEPS = { not_ready: 'Step 1 of 4 — getting your picture', working: 'Step 2 of 4 — clearing the blockers', approaching: 'Step 3 of 4 — almost there', ready_to_review: 'Step 4 of 4 — your loan officer has your summary' };
+/** Consumer FICO 8/9 and mortgage FICO 2/4/5 routinely differ by 15–30 points; the buffer is the band where ReadyIQ stops asserting and hands off to a real pull. */
+export const BUFFER_DEFAULT = 20;
+export const APPROACH_BAND = 15;
 export const STATUS_LABELS = { invited: 'Invited', consented: 'Consented', checked: 'Checked', active: 'Active', review_requested: 'Review requested', handed_off: 'With your lender', applied: 'Application in progress', funded: 'Funded', lost: 'Closed' };
 
 const M = (label, date, state) => ({ label, date, state });
@@ -20,7 +27,7 @@ const FIXTURES = {
   lender: {
     id: 'harbor', name: 'Harbor Home Loans', site: 'harborhomeloans.com', nmls: '1809922',
     brand: { primary: '#FF7A1A', secondary: '#FFA640', soft: '#FFEFDF', ink: '#B34700' },
-    floors: { fha: 620, conventional: 640, dpa: 660 }, floorDefault: 640,
+    floors: { fha: 620, conventional: 640, dpa: 660 }, floorDefault: 640, buffer: 20,
     programs: [{ id: 'fha', name: 'FHA', floor: 620 }, { id: 'conventional', name: 'Conventional', floor: 640 }, { id: 'dpa', name: 'Harbor Down-Payment Assist', floor: 660 }],
   },
   los: [
@@ -46,7 +53,7 @@ const FIXTURES = {
       deltas: [{ points: 14, cause: 'Utilization down — Capital One paid to $210' }, { points: 6, cause: 'Lates aging — now 14 months old' }, { points: -6, cause: 'New inquiry — Honda Financial' }],
       milestones: [M('Enrolled', '2026-06-20', 'done'), M('Round 1 complete', '2026-07-20', 'done'), M('Utilization under 50%', '2026-08-02', 'done'), M('Round 2', null, 'current'), M('Utilization under 30%', null, 'upcoming'), M('12 clean months', '2026-10-15', 'upcoming'), M('Request review', null, 'upcoming')],
       nextAction: { title: 'Pay Capital One below 30% before the 22nd', detail: 'Your statement closes on the 22nd. Paying $95 more moves the whole card under 30% — the fastest lever you have this round.', lever: 'utilization', engine: 'CreditBuilderIQ', href: '#plan' },
-      alerts: [], loanFile: null },
+      alerts: [], loanFile: null, reviewOutcome: null },
     { id: 'jordan', first: 'Jordan', last: 'Lee', email: 'jordan.lee@example.com', mobile: '(628) 555-0133', loId: 'sarah',
       attribution: { lender: 'harbor', lo: 'sarah', source: 'agent', partner: 'dana', campaign: null },
       status: 'active', pathway: 'thin', round: 1, roundsEstimated: 4, guardian: false, reviewRequestedAt: null, enrolledAt: '2026-08-05',
@@ -58,7 +65,7 @@ const FIXTURES = {
       deltas: [],
       milestones: [M('Enrolled', '2026-08-05', 'done'), M('Bank linked', '2026-08-06', 'done'), M('Report 19 months of rent', null, 'current'), M('Add utilities', null, 'upcoming'), M('First score', null, 'upcoming'), M('Request review', null, 'upcoming')],
       nextAction: { title: 'Report your 19 months of rent', detail: 'We found 19 on-time rent payments in your linked bank account. Reporting them adds history to all three bureaus and builds the 12-month rent record lenders can use.', lever: 'thin-file', engine: 'CreditBuilderIQ', href: '#build' },
-      alerts: [], loanFile: null },
+      alerts: [], loanFile: null, reviewOutcome: null },
     { id: 'denise', first: 'Denise', last: 'Alvarez', email: 'denise.a@example.com', mobile: '(925) 555-0161', loId: 'marcus',
       attribution: { lender: 'harbor', lo: 'marcus', source: 'lo', partner: null, campaign: null },
       status: 'active', pathway: 'near_ready', round: 3, roundsEstimated: 3, guardian: false, reviewRequestedAt: null, enrolledAt: '2026-05-28',
@@ -70,7 +77,7 @@ const FIXTURES = {
       deltas: [{ points: 13, cause: 'Utilization down — Discover paid from 52% to 34%' }],
       milestones: [M('Enrolled', '2026-05-28', 'done'), M('Round 1 complete', '2026-06-28', 'done'), M('Round 2 complete', '2026-07-28', 'done'), M('Round 3', null, 'current'), M('Cross 640', null, 'upcoming'), M('Request review', null, 'upcoming')],
       nextAction: { title: 'Take Discover from 34% to under 30%', detail: 'You are 6 points from Harbor’s conventional floor. About $190 before the 22nd statement date is the shortest path.', lever: 'utilization', engine: 'CreditBuilderIQ', href: '#plan' },
-      alerts: [], loanFile: null },
+      alerts: [], loanFile: null, reviewOutcome: null },
     { id: 'sam', first: 'Sam', last: 'Okafor', email: 'sam.okafor@example.com', mobile: '(510) 555-0184', loId: 'sarah',
       attribution: { lender: 'harbor', lo: 'sarah', source: 'campaign', partner: null, campaign: 'spring-reactivation' },
       status: 'active', pathway: 'dispute', round: 1, roundsEstimated: 4, guardian: false, reviewRequestedAt: null, enrolledAt: '2026-08-01',
@@ -87,7 +94,7 @@ const FIXTURES = {
       deltas: [],
       milestones: [M('Enrolled', '2026-08-01', 'done'), M('Disputes sent', '2026-08-06', 'current'), M('Bureau responses', null, 'upcoming'), M('Disputes resolved', null, 'upcoming'), M('Request review', null, 'upcoming')],
       nextAction: { title: 'Send the duplicate-collection dispute', detail: 'The Midland collection repeats a balance already on your Comenity account. Sending it now keeps both disputes on the same 30-day clock so they finish before your review.', lever: 'derogatories', engine: 'CreditBuilderIQ', href: '#disputes' },
-      alerts: [], loanFile: null },
+      alerts: [], loanFile: null, reviewOutcome: null },
     { id: 'priya', first: 'Priya', last: 'Nair', email: 'priya.nair@example.com', mobile: '(650) 555-0107', loId: 'sarah',
       attribution: { lender: 'harbor', lo: 'sarah', source: 'lo', partner: null, campaign: null },
       status: 'review_requested', pathway: 'ready_now', round: 2, roundsEstimated: 2, guardian: false, reviewRequestedAt: '2026-08-17', enrolledAt: '2026-06-02',
@@ -99,7 +106,7 @@ const FIXTURES = {
       deltas: [{ points: 14, cause: 'Utilization down — Amex paid from 29% to 18%' }],
       milestones: [M('Enrolled', '2026-06-02', 'done'), M('Round 1 complete', '2026-07-02', 'done'), M('Crossed 640', '2026-07-30', 'done'), M('Review requested', '2026-08-17', 'current'), M('Lender review', null, 'upcoming')],
       nextAction: { title: 'Sarah has your packet', detail: 'You requested a review on Aug 17. Sarah Miller has been notified and will reach out to schedule. Keep balances where they are until you talk.', lever: 'review', engine: 'MyScoreIQ', href: '#review' },
-      alerts: [], loanFile: null },
+      alerts: [], loanFile: null, reviewOutcome: null },
     { id: 'tom', first: 'Tom', last: 'Reyes', email: 'tom.reyes@example.com', mobile: '(408) 555-0122', loId: 'marcus',
       attribution: { lender: 'harbor', lo: 'marcus', source: 'lo', partner: null, campaign: null },
       status: 'applied', pathway: 'ready_now', round: 3, roundsEstimated: 3, guardian: true, reviewRequestedAt: '2026-07-20', enrolledAt: '2026-04-15',
@@ -112,7 +119,7 @@ const FIXTURES = {
       milestones: [M('Enrolled', '2026-04-15', 'done'), M('Review requested', '2026-07-20', 'done'), M('Application started', '2026-07-28', 'done'), M('Guardian on', '2026-07-28', 'current'), M('Closing', '2026-09-24', 'upcoming')],
       nextAction: { title: 'Ask Marcus before you act on the CarMax inquiry', detail: 'A new hard inquiry appeared yesterday. If you are shopping for a car, tell Marcus first — a new loan before closing can change your approval.', lever: 'guardian', engine: 'MyScoreIQ', href: '#guardian' },
       alerts: [{ type: 'inquiry', text: 'New hard inquiry — CarMax Auto Finance', date: '2026-08-17' }, { type: 'balance', text: 'Chase Freedom balance up $640', date: '2026-08-12' }],
-      loanFile: { active: true, closingDate: '2026-09-24' } },
+      loanFile: { active: true, closingDate: '2026-09-24' }, reviewOutcome: null },
     { id: 'aisha', first: 'Aisha', last: 'Bell', email: 'aisha.bell@example.com', mobile: '(916) 555-0148', loId: 'sarah',
       attribution: { lender: 'harbor', lo: 'sarah', source: 'lo', partner: null, campaign: null },
       status: 'active', pathway: 'build', round: 1, roundsEstimated: 6, guardian: false, reviewRequestedAt: null, enrolledAt: '2026-08-10',
@@ -124,7 +131,7 @@ const FIXTURES = {
       deltas: [],
       milestones: [M('Enrolled', '2026-08-10', 'done'), M('Round 1', null, 'current'), M('Utilization under 30%', null, 'upcoming'), M('Rent history reported', null, 'upcoming'), M('FHA eligibility date', '2027-03-12', 'upcoming'), M('Request review', null, 'upcoming')],
       nextAction: { title: 'Bring the secured card under 30%', detail: 'Your Chapter 7 waiting period runs until March 12, 2027 for FHA. Every month until then is building time — utilization first, then rent history.', lever: 'utilization', engine: 'CreditBuilderIQ', href: '#plan' },
-      alerts: [], loanFile: null },
+      alerts: [], loanFile: null, reviewOutcome: null },
   ],
   invites: [
     { id: 'i1', first: 'Luis', last: 'Herrera', email: 'luis.h@example.com', mobile: '(510) 555-0171', loId: 'sarah', branch: 'Oakland', source: 'Website', channel: 'Email + text', invitedAt: '2026-08-16', status: 'invited' },
@@ -167,20 +174,64 @@ export function monthsSince(iso, today = TODAY) {
   const a = new Date(iso + 'T00:00:00Z'), b = new Date(today + 'T00:00:00Z');
   return (b.getUTCFullYear() - a.getUTCFullYear()) * 12 + (b.getUTCMonth() - a.getUTCMonth());
 }
+/** The underwriting thresholds, named once so a change lands in one place. */
+export const RISK = Object.freeze({ utilizationHigh: 0.5, utilizationTarget: 0.3, dtiMax: 0.45, derogWindowMonths: 24 });
+
+/**
+ * A dispute letter's life: draft (written) → sent (mailed to the bureau) →
+ * resolved (the bureau answered). A draft the firm decided not to pursue is
+ * `withdrawn`. Only `draft` and `sent` are still open work; `withdrawn` is
+ * closed but is NOT a win, which is why it is counted separately everywhere
+ * a loan officer reads it.
+ */
+export const DISPUTE_CLOSED = Object.freeze(['resolved', 'withdrawn']);
+export const isDisputeOpen = (d) => !DISPUTE_CLOSED.includes(d.status);
+
+/**
+ * The four risk questions every rule in this file asks of a file.
+ *
+ * `assignPathway` and `stage` answer different questions — what should this
+ * person work on next, versus can we hand them to a loan officer — and their
+ * score bands stay deliberately separate. But they must never disagree about
+ * what *counts* as risk, which is what happens when a threshold moves in one
+ * function and not the other.
+ */
+export function riskSignals(c) {
+  const cr = c.credit;
+  const dtiRatio = dti(cr.monthlyDebts, c.income);
+  return {
+    openDisputes: (c.disputes || []).some(isDisputeOpen),
+    dtiRatio,
+    dtiOverMax: dtiRatio != null && dtiRatio > RISK.dtiMax,
+    derogRecent: cr.latesLast24mo > 0 || (c.publicRecords || []).some((p) => monthsSince(p.date) <= RISK.derogWindowMonths),
+    utilizationHigh: cr.utilization > RISK.utilizationHigh,
+    utilizationOverTarget: cr.utilization > RISK.utilizationTarget,
+  };
+}
+
 export function assignPathway(c, lender) {
   const floor = lender.floorDefault;
   const cr = c.credit, score = c.score?.value ?? null;
-  const openDisputes = (c.disputes || []).some((d) => d.status !== 'resolved');
-  if (openDisputes) return 'dispute';
+  const risk = riskSignals(c);
+  if (risk.openDisputes) return 'dispute';
   if (score == null || cr.tradelines < 3) return 'thin';
-  const r = dti(cr.monthlyDebts, c.income);
-  if (r != null && r > 0.45) return 'dti';
-  const recentDerog = cr.latesLast24mo > 0 || (c.publicRecords || []).some((p) => monthsSince(p.date) <= 24);
-  if (recentDerog || cr.utilization > 0.5) return 'build';
+  if (risk.dtiOverMax) return 'dti';
+  if (risk.derogRecent || risk.utilizationHigh) return 'build';
   if (score < floor - 30) return 'build';
-  if (score < floor || cr.utilization > 0.3) return 'near_ready';
+  if (score < floor || risk.utilizationOverTarget) return 'near_ready';
   return 'ready_now';
 }
+export function stage(c, lender) {
+  const floor = lender.floorDefault, buf = lender.buffer ?? BUFFER_DEFAULT;
+  const score = c.score?.value ?? null, cr = c.credit;
+  if (score == null || cr.tradelines < 3) return 'not_ready';
+  const risk = riskSignals(c);
+  if (risk.openDisputes || risk.derogRecent || risk.utilizationHigh || risk.dtiOverMax || score < floor - APPROACH_BAND) return 'working';
+  if (score < floor + buf) return 'approaching';
+  return !risk.utilizationOverTarget && !cr.derogLast12mo ? 'ready_to_review' : 'approaching';
+}
+/** The pathway survives as the reason shown under a stage. */
+export function stageReason(c, lender) { return assignPathway(c, lender); }
 export function addYears(iso, n) { const [y, m, d] = iso.split('-').map(Number); return `${String(y + n).padStart(4, '0')}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`; }
 export function addMonths(iso, n) { const [y, m, d] = iso.split('-').map(Number); const t = (y * 12 + (m - 1)) + n; return `${String(Math.floor(t / 12)).padStart(4, '0')}-${String((t % 12) + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`; }
 export function daysBetween(a, b) { return Math.round((Date.parse(b + 'T00:00:00Z') - Date.parse(a + 'T00:00:00Z')) / 86400000); }
@@ -209,8 +260,8 @@ export function dti(monthlyDebts = [], income) {
 }
 export function readinessTrigger(c, lender) {
   const score = c.score?.value; if (score == null) return false;
-  const openDisputes = (c.disputes || []).some((d) => d.status !== 'resolved');
-  return score >= lender.floorDefault && !openDisputes && !c.credit.derogLast12mo && c.credit.utilization <= 0.3;
+  const risk = riskSignals(c);
+  return score >= lender.floorDefault && !risk.openDisputes && !c.credit.derogLast12mo && !risk.utilizationOverTarget;
 }
 
 // ---------- links / query ----------
@@ -246,6 +297,13 @@ export function requestReview(state, id, { income } = {}) {
   c.nextAction = { title: `${lo ? lo.first : 'Your loan officer'} has your packet`, detail: 'Your loan officer has been notified and will reach out to schedule. Keep balances where they are until you talk.', lever: 'review', engine: 'MyScoreIQ', href: '#review' };
   return c;
 }
+export const REVIEW_OUTCOMES = ['qualified', 'short', 'declined_review'];
+export function recordReviewOutcome(state, id, { outcome, at = TODAY } = {}) {
+  const c = getConsumer(state, id); if (!c) return null;
+  if (!REVIEW_OUTCOMES.includes(outcome)) throw new RangeError(`unknown outcome "${outcome}"`);
+  c.reviewOutcome = { outcome, at };
+  return c;
+}
 export function setGuardian(state, id, on) { const c = getConsumer(state, id); if (c) c.guardian = !!on; return c; }
 export function statusCard(state, id) {
   const c = getConsumer(state, id); if (!c) return null;
@@ -266,7 +324,7 @@ export function packet(state, id) {
     floorsMet: state.lender.programs.filter((p) => score != null && score >= p.floor).map((p) => p.name),
     dtiEstimate: dti(c.credit.monthlyDebts, c.income),
     rentMonths: c.rentReporting.linked ? c.rentReporting.monthsAvailable : 0,
-    disputesOpen: c.disputes.filter((d) => d.status !== 'resolved').length,
+    disputesOpen: c.disputes.filter(isDisputeOpen).length,
     disputesResolved: c.disputes.filter((d) => d.status === 'resolved').length,
     income: c.income,
   };

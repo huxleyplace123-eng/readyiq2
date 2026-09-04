@@ -1,3 +1,8 @@
+import { useLang } from "./lang";
+
+/** The default header. Callers may override it; only the default gets translated. */
+export const DEFAULT_SCORE_LABEL = "Three-bureau FICO® scores";
+
 export type BureauScoreSet = {
   equifax: number;
   experian: number;
@@ -23,7 +28,7 @@ export function BureauScores({
   compact = false,
   dark = false,
   showNotice = true,
-  label = "Three-bureau FICO® scores",
+  label = DEFAULT_SCORE_LABEL,
 }: {
   scores: BureauScoreSet;
   compact?: boolean;
@@ -31,8 +36,10 @@ export function BureauScores({
   showNotice?: boolean;
   label?: string;
 }) {
-  return <div className={`bureau-score-set${compact ? " compact" : ""}${dark ? " dark" : ""}`} aria-label={label}>
-    {!compact && <div className="bureau-score-set-head"><span>{label}</span><small><i /> Updated Aug 18</small></div>}
+  const { es } = useLang();
+  const head = es && label === DEFAULT_SCORE_LABEL ? "Puntajes FICO® de los 3 burós" : label;
+  return <div className={`bureau-score-set${compact ? " compact" : ""}${dark ? " dark" : ""}`} aria-label={head}>
+    {!compact && <div className="bureau-score-set-head"><span>{head}</span><small><i /> {es ? "Actualizado 18 ago" : "Updated Aug 18"}</small></div>}
     <div className="bureau-score-values">
       {BUREAUS.map(([key, short, name]) => <article key={key} className={key}>
         <i>{short}</i>

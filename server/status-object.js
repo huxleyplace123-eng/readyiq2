@@ -10,6 +10,8 @@
 // `assertNoReportData` enforces it in code so a future field can't quietly
 // break the promise the /integrations/ page makes.
 
+import { stage as computeStage, stageReason } from '../src/state.js';
+
 export const STATUS_OBJECT_VERSION = 1;
 
 /** Pathways mirror src/state.js PATHWAYS. */
@@ -83,6 +85,8 @@ export function buildStatusObject(consumer, opts = {}) {
     },
     pathway: pathway ?? null,
     stage: status ?? null,
+    readiness_stage: opts.lender ? computeStage(consumer, opts.lender) : null,
+    readiness_reason: opts.lender ? stageReason(consumer, opts.lender) : null,
     round: { n: round ?? null, of: roundsEstimated ?? null },
     next_milestone: upcoming ? slug(upcoming.label) : null,
     engines: { ...ENGINES },

@@ -252,3 +252,22 @@
 .line-chart svg .line.ex{stroke:#4f86e8}.line-chart svg .line.tu{stroke:#d9a520}.line-chart svg .line.eq{stroke:#e05a4f}
 @media(max-width:1240px){.cx-gauge-ring{width:92px;height:92px}.cx-gauge-ring>div{width:72px;height:72px}.cx-gauge-ring strong{font-size:22px}}
 @media(max-width:420px){.cx-gauges{gap:6px}.cx-gauge-ring{width:84px;height:84px}.cx-gauge-ring>div{width:66px;height:66px}.cx-gauge-ring strong{font-size:20px}}
+
+/* — Today: clearance and density fixes — */
+/* The Ask button is position:fixed. Without room under the last card it lands on top of
+   "Request review". Mobile already reserves 110px; desktop reserved nothing. */
+@media(min-width:761px){.consumer-app .dashboard-page{padding-bottom:96px}}
+/* Below ~1000px the lender band's flex row squeezed its text to one word per line while
+   the buttons kept their full width. Stack it and let the sentence breathe. */
+@media(max-width:1000px){
+  .cx-lender{flex-direction:column;align-items:stretch;gap:16px;padding:22px}
+  .cx-lender-left{align-items:flex-start}
+  .cx-lender-left h4{font-size:17px;margin:3px 0}
+  .cx-lender-actions{width:100%}
+  .cx-lender-actions button{flex:1}
+  /* Two-up steps: tighter rows, slightly smaller type — it read as oversized here. */
+  .cx-steps{row-gap:14px;padding:24px 8px 18px}
+  .cx-step strong,.cx-step.now strong{font-size:15.5px;margin:6px 0 4px}
+  .cx-step p{font-size:12px}
+  .cx-step b{margin-top:10px}
+}

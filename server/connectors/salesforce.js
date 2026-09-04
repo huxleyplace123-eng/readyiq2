@@ -24,6 +24,7 @@ export const DEFAULT_FIELD_MAP = Object.freeze({
   consumer_ref: 'ReadyIQ_Consumer_Ref__c',
   pathway: 'ReadyIQ_Pathway__c',
   stage: 'ReadyIQ_Stage__c',
+  readiness_stage: 'ReadyIQ_Readiness_Stage__c',
   round: 'ReadyIQ_Round__c',
   next_milestone: 'ReadyIQ_Next_Milestone__c',
   review_requested: 'ReadyIQ_Review_Requested__c',

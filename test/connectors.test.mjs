@@ -236,3 +236,10 @@ test('generated signing secrets are prefixed and unguessable', () => {
   assert.match(a, /^whsec_[A-Za-z0-9_-]{32,}$/);
   assert.notEqual(a, generateSigningSecret());
 });
+
+test('Shape and Salesforce carry the readiness stage', () => {
+  const s = fixtures();
+  const st = buildStatusObject(s.consumers.find((c) => c.id === 'denise'), { lender: s.lender });
+  assert.equal(mapToShapeFields(st, identity).readyiq_readiness_stage, 'approaching');
+  assert.equal(DEFAULT_FIELD_MAP.readiness_stage, 'ReadyIQ_Readiness_Stage__c');
+});

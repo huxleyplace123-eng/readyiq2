@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Dispatcher, signature, verifySignature } from '../server/dispatch.js';
-import { buildEvent, idempotencyKey, UnknownEvent } from '../server/events.js';
+import { buildEvent, idempotencyKey, UnknownEvent, OUTBOUND_EVENTS } from '../server/events.js';
 
 const STATUS = { object: 'readiness_status', version: 1, consumer_ref: 'c_maya', pathway: 'build' };
 const TARGET = { url: 'https://hooks.example.com/readyiq', secret: 'whsec_test', tenantId: 'summit', connectorId: 'generic_webhook' };
@@ -166,4 +166,10 @@ test('the derived idempotency key is stable for the same logical moment', () => 
   const args = { tenantId: 'summit', consumerRef: 'c_maya', type: 'review.requested', occurredAt: '2026-08-20T12:00:00Z' };
   assert.equal(idempotencyKey(args), idempotencyKey(args));
   assert.notEqual(idempotencyKey(args), idempotencyKey({ ...args, occurredAt: '2026-08-20T12:00:01Z' }));
+});
+
+test('the loop events exist and can be built from a readiness summary', () => {
+  for (const t of ['readiness.approaching', 'referral.sent_to_lo', 'referral.sent_to_cr', 'review.outcome_recorded']) assert.ok(OUTBOUND_EVENTS[t], t);
+  const ev = buildEvent({ type: 'referral.sent_to_lo', tenantId: 'harbor', status: { object: 'readiness_summary', version: 1, consumer_ref: 'c_denise', stage: 'approaching' } });
+  assert.equal(ev.consumer_ref, 'c_denise');
 });

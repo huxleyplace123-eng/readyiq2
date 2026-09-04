@@ -13,7 +13,7 @@ export function ScoreWindow() {
     <div className="cx-chrome"><span><i />FICO® · 3 bureaus · MyScoreIQ</span><span>Maya C.</span></div>
     <div className="cx-window-body">
       <div className="cx-gauges">{[["eq", "Equifax", 608, "+9", 62], ["ex", "Experian", 615, "+14", 66], ["tu", "TransUnion", 612, "+12", 64]].map(([k, name, score, delta, pct]) => <div key={k as string} className={`cx-gauge ${k}`}><div className="cx-gauge-ring" style={{ background: `conic-gradient(var(--g) 0 ${pct}%, #e6ece8 ${pct}% 100%)` }}><div><strong>{score}</strong><small>{delta}</small></div></div><span><i />{name}</span></div>)}</div>
-      <div className="cx-progress"><div><span>Plan progress</span><span>2 of 7</span></div><div className="track"><i /></div><small>next: utilization under 30%</small></div>
+      <div className="cx-progress"><div><span>Plan progress</span><span>2 of 7</span></div><div className="track"><i /></div><small>next: get your card under 30% of its limit</small></div>
     </div>
     <div className="cx-window-foot"><span>FICO® — not the version lenders pull. A guide, not a preapproval.</span><a className="cx-inline" href="demo/?mode=consumer&cpage=result">Open the portal →</a></div>
   </div>;
