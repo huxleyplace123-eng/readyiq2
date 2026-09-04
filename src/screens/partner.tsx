@@ -8,22 +8,26 @@
 //      in either direction. Flat pricing, never per referral.
 import { useState } from "react";
 import { StagePill, BUCKETS, bucketOf, type Stage } from "./stage";
+import { sendReferral, railLive, consentNow } from "../rail";
 
 const FIRM = { name: "Brightpath Credit", initials: "BP", seats: 6 };
 
+// `railId` is the same person in the rail's fixture world (server/state.js: Harbor Home
+// Loans). When a rail is connected, the send flow posts against that record and the rail
+// derives the summary itself — the browser never sends one.
 type Case = {
-  id: string; name: string; initials: string; tone: string; stage: Stage;
+  id: string; railId: string; name: string; initials: string; tone: string; stage: Stage;
   blocker: string; days: number; lo: string | null; loCompany: string;
   floors: string[]; dtiInRange: boolean | null; rentMonths: number;
   disputes: { open: number; resolved: number; withdrawn: number };
 };
 
 const CASES: Case[] = [
-  { id: "aaron", name: "Aaron Patel", initials: "AP", tone: "gold", stage: "ready_to_review", blocker: "Nothing open — cleared last round", days: 4, lo: "Jordan Lee", loCompany: "Summit Home Loans", floors: ["FHA", "Conventional"], dtiInRange: true, rentMonths: 24, disputes: { open: 0, resolved: 3, withdrawn: 0 } },
-  { id: "derek", name: "Derek Young", initials: "DY", tone: "lime", stage: "approaching", blocker: "Crossed the floor — inside the buffer", days: 9, lo: "Jordan Lee", loCompany: "Summit Home Loans", floors: ["FHA"], dtiInRange: true, rentMonths: 12, disputes: { open: 0, resolved: 2, withdrawn: 1 } },
-  { id: "maya", name: "Maya Collins", initials: "MC", tone: "mint", stage: "working", blocker: "Card at 41% — target is 30%", days: 22, lo: "Jordan Lee", loCompany: "Summit Home Loans", floors: [], dtiInRange: true, rentMonths: 0, disputes: { open: 1, resolved: 1, withdrawn: 0 } },
-  { id: "sofia", name: "Sofia Ramirez", initials: "SR", tone: "violet", stage: "working", blocker: "2 letters mailed — bureaus due Sep 8", days: 14, lo: null, loCompany: "walk-in", floors: [], dtiInRange: false, rentMonths: 0, disputes: { open: 2, resolved: 0, withdrawn: 0 } },
-  { id: "nina", name: "Nina Brooks", initials: "NB", tone: "blue", stage: "not_ready", blocker: "Thin file — 19 months of rent to add", days: 3, lo: null, loCompany: "walk-in", floors: [], dtiInRange: null, rentMonths: 0, disputes: { open: 0, resolved: 0, withdrawn: 0 } },
+  { id: "aaron", railId: "priya", name: "Aaron Patel", initials: "AP", tone: "gold", stage: "ready_to_review", blocker: "Nothing open — cleared last round", days: 4, lo: "Jordan Lee", loCompany: "Summit Home Loans", floors: ["FHA", "Conventional"], dtiInRange: true, rentMonths: 24, disputes: { open: 0, resolved: 3, withdrawn: 0 } },
+  { id: "derek", railId: "denise", name: "Derek Young", initials: "DY", tone: "lime", stage: "approaching", blocker: "Crossed the floor — inside the buffer", days: 9, lo: "Jordan Lee", loCompany: "Summit Home Loans", floors: ["FHA"], dtiInRange: true, rentMonths: 12, disputes: { open: 0, resolved: 2, withdrawn: 1 } },
+  { id: "maya", railId: "maria", name: "Maya Collins", initials: "MC", tone: "mint", stage: "working", blocker: "Card at 41% — target is 30%", days: 22, lo: "Jordan Lee", loCompany: "Summit Home Loans", floors: [], dtiInRange: true, rentMonths: 0, disputes: { open: 1, resolved: 1, withdrawn: 0 } },
+  { id: "sofia", railId: "sam", name: "Sofia Ramirez", initials: "SR", tone: "violet", stage: "working", blocker: "2 letters mailed — bureaus due Sep 8", days: 14, lo: null, loCompany: "walk-in", floors: [], dtiInRange: false, rentMonths: 0, disputes: { open: 2, resolved: 0, withdrawn: 0 } },
+  { id: "nina", railId: "jordan", name: "Nina Brooks", initials: "NB", tone: "blue", stage: "not_ready", blocker: "Thin file — 19 months of rent to add", days: 3, lo: null, loCompany: "walk-in", floors: [], dtiInRange: null, rentMonths: 0, disputes: { open: 0, resolved: 0, withdrawn: 0 } },
 ];
 
 const PARTNER_LOS = [
@@ -120,10 +124,20 @@ function Summary({ c }: { c: Case }) {
 function SendModal({ c, close }: { c: Case; close: () => void }) {
   const [consent, setConsent] = useState(false);
   const [picked, setPicked] = useState<string[]>([]);
-  const [sent, setSent] = useState(false);
+  const [sent, setSent] = useState<null | { live: false } | { live: true; id: string; stage: string; at: string } | { live: true; error: string }>(null);
+  const [busy, setBusy] = useState(false);
   const toggle = (id: string) => setPicked((p) => p.includes(id) ? p.filter((x) => x !== id) : [...p, id]);
-  const ready = consent && picked.length > 0;
+  const ready = consent && picked.length > 0 && !busy;
   const names = PARTNER_LOS.filter((l) => picked.includes(l.id)).map((l) => l.name);
+  // The rail derives the summary from the client's record and stamps the consent; the
+  // browser only says who, to whom, and that consent was given just now.
+  const send = async () => {
+    if (!railLive()) { setSent({ live: false }); return; }
+    setBusy(true);
+    const r = await sendReferral({ direction: "cr_to_lo", from: { kind: "credit_repair", id: "brightpath" }, to: picked.map((id) => ({ kind: "lo", id })), consumerId: c.railId, consent: consentNow() });
+    setBusy(false);
+    setSent(r.ok ? { live: true, id: r.data.id, stage: r.data.summary.stage, at: r.data.created_at } : { live: true, error: r.error });
+  };
   return <div className="invite-modal-overlay" onMouseDown={(e) => e.currentTarget === e.target && close()}>
     <section className="invite-modal partner-modal">
       {!sent ? <>
@@ -144,11 +158,16 @@ function SendModal({ c, close }: { c: Case; close: () => void }) {
 
           <div className="partner-fine"><span>⌁</span><p><strong>Nothing of value changes hands for this referral.</strong> Brightpath is not paid to send it and the loan officer is not paid to receive it. ReadyIQ is billed per seat — never per referral, never per closed loan.</p></div>
         </div>
-        <footer><button className="outline-button" onClick={close}>Cancel</button><button className="primary-lime dark-text" disabled={!ready} onClick={() => setSent(true)}>{picked.length > 1 ? `Send to ${picked.length} loan officers` : "Send with consent"} <span>→</span></button></footer>
-      </> : <div className="invite-success">
-        <span>✓</span><small>SENT {new Date().toLocaleDateString(undefined, { month: "short", day: "numeric" }).toUpperCase()}</small>
+        <footer><button className="outline-button" onClick={close}>Cancel</button><button className="primary-lime dark-text" disabled={!ready} onClick={send}>{busy ? "Sending…" : picked.length > 1 ? `Send to ${picked.length} loan officers` : "Send with consent"} <span>→</span></button></footer>
+      </> : "error" in sent ? <div className="invite-success">
+        <span>!</span><small>THE RAIL REFUSED IT</small>
+        <h2>Nothing was sent.</h2>
+        <p>{sent.error === "unknown_consumer" ? `${c.name.split(" ")[0]} isn't on the connected rail yet.` : sent.error.replace(/_/g, " ")}</p>
+        <button className="primary-lime dark-text" onClick={close}>Back to {c.name.split(" ")[0]}'s case</button>
+      </div> : <div className="invite-success">
+        <span>✓</span><small>{sent.live ? `SENT · LIVE · ${sent.id}` : `SENT ${new Date().toLocaleDateString(undefined, { month: "short", day: "numeric" }).toUpperCase()} · DEMO`}</small>
         <h2>{names.join(" and ")} {names.length > 1 ? "have" : "has"} {c.name.split(" ")[0]}'s summary.</h2>
-        <p>It arrived in their Ready-to-review list. {c.name.split(" ")[0]}'s consent is stamped and stored with the referral, and this send is in your referral log.</p>
+        <p>{sent.live ? `The rail derived the summary from ${c.name.split(" ")[0]}'s record (stage: ${sent.stage.replace(/_/g, " ")}), stamped the consent at ${sent.at}, and logged the referral.` : `It arrived in their Ready-to-review list. ${c.name.split(" ")[0]}'s consent is stamped and stored with the referral, and this send is in your referral log.`}</p>
         <p className="partner-next">The next move is theirs: a soft credit pull to confirm the real mortgage scores before anyone's credit is touched.</p>
         <button className="primary-lime dark-text" onClick={close}>Back to {c.name.split(" ")[0]}'s case</button>
       </div>}

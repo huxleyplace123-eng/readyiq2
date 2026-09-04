@@ -4,3 +4,6 @@ node_modules/
 # agent worktrees + scratch
 .worktrees/
 .superpowers/
+
+# rail persistence (scripts/rail.mjs)
+data/

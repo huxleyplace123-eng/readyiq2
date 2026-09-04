@@ -18,6 +18,9 @@ export async function receiveInbound({ source, tenantId, headers = {}, rawBody =
   try {
     switch (source) {
       case 'csv':
+        // L0 is a trusted operator's door. Once a token is configured it is required,
+        // so the endpoint can be reached from anywhere but only by that operator.
+        if (secrets.csvToken && !verifyZapierToken(headers, secrets.csvToken)) return { ok: false, status: 401, error: 'unauthorized' };
         updates = parseCsv(rawBody); break;
       case 'zapier':
         if (!verifyZapierToken(headers, secrets.zapierToken)) return { ok: false, status: 401, error: 'unauthorized' };
