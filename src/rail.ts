@@ -7,7 +7,7 @@
 
 export type Party = { kind: "lo" | "credit_repair"; id: string };
 export type Consent = { granted_at: string; scope?: string; text_version?: string };
-export type Referral = { id: string; direction: "lo_to_cr" | "cr_to_lo"; to: Party[]; summary: { stage: string; disputes: { open: number; resolved: number; withdrawn?: number } }; created_at: string };
+export type Referral = { id: string; direction: "lo_to_cr" | "cr_to_lo"; from?: Party; to: Party[]; consumer_ref?: string; summary: { stage: string; disputes: { open: number; resolved: number; withdrawn?: number } }; consent?: Consent; created_at: string; outcome?: { outcome: string; at: string } | null };
 
 const q = typeof location !== "undefined" ? new URLSearchParams(location.search) : new URLSearchParams();
 const HOST_DEFAULTS: Record<string, string> = {
