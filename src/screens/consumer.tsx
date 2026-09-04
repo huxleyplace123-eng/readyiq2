@@ -98,10 +98,11 @@ const ANSWERS: [RegExp, string][] = [
   [/dispute/i, "You have 1 letter sent (Midland Credit) and 1 item still to review. Letters run on a 30-day clock and we sequence them to finish before your review — and pause them entirely while a loan file is active."],
 ];
 export function AskFab() {
+  const { es } = useLang();
   const [open, setOpen] = useState(false); const [q, setQ] = useState(""); const [log, setLog] = useState<{ who: "you" | "riq"; text: string }[]>([{ who: "riq", text: "Hi Maya. I explain and organize — I never promise deletions, points or approvals. What would you like to know?" }]);
   const ask = (text: string) => { if (!text.trim()) return; const a = ANSWERS.find(([re]) => re.test(text))?.[1] || "I can explain your number, your plan and what happens next — and help you draft a letter of explanation. I don’t predict scores or approvals; Jordan does the qualifying. Try “why did my score move?”, “what should I do next?”, or “can I apply?”"; setLog((l) => [...l, { who: "you", text }, { who: "riq", text: a }]); setQ(""); };
   return <>
-    <button className="ask-fab" onClick={() => setOpen(!open)}><i>✦</i>Ask ReadyIQ</button>
+    <button className="ask-fab" onClick={() => setOpen(!open)}><i>✦</i>{es ? "Preguntar" : "Ask ReadyIQ"}</button>
     {open && <div className="ask-panel"><div className="ask-head"><span className="section-kicker">ASK READYIQ</span><button onClick={() => setOpen(false)}>×</button></div>
       <div className="ask-chips">{["Why did my score move?", "What should I do next?", "Can I apply?", "Draft a letter of explanation"].map((c) => <button key={c} onClick={() => ask(c)}>{c}</button>)}</div>
       <div className="ask-log">{log.map((m, i) => <div key={i} className={`ask-msg ${m.who}`}>{m.text}</div>)}</div>
