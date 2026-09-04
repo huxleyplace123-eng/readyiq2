@@ -1,7 +1,8 @@
 {
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
-    "builder": "NIXPACKS"
+    "builder": "NIXPACKS",
+    "buildCommand": "echo \"rail: no site build needed\""
   },
   "deploy": {
     "startCommand": "node scripts/rail.mjs",
