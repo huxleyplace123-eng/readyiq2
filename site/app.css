@@ -403,7 +403,8 @@ a.primary-dark,a.primary-lime,a.outline-button{text-decoration:none;display:inli
 .partner-step p{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
 .partner-consent{margin-top:4px}
 .partner-lo-list{display:grid;gap:8px}
-.partner-lo-pick{display:grid;grid-template-columns:18px 31px minmax(0,1fr);gap:11px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:#fff}
+.partner-lo-pick,.invite-form .partner-lo-pick{display:grid;grid-template-columns:18px 31px minmax(0,1fr);gap:11px;align-items:center;justify-items:start;padding:10px 12px;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:#fff;font-weight:400;color:inherit}
+.invite-form .partner-lo-pick input{width:auto;margin:0;padding:0}
 .partner-lo-pick.on{border-color:#9bc44a;background:#f7fce9}
 .partner-lo-pick strong{display:block;font-size:13.5px}
 .partner-lo-pick small{display:block;color:var(--muted);font-size:11.5px}
@@ -414,6 +415,13 @@ a.primary-dark,a.primary-lime,a.outline-button{text-decoration:none;display:inli
 .partner-next{color:var(--muted);font-size:13px}
 @media(max-width:900px){
   .partner-case-grid{grid-template-columns:1fr}
+}
+@media(max-width:767px){
+  .partner-app .partner-kpis article>div>span{font-size:10.5px;line-height:1.25;letter-spacing:0}
+  .partner-app .partner-kpis article>strong{font-size:22px;margin-top:8px}
+  .partner-app .org-stats{grid-template-columns:1fr 1fr;gap:8px}
+  .partner-app .org-stats article{padding:14px}
+  .stage-table .status-cell{white-space:normal;text-align:left;line-height:1.35}
 }
 
 /* — Home hero: stage first, scores demoted to a caption — */
