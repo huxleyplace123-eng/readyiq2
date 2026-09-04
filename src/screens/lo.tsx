@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { type BureauScoreSet } from "./bureaus";
 import { useEffect } from "react";
-import { StagePill, BUCKETS, bucketOf, type Stage } from "./stage";
+import { StageTable, bucketOf, type Stage, type StageRow } from "./stage";
 import { precision, sendReferral, railLive, consentNow } from "../rail";
 
 // The same people in the rail's fixture world (server/state.js) — used when a rail is connected.
@@ -13,7 +13,7 @@ const RAIL_ID: Record<string, string> = { "Aaron Patel": "priya", "Derek Young":
 function PrecisionBadge() {
   const [p, setP] = useState<{ flagged: number; qualified: number; short: number; rate: number | null } | null>(null);
   useEffect(() => { if (railLive()) precision().then((r) => { if (r.ok) setP(r.data); }); }, []);
-  if (p) return <span className="info-badge">Ready-to-review precision <b>{p.rate == null ? "—" : `${Math.round(p.rate * 100)}%`}</b> · {p.qualified} of {p.qualified + p.short} qualified on formal pull · live</span>;
+  if (p) return <span className="info-badge">{p.qualified + p.short ? <>Ready-to-review precision <b>{p.rate == null ? "—" : `${Math.round(p.rate * 100)}%`}</b> · {p.qualified} of {p.qualified + p.short} qualified on formal pull · live</> : <>Ready-to-review precision · {p.flagged} flagged, no formal pulls recorded yet · live</>}</span>;
   return <span className="info-badge">Ready-to-review precision <b>71%</b> · 5 of 7 qualified on formal pull · illustrative</span>;
 }
 
@@ -101,14 +101,20 @@ const FEED: { name: string; initials: string; tone: string; stage: Stage; blocke
 export function StatusFeedPage({ openInvite, onSelect }: { openInvite: () => void; onSelect: () => void }) {
   const [sending, setSending] = useState<string | null>(null);
   const [partners, setPartners] = useState<string[]>([]);
+  const readyNow = FEED.filter((r) => bucketOf(r.stage) === "ready").length;
   const action = (r: typeof FEED[number]) => r.stage === "ready_to_review" ? "Request formal pull →" : r.stage === "approaching" ? "Request soft pull →" : r.stage === "working" ? "View →" : "Nudge →";
-  const Row = ({ r }: { r: typeof FEED[number] }) => <div className="lx-row" onClick={onSelect}><span className={`person-avatar ${r.tone}`}>{r.initials}</span><div><strong>{r.name}</strong><small>{r.blocker}{r.partner ? ` · CR partner: ${r.partner}` : ""}</small></div><StagePill stage={r.stage} /><small>{r.last}</small><button className="cx-inline" onClick={(e) => { e.stopPropagation(); alert(`${action(r).replace(" →", "")} for ${r.name}`); }}>{action(r)}</button>{r.stage !== "ready_to_review" && !r.partner && <button className="outline-button" onClick={(e) => { e.stopPropagation(); setSending(r.name); setPartners([]); }}>Send to credit-repair partner</button>}</div>;
+  const rows: StageRow[] = FEED.map((r) => ({
+    key: r.name, name: r.name, initials: r.initials, tone: r.tone, sub: "Online lead · your link", stage: r.stage, blocker: r.blocker,
+    when: r.last, source: r.partner ? `${r.partner} (credit repair)` : "Direct", onOpen: onSelect,
+    action: { label: action(r), run: () => alert(`${action(r).replace(" →", "")} for ${r.name}`) },
+    secondary: r.stage !== "ready_to_review" && !r.partner ? <button className="cx-inline soft" onClick={(e) => { e.stopPropagation(); setSending(r.name); setPartners([]); }}>Send to credit-repair partner →</button> : undefined,
+  }));
   return <div className="lender-page">
-    <div className="lender-page-title"><div><span className="section-kicker">READINESS PIPELINE · READ-ONLY</span><h1>Where your people <em>are.</em></h1><p>Who’s not ready, who’s progressing, who’s ready to review. One blocker per person. Scores live on the detail page, with permission — never here.</p></div><button className="primary-lime dark-text" onClick={openInvite}>＋ Invite consumer</button></div>
+    <div className="lender-page-title"><div><span className="section-kicker">READINESS PIPELINE · READ-ONLY</span><h1>Where your people <em>are.</em></h1><p>Who’s not ready, who’s progressing, who’s ready to review — {readyNow} right now. One blocker per person. Scores live on the detail page, with permission — never here.</p></div><button className="primary-lime dark-text" onClick={openInvite}>＋ Invite consumer</button></div>
     <div className="filter-bar"><PrecisionBadge /></div>
-    <div className="lx-buckets">{BUCKETS.map(([key, label]) => { const rows = FEED.filter((r) => bucketOf(r.stage) === key); return <section key={key} className="borrower-table-card pipeline-table"><div className="card-title-row"><div><span className="section-kicker">{label.toUpperCase()}</span><h3>{rows.length}</h3></div></div>{rows.map((r) => <Row key={r.name} r={r} />)}</section>; })}</div>
+    <StageTable kicker="READINESS PIPELINE" title="One blocker per person" columns={{ who: "Borrower", when: "Last activity", source: "Source" }} rows={rows}
+      foot={<div className="pipeline-score-notice"><i>i</i><span><strong>Consumers control what you see.</strong> The pipeline shows a stage and one blocker. Account details, scores and the full report stay private.</span></div>} />
     {sending && <div className="invite-modal-overlay" onMouseDown={(e) => e.currentTarget === e.target && setSending(null)}><section className="invite-modal"><header><div><span className="section-kicker">SEND TO CREDIT-REPAIR PARTNER</span><h2>{sending}</h2><p>Pick one or more partners. {sending.split(" ")[0]} will be asked to consent before anything is shared. No score, no report — a stage and the blockers.</p></div><button onClick={() => setSending(null)}>×</button></header><div className="invite-form">{["Brightpath Credit", "DisputeChat", "Clearpath Repair"].map((p) => <label key={p} className="full-field"><input type="checkbox" checked={partners.includes(p)} onChange={() => setPartners(partners.includes(p) ? partners.filter((x) => x !== p) : [...partners, p])} /> {p}</label>)}<small>Nothing of value changes hands for this referral. Flat pricing — never per referral.</small></div><footer><button className="outline-button" onClick={() => setSending(null)}>Cancel</button><button className="primary-lime dark-text" disabled={partners.length === 0} onClick={() => { const who = sending; const first = who.split(" ")[0]; setSending(null); void sendReferral({ direction: "lo_to_cr", from: { kind: "lo", id: "jlee" }, to: partners.map((p) => ({ kind: "credit_repair", id: p.toLowerCase().replace(/[^a-z]+/g, "-") })), consumerId: RAIL_ID[who] ?? who, consent: consentNow() }).then((r) => alert(r.ok ? `Sent — ${first} is with ${partners.join(", ")}. Referral ${r.data.id}, consent stamped ${r.data.created_at}.` : r.live ? `The rail refused it: ${r.error}` : `Drafted (demo — no rail connected). ${first} would be asked to consent, then ${partners.join(", ")} would receive the referral.`)); }}>Send with consent <span>→</span></button></footer></section></div>}
-    <div className="sharing-card" style={{ marginTop: 16 }}><span>⌁</span><div><strong>Consumers control what you see.</strong><p>The pipeline shows a stage and one blocker. Account details, scores and the full report stay private.</p></div></div>
   </div>;
 }
 
